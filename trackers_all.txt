@@ -825,6 +825,7 @@ http://anisource.spb.ru/announce
 http://announce.opensharing.org:2710/announce
 http://announce.partis.si/announce
 http://announce.torrentsmd.com:6969/announce
+http://announce.torrentsmd.com:8080/announce
 http://announce.xxxtor.com:2710/announce
 http://asiatorrent.ddns.net:51413/announce
 http://asiatorrent.giize.com:51413/announce
@@ -839,9 +840,11 @@ http://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce
 http://bittorrent.kali.org/announce
 http://bittracker.ru/announce
 http://bjlt.zhuqiy.eu.org:6666/announce
+http://blackcat.filers.ru:1337/announce
 http://blackz.ro/announce
 http://bluebird-hd.org/announce
 http://bobbialbano.com:6969/announce
+http://bovetorrents.hol.es/announce
 http://bt-club.ws/announce
 http://bt-tracker.gamexp.ru:2710/announce
 http://bt.10000.pet:2714/announce
@@ -1194,6 +1197,7 @@ http://torrent.hificode.in:6969/announce
 http://torrent.jiwang.cc/announce
 http://torrent.mp3quran.net/announce
 http://torrent.nwps.ws/announce
+http://torrent.nwps.ws:6969/announce
 http://torrent.resonatingmedia.com:6969/announce
 http://torrent.rus.ec:2710/announce
 http://torrent.ubuntu.com:6969/announce
@@ -1410,6 +1414,7 @@ http://tracker.servequake.com:9999/announce
 http://tracker.sheesh.rip:6969/announce
 http://tracker.shittyurl.org/announce
 http://tracker.shuntv.net/announce
+http://tracker.sktorrent.net:6969/announce
 http://tracker.skyts.cn:6969/announce
 http://tracker.skyts.net:6969/announce
 http://tracker.sloppyta.co/announce
@@ -2024,6 +2029,7 @@ udp://109.248.43.36:6969/announce
 udp://109.72.83.214:80/announce
 udp://11.rarbg.com/announce
 udp://11.rarbg.com:80/announce
+udp://11.rarbg.me/announce
 udp://110.187.214.10:6969/announce
 udp://110.187.214.137:6969/announce
 udp://110.187.214.29:6969/announce
@@ -2113,6 +2119,7 @@ udp://151.243.109.110:6969/announce
 udp://151.243.109.163:6969/announce
 udp://151.80.120.112:2710/announce
 udp://151.80.120.114:2710/announce
+udp://151.80.120.114:2810/announce
 udp://152.231.114.120:1337/announce
 udp://152.231.114.51:1337/announce
 udp://152.243.213.163:6969/announce
@@ -2135,6 +2142,7 @@ udp://159.195.43.181:6969/announce
 udp://159.195.43.181:80/announce
 udp://159.65.202.134:6969/announce
 udp://159.69.208.124:6969/announce
+udp://159.69.59.237:6969/announce
 udp://160.251.231.187:6969/announce
 udp://161.97.67.210:6969/announce
 udp://163.172.170.127:6969/announce
@@ -2266,6 +2274,7 @@ udp://186.10.170.56:1337/announce
 udp://186.10.170.71:1337/announce
 udp://186.10.170.97:1337/announce
 udp://186.10.172.248:1337/announce
+udp://186.10.181.227:1337/announce
 udp://186.10.181.5:1337/announce
 udp://187.10.24.160:6969/announce
 udp://187.11.72.168:6969/announce
@@ -2586,6 +2595,7 @@ udp://45.130.21.69:6969/announce
 udp://45.134.88.121:6969/announce
 udp://45.137.199.107:6969/announce
 udp://45.154.214.21:6969/announce
+udp://45.154.253.6:6969/announce
 udp://45.154.96.35:6969/announce
 udp://45.155.53.144:6969/announce
 udp://45.33.83.49:6969/announce
@@ -2615,6 +2625,7 @@ udp://49.12.76.8:8080/announce
 udp://49.13.133.10:6969/announce
 udp://5.102.159.190:6969/announce
 udp://5.161.187.83:53/announce
+udp://5.161.62.40:6969/announce
 udp://5.181.156.41:6969/announce
 udp://5.181.188.172:1337/announce
 udp://5.196.67.51:6969/announce
@@ -2625,6 +2636,7 @@ udp://5.255.124.190:6969/announce
 udp://5.45.69.185:6969/announce
 udp://5.75.253.124:6969/announce
 udp://5.79.249.77:6969/announce
+udp://5.79.251.251:6969/announce
 udp://5.79.83.193:6969/announce
 udp://504e163a.host.njalla.net:6969/announce
 udp://51.15.2.221:6969/announce
@@ -2647,6 +2659,7 @@ udp://51.68.34.33:6969/announce
 udp://51.77.58.98:6969/announce
 udp://51.79.81.233:6969/announce
 udp://51.81.222.188:6969/announce
+udp://51.81.46.170:6969/announce
 udp://52.211.139.85:27022/announce
 udp://52.58.128.163:6969/announce
 udp://54.36.179.216:6969/announce
@@ -3095,6 +3108,7 @@ udp://kubanmedia.org:2710/announce
 udp://laestrygonian.ooguy.com:9001/announce
 udp://laszlo130.go.ro:6969/announce
 udp://laze.cc:6969/announce
+udp://leecherhaven.zapto.org:6969/announce
 udp://leefafa.tk:6969/announce
 udp://leet-tracker.moe:1337/announce
 udp://leet-tracker.moe:23861/announce
@@ -3371,6 +3385,7 @@ udp://tracker.army:6969/announce
 udp://tracker.artixlinux.org:6969/announce
 udp://tracker.auctor.tv:6969/announce
 udp://tracker.babico.name.tr:8000/announce
+udp://tracker.baravik.org:6970/announce
 udp://tracker.beeimg.com:6969/announce
 udp://tracker.best-torrents.net:6969/announce
 udp://tracker.birkenwald.de:6969/announce
@@ -3492,6 +3507,7 @@ udp://tracker.leena.network:6969/announce
 udp://tracker.lelux.fi:6969/announce
 udp://tracker.linvk.com:6969/announce
 udp://tracker.loadbt.com:6969/announce
+udp://tracker.loligirl.cn:1337/announce
 udp://tracker.lyretain.site:2710/announce
 udp://tracker.marshyonline.net:80/announce
 udp://tracker.merded.xyz:8000/announce
@@ -3538,6 +3554,7 @@ udp://tracker.plx.im:6969/announce
 udp://tracker.pomf.se:80/announce
 udp://tracker.port443.xyz:6969/announce
 udp://tracker.prq.to/announce
+udp://tracker.prq.to:6969/announce
 udp://tracker.prq.to:80/announce
 udp://tracker.ptrmc.net:6969/announce
 udp://tracker.publicbt.com:6969/announce
@@ -3617,9 +3634,12 @@ udp://tracker.xku.tv:6969/announce
 udp://tracker.xor.st:6969/announce
 udp://tracker.yangxiaoguozi.cn:6969/announce
 udp://tracker.ygsub.com:6969/announce
+udp://tracker.yify-torrents.com/announce
+udp://tracker.yify-torrents.com:6969/announce
 udp://tracker.yify-torrents.com:80/announce
 udp://tracker.ykat.xyz:6969/announce
 udp://tracker.yoshi210.com:6969/announce
+udp://tracker.yts.re/announce
 udp://tracker.yume-hatsuyuki.moe:6969/announce
 udp://tracker.zaluan.xyz:6969/announce
 udp://tracker.zemoj.com:6969/announce
