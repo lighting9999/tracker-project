@@ -41,3 +41,6 @@ https://raw.githubusercontent.com/adysec/tracker/refs/heads/main/trackers_all.tx
 https://raw.githubusercontent.com/DeSireFire/animeTrackerList/refs/heads/master/AT_all.txt
 https://raw.githubusercontent.com/Tunglies/TrackersList/refs/heads/main/all.txt
 https://raw.githubusercontent.com/adysec/tracker/refs/heads/main/trackers_best.txt
+https://raw.githubusercontent.com/00xc0d3/BitTorrent-Tracker-List/refs/heads/main/trackers_all.txt
+https://raw.githubusercontent.com/kris3713/UltimateBTTrackersList/refs/heads/master/ultimate_trackers.txt
+https://raw.githubusercontent.com/00xc0d3/BitTorrent-Tracker-List/refs/heads/main/trackers_all.txt
