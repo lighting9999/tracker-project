@@ -1,10 +1,8 @@
 # wrangler.toml
 name = "tracker-project"
-compatibility_date = "2025-03-01"
+compatibility_date = "2025-04-01"
+[site]               # mkdocs build 的输出目录
 pages_build_output_dir = "./public"
-[site]
-bucket = "./public"                  # mkdocs build 的输出目录
-
 [observability]
 enabled = false
 head_sampling_rate = 1
