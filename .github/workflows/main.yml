@@ -27,7 +27,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       - name: Install dependencies
         run: pip install requests mkdocs mkdocs-material mkdocs-static-i18n mkdocs-git-revision-date-localized-plugin
@@ -62,7 +62,7 @@ jobs:
           echo "✅ Merged file has $(wc -l < webtracker/input_merged.txt) lines"
 
       - name: Run tracker checker
-        run: python tracker_checker.py webtracker/input_merged.txt trackers_best.txt --workers 40 --generate-docs
+        run: python tracker_checker.py webtracker/input_merged.txt trackers_best.txt --workers 50 --generate-docs
 
       - name: Commit updated files
         run: |
@@ -75,7 +75,7 @@ jobs:
           # 注意：提交信息末尾包含 [skip ci] 可避免推送后再次触发本工作流
           git commit -m "Update trackers $(date +'%Y-%m-%d %H:%M') [skip ci]"
           for i in 1 2 3; do
-            git pull --rebase origin main && git push && break
+            git pull --rebase origin master && git push && break
             sleep 5
           done
 
@@ -87,4 +87,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public/ --project-name=${{ secrets.CF_PAGES_PROJECT_NAME }} --branch=main
+          command: pages deploy public/ --project-name=${{ secrets.CF_PAGES_PROJECT_NAME }} --branch=master
