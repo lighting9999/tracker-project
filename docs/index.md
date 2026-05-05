@@ -2,7 +2,7 @@
 
 **输入文件**: `webtracker/input_merged.txt`  
 **输出文件**: `trackers_best.txt`  
-**最后更新**: 2026-05-05 14:15:29 UTC
+**最后更新**: 2026-05-05 14:43:17 UTC
 
 [公开统计](public-stats/index.md)
 
@@ -11,11 +11,11 @@
 | 指标 | 数值 |
 |------|------|
 | 总检测数 | 2637 |
-| 🟢 在线 | 295 |
-| 🔴 死亡 | 2215 |
-| ⚠️ 无效 | 127 |
-| 全局限存活率 | 11.19% |
-| HTTP / HTTPS / UDP / WSS | 103 / 28 / 155 / 9 |
+| 🟢 在线 | 292 |
+| 🔴 死亡 | 2217 |
+| ⚠️ 无效 | 128 |
+| 全局限存活率 | 11.07% |
+| HTTP / HTTPS / UDP / WSS | 103 / 24 / 155 / 10 |
 
 ## 快速下载
 
@@ -26,301 +26,298 @@
 
 | 状态 | URL | 延迟 | 在线率 | 连续在线天数 |
 |------|-----|------|--------|-------------|
-| 🟢 在线 | [http://004430.xyz/announce](http://004430.xyz/announce) | 172 ms | 100.00% | 1 |
-| 🟢 在线 | [http://107.189.2.131:1337/announce](http://107.189.2.131:1337/announce) | 258 ms | 100.00% | 1 |
-| 🟢 在线 | [http://113.16.153.98:6969/announce](http://113.16.153.98:6969/announce) | 4788 ms | 100.00% | 1 |
-| 🟢 在线 | [http://140.235.237.23:6969/announce](http://140.235.237.23:6969/announce) | 104 ms | 100.00% | 1 |
-| 🟢 在线 | [http://189.18.126.49:6969/announce](http://189.18.126.49:6969/announce) | 284 ms | 100.00% | 1 |
-| 🟢 在线 | [http://207.241.226.111:6969/announce](http://207.241.226.111:6969/announce) | 89 ms | 100.00% | 1 |
-| 🟢 在线 | [http://207.241.231.226:6969/announce](http://207.241.231.226:6969/announce) | 103 ms | 100.00% | 1 |
-| 🟢 在线 | [http://211.75.205.187/announce](http://211.75.205.187/announce) | 335 ms | 100.00% | 1 |
-| 🟢 在线 | [http://211.75.205.187:6969/announce](http://211.75.205.187:6969/announce) | 334 ms | 100.00% | 1 |
-| 🟢 在线 | [http://211.75.210.221:6969/announce](http://211.75.210.221:6969/announce) | 330 ms | 100.00% | 1 |
-| 🟢 在线 | [http://216.144.239.90:6969/announce](http://216.144.239.90:6969/announce) | 230 ms | 100.00% | 1 |
-| 🟢 在线 | [http://37.120.182.83/announce](http://37.120.182.83/announce) | 241 ms | 100.00% | 1 |
-| 🟢 在线 | [http://43.250.54.137:6969/announce](http://43.250.54.137:6969/announce) | 249 ms | 100.00% | 1 |
-| 🟢 在线 | [http://60.249.37.20/announce](http://60.249.37.20/announce) | 330 ms | 100.00% | 1 |
-| 🟢 在线 | [http://60.249.37.20:6969/announce](http://60.249.37.20:6969/announce) | 331 ms | 100.00% | 1 |
-| 🟢 在线 | [http://91.98.161.68:6969/announce](http://91.98.161.68:6969/announce) | 260 ms | 100.00% | 1 |
-| 🟢 在线 | [http://93.158.213.92:1337/announce](http://93.158.213.92:1337/announce) | 236 ms | 100.00% | 1 |
-| 🟢 在线 | [http://95.217.167.10:6969/announce](http://95.217.167.10:6969/announce) | 284 ms | 100.00% | 1 |
-| 🟢 在线 | [http://aboutbeautifulgallopinghorsesinthegreenpasture.online/announce](http://aboutbeautifulgallopinghorsesinthegreenpasture.online/announce) | 286 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce](http://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce) | 335 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.edwardk.info:12891/announce](http://bt.edwardk.info:12891/announce) | 287 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.edwardk.info:2710/announce](http://bt.edwardk.info:2710/announce) | 239 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.edwardk.info:4040/announce](http://bt.edwardk.info:4040/announce) | 221 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.edwardk.info:63124/announce](http://bt.edwardk.info:63124/announce) | 166 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.edwardk.info:676/announce](http://bt.edwardk.info:676/announce) | 120 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.edwardk.info:6767/announce](http://bt.edwardk.info:6767/announce) | 105 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.edwardk.info:6969/announce](http://bt.edwardk.info:6969/announce) | 60 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.nnm-club.info:2710/announce](http://bt.nnm-club.info:2710/announce) | 687 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt.zlofenix.org:81/announce](http://bt.zlofenix.org:81/announce) | 296 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt02.nnm-club.cc:2710/announce](http://bt02.nnm-club.cc:2710/announce) | 386 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt02.nnm-club.info:2710/announce](http://bt02.nnm-club.info:2710/announce) | 600 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt1.archive.org:6969/announce](http://bt1.archive.org:6969/announce) | 129 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt2.archive.org:6969/announce](http://bt2.archive.org:6969/announce) | 195 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt2.edwardk.info:2710/announce](http://bt2.edwardk.info:2710/announce) | 108 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt2.edwardk.info:4040/announce](http://bt2.edwardk.info:4040/announce) | 76 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bt2.edwardk.info:6969/announce](http://bt2.edwardk.info:6969/announce) | 69 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bttracker.debian.org:6969/announce](http://bttracker.debian.org:6969/announce) | 433 ms | 100.00% | 1 |
-| 🟢 在线 | [http://bvarf.tracker.sh:2086/announce](http://bvarf.tracker.sh:2086/announce) | 404 ms | 100.00% | 1 |
-| 🟢 在线 | [http://concen.org:6969/announce](http://concen.org:6969/announce) | 4904 ms | 100.00% | 1 |
-| 🟢 在线 | [http://connect.swifte.space:2710/announce](http://connect.swifte.space:2710/announce) | 650 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/1/announce](http://ehtracker.org/1/announce) | 382 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/1104308/announce](http://ehtracker.org/1104308/announce) | 367 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/1113709/announce](http://ehtracker.org/1113709/announce) | 349 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/1226599/1080494xo5eXcwFOBq/announce](http://ehtracker.org/1226599/1080494xo5eXcwFOBq/announce) | 339 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/1453746/announce](http://ehtracker.org/1453746/announce) | 317 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/2496841/announce](http://ehtracker.org/2496841/announce) | 290 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/2541477/announce](http://ehtracker.org/2541477/announce) | 257 ms | 100.00% | 1 |
-| 🟢 在线 | [http://ehtracker.org/2566145/1159106xUfsJkT9Btg/announce](http://ehtracker.org/2566145/1159106xUfsJkT9Btg/announce) | 233 ms | 100.00% | 1 |
-| 🟢 在线 | [http://novaopcj.icu:10325/announce](http://novaopcj.icu:10325/announce) | 392 ms | 100.00% | 1 |
-| 🟢 在线 | [http://nyaa.tracker.wf:7777/announce](http://nyaa.tracker.wf:7777/announce) | 346 ms | 100.00% | 1 |
-| 🟢 在线 | [http://opentracker.acgnx.se/announce](http://opentracker.acgnx.se/announce) | 428 ms | 100.00% | 1 |
-| 🟢 在线 | [http://opentrackr.org:1337/announce](http://opentrackr.org:1337/announce) | 378 ms | 100.00% | 1 |
-| 🟢 在线 | [http://retracker.x2k.ru/announce](http://retracker.x2k.ru/announce) | 1286 ms | 100.00% | 1 |
-| 🟢 在线 | [http://sukebei.tracker.wf:8888/announce](http://sukebei.tracker.wf:8888/announce) | 548 ms | 100.00% | 1 |
-| 🟢 在线 | [http://t.nyaatracker.com/announce](http://t.nyaatracker.com/announce) | 3376 ms | 100.00% | 1 |
-| 🟢 在线 | [http://t.overflow.biz:6969/announce](http://t.overflow.biz:6969/announce) | 4707 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tk.cubicview.site/announce](http://tk.cubicview.site/announce) | 273 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tk.trojangogogo.site:8989/announce](http://tk.trojangogogo.site:8989/announce) | 320 ms | 100.00% | 1 |
-| 🟢 在线 | [http://torrent.arjlover.net:2710/announce](http://torrent.arjlover.net:2710/announce) | 353 ms | 100.00% | 1 |
-| 🟢 在线 | [http://torrent.fedoraproject.org:6969/announce](http://torrent.fedoraproject.org:6969/announce) | 148 ms | 100.00% | 1 |
-| 🟢 在线 | [http://torrent.unix-ag.uni-kl.de/announce](http://torrent.unix-ag.uni-kl.de/announce) | 519 ms | 100.00% | 1 |
-| 🟢 在线 | [http://torrentclub.online:54123/announce](http://torrentclub.online:54123/announce) | 337 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tr.highstar.shop/announce](http://tr.highstar.shop/announce) | 335 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tr.kxmp.cf/announce](http://tr.kxmp.cf/announce) | 4271 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tr.nyacat.pw/announce](http://tr.nyacat.pw/announce) | 732 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tr.ysagin.top:2710/announce](http://tr.ysagin.top:2710/announce) | 374 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker-udp.anirena.com/announce](http://tracker-udp.anirena.com/announce) | 2424 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker-zhuqiy.dgj055.icu/announce](http://tracker-zhuqiy.dgj055.icu/announce) | 12305 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.acgnx.se/announce](http://tracker.acgnx.se/announce) | 407 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.anonwebz.xyz:8080/announce](http://tracker.anonwebz.xyz:8080/announce) | 292 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.auctor.tv:6969/announce](http://tracker.auctor.tv:6969/announce) | 257 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.breizh.pm:6969/announce](http://tracker.breizh.pm:6969/announce) | 471 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.bt4g.com:2095/announce](http://tracker.bt4g.com:2095/announce) | 303 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.coppersurfer.site:2710/announce](http://tracker.coppersurfer.site:2710/announce) | 267 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.cubicview.site/announce](http://tracker.cubicview.site/announce) | 273 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.ddunlimited.net:6969/announce](http://tracker.ddunlimited.net:6969/announce) | 411 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.dhitechnical.com:6969/announce](http://tracker.dhitechnical.com:6969/announce) | 228 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.dler.com:6969/announce](http://tracker.dler.com:6969/announce) | 414 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.dler.org:6969/announce](http://tracker.dler.org:6969/announce) | 372 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.gcvchp.com:2710/announce](http://tracker.gcvchp.com:2710/announce) | 167 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.ghostchu-services.top/announce](http://tracker.ghostchu-services.top/announce) | 421 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.gigatorrents.ws:2710/announce](http://tracker.gigatorrents.ws:2710/announce) | 496 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.kali.org:6969/announce](http://tracker.kali.org:6969/announce) | 102 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.linkomanija.org:2710/announce](http://tracker.linkomanija.org:2710/announce) | 4497 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.minglong.org:8080/announce](http://tracker.minglong.org:8080/announce) | 272 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.mywaifu.best:6969/announce](http://tracker.mywaifu.best:6969/announce) | 329 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.novaopcj.eu.org:6969/announce](http://tracker.novaopcj.eu.org:6969/announce) | 583 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.pussytorrents.org:3000/announce](http://tracker.pussytorrents.org:3000/announce) | 304 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.qu.ax:6969/announce](http://tracker.qu.ax:6969/announce) | 233 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.renfei.net:8080/announce](http://tracker.renfei.net:8080/announce) | 780 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.skyts.net:6969/announce](http://tracker.skyts.net:6969/announce) | 3265 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.swifte.space:2710/announce](http://tracker.swifte.space:2710/announce) | 287 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.trancetraffic.com/announce](http://tracker.trancetraffic.com/announce) | 107 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.trojangogogo.site:8080/announce](http://tracker.trojangogogo.site:8080/announce) | 319 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.waaa.moe:6969/announce](http://tracker.waaa.moe:6969/announce) | 127 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.xn--djrq4gl4hvoi.top/announce](http://tracker.xn--djrq4gl4hvoi.top/announce) | 586 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.zhuqiy.com/announce](http://tracker.zhuqiy.com/announce) | 674 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker.zhuqiy.dgj055.icu/announce](http://tracker.zhuqiy.dgj055.icu/announce) | 14939 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker2.dler.com/announce](http://tracker2.dler.com/announce) | 476 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker2.dler.org/announce](http://tracker2.dler.org/announce) | 379 ms | 100.00% | 1 |
-| 🟢 在线 | [http://tracker3.dler.org:2710/announce](http://tracker3.dler.org:2710/announce) | 376 ms | 100.00% | 1 |
-| 🟢 在线 | [http://vito-tracker.space:6969/announce](http://vito-tracker.space:6969/announce) | 275 ms | 100.00% | 1 |
-| 🟢 在线 | [http://www.arabp2p.net:2052/f5a1e35785c9f3885fd54f34b6e262b8/announce](http://www.arabp2p.net:2052/f5a1e35785c9f3885fd54f34b6e262b8/announce) | 172 ms | 100.00% | 1 |
-| 🟢 在线 | [https://004430.xyz/announce](https://004430.xyz/announce) | 82 ms | 100.00% | 1 |
-| 🟢 在线 | [https://1337.abcvg.info/announce](https://1337.abcvg.info/announce) | 334 ms | 100.00% | 1 |
-| 🟢 在线 | [https://337hhh.xyz/announce](https://337hhh.xyz/announce) | 478 ms | 100.00% | 1 |
-| 🟢 在线 | [https://bt.beatrice-raws.org/announce](https://bt.beatrice-raws.org/announce) | 817 ms | 100.00% | 1 |
-| 🟢 在线 | [https://colibri.parrot.run/announce](https://colibri.parrot.run/announce) | 760 ms | 100.00% | 1 |
-| 🟢 在线 | [https://http1.torrust-tracker-demo.com/announce](https://http1.torrust-tracker-demo.com/announce) | 548 ms | 100.00% | 1 |
-| 🟢 在线 | [https://pybittrack.retiolus.net/announce](https://pybittrack.retiolus.net/announce) | 1039 ms | 100.00% | 1 |
-| 🟢 在线 | [https://retracker.x2k.ru/announce](https://retracker.x2k.ru/announce) | 254 ms | 100.00% | 1 |
-| 🟢 在线 | [https://retracker2.x2k.ru/announce](https://retracker2.x2k.ru/announce) | 540 ms | 100.00% | 1 |
-| 🟢 在线 | [https://t.213891.xyz/announce](https://t.213891.xyz/announce) | 134 ms | 100.00% | 1 |
-| 🟢 在线 | [https://torrent.ubuntu.com/announce](https://torrent.ubuntu.com/announce) | 483 ms | 100.00% | 1 |
-| 🟢 在线 | [https://torrents.tmtime.dev/announce](https://torrents.tmtime.dev/announce) | 473 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tr-zhuqiy-1.dgj055.icu/announce](https://tr-zhuqiy-1.dgj055.icu/announce) | 20407 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tr.kxmp.cf/announce](https://tr.kxmp.cf/announce) | 11806 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tr.nyacat.pw/announce](https://tr.nyacat.pw/announce) | 178 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tr2.trkb.ru/announce](https://tr2.trkb.ru/announce) | 404 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.7471.top/announce](https://tracker.7471.top/announce) | 278 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.bt4g.com/announce](https://tracker.bt4g.com/announce) | 190 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.ghostchu-services.top/announce](https://tracker.ghostchu-services.top/announce) | 401 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.lenition.de/announce](https://tracker.lenition.de/announce) | 561 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.manager.v6.navy/announce](https://tracker.manager.v6.navy/announce) | 1143 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.moeblog.cn/announce](https://tracker.moeblog.cn/announce) | 8210 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.nekomi.cn/announce](https://tracker.nekomi.cn/announce) | 308 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.pmman.tech/announce](https://tracker.pmman.tech/announce) | 316 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.qingwapt.org/announce](https://tracker.qingwapt.org/announce) | 297 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.totheglory.im/announce](https://tracker.totheglory.im/announce) | 430 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.yemekyedim.com/announce](https://tracker.yemekyedim.com/announce) | 231 ms | 100.00% | 1 |
-| 🟢 在线 | [https://tracker.zhuqiy.com/announce](https://tracker.zhuqiy.com/announce) | 202 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://103.251.166.126:6969/announce](udp://103.251.166.126:6969/announce) | 132 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://107.189.2.131:1337/announce](udp://107.189.2.131:1337/announce) | 253 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://107.189.4.235:1337/announce](udp://107.189.4.235:1337/announce) | 134 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://107.189.7.165:6969/announce](udp://107.189.7.165:6969/announce) | 138 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://109.201.134.183:80/announce](udp://109.201.134.183:80/announce) | 7777 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://116.202.177.184:6969/announce](udp://116.202.177.184:6969/announce) | 117 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://118.196.100.63:6969/announce](udp://118.196.100.63:6969/announce) | 236 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://132.226.6.145:6969/announce](udp://132.226.6.145:6969/announce) | 136 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://135.125.236.64:6969/announce](udp://135.125.236.64:6969/announce) | 121 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://144.126.245.19:6969/announce](udp://144.126.245.19:6969/announce) | 123 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://154.40.43.165:6969/announce](udp://154.40.43.165:6969/announce) | 46 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://163.5.63.253:6990/announce](udp://163.5.63.253:6990/announce) | 113 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://164.152.110.70:6969/announce](udp://164.152.110.70:6969/announce) | 540 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://177.32.238.49:6969/announce](udp://177.32.238.49:6969/announce) | 150 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://185.121.168.96:1337/announce](udp://185.121.168.96:1337/announce) | 158 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://185.189.13.108:6969/announce](udp://185.189.13.108:6969/announce) | 302 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://185.216.179.62:25/announce](udp://185.216.179.62:25/announce) | 129 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://185.243.218.213:80/announce](udp://185.243.218.213:80/announce) | 147 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://192.3.130.53:1337/announce](udp://192.3.130.53:1337/announce) | 34 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://193.187.90.12:6969/announce](udp://193.187.90.12:6969/announce) | 130 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://193.34.92.5:80/announce](udp://193.34.92.5:80/announce) | 150 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://2.57.214.218:6969/announce](udp://2.57.214.218:6969/announce) | 115 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://209.141.59.16:6969/announce](udp://209.141.59.16:6969/announce) | 50 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://209.141.59.25:6969/announce](udp://209.141.59.25:6969/announce) | 37 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://211.75.205.187:6969/announce](udp://211.75.205.187:6969/announce) | 167 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://212.42.38.197:6969/announce](udp://212.42.38.197:6969/announce) | 153 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://216.110.169.204:443/announce](udp://216.110.169.204:443/announce) | 20 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://23.134.88.9:1337/announce](udp://23.134.88.9:1337/announce) | 47 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://23.134.88.9:6969/announce](udp://23.134.88.9:6969/announce) | 49 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://23.157.120.14:6969/announce](udp://23.157.120.14:6969/announce) | 78 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://23.175.184.30:23333/announce](udp://23.175.184.30:23333/announce) | 24 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://34.66.57.33:1337/announce](udp://34.66.57.33:1337/announce) | 26 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://34.66.57.33:80/announce](udp://34.66.57.33:80/announce) | 26 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://37.120.182.83:15480/announce](udp://37.120.182.83:15480/announce) | 120 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://37.120.182.83:1984/announce](udp://37.120.182.83:1984/announce) | 121 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://37.120.182.83:54123/announce](udp://37.120.182.83:54123/announce) | 121 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://37.235.176.37:2710/announce](udp://37.235.176.37:2710/announce) | 172 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://37.59.48.81:6969/announce](udp://37.59.48.81:6969/announce) | 122 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://43.250.54.137:6969/announce](udp://43.250.54.137:6969/announce) | 124 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://45.134.88.121:6969/announce](udp://45.134.88.121:6969/announce) | 110 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://45.137.199.107:6969/announce](udp://45.137.199.107:6969/announce) | 129 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://5.255.124.190:6969/announce](udp://5.255.124.190:6969/announce) | 119 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://51.15.41.46:6969/announce](udp://51.15.41.46:6969/announce) | 116 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://51.222.82.36:6969/announce](udp://51.222.82.36:6969/announce) | 45 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://51.81.222.188:6969/announce](udp://51.81.222.188:6969/announce) | 56 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://52.211.139.85:27022/announce](udp://52.211.139.85:27022/announce) | 104 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://54.36.179.216:6969/announce](udp://54.36.179.216:6969/announce) | 118 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://60.172.236.18:6969/announce](udp://60.172.236.18:6969/announce) | 248 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://60.249.37.20:6969/announce](udp://60.249.37.20:6969/announce) | 169 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://74.119.149.136:6969/announce](udp://74.119.149.136:6969/announce) | 29 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://81.230.84.201:6969/announce](udp://81.230.84.201:6969/announce) | 140 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://87.106.210.134:6969/announce](udp://87.106.210.134:6969/announce) | 127 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://88.80.22.67:2710/announce](udp://88.80.22.67:2710/announce) | 135 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://89.234.156.205:451/announce](udp://89.234.156.205:451/announce) | 118 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://91.211.5.21:6969/announce](udp://91.211.5.21:6969/announce) | 152 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://91.216.110.53:451/announce](udp://91.216.110.53:451/announce) | 119 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://91.98.161.68:6969/announce](udp://91.98.161.68:6969/announce) | 125 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://94.23.207.177:6969/announce](udp://94.23.207.177:6969/announce) | 120 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://admin.52ywp.com:6969/announce](udp://admin.52ywp.com:6969/announce) | 264 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://archive.torrentonline.cc:42069/announce](udp://archive.torrentonline.cc:42069/announce) | 3009 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://bandito.byterunner.io:6969/announce](udp://bandito.byterunner.io:6969/announce) | 242 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce](udp://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce) | 517 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://bt.e-burg.org:2710/announce](udp://bt.e-burg.org:2710/announce) | 84 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://bt.okmp3.ru:2710/announce](udp://bt.okmp3.ru:2710/announce) | 14 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://bttracker.debian.org:6969/announce](udp://bttracker.debian.org:6969/announce) | 141 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://buddyfly.top:6969/announce](udp://buddyfly.top:6969/announce) | 330 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://bulkpeers.com:2710/announce](udp://bulkpeers.com:2710/announce) | 110 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://ch3oh.ru:6969/announce](udp://ch3oh.ru:6969/announce) | 165 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://chihaya.toss.li:9696/announce](udp://chihaya.toss.li:9696/announce) | 93 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://coeus.torrentonline.cc:42069/announce](udp://coeus.torrentonline.cc:42069/announce) | 153 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://craiovatracker.com:80/announce](udp://craiovatracker.com:80/announce) | 25 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://evan.im:6969/announce](udp://evan.im:6969/announce) | 149 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://forever-tracker.zooki.xyz:6969/announce](udp://forever-tracker.zooki.xyz:6969/announce) | 203 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://free-tracker.zooki.xyz:6969/announce](udp://free-tracker.zooki.xyz:6969/announce) | 185 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://ipv4announce.sktorrent.eu:6969/announce](udp://ipv4announce.sktorrent.eu:6969/announce) | 115 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://kubanmedia.org:2710/announce](udp://kubanmedia.org:2710/announce) | 26 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://leet-tracker.moe:1337/announce](udp://leet-tracker.moe:1337/announce) | 317 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://leet-tracker.moe:23861/announce](udp://leet-tracker.moe:23861/announce) | 264 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://leet-tracker.moe:38151/announce](udp://leet-tracker.moe:38151/announce) | 188 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://market-re.quest:6969/announce](udp://market-re.quest:6969/announce) | 451 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://martin-gebhardt.eu:25/announce](udp://martin-gebhardt.eu:25/announce) | 190 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://ns575949.ip-51-222-82.net:6969/announce](udp://ns575949.ip-51-222-82.net:6969/announce) | 129 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://obey.torrentonline.cc:42069/announce](udp://obey.torrentonline.cc:42069/announce) | 150 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://open.demonii.com:1337/announce](udp://open.demonii.com:1337/announce) | 159 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://open.demonii.com:6969/announce](udp://open.demonii.com:6969/announce) | 158 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://open.ftorrent.com:443/announce](udp://open.ftorrent.com:443/announce) | 22 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://open.stealth.si/announce](udp://open.stealth.si/announce) | 147 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://open.stealth.si:80/announce](udp://open.stealth.si:80/announce) | 127 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://pirate.t-1.org:1337/announce](udp://pirate.t-1.org:1337/announce) | 178 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://public-tracker.zooki.xyz:6969/announce](udp://public-tracker.zooki.xyz:6969/announce) | 167 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://qg.lorzl.gq:2710/announce](udp://qg.lorzl.gq:2710/announce) | 310 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://rekcart.duckdns.org:15480/announce](udp://rekcart.duckdns.org:15480/announce) | 195 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://sandrotracker.biz:1337/announce](udp://sandrotracker.biz:1337/announce) | 24 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://seedpeer.net:6969/announce](udp://seedpeer.net:6969/announce) | 175 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://t.overflow.biz:6969/announce](udp://t.overflow.biz:6969/announce) | 4047 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://torrentclub.online:54123/announce](udp://torrentclub.online:54123/announce) | 126 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://torrentclub.space:6969/announce](udp://torrentclub.space:6969/announce) | 302 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://torrents.artixlinux.org:6969/announce](udp://torrents.artixlinux.org:6969/announce) | 195 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://torrents.tmtime.dev:6969/announce](udp://torrents.tmtime.dev:6969/announce) | 127 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tr4ck3r.duckdns.org:6969/announce](udp://tr4ck3r.duckdns.org:6969/announce) | 202 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker-udp.anirena.com:80/announce](udp://tracker-udp.anirena.com:80/announce) | 118 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker-udp.gbitt.info:80/announce](udp://tracker-udp.gbitt.info:80/announce) | 8505 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.004430.xyz:1337/announce](udp://tracker.004430.xyz:1337/announce) | 92 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.1h.is:1337/announce](udp://tracker.1h.is:1337/announce) | 401 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.bittor.pw:1337/announce](udp://tracker.bittor.pw:1337/announce) | 27 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.bluefrog.pw:2710/announce](udp://tracker.bluefrog.pw:2710/announce) | 166 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.breizh.pm:6969/announce](udp://tracker.breizh.pm:6969/announce) | 122 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.btzoo.eu:80/announce](udp://tracker.btzoo.eu:80/announce) | 115 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.corpscorp.online:80/announce](udp://tracker.corpscorp.online:80/announce) | 23 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.ddunlimited.net:6969/announce](udp://tracker.ddunlimited.net:6969/announce) | 131 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.dler.com:6969/announce](udp://tracker.dler.com:6969/announce) | 164 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.dler.org:6969/announce](udp://tracker.dler.org:6969/announce) | 168 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.ducks.party:1984/announce](udp://tracker.ducks.party:1984/announce) | 151 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.fatkhoala.org:13710/announce](udp://tracker.fatkhoala.org:13710/announce) | 74 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.flatuslifir.is:6969/announce](udp://tracker.flatuslifir.is:6969/announce) | 152 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.fnix.net:6969/announce](udp://tracker.fnix.net:6969/announce) | 271 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.gmi.gd:6969/announce](udp://tracker.gmi.gd:6969/announce) | 82 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.hismz.cn:6969/announce](udp://tracker.hismz.cn:6969/announce) | 442 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.iperson.xyz:6969/announce](udp://tracker.iperson.xyz:6969/announce) | 223 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.kali.org:6969/announce](udp://tracker.kali.org:6969/announce) | 33 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.novaopcj.eu.org:6969/announce](udp://tracker.novaopcj.eu.org:6969/announce) | 116 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.nyaa.vc:6969/announce](udp://tracker.nyaa.vc:6969/announce) | 158 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.opentorrent.top:6969/announce](udp://tracker.opentorrent.top:6969/announce) | 186 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.opentrackr.org:1337/announce](udp://tracker.opentrackr.org:1337/announce) | 148 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.playground.ru:6969/announce](udp://tracker.playground.ru:6969/announce) | 385 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.plx.im:6969/announce](udp://tracker.plx.im:6969/announce) | 251 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.qu.ax:6969/announce](udp://tracker.qu.ax:6969/announce) | 116 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.sbsub.com:2710/announce](udp://tracker.sbsub.com:2710/announce) | 27 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.t-1.org:6969/announce](udp://tracker.t-1.org:6969/announce) | 167 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.theoks.net:6969/announce](udp://tracker.theoks.net:6969/announce) | 176 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.torrent.eu.org:451/announce](udp://tracker.torrent.eu.org:451/announce) | 4399 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.torrentclaw.com:1337/announce](udp://tracker.torrentclaw.com:1337/announce) | 192 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.torrust-demo.com:6969/announce](udp://tracker.torrust-demo.com:6969/announce) | 156 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.trojangogogo.site:8080/announce](udp://tracker.trojangogogo.site:8080/announce) | 121 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.tryhackx.org:6969/announce](udp://tracker.tryhackx.org:6969/announce) | 262 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.tvunderground.org.ru:3218/announce](udp://tracker.tvunderground.org.ru:3218/announce) | 24 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.wildkat.net:6969/announce](udp://tracker.wildkat.net:6969/announce) | 891 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker.yume-hatsuyuki.moe:6969/announce](udp://tracker.yume-hatsuyuki.moe:6969/announce) | 65 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker1.t-1.org:6969/announce](udp://tracker1.t-1.org:6969/announce) | 146 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker2.itzmx.com:6961/announce](udp://tracker2.itzmx.com:6961/announce) | 221 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker3.t-1.org:6969/announce](udp://tracker3.t-1.org:6969/announce) | 177 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://tracker4.infohash.org:80/announce](udp://tracker4.infohash.org:80/announce) | 20 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://uabits.today:6990/announce](udp://uabits.today:6990/announce) | 237 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://udp.tracker.projectk.org:23333/announce](udp://udp.tracker.projectk.org:23333/announce) | 73 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://udp1.torrust-tracker-demo.com:6969/announce](udp://udp1.torrust-tracker-demo.com:6969/announce) | 271 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://utracker.ghostchu-services.top:6969/announce](udp://utracker.ghostchu-services.top:6969/announce) | 186 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://vibe.sleepyinternetfun.xyz:1738/announce](udp://vibe.sleepyinternetfun.xyz:1738/announce) | 672 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://vito-tracker.duckdns.org:6969/announce](udp://vito-tracker.duckdns.org:6969/announce) | 179 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://vito-tracker.space:2095/announce](udp://vito-tracker.space:2095/announce) | 127 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://vito-tracker.space:6969/announce](udp://vito-tracker.space:6969/announce) | 119 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://whybother.torrentonline.cc:42069/announce](udp://whybother.torrentonline.cc:42069/announce) | 146 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://www.nartlof.com.br:6969/announce](udp://www.nartlof.com.br:6969/announce) | 149 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://www.nartlof.com:6969/announce](udp://www.nartlof.com:6969/announce) | 252 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://www.torrent.eu.org:451/announce](udp://www.torrent.eu.org:451/announce) | 358 ms | 100.00% | 1 |
-| 🟢 在线 | [udp://yuptracker-eu.gaijinent.com:27022/announce](udp://yuptracker-eu.gaijinent.com:27022/announce) | 190 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://qot.abiir.top:443/announce](wss://qot.abiir.top:443/announce) | 171 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://spacetradersapi-chatbox.herokuapp.com:443/announce](wss://spacetradersapi-chatbox.herokuapp.com:443/announce) | 79 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://tracker.btorrent.xyz:443/announce](wss://tracker.btorrent.xyz:443/announce) | 124 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://tracker.files.fm:7073/announce](wss://tracker.files.fm:7073/announce) | 181 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://tracker.ghostchu-services.top:443/announce](wss://tracker.ghostchu-services.top:443/announce) | 15 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://tracker.magnetoo.io/announce](wss://tracker.magnetoo.io/announce) | 281 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://tracker.magnetoo.io:443/announce](wss://tracker.magnetoo.io:443/announce) | 242 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://tracker.openwebtorrent.com/announce](wss://tracker.openwebtorrent.com/announce) | 88 ms | 100.00% | 1 |
-| 🟢 在线 | [wss://tracker.openwebtorrent.com:443/announce](wss://tracker.openwebtorrent.com:443/announce) | 15 ms | 100.00% | 1 |
+| 🟢 在线 | [http://004430.xyz/announce](http://004430.xyz/announce) | 214 ms | 100.00% | 1 |
+| 🟢 在线 | [http://107.189.2.131:1337/announce](http://107.189.2.131:1337/announce) | 301 ms | 100.00% | 1 |
+| 🟢 在线 | [http://113.16.153.98:6969/announce](http://113.16.153.98:6969/announce) | 7050 ms | 100.00% | 1 |
+| 🟢 在线 | [http://1337.abcvg.info/announce](http://1337.abcvg.info/announce) | 653 ms | 100.00% | 1 |
+| 🟢 在线 | [http://140.235.237.23:6969/announce](http://140.235.237.23:6969/announce) | 149 ms | 100.00% | 1 |
+| 🟢 在线 | [http://189.18.126.49:6969/announce](http://189.18.126.49:6969/announce) | 308 ms | 100.00% | 1 |
+| 🟢 在线 | [http://207.241.226.111:6969/announce](http://207.241.226.111:6969/announce) | 52 ms | 100.00% | 1 |
+| 🟢 在线 | [http://207.241.231.226:6969/announce](http://207.241.231.226:6969/announce) | 87 ms | 100.00% | 1 |
+| 🟢 在线 | [http://211.75.205.187/announce](http://211.75.205.187/announce) | 302 ms | 100.00% | 1 |
+| 🟢 在线 | [http://211.75.205.187:6969/announce](http://211.75.205.187:6969/announce) | 304 ms | 100.00% | 1 |
+| 🟢 在线 | [http://211.75.210.221:6969/announce](http://211.75.210.221:6969/announce) | 302 ms | 100.00% | 1 |
+| 🟢 在线 | [http://216.144.239.90:6969/announce](http://216.144.239.90:6969/announce) | 252 ms | 100.00% | 1 |
+| 🟢 在线 | [http://37.120.182.83/announce](http://37.120.182.83/announce) | 294 ms | 100.00% | 1 |
+| 🟢 在线 | [http://43.250.54.137:6969/announce](http://43.250.54.137:6969/announce) | 278 ms | 100.00% | 1 |
+| 🟢 在线 | [http://60.249.37.20/announce](http://60.249.37.20/announce) | 308 ms | 100.00% | 1 |
+| 🟢 在线 | [http://60.249.37.20:6969/announce](http://60.249.37.20:6969/announce) | 303 ms | 100.00% | 1 |
+| 🟢 在线 | [http://91.98.161.68:6969/announce](http://91.98.161.68:6969/announce) | 289 ms | 100.00% | 1 |
+| 🟢 在线 | [http://93.158.213.92:1337/announce](http://93.158.213.92:1337/announce) | 5369 ms | 100.00% | 1 |
+| 🟢 在线 | [http://95.217.167.10:6969/announce](http://95.217.167.10:6969/announce) | 307 ms | 100.00% | 1 |
+| 🟢 在线 | [http://aboutbeautifulgallopinghorsesinthegreenpasture.online/announce](http://aboutbeautifulgallopinghorsesinthegreenpasture.online/announce) | 311 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce](http://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce) | 353 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.edwardk.info:12891/announce](http://bt.edwardk.info:12891/announce) | 1995 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.edwardk.info:2710/announce](http://bt.edwardk.info:2710/announce) | 2123 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.edwardk.info:4040/announce](http://bt.edwardk.info:4040/announce) | 1963 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.edwardk.info:63124/announce](http://bt.edwardk.info:63124/announce) | 1498 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.edwardk.info:676/announce](http://bt.edwardk.info:676/announce) | 1348 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.edwardk.info:6767/announce](http://bt.edwardk.info:6767/announce) | 1130 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.edwardk.info:6969/announce](http://bt.edwardk.info:6969/announce) | 1451 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.nnm-club.info:2710/announce](http://bt.nnm-club.info:2710/announce) | 1054 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt.zlofenix.org:81/announce](http://bt.zlofenix.org:81/announce) | 300 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt02.nnm-club.cc:2710/announce](http://bt02.nnm-club.cc:2710/announce) | 857 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt02.nnm-club.info:2710/announce](http://bt02.nnm-club.info:2710/announce) | 5520 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt1.archive.org:6969/announce](http://bt1.archive.org:6969/announce) | 162 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt2.archive.org:6969/announce](http://bt2.archive.org:6969/announce) | 211 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt2.edwardk.info:2710/announce](http://bt2.edwardk.info:2710/announce) | 224 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt2.edwardk.info:4040/announce](http://bt2.edwardk.info:4040/announce) | 97 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bt2.edwardk.info:6969/announce](http://bt2.edwardk.info:6969/announce) | 86 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bttracker.debian.org:6969/announce](http://bttracker.debian.org:6969/announce) | 508 ms | 100.00% | 1 |
+| 🟢 在线 | [http://bvarf.tracker.sh:2086/announce](http://bvarf.tracker.sh:2086/announce) | 407 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ch3oh.ru:6969/announce](http://ch3oh.ru:6969/announce) | 3352 ms | 100.00% | 1 |
+| 🟢 在线 | [http://concen.org:6969/announce](http://concen.org:6969/announce) | 487 ms | 100.00% | 1 |
+| 🟢 在线 | [http://connect.swifte.space:2710/announce](http://connect.swifte.space:2710/announce) | 427 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/1/announce](http://ehtracker.org/1/announce) | 416 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/1104308/announce](http://ehtracker.org/1104308/announce) | 420 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/1113709/announce](http://ehtracker.org/1113709/announce) | 406 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/1226599/1080494xo5eXcwFOBq/announce](http://ehtracker.org/1226599/1080494xo5eXcwFOBq/announce) | 395 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/1453746/announce](http://ehtracker.org/1453746/announce) | 397 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/2496841/announce](http://ehtracker.org/2496841/announce) | 371 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/2541477/announce](http://ehtracker.org/2541477/announce) | 380 ms | 100.00% | 1 |
+| 🟢 在线 | [http://ehtracker.org/2566145/1159106xUfsJkT9Btg/announce](http://ehtracker.org/2566145/1159106xUfsJkT9Btg/announce) | 299 ms | 100.00% | 1 |
+| 🟢 在线 | [http://novaopcj.icu:10325/announce](http://novaopcj.icu:10325/announce) | 584 ms | 100.00% | 1 |
+| 🟢 在线 | [http://nyaa.tracker.wf:7777/announce](http://nyaa.tracker.wf:7777/announce) | 519 ms | 100.00% | 1 |
+| 🟢 在线 | [http://opentracker.acgnx.se/announce](http://opentracker.acgnx.se/announce) | 696 ms | 100.00% | 1 |
+| 🟢 在线 | [http://opentrackr.org:1337/announce](http://opentrackr.org:1337/announce) | 4489 ms | 100.00% | 1 |
+| 🟢 在线 | [http://retracker.x2k.ru/announce](http://retracker.x2k.ru/announce) | 322 ms | 100.00% | 1 |
+| 🟢 在线 | [http://sukebei.tracker.wf:8888/announce](http://sukebei.tracker.wf:8888/announce) | 380 ms | 100.00% | 1 |
+| 🟢 在线 | [http://t.overflow.biz:6969/announce](http://t.overflow.biz:6969/announce) | 9236 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tk.cubicview.site/announce](http://tk.cubicview.site/announce) | 286 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tk.trojangogogo.site:8989/announce](http://tk.trojangogogo.site:8989/announce) | 383 ms | 100.00% | 1 |
+| 🟢 在线 | [http://torrent.arjlover.net:2710/announce](http://torrent.arjlover.net:2710/announce) | 372 ms | 100.00% | 1 |
+| 🟢 在线 | [http://torrent.fedoraproject.org:6969/announce](http://torrent.fedoraproject.org:6969/announce) | 190 ms | 100.00% | 1 |
+| 🟢 在线 | [http://torrent.unix-ag.uni-kl.de/announce](http://torrent.unix-ag.uni-kl.de/announce) | 1999 ms | 100.00% | 1 |
+| 🟢 在线 | [http://torrentclub.online:54123/announce](http://torrentclub.online:54123/announce) | 365 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tr.highstar.shop/announce](http://tr.highstar.shop/announce) | 371 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tr.nyacat.pw/announce](http://tr.nyacat.pw/announce) | 330 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tr.ysagin.top:2710/announce](http://tr.ysagin.top:2710/announce) | 478 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker-udp.anirena.com/announce](http://tracker-udp.anirena.com/announce) | 299 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker-zhuqiy.dgj055.icu/announce](http://tracker-zhuqiy.dgj055.icu/announce) | 5607 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.23794.top:6969/announce](http://tracker.23794.top:6969/announce) | 2833 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.acgnx.se/announce](http://tracker.acgnx.se/announce) | 431 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.anonwebz.xyz:8080/announce](http://tracker.anonwebz.xyz:8080/announce) | 385 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.auctor.tv:6969/announce](http://tracker.auctor.tv:6969/announce) | 244 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.breizh.pm:6969/announce](http://tracker.breizh.pm:6969/announce) | 872 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.bt4g.com:2095/announce](http://tracker.bt4g.com:2095/announce) | 242 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.coppersurfer.site:2710/announce](http://tracker.coppersurfer.site:2710/announce) | 306 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.cubicview.site/announce](http://tracker.cubicview.site/announce) | 330 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.ddunlimited.net:6969/announce](http://tracker.ddunlimited.net:6969/announce) | 417 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.dhitechnical.com:6969/announce](http://tracker.dhitechnical.com:6969/announce) | 189 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.dler.com:6969/announce](http://tracker.dler.com:6969/announce) | 436 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.dler.org:6969/announce](http://tracker.dler.org:6969/announce) | 324 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.gcvchp.com:2710/announce](http://tracker.gcvchp.com:2710/announce) | 111 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.ghostchu-services.top/announce](http://tracker.ghostchu-services.top/announce) | 445 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.gigatorrents.ws:2710/announce](http://tracker.gigatorrents.ws:2710/announce) | 678 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.kali.org:6969/announce](http://tracker.kali.org:6969/announce) | 146 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.linkomanija.org:2710/announce](http://tracker.linkomanija.org:2710/announce) | 4323 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.minglong.org:8080/announce](http://tracker.minglong.org:8080/announce) | 319 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.mywaifu.best:6969/announce](http://tracker.mywaifu.best:6969/announce) | 458 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.novaopcj.eu.org:6969/announce](http://tracker.novaopcj.eu.org:6969/announce) | 681 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.pussytorrents.org:3000/announce](http://tracker.pussytorrents.org:3000/announce) | 337 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.qu.ax:6969/announce](http://tracker.qu.ax:6969/announce) | 268 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.renfei.net:8080/announce](http://tracker.renfei.net:8080/announce) | 514 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.skyts.net:6969/announce](http://tracker.skyts.net:6969/announce) | 866 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.swifte.space:2710/announce](http://tracker.swifte.space:2710/announce) | 337 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.trancetraffic.com/announce](http://tracker.trancetraffic.com/announce) | 105 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.trojangogogo.site:8080/announce](http://tracker.trojangogogo.site:8080/announce) | 374 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.waaa.moe:6969/announce](http://tracker.waaa.moe:6969/announce) | 129 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.xn--djrq4gl4hvoi.top/announce](http://tracker.xn--djrq4gl4hvoi.top/announce) | 2068 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker.zhuqiy.com/announce](http://tracker.zhuqiy.com/announce) | 273 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker2.dler.com/announce](http://tracker2.dler.com/announce) | 406 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker2.dler.org/announce](http://tracker2.dler.org/announce) | 346 ms | 100.00% | 1 |
+| 🟢 在线 | [http://tracker3.dler.org:2710/announce](http://tracker3.dler.org:2710/announce) | 349 ms | 100.00% | 1 |
+| 🟢 在线 | [http://vito-tracker.space:6969/announce](http://vito-tracker.space:6969/announce) | 314 ms | 100.00% | 1 |
+| 🟢 在线 | [http://www.arabp2p.net:2052/f5a1e35785c9f3885fd54f34b6e262b8/announce](http://www.arabp2p.net:2052/f5a1e35785c9f3885fd54f34b6e262b8/announce) | 223 ms | 100.00% | 1 |
+| 🟢 在线 | [https://004430.xyz/announce](https://004430.xyz/announce) | 165 ms | 100.00% | 1 |
+| 🟢 在线 | [https://337hhh.xyz/announce](https://337hhh.xyz/announce) | 480 ms | 100.00% | 1 |
+| 🟢 在线 | [https://bt.beatrice-raws.org/announce](https://bt.beatrice-raws.org/announce) | 286 ms | 100.00% | 1 |
+| 🟢 在线 | [https://http1.torrust-tracker-demo.com/announce](https://http1.torrust-tracker-demo.com/announce) | 613 ms | 100.00% | 1 |
+| 🟢 在线 | [https://open.ftorrent.com/announce](https://open.ftorrent.com/announce) | 116 ms | 100.00% | 1 |
+| 🟢 在线 | [https://pybittrack.retiolus.net/announce](https://pybittrack.retiolus.net/announce) | 1032 ms | 100.00% | 1 |
+| 🟢 在线 | [https://retracker.x2k.ru/announce](https://retracker.x2k.ru/announce) | 287 ms | 100.00% | 1 |
+| 🟢 在线 | [https://retracker2.x2k.ru/announce](https://retracker2.x2k.ru/announce) | 709 ms | 100.00% | 1 |
+| 🟢 在线 | [https://t.213891.xyz/announce](https://t.213891.xyz/announce) | 113 ms | 100.00% | 1 |
+| 🟢 在线 | [https://torrent.ubuntu.com/announce](https://torrent.ubuntu.com/announce) | 493 ms | 100.00% | 1 |
+| 🟢 在线 | [https://torrents.tmtime.dev/announce](https://torrents.tmtime.dev/announce) | 536 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tr-rh-zhuqiy.dgj055.icu/announce](https://tr-rh-zhuqiy.dgj055.icu/announce) | 7063 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tr.nyacat.pw/announce](https://tr.nyacat.pw/announce) | 203 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tr2.trkb.ru/announce](https://tr2.trkb.ru/announce) | 659 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.7471.top/announce](https://tracker.7471.top/announce) | 361 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.bt4g.com/announce](https://tracker.bt4g.com/announce) | 237 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.ghostchu-services.top/announce](https://tracker.ghostchu-services.top/announce) | 409 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.lenition.de/announce](https://tracker.lenition.de/announce) | 763 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.manager.v6.navy/announce](https://tracker.manager.v6.navy/announce) | 1224 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.nekomi.cn/announce](https://tracker.nekomi.cn/announce) | 402 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.pmman.tech/announce](https://tracker.pmman.tech/announce) | 369 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.qingwapt.org/announce](https://tracker.qingwapt.org/announce) | 287 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.totheglory.im/announce](https://tracker.totheglory.im/announce) | 388 ms | 100.00% | 1 |
+| 🟢 在线 | [https://tracker.zhuqiy.com/announce](https://tracker.zhuqiy.com/announce) | 243 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://107.189.2.131:1337/announce](udp://107.189.2.131:1337/announce) | 354 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://107.189.4.235:1337/announce](udp://107.189.4.235:1337/announce) | 135 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://107.189.7.165:6969/announce](udp://107.189.7.165:6969/announce) | 126 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://109.201.134.183:80/announce](udp://109.201.134.183:80/announce) | 6751 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://116.202.177.184:6969/announce](udp://116.202.177.184:6969/announce) | 144 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://120.78.150.131:6969/announce](udp://120.78.150.131:6969/announce) | 209 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://132.226.6.145:6969/announce](udp://132.226.6.145:6969/announce) | 121 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://135.125.236.64:6969/announce](udp://135.125.236.64:6969/announce) | 134 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://144.126.245.19:6969/announce](udp://144.126.245.19:6969/announce) | 130 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://154.40.43.165:6969/announce](udp://154.40.43.165:6969/announce) | 38 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://163.5.63.253:6990/announce](udp://163.5.63.253:6990/announce) | 148 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://164.152.110.70:6969/announce](udp://164.152.110.70:6969/announce) | 617 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://177.32.238.49:6969/announce](udp://177.32.238.49:6969/announce) | 156 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://185.121.168.96:1337/announce](udp://185.121.168.96:1337/announce) | 151 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://185.216.179.62:25/announce](udp://185.216.179.62:25/announce) | 134 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://185.243.218.213:80/announce](udp://185.243.218.213:80/announce) | 158 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://189.18.126.49:6969/announce](udp://189.18.126.49:6969/announce) | 152 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://192.3.130.53:1337/announce](udp://192.3.130.53:1337/announce) | 35 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://193.187.90.12:6969/announce](udp://193.187.90.12:6969/announce) | 141 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://193.34.92.5:80/announce](udp://193.34.92.5:80/announce) | 164 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://193.42.111.57:9337/announce](udp://193.42.111.57:9337/announce) | 132 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://2.57.214.218:6969/announce](udp://2.57.214.218:6969/announce) | 134 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://209.141.59.25:6969/announce](udp://209.141.59.25:6969/announce) | 36 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://211.75.205.187:6969/announce](udp://211.75.205.187:6969/announce) | 154 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://212.42.38.197:6969/announce](udp://212.42.38.197:6969/announce) | 166 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://216.110.169.204:443/announce](udp://216.110.169.204:443/announce) | 6 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://23.134.88.9:1337/announce](udp://23.134.88.9:1337/announce) | 46 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://23.134.88.9:6969/announce](udp://23.134.88.9:6969/announce) | 44 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://23.157.120.14:6969/announce](udp://23.157.120.14:6969/announce) | 64 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://23.175.184.30:23333/announce](udp://23.175.184.30:23333/announce) | 28 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://34.66.57.33:1337/announce](udp://34.66.57.33:1337/announce) | 41 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://34.66.57.33:80/announce](udp://34.66.57.33:80/announce) | 32 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://37.120.182.83:15480/announce](udp://37.120.182.83:15480/announce) | 133 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://37.120.182.83:1984/announce](udp://37.120.182.83:1984/announce) | 134 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://37.120.182.83:54123/announce](udp://37.120.182.83:54123/announce) | 144 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://37.235.176.37:2710/announce](udp://37.235.176.37:2710/announce) | 187 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://37.59.48.81:6969/announce](udp://37.59.48.81:6969/announce) | 132 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://43.250.54.137:6969/announce](udp://43.250.54.137:6969/announce) | 141 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://45.134.88.121:6969/announce](udp://45.134.88.121:6969/announce) | 134 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://45.137.199.107:6969/announce](udp://45.137.199.107:6969/announce) | 144 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://5.255.124.190:6969/announce](udp://5.255.124.190:6969/announce) | 126 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://51.15.41.46:6969/announce](udp://51.15.41.46:6969/announce) | 125 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://51.222.82.36:6969/announce](udp://51.222.82.36:6969/announce) | 50 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://51.81.222.188:6969/announce](udp://51.81.222.188:6969/announce) | 32 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://52.211.139.85:27022/announce](udp://52.211.139.85:27022/announce) | 110 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://54.36.179.216:6969/announce](udp://54.36.179.216:6969/announce) | 126 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://60.172.236.18:6969/announce](udp://60.172.236.18:6969/announce) | 217 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://60.249.37.20:6969/announce](udp://60.249.37.20:6969/announce) | 151 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://74.119.149.136:6969/announce](udp://74.119.149.136:6969/announce) | 40 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://81.230.84.201:6969/announce](udp://81.230.84.201:6969/announce) | 156 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://87.106.210.134:6969/announce](udp://87.106.210.134:6969/announce) | 162 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://88.80.22.67:2710/announce](udp://88.80.22.67:2710/announce) | 144 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://89.234.156.205:451/announce](udp://89.234.156.205:451/announce) | 142 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://91.211.5.21:6969/announce](udp://91.211.5.21:6969/announce) | 324 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://91.216.110.53:451/announce](udp://91.216.110.53:451/announce) | 139 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://91.98.161.68:6969/announce](udp://91.98.161.68:6969/announce) | 137 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://93.158.213.92:1337/announce](udp://93.158.213.92:1337/announce) | 158 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://94.23.207.177:6969/announce](udp://94.23.207.177:6969/announce) | 124 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://admin.52ywp.com:6969/announce](udp://admin.52ywp.com:6969/announce) | 313 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://archive.torrentonline.cc:42069/announce](udp://archive.torrentonline.cc:42069/announce) | 179 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://bt.e-burg.org:2710/announce](udp://bt.e-burg.org:2710/announce) | 98 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://bt.okmp3.ru:2710/announce](udp://bt.okmp3.ru:2710/announce) | 135 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://bttracker.debian.org:6969/announce](udp://bttracker.debian.org:6969/announce) | 155 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://buddyfly.top:6969/announce](udp://buddyfly.top:6969/announce) | 266 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://bulkpeers.com:2710/announce](udp://bulkpeers.com:2710/announce) | 134 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://ch3oh.ru:6969/announce](udp://ch3oh.ru:6969/announce) | 170 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://chihaya.toss.li:9696/announce](udp://chihaya.toss.li:9696/announce) | 4957 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://coeus.torrentonline.cc:42069/announce](udp://coeus.torrentonline.cc:42069/announce) | 164 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://craiovatracker.com:80/announce](udp://craiovatracker.com:80/announce) | 32 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://evan.im:6969/announce](udp://evan.im:6969/announce) | 183 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://forever-tracker.zooki.xyz:6969/announce](udp://forever-tracker.zooki.xyz:6969/announce) | 1157 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://free-tracker.zooki.xyz:6969/announce](udp://free-tracker.zooki.xyz:6969/announce) | 1050 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://ipv4announce.sktorrent.eu:6969/announce](udp://ipv4announce.sktorrent.eu:6969/announce) | 128 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://kubanmedia.org:2710/announce](udp://kubanmedia.org:2710/announce) | 33 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://leet-tracker.moe:1337/announce](udp://leet-tracker.moe:1337/announce) | 106 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://leet-tracker.moe:23861/announce](udp://leet-tracker.moe:23861/announce) | 32 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://leet-tracker.moe:38151/announce](udp://leet-tracker.moe:38151/announce) | 31 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://market-re.quest:6969/announce](udp://market-re.quest:6969/announce) | 343 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://martin-gebhardt.eu:25/announce](udp://martin-gebhardt.eu:25/announce) | 179 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://ns575949.ip-51-222-82.net:6969/announce](udp://ns575949.ip-51-222-82.net:6969/announce) | 120 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://open.demonii.com:1337/announce](udp://open.demonii.com:1337/announce) | 156 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://open.demonii.com:6969/announce](udp://open.demonii.com:6969/announce) | 156 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://open.ftorrent.com:443/announce](udp://open.ftorrent.com:443/announce) | 7 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://open.stealth.si/announce](udp://open.stealth.si/announce) | 158 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://open.stealth.si:80/announce](udp://open.stealth.si:80/announce) | 148 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://opentrackr.org:1337/announce](udp://opentrackr.org:1337/announce) | 158 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://pirate.t-1.org:1337/announce](udp://pirate.t-1.org:1337/announce) | 214 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://public-tracker.zooki.xyz:6969/announce](udp://public-tracker.zooki.xyz:6969/announce) | 168 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://qg.lorzl.gq:2710/announce](udp://qg.lorzl.gq:2710/announce) | 211 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://rekcart.duckdns.org:15480/announce](udp://rekcart.duckdns.org:15480/announce) | 207 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://sandrotracker.biz:1337/announce](udp://sandrotracker.biz:1337/announce) | 31 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://seedpeer.net:6969/announce](udp://seedpeer.net:6969/announce) | 197 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://t.overflow.biz:6969/announce](udp://t.overflow.biz:6969/announce) | 225 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://torrentclub.online:54123/announce](udp://torrentclub.online:54123/announce) | 143 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://torrentclub.space:6969/announce](udp://torrentclub.space:6969/announce) | 242 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://torrents.artixlinux.org:6969/announce](udp://torrents.artixlinux.org:6969/announce) | 212 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://torrents.tmtime.dev:6969/announce](udp://torrents.tmtime.dev:6969/announce) | 146 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tr4ck3r.duckdns.org:6969/announce](udp://tr4ck3r.duckdns.org:6969/announce) | 224 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker-udp.anirena.com:80/announce](udp://tracker-udp.anirena.com:80/announce) | 127 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker-udp.gbitt.info:80/announce](udp://tracker-udp.gbitt.info:80/announce) | 7526 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.004430.xyz:1337/announce](udp://tracker.004430.xyz:1337/announce) | 111 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.1h.is:1337/announce](udp://tracker.1h.is:1337/announce) | 417 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.bittor.pw:1337/announce](udp://tracker.bittor.pw:1337/announce) | 34 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.bluefrog.pw:2710/announce](udp://tracker.bluefrog.pw:2710/announce) | 172 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.breizh.pm:6969/announce](udp://tracker.breizh.pm:6969/announce) | 140 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.btzoo.eu:80/announce](udp://tracker.btzoo.eu:80/announce) | 123 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.corpscorp.online:80/announce](udp://tracker.corpscorp.online:80/announce) | 31 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.ddunlimited.net:6969/announce](udp://tracker.ddunlimited.net:6969/announce) | 139 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.dler.com:6969/announce](udp://tracker.dler.com:6969/announce) | 155 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.dler.org:6969/announce](udp://tracker.dler.org:6969/announce) | 154 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.ducks.party:1984/announce](udp://tracker.ducks.party:1984/announce) | 164 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.fatkhoala.org:13710/announce](udp://tracker.fatkhoala.org:13710/announce) | 115 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.flatuslifir.is:6969/announce](udp://tracker.flatuslifir.is:6969/announce) | 165 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.fnix.net:6969/announce](udp://tracker.fnix.net:6969/announce) | 172 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.gmi.gd:6969/announce](udp://tracker.gmi.gd:6969/announce) | 197 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.hismz.cn:6969/announce](udp://tracker.hismz.cn:6969/announce) | 660 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.internetwarriors.net:1337/announce](udp://tracker.internetwarriors.net:1337/announce) | 323 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.iperson.xyz:6969/announce](udp://tracker.iperson.xyz:6969/announce) | 209 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.kali.org:6969/announce](udp://tracker.kali.org:6969/announce) | 53 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.novaopcj.eu.org:6969/announce](udp://tracker.novaopcj.eu.org:6969/announce) | 139 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.nyaa.vc:6969/announce](udp://tracker.nyaa.vc:6969/announce) | 221 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.opentorrent.top:6969/announce](udp://tracker.opentorrent.top:6969/announce) | 228 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.opentrackr.org:1337/announce](udp://tracker.opentrackr.org:1337/announce) | 166 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.playground.ru:6969/announce](udp://tracker.playground.ru:6969/announce) | 442 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.plx.im:6969/announce](udp://tracker.plx.im:6969/announce) | 268 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.qu.ax:6969/announce](udp://tracker.qu.ax:6969/announce) | 132 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.sbsub.com:2710/announce](udp://tracker.sbsub.com:2710/announce) | 32 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.t-1.org:6969/announce](udp://tracker.t-1.org:6969/announce) | 212 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.theoks.net:6969/announce](udp://tracker.theoks.net:6969/announce) | 99 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.torrent.eu.org:451/announce](udp://tracker.torrent.eu.org:451/announce) | 410 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.torrentclaw.com:1337/announce](udp://tracker.torrentclaw.com:1337/announce) | 225 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.torrust-demo.com:6969/announce](udp://tracker.torrust-demo.com:6969/announce) | 186 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.trojangogogo.site:8080/announce](udp://tracker.trojangogogo.site:8080/announce) | 136 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.tryhackx.org:6969/announce](udp://tracker.tryhackx.org:6969/announce) | 414 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.tvunderground.org.ru:3218/announce](udp://tracker.tvunderground.org.ru:3218/announce) | 48 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.wildkat.net:6969/announce](udp://tracker.wildkat.net:6969/announce) | 561 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker.yume-hatsuyuki.moe:6969/announce](udp://tracker.yume-hatsuyuki.moe:6969/announce) | 60 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker1.t-1.org:6969/announce](udp://tracker1.t-1.org:6969/announce) | 191 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker2.itzmx.com:6961/announce](udp://tracker2.itzmx.com:6961/announce) | 208 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker3.t-1.org:6969/announce](udp://tracker3.t-1.org:6969/announce) | 219 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://tracker4.infohash.org:80/announce](udp://tracker4.infohash.org:80/announce) | 36 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://trackthis.cyber.pz.it:1337/announce](udp://trackthis.cyber.pz.it:1337/announce) | 965 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://uabits.today:6990/announce](udp://uabits.today:6990/announce) | 220 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://udp.tracker.projectk.org:23333/announce](udp://udp.tracker.projectk.org:23333/announce) | 74 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://udp1.torrust-tracker-demo.com:6969/announce](udp://udp1.torrust-tracker-demo.com:6969/announce) | 309 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://utracker.ghostchu-services.top:6969/announce](udp://utracker.ghostchu-services.top:6969/announce) | 144 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://v2.iperson.xyz:6969/announce](udp://v2.iperson.xyz:6969/announce) | 227 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://vibe.sleepyinternetfun.xyz:1738/announce](udp://vibe.sleepyinternetfun.xyz:1738/announce) | 218 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://vito-tracker.duckdns.org:6969/announce](udp://vito-tracker.duckdns.org:6969/announce) | 196 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://vito-tracker.space:2095/announce](udp://vito-tracker.space:2095/announce) | 153 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://vito-tracker.space:6969/announce](udp://vito-tracker.space:6969/announce) | 143 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://www.nartlof.com.br:6969/announce](udp://www.nartlof.com.br:6969/announce) | 156 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://www.nartlof.com:6969/announce](udp://www.nartlof.com:6969/announce) | 216 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://www.torrent.eu.org:451/announce](udp://www.torrent.eu.org:451/announce) | 410 ms | 100.00% | 1 |
+| 🟢 在线 | [udp://yuptracker-eu.gaijinent.com:27022/announce](udp://yuptracker-eu.gaijinent.com:27022/announce) | 270 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://qot.abiir.top:443/announce](wss://qot.abiir.top:443/announce) | 5996 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://spacetradersapi-chatbox.herokuapp.com:443/announce](wss://spacetradersapi-chatbox.herokuapp.com:443/announce) | 160 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.btorrent.xyz:443/announce](wss://tracker.btorrent.xyz:443/announce) | 155 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.files.fm:7073/announce](wss://tracker.files.fm:7073/announce) | 215 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.ghostchu-services.top:443/announce](wss://tracker.ghostchu-services.top:443/announce) | 18 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.magnetoo.io/announce](wss://tracker.magnetoo.io/announce) | 390 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.magnetoo.io:443/announce](wss://tracker.magnetoo.io:443/announce) | 200 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.novage.com.ua:443/announce](wss://tracker.novage.com.ua:443/announce) | 1351 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.openwebtorrent.com/announce](wss://tracker.openwebtorrent.com/announce) | 68 ms | 100.00% | 1 |
+| 🟢 在线 | [wss://tracker.openwebtorrent.com:443/announce](wss://tracker.openwebtorrent.com:443/announce) | 64 ms | 100.00% | 1 |
 | 🔴 死亡 | [http://00.alarmasqueretaro.com:443/announce](http://00.alarmasqueretaro.com:443/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://00.mercax.com:443/announce](http://00.mercax.com:443/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://00.xxtor.com:443/announce](http://00.xxtor.com:443/announce) | - | 0.00% | 0 |
@@ -356,7 +353,7 @@
 | 🔴 死亡 | [http://119.28.71.45:8080/announce](http://119.28.71.45:8080/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://123.245.62.98:6969/announce](http://123.245.62.98:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://125.227.35.196:6969/announce](http://125.227.35.196:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://125.227.79.123/announce](http://125.227.79.123/announce) | 333 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://125.227.79.123/announce](http://125.227.79.123/announce) | 306 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://125.227.79.123:6969/announce](http://125.227.79.123:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://128.199.70.66:5944/announce](http://128.199.70.66:5944/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://129.146.193.240:6699/announce](http://129.146.193.240:6699/announce) | - | 0.00% | 0 |
@@ -381,7 +378,7 @@
 | 🔴 死亡 | [http://154.29.145.56:17715/announce](http://154.29.145.56:17715/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://155.248.200.105/announce](http://155.248.200.105/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://156.234.201.18/announce](http://156.234.201.18/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://157.7.202.64:8080/announce](http://157.7.202.64:8080/announce) | 276 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://157.7.202.64:8080/announce](http://157.7.202.64:8080/announce) | 248 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://158.101.137.177:6969/announce](http://158.101.137.177:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://158.69.146.212:7777/announce](http://158.69.146.212:7777/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://159.69.65.157:6969/announce](http://159.69.65.157:6969/announce) | - | 0.00% | 0 |
@@ -426,6 +423,7 @@
 | 🔴 死亡 | [http://184.105.151.166:6969/announce](http://184.105.151.166:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://184.61.17.58:9000/announce](http://184.61.17.58:9000/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://185.130.47.2:6969/announce](http://185.130.47.2:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [http://185.148.3.231/announce](http://185.148.3.231/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://185.185.40.129:6969/announce](http://185.185.40.129:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://185.185.40.250:6969/announce](http://185.185.40.250:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://185.185.40.42:6969/announce](http://185.185.40.42:6969/announce) | - | 0.00% | 0 |
@@ -502,7 +500,7 @@
 | 🔴 死亡 | [http://34.89.30.59/announce](http://34.89.30.59/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://34.89.30.59:2710/announce](http://34.89.30.59:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://34.89.51.235/announce](http://34.89.51.235/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://34.94.213.23/announce](http://34.94.213.23/announce) | 85 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://34.94.213.23/announce](http://34.94.213.23/announce) | 63 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://34.94.213.23:11451/announce](http://34.94.213.23:11451/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://34.94.213.23:2710/announce](http://34.94.213.23:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://34.94.76.146/announce](http://34.94.76.146/announce) | - | 0.00% | 0 |
@@ -527,6 +525,7 @@
 | 🔴 死亡 | [http://45.13.119.213:6969/announce](http://45.13.119.213:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://45.14.226.152:6969/announce](http://45.14.226.152:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://45.14.226.2:6969/announce](http://45.14.226.2:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [http://45.146.254.59/announce](http://45.146.254.59/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://45.154.253.10/announce](http://45.154.253.10/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://45.154.253.4/announce](http://45.154.253.4/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://45.154.253.5/announce](http://45.154.253.5/announce) | - | 0.00% | 0 |
@@ -631,7 +630,7 @@
 | 🔴 死亡 | [http://83.6.237.118:6969/announce](http://83.6.237.118:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://85.17.19.180/announce](http://85.17.19.180/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://87.110.238.140:6969/announce](http://87.110.238.140:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://87.248.186.252:8080/announce](http://87.248.186.252:8080/announce) | 325 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://87.248.186.252:8080/announce](http://87.248.186.252:8080/announce) | 343 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://87.253.152.137/announce](http://87.253.152.137/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://88.99.189.199:6969/announce](http://88.99.189.199:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://91.121.54.8/announce](http://91.121.54.8/announce) | - | 0.00% | 0 |
@@ -725,7 +724,6 @@
 | 🔴 死亡 | [http://bz.tracker.bz/announce](http://bz.tracker.bz/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://canardscitrons.nohost.me:6969/announce](http://canardscitrons.nohost.me:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://castradio.net:6969/announce](http://castradio.net:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://ch3oh.ru:6969/announce](http://ch3oh.ru:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://chihaya.de/announce](http://chihaya.de/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://chouchou.top:8080/announce](http://chouchou.top:8080/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://cloud.nyap2p.com:8080/announce](http://cloud.nyap2p.com:8080/announce) | - | 0.00% | 0 |
@@ -791,7 +789,7 @@
 | 🔴 死亡 | [http://ipv6.rer.lol:6969/announce](http://ipv6.rer.lol:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://ipv6.tracker.harry.lu/announce](http://ipv6.tracker.harry.lu/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://ipv6.tracker.m-team.cc/announce](http://ipv6.tracker.m-team.cc/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://irrenhaus.dyndns.dk/announce](http://irrenhaus.dyndns.dk/announce) | 443 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://irrenhaus.dyndns.dk/announce](http://irrenhaus.dyndns.dk/announce) | 648 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://isk.richardsw.club:6969/announce](http://isk.richardsw.club:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://joczo.duckdns.org:6969/announce](http://joczo.duckdns.org:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://jp.moeweb.pw:6969/announce](http://jp.moeweb.pw:6969/announce) | - | 0.00% | 0 |
@@ -823,8 +821,8 @@
 | 🔴 死亡 | [http://movies.zsw.ca:6969/announce](http://movies.zsw.ca:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://multi.open-tracker.cf:8000/announce](http://multi.open-tracker.cf:8000/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://music-torrent.net:2710/announce](http://music-torrent.net:2710/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://mvgforumtracker.mvgroup.org/tracker.php/announce](http://mvgforumtracker.mvgroup.org/tracker.php/announce) | 95 ms | 0.00% | 0 |
-| 🔴 死亡 | [http://mvgforumtracker.mvgroup.org/tracker.php:80/announce](http://mvgforumtracker.mvgroup.org/tracker.php:80/announce) | 42 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://mvgforumtracker.mvgroup.org/tracker.php/announce](http://mvgforumtracker.mvgroup.org/tracker.php/announce) | 110 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://mvgforumtracker.mvgroup.org/tracker.php:80/announce](http://mvgforumtracker.mvgroup.org/tracker.php:80/announce) | 54 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://mvgroup.org:2710/announce](http://mvgroup.org:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://nagios.tks.sumy.ua/announce](http://nagios.tks.sumy.ua/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://netwarer.xyz:6960/announce](http://netwarer.xyz:6960/announce) | - | 0.00% | 0 |
@@ -840,7 +838,7 @@
 | 🔴 死亡 | [http://open.acgtracker.com:1096/announce](http://open.acgtracker.com:1096/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://open.demonii.com:1337/announce](http://open.demonii.com:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://open.demonii.com:6969/announce](http://open.demonii.com:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://open.demonii.si/announce](http://open.demonii.si/announce) | 5857 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://open.demonii.si/announce](http://open.demonii.si/announce) | 8517 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://open.lolicon.eu:7777/announce](http://open.lolicon.eu:7777/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://open.miotracker.com/announce](http://open.miotracker.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://open.nyaatorrents.info:6544/announce](http://open.nyaatorrents.info:6544/announce) | - | 0.00% | 0 |
@@ -866,7 +864,7 @@
 | 🔴 死亡 | [http://papaja.v2v.cc:6970/announce](http://papaja.v2v.cc:6970/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://parag.rs:6969/announce](http://parag.rs:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://passpulse.net:8000/announce](http://passpulse.net:8000/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://peersteers.org/announce](http://peersteers.org/announce) | 88 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://peersteers.org/announce](http://peersteers.org/announce) | 108 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://play.aimisayo.com:6969/announce](http://play.aimisayo.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://pornograd.net/announce](http://pornograd.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://pow7.com/announce](http://pow7.com/announce) | - | 0.00% | 0 |
@@ -883,7 +881,7 @@
 | 🔴 死亡 | [http://reisub.nsupdate.info:6969/announce](http://reisub.nsupdate.info:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://retracker.211.ru/announce](http://retracker.211.ru/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://retracker.bashtel.ru/announce](http://retracker.bashtel.ru/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://retracker.gorcomnet.ru/announce](http://retracker.gorcomnet.ru/announce) | 116 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://retracker.gorcomnet.ru/announce](http://retracker.gorcomnet.ru/announce) | 119 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://retracker.hotplug.ru:2710/announce](http://retracker.hotplug.ru:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://retracker.krs-ix.ru/announce](http://retracker.krs-ix.ru/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://retracker.local/announce](http://retracker.local/announce) | - | 0.00% | 0 |
@@ -918,10 +916,11 @@
 | 🔴 死亡 | [http://smurfsoft.com:6969/announce](http://smurfsoft.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://speedtest.iperson.xyz:6969/announce](http://speedtest.iperson.xyz:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://sugoi.pomf.se/announce](http://sugoi.pomf.se/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://t-backup.213891.xyz/announce](http://t-backup.213891.xyz/announce) | 85 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://t-backup.213891.xyz/announce](http://t-backup.213891.xyz/announce) | 94 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://t.acg.rip:6699/announce](http://t.acg.rip:6699/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://t.al.uy/announce](http://t.al.uy/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://t.jaekr.sh:6969/announce](http://t.jaekr.sh:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [http://t.nyaatracker.com/announce](http://t.nyaatracker.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://t.publictracker.xyz:6969/announce](http://t.publictracker.xyz:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://t1.aag.moe:17715/announce](http://t1.aag.moe:17715/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://t1.chfs.ch:6969/announce](http://t1.chfs.ch:6969/announce) | - | 0.00% | 0 |
@@ -933,7 +932,7 @@
 | 🔴 死亡 | [http://taciturn-shadow.spb.ru:6969/announce](http://taciturn-shadow.spb.ru:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://thebytestore.co.uk:6969/announce](http://thebytestore.co.uk:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://theheartofchronic.com/announce](http://theheartofchronic.com/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://thetracker.org/announce](http://thetracker.org/announce) | 290 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://thetracker.org/announce](http://thetracker.org/announce) | 313 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://thitgaluoc.dynu.net:6969/announce](http://thitgaluoc.dynu.net:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tinfoil.space:6969/announce](http://tinfoil.space:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tk.greedland.net/announce](http://tk.greedland.net/announce) | - | 0.00% | 0 |
@@ -952,7 +951,7 @@
 | 🔴 死亡 | [http://torrent.hificode.in:6969/announce](http://torrent.hificode.in:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://torrent.jiwang.cc/announce](http://torrent.jiwang.cc/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://torrent.mp3quran.net/announce](http://torrent.mp3quran.net/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://torrent.nwps.ws/announce](http://torrent.nwps.ws/announce) | 112 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://torrent.nwps.ws/announce](http://torrent.nwps.ws/announce) | 123 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://torrent.resonatingmedia.com:6969/announce](http://torrent.resonatingmedia.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://torrent.rus.ec:2710/announce](http://torrent.rus.ec:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://torrents.hikarinokiseki.com:6969/announce](http://torrents.hikarinokiseki.com:6969/announce) | - | 0.00% | 0 |
@@ -966,6 +965,7 @@
 | 🔴 死亡 | [http://tr.bangumi.moe:6969/announce](http://tr.bangumi.moe:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tr.cili001.com70/announce](http://tr.cili001.com70/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tr.cili001.com:8070/announce](http://tr.cili001.com:8070/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [http://tr.kxmp.cf/announce](http://tr.kxmp.cf/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tr1.aag.moe:2095/announce](http://tr1.aag.moe:2095/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tr2.ysagin.top:2710/announce](http://tr2.ysagin.top:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker-cdn.moeking.me:2095/announce](http://tracker-cdn.moeking.me:2095/announce) | - | 0.00% | 0 |
@@ -973,7 +973,6 @@
 | 🔴 死亡 | [http://tracker-sanopiracy.hopto.org:9123/announce](http://tracker-sanopiracy.hopto.org:9123/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker-udp.gbitt.info/announce](http://tracker-udp.gbitt.info/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.1048576.cn:17272/announce](http://tracker.1048576.cn:17272/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.23794.top:6969/announce](http://tracker.23794.top:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.aibt.xyz:900/announce](http://tracker.aibt.xyz:900/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.alaskantf.com:6969/announce](http://tracker.alaskantf.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.aletorrenty.pl:2710/announce](http://tracker.aletorrenty.pl:2710/announce) | - | 0.00% | 0 |
@@ -988,7 +987,7 @@
 | 🔴 死亡 | [http://tracker.best-torrents.net:6969/announce](http://tracker.best-torrents.net:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.birkenwald.de:6969/announce](http://tracker.birkenwald.de:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.bittor.pw:1337/announce](http://tracker.bittor.pw:1337/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.bittorrent.am/announce](http://tracker.bittorrent.am/announce) | 406 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.bittorrent.am/announce](http://tracker.bittorrent.am/announce) | 567 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.bittorrent.nibblepoker.lu:49227/announce](http://tracker.bittorrent.nibblepoker.lu:49227/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.blazing.de:6969/announce](http://tracker.blazing.de:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.bt-hash.com/announce](http://tracker.bt-hash.com/announce) | - | 0.00% | 0 |
@@ -1005,6 +1004,7 @@
 | 🔴 死亡 | [http://tracker.computel.fr/announce](http://tracker.computel.fr/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.corpscorp.online/announce](http://tracker.corpscorp.online/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.cubonegro.org/announce](http://tracker.cubonegro.org/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.cutie.dating/announce](http://tracker.cutie.dating/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.darkness.services:6969/announce](http://tracker.darkness.services:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.devil-torrents.pl/announce](http://tracker.devil-torrents.pl/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.dm258.cn:7070/announce](http://tracker.dm258.cn:7070/announce) | - | 0.00% | 0 |
@@ -1021,7 +1021,7 @@
 | 🔴 死亡 | [http://tracker.etree.org:6969/announce](http://tracker.etree.org:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ex.ua/announce](http://tracker.ex.ua/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.exe.in.th:6969/announce](http://tracker.exe.in.th:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.fansub.id/announce](http://tracker.fansub.id/announce) | 79 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.fansub.id/announce](http://tracker.fansub.id/announce) | 311 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.fdn.fr:6969/announce](http://tracker.fdn.fr:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.file09.com/announce](http://tracker.file09.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.filemail.com:6969/announce](http://tracker.filemail.com:6969/announce) | - | 0.00% | 0 |
@@ -1039,14 +1039,14 @@
 | 🔴 死亡 | [http://tracker.guguan.000.pe/announce](http://tracker.guguan.000.pe/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.hdcmct.com:2710/announce](http://tracker.hdcmct.com:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.hdreactor.org:2710/announce](http://tracker.hdreactor.org:2710/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.hiyj.cn/announce](http://tracker.hiyj.cn/announce) | 1423 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.hiyj.cn/announce](http://tracker.hiyj.cn/announce) | 2654 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.huadongblower.xyz:8080/announce](http://tracker.huadongblower.xyz:8080/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ilibr.org/announce](http://tracker.ilibr.org/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.imgdump.lol:6969/announce](http://tracker.imgdump.lol:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.internetwarriors.net:1337/announce](http://tracker.internetwarriors.net:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ipv6tracker.org/announce](http://tracker.ipv6tracker.org/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ipv6tracker.ru/announce](http://tracker.ipv6tracker.ru/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.iro.moe/announce](http://tracker.iro.moe/announce) | 401 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.iro.moe/announce](http://tracker.iro.moe/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ismaarino.com:8880/announce](http://tracker.ismaarino.com:8880/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.istole.it/announce](http://tracker.istole.it/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.k.vu:6969/announce](http://tracker.k.vu:6969/announce) | - | 0.00% | 0 |
@@ -1054,7 +1054,7 @@
 | 🔴 死亡 | [http://tracker.kicks-ass.net/announce](http://tracker.kicks-ass.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.kisssub.org/announce](http://tracker.kisssub.org/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.kisssub.org:2015/announce](http://tracker.kisssub.org:2015/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.kmzs123.com/announce](http://tracker.kmzs123.com/announce) | 97 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.kmzs123.com/announce](http://tracker.kmzs123.com/announce) | 98 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ktxp.com:6868/announce](http://tracker.ktxp.com:6868/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ktxp.com:7070/announce](http://tracker.ktxp.com:7070/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.kuroy.me:5944/announce](http://tracker.kuroy.me:5944/announce) | - | 0.00% | 0 |
@@ -1120,7 +1120,7 @@
 | 🔴 死亡 | [http://tracker.tiny-vps.com:6969/announce](http://tracker.tiny-vps.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.torrent.to:2710/announce](http://tracker.torrent.to:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.torrentbay.to:6969/announce](http://tracker.torrentbay.to:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.torrentfrancais.com/announce](http://tracker.torrentfrancais.com/announce) | 224 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.torrentfrancais.com/announce](http://tracker.torrentfrancais.com/announce) | 193 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.torrentuje.me:2710/announce](http://tracker.torrentuje.me:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.torrentyorg.pl/announce](http://tracker.torrentyorg.pl/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.trackerfix.com/announce](http://tracker.trackerfix.com/announce) | - | 0.00% | 0 |
@@ -1143,7 +1143,7 @@
 | 🔴 死亡 | [http://tracker.xfapi.top:9999/announce](http://tracker.xfapi.top:9999/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.xfsub.com:6868/announce](http://tracker.xfsub.com:6868/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.xiaoduola.xyz:6969/announce](http://tracker.xiaoduola.xyz:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.xn--vzyr4p.top/announce](http://tracker.xn--vzyr4p.top/announce) | 768 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.xn--vzyr4p.top/announce](http://tracker.xn--vzyr4p.top/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ygsub.com:6969/announce](http://tracker.ygsub.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.yify-torrents.com/announce](http://tracker.yify-torrents.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.ykat.xyz:6969/announce](http://tracker.ykat.xyz:6969/announce) | - | 0.00% | 0 |
@@ -1151,12 +1151,13 @@
 | 🔴 死亡 | [http://tracker.yowe.net/announce](http://tracker.yowe.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.yuelili.com/announce](http://tracker.yuelili.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.zerobytes.xyz:1337/announce](http://tracker.zerobytes.xyz:1337/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.zhuqiy.dgj055.icu/announce](http://tracker.zhuqiy.dgj055.icu/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker.zhuqiy.eu.org:36107/announce](http://tracker.zhuqiy.eu.org:36107/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker.zhuqiy.top/announce](http://tracker.zhuqiy.top/announce) | 95 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker.zhuqiy.top/announce](http://tracker.zhuqiy.top/announce) | 133 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker01.loveapp.com:6789/announce](http://tracker01.loveapp.com:6789/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker1.bt.moack.co.kr/announce](http://tracker1.bt.moack.co.kr/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker1.itzmx.com80/announce](http://tracker1.itzmx.com80/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://tracker1.itzmx.com:8080/announce](http://tracker1.itzmx.com:8080/announce) | 294 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://tracker1.itzmx.com:8080/announce](http://tracker1.itzmx.com:8080/announce) | 239 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker1.wasabii.com.tw:6969/announce](http://tracker1.wasabii.com.tw:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker114514.top:11450/announce](http://tracker114514.top:11450/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker2.itzmx.com:6961/announce](http://tracker2.itzmx.com:6961/announce) | - | 0.00% | 0 |
@@ -1172,12 +1173,12 @@
 | 🔴 死亡 | [http://tracker4.itzmx.com:6961/announce](http://tracker4.itzmx.com:6961/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker4.piratux.com:6969/announce](http://tracker4.piratux.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://tracker810.xyz:11450/announce](http://tracker810.xyz:11450/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://trackeropenbittorrent.uni.me/announce](http://trackeropenbittorrent.uni.me/announce) | 566 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://trackeropenbittorrent.uni.me/announce](http://trackeropenbittorrent.uni.me/announce) | 5461 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://trackers.ibzu.me/announce](http://trackers.ibzu.me/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://trackers.ydns.eu:10036/announce](http://trackers.ydns.eu:10036/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://trackme.theom.nz/announce](http://trackme.theom.nz/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://trackr.appolon.dev:6969/announce](http://trackr.appolon.dev:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://traht.org/announce](http://traht.org/announce) | 88 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://traht.org/announce](http://traht.org/announce) | 120 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://trk.publictracker.xyz:6969/announce](http://trk.publictracker.xyz:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://unhide-torrents.org/announce](http://unhide-torrents.org/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://unknownsite.de:6969/announce](http://unknownsite.de:6969/announce) | - | 0.00% | 0 |
@@ -1206,8 +1207,8 @@
 | 🔴 死亡 | [http://www.loushao.net80/announce](http://www.loushao.net80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.loushao.net:8080/announce](http://www.loushao.net:8080/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.megatorrents.kg/announce](http://www.megatorrents.kg/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://www.mvgroup.org/tracker.php/announce](http://www.mvgroup.org/tracker.php/announce) | 65 ms | 0.00% | 0 |
-| 🔴 死亡 | [http://www.mvgroup.org/tracker.php:80/announce](http://www.mvgroup.org/tracker.php:80/announce) | 30 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://www.mvgroup.org/tracker.php/announce](http://www.mvgroup.org/tracker.php/announce) | 103 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://www.mvgroup.org/tracker.php:80/announce](http://www.mvgroup.org/tracker.php:80/announce) | 44 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://www.mvgroup.org:2710/announce](http://www.mvgroup.org:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.nartlof.com.br:6969/announce](http://www.nartlof.com.br:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.peckservers.com:9000/announce](http://www.peckservers.com:9000/announce) | - | 0.00% | 0 |
@@ -1215,15 +1216,15 @@
 | 🔴 死亡 | [http://www.shnflac.net/announce](http://www.shnflac.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.siambt.com/announce](http://www.siambt.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.skyts.net:6969/announce](http://www.skyts.net:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://www.thetradersden.org/forums/tracker/announce](http://www.thetradersden.org/forums/tracker/announce) | 122 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://www.thetradersden.org/forums/tracker/announce](http://www.thetradersden.org/forums/tracker/announce) | 188 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://www.torrent-downloads.to:2710/announce](http://www.torrent-downloads.to:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.torrentsnipe.info:2701/announce](http://www.torrentsnipe.info:2701/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [http://www.tvnihon.com:6969/announce](http://www.tvnihon.com:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://www.unlimitz.com/announce](http://www.unlimitz.com/announce) | 207 ms | 0.00% | 0 |
-| 🔴 死亡 | [http://www.wareztorrent.com/announce](http://www.wareztorrent.com/announce) | 568 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://www.unlimitz.com/announce](http://www.unlimitz.com/announce) | 162 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://www.wareztorrent.com/announce](http://www.wareztorrent.com/announce) | 649 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://www.wareztorrent.com:6969/announce](http://www.wareztorrent.com:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [http://www.yqzuji.com/announce](http://www.yqzuji.com/announce) | 98 ms | 0.00% | 0 |
-| 🔴 死亡 | [http://www.yuwabits.net/announce](http://www.yuwabits.net/announce) | 257 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://www.yqzuji.com/announce](http://www.yqzuji.com/announce) | 123 ms | 0.00% | 0 |
+| 🔴 死亡 | [http://www.yuwabits.net/announce](http://www.yuwabits.net/announce) | 227 ms | 0.00% | 0 |
 | 🔴 死亡 | [http://yggtracker.i2p.rocks/announce](http://yggtracker.i2p.rocks/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://00.alarmasqueretaro.com/announce](https://00.alarmasqueretaro.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://00.mercax.com/announce](https://00.mercax.com/announce) | - | 0.00% | 0 |
@@ -1249,20 +1250,19 @@
 | 🔴 死亡 | [https://bt.endpot.com/announce](https://bt.endpot.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://bt.nfshost.com/announce](https://bt.nfshost.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://bt.ptlsp.com/announce](https://bt.ptlsp.com/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://btn-prod.ghostchu-services.top/tracker/announce](https://btn-prod.ghostchu-services.top/tracker/announce) | 124 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://btn-prod.ghostchu-services.top/tracker/announce](https://btn-prod.ghostchu-services.top/tracker/announce) | 164 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://chihaya-heroku.120181311.xyz/announce](https://chihaya-heroku.120181311.xyz/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://chihaya.de/announce](https://chihaya.de/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://cny.fan/announce](https://cny.fan/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://danielcloud.ddns.net/announce](https://danielcloud.ddns.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org/announce](https://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://docker-tracker-production.up.railway.app/announce](https://docker-tracker-production.up.railway.app/announce) | 179 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://docker-tracker-production.up.railway.app/announce](https://docker-tracker-production.up.railway.app/announce) | 180 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://explodie.org:6969/announce](https://explodie.org:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://fbiagent.cyou/announce](https://fbiagent.cyou/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://grifon.info:80/announce](https://grifon.info:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://gwp2-v19.rinet.ru/announce](https://gwp2-v19.rinet.ru/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://gwp2-v19.rinet.ru:80/announce](https://gwp2-v19.rinet.ru:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://hcbt.pp.ua/announce](https://hcbt.pp.ua/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://hdpt.xyz/announce](https://hdpt.xyz/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://inferno.demonoid.is/announce](https://inferno.demonoid.is/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://ipv6.tracker.m-team.cc/announce](https://ipv6.tracker.m-team.cc/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://jvavav.com/announce](https://jvavav.com/announce) | - | 0.00% | 0 |
@@ -1289,11 +1289,11 @@
 | 🔴 死亡 | [https://seeders-paradise.org/announce](https://seeders-paradise.org/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://shahidrazi.online/announce](https://shahidrazi.online/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://socket.onvo.me/announce](https://socket.onvo.me/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://sparkle.ghostchu-services.top/announce](https://sparkle.ghostchu-services.top/announce) | 154 ms | 0.00% | 0 |
-| 🔴 死亡 | [https://sparkle.ghostchu-services.top/tracker/announce](https://sparkle.ghostchu-services.top/tracker/announce) | 148 ms | 0.00% | 0 |
-| 🔴 死亡 | [https://t.audiences.me/announce](https://t.audiences.me/announce) | 127 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://sparkle.ghostchu-services.top/announce](https://sparkle.ghostchu-services.top/announce) | 151 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://sparkle.ghostchu-services.top/tracker/announce](https://sparkle.ghostchu-services.top/tracker/announce) | 153 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://t.audiences.me/announce](https://t.audiences.me/announce) | 124 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://t.btcland.xyz/announce](https://t.btcland.xyz/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://t.hdhome.org/announce](https://t.hdhome.org/announce) | 402 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://t.hdhome.org/announce](https://t.hdhome.org/announce) | 431 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://t.peer-exchange.download/announce](https://t.peer-exchange.download/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://t.quic.ws/announce](https://t.quic.ws/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://t.zerg.pw/announce](https://t.zerg.pw/announce) | - | 0.00% | 0 |
@@ -1304,11 +1304,11 @@
 | 🔴 死亡 | [https://t3.leech.ie/announce](https://t3.leech.ie/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tk.mabo.ltd/announce](https://tk.mabo.ltd/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://torrent-tracker.hama3.net/announce](https://torrent-tracker.hama3.net/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://torrent.opiums.eu/announce](https://torrent.opiums.eu/announce) | 1191 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://torrent.opiums.eu/announce](https://torrent.opiums.eu/announce) | 1629 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://torrent.tracker.durukanbal.com/announce](https://torrent.tracker.durukanbal.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://torrents.linuxmint.com/announce](https://torrents.linuxmint.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://torrust.canofsocks.com/announce](https://torrust.canofsocks.com/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://tr-rh-zhuqiy.dgj055.icu/announce](https://tr-rh-zhuqiy.dgj055.icu/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [https://tr-zhuqiy-1.dgj055.icu/announce](https://tr-zhuqiy-1.dgj055.icu/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr-zhuqiy-2.dgj055.icu/announce](https://tr-zhuqiy-2.dgj055.icu/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr.aag.moe/announce](https://tr.aag.moe/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr.abiir.top/announce](https://tr.abiir.top/announce) | - | 0.00% | 0 |
@@ -1320,6 +1320,7 @@
 | 🔴 死亡 | [https://tr.doogh.club/announce](https://tr.doogh.club/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr.fuckbitcoin.xyz/announce](https://tr.fuckbitcoin.xyz/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr.highstar.shop/announce](https://tr.highstar.shop/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [https://tr.kxmp.cf/announce](https://tr.kxmp.cf/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr.kxmp.cf:80/announce](https://tr.kxmp.cf:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr.kxmp.ml/announce](https://tr.kxmp.ml/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tr.qfruiti.in/announce](https://tr.qfruiti.in/announce) | - | 0.00% | 0 |
@@ -1339,7 +1340,7 @@
 | 🔴 死亡 | [https://tracker.baka.ink/announce](https://tracker.baka.ink/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.bangumi.zip/announce](https://tracker.bangumi.zip/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.belmult.online/announce](https://tracker.belmult.online/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://tracker.bittor.xyz/announce](https://tracker.bittor.xyz/announce) | 520 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://tracker.bittor.xyz/announce](https://tracker.bittor.xyz/announce) | 729 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.bjut.jp/announce](https://tracker.bjut.jp/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.bt-hash.com/announce](https://tracker.bt-hash.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.bug38.com/announce](https://tracker.bug38.com/announce) | - | 0.00% | 0 |
@@ -1348,7 +1349,6 @@
 | 🔴 死亡 | [https://tracker.cloudit.top/announce](https://tracker.cloudit.top/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.coalition.space/announce](https://tracker.coalition.space/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.crawfish.cf/announce](https://tracker.crawfish.cf/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://tracker.cutie.dating/announce](https://tracker.cutie.dating/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.cybar.xyz/announce](https://tracker.cybar.xyz/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.cyber-hub.net/announce](https://tracker.cyber-hub.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.dev-null.rocks/announce](https://tracker.dev-null.rocks/announce) | - | 0.00% | 0 |
@@ -1379,11 +1379,10 @@
 | 🔴 死亡 | [https://tracker.jdx3.org/announce](https://tracker.jdx3.org/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.jiesen.life:8443/announce](https://tracker.jiesen.life:8443/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.jobser.eu/announce](https://tracker.jobser.eu/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://tracker.keepfrds.com/announce](https://tracker.keepfrds.com/announce) | 168 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://tracker.keepfrds.com/announce](https://tracker.keepfrds.com/announce) | 268 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.kitaujisub.site/announce](https://tracker.kitaujisub.site/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.kmzs123.cn/announce](https://tracker.kmzs123.cn/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.kmzs123.top/announce](https://tracker.kmzs123.top/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://tracker.kuroy.me/announce](https://tracker.kuroy.me/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.leaves.red/announce](https://tracker.leaves.red/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.lelux.fi/announce](https://tracker.lelux.fi/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.lilithraws.cf/announce](https://tracker.lilithraws.cf/announce) | - | 0.00% | 0 |
@@ -1395,6 +1394,7 @@
 | 🔴 死亡 | [https://tracker.madassnews.net/announce](https://tracker.madassnews.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.midnightprogrammer.net/announce](https://tracker.midnightprogrammer.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.mlsub.net/announce](https://tracker.mlsub.net/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [https://tracker.moeblog.cn/announce](https://tracker.moeblog.cn/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.moxing.party:6969/announce](https://tracker.moxing.party:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.mrhei.tech:666/announce](https://tracker.mrhei.tech:666/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.nanoha.org/announce](https://tracker.nanoha.org/announce) | - | 0.00% | 0 |
@@ -1410,7 +1410,7 @@
 | 🔴 死亡 | [https://tracker.puvvadi.net/announce](https://tracker.puvvadi.net/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.qingwa.pro/announce](https://tracker.qingwa.pro/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.quix.cf/announce](https://tracker.quix.cf/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://tracker.renfei.net/announce](https://tracker.renfei.net/announce) | 77 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://tracker.renfei.net/announce](https://tracker.renfei.net/announce) | 71 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.renfei.net:8080/announce](https://tracker.renfei.net:8080/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.sakurato.art:23334/announce](https://tracker.sakurato.art:23334/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.shittyurl.org/announce](https://tracker.shittyurl.org/announce) | - | 0.00% | 0 |
@@ -1428,8 +1428,8 @@
 | 🔴 死亡 | [https://tracker.vectahosting.eu:8443/announce](https://tracker.vectahosting.eu:8443/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.yarr.pt/announce](https://tracker.yarr.pt/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker.yggleak.top/announce](https://tracker.yggleak.top/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://tracker.zhuqiy.top/announce](https://tracker.zhuqiy.top/announce) | 62 ms | 0.00% | 0 |
-| 🔴 死亡 | [https://tracker.zhuque.in/announce](https://tracker.zhuque.in/announce) | 462 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://tracker.zhuqiy.top/announce](https://tracker.zhuqiy.top/announce) | 80 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://tracker.zhuque.in/announce](https://tracker.zhuque.in/announce) | 267 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker01.ilovelemonhd.me/announce](https://tracker01.ilovelemonhd.me/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker1.ctix.cn/announce](https://tracker1.ctix.cn/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker1.loli.co.nz/announce](https://tracker1.loli.co.nz/announce) | - | 0.00% | 0 |
@@ -1439,17 +1439,17 @@
 | 🔴 死亡 | [https://tracker3.ctix.cn/announce](https://tracker3.ctix.cn/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker3.leaves.red/announce](https://tracker3.leaves.red/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://tracker6.lelux.fi/announce](https://tracker6.lelux.fi/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://trackers.mlsub.net/announce](https://trackers.mlsub.net/announce) | 234 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://trackers.mlsub.net/announce](https://trackers.mlsub.net/announce) | 308 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://trackers.nekosunevr.co.uk/announce](https://trackers.nekosunevr.co.uk/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://trackers.ptlsp.com/announce](https://trackers.ptlsp.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://trackme.theom.nz/announce](https://trackme.theom.nz/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://ttk.pp.ua/announce](https://ttk.pp.ua/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://ttracker.just-h.party/announce](https://ttracker.just-h.party/announce) | 358 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://ttracker.just-h.party/announce](https://ttracker.just-h.party/announce) | 542 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://w.wwwww.wtf/announce](https://w.wwwww.wtf/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://www.peckservers.com:9000/announce](https://www.peckservers.com:9000/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://www.peckservers.com:9443/announce](https://www.peckservers.com:9443/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [https://www.wareztorrent.com/announce](https://www.wareztorrent.com/announce) | 426 ms | 0.00% | 0 |
-| 🔴 死亡 | [https://x7x.up.railway.app/announce](https://x7x.up.railway.app/announce) | 188 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://www.wareztorrent.com/announce](https://www.wareztorrent.com/announce) | 718 ms | 0.00% | 0 |
+| 🔴 死亡 | [https://x7x.up.railway.app/announce](https://x7x.up.railway.app/announce) | 303 ms | 0.00% | 0 |
 | 🔴 死亡 | [https://yolo.liberbear.com/announce](https://yolo.liberbear.com/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://yolo.liberbear.com:80/announce](https://yolo.liberbear.com:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [https://yuki.bt.bontal.net/announce](https://yuki.bt.bontal.net/announce) | - | 0.00% | 0 |
@@ -1459,6 +1459,7 @@
 | 🔴 死亡 | [udp://10.rarbg.com:6969/announce](udp://10.rarbg.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://103.122.21.50:6969/announce](udp://103.122.21.50:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://103.196.36.31:6969/announce](udp://103.196.36.31:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://103.251.166.126:6969/announce](udp://103.251.166.126:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://103.30.17.23:6969/announce](udp://103.30.17.23:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://104.131.98.232:6969/announce](udp://104.131.98.232:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://104.143.10.186:8000/announce](udp://104.143.10.186:8000/announce) | - | 0.00% | 0 |
@@ -1483,12 +1484,12 @@
 | 🔴 死亡 | [udp://116.8.91.159:6969/announce](udp://116.8.91.159:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://117.29.108.251:2710/announce](udp://117.29.108.251:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://117.29.108.251:6969/announce](udp://117.29.108.251:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://118.196.100.63:6969/announce](udp://118.196.100.63:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://119.28.134.203:6969/announce](udp://119.28.134.203:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://119.28.71.45:8080/announce](udp://119.28.71.45:8080/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://120.36.84.188:2710/announce](udp://120.36.84.188:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://120.36.84.3:2710/announce](udp://120.36.84.3:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://120.36.84.3:6969/announce](udp://120.36.84.3:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://120.78.150.131:6969/announce](udp://120.78.150.131:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://121.14.98.151:80/announce](udp://121.14.98.151:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://121.14.98.151:9090/announce](udp://121.14.98.151:9090/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://121.199.16.229:6969/announce](udp://121.199.16.229:6969/announce) | - | 0.00% | 0 |
@@ -1561,6 +1562,7 @@
 | 🔴 死亡 | [udp://185.102.219.163:6969/announce](udp://185.102.219.163:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://185.181.60.155:80/announce](udp://185.181.60.155:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://185.181.60.67:80/announce](udp://185.181.60.67:80/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://185.189.13.108:6969/announce](udp://185.189.13.108:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://185.21.216.185:6969/announce](udp://185.21.216.185:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://185.225.68.26:6969/announce](udp://185.225.68.26:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://185.230.4.150:1337/announce](udp://185.230.4.150:1337/announce) | - | 0.00% | 0 |
@@ -1577,7 +1579,6 @@
 | 🔴 死亡 | [udp://186.10.181.5:1337/announce](udp://186.10.181.5:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://188.165.253.109:1337/announce](udp://188.165.253.109:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://188.241.58.209:6969/announce](udp://188.241.58.209:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://189.18.126.49:6969/announce](udp://189.18.126.49:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://190.146.242.81:6969/announce](udp://190.146.242.81:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://191.101.229.236:1337/announce](udp://191.101.229.236:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://192.95.46.115:6969/announce](udp://192.95.46.115:6969/announce) | - | 0.00% | 0 |
@@ -1585,7 +1586,6 @@
 | 🔴 死亡 | [udp://193.107.16.156:80/announce](udp://193.107.16.156:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://193.233.161.213:6969/announce](udp://193.233.161.213:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://193.37.214.12:6969/announce](udp://193.37.214.12:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://193.42.111.57:9337/announce](udp://193.42.111.57:9337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://194.106.216.222:80/announce](udp://194.106.216.222:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://194.182.165.153:6969/announce](udp://194.182.165.153:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://194.38.21.77:6969/announce](udp://194.38.21.77:6969/announce) | - | 0.00% | 0 |
@@ -1608,6 +1608,7 @@
 | 🔴 死亡 | [udp://208.83.20.20:6969/announce](udp://208.83.20.20:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://209.126.11.233:6969/announce](udp://209.126.11.233:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://209.141.45.244:1337/announce](udp://209.141.45.244:1337/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://209.141.59.16:6969/announce](udp://209.141.59.16:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://209.50.255.93:3218/announce](udp://209.50.255.93:3218/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://211.23.142.127:6969/announce](udp://211.23.142.127:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://211.75.210.220:6969/announce](udp://211.75.210.220:6969/announce) | - | 0.00% | 0 |
@@ -1792,7 +1793,6 @@
 | 🔴 死亡 | [udp://91.238.104.240:6969/announce](udp://91.238.104.240:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://92.223.105.178:6969/announce](udp://92.223.105.178:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://93.104.214.40:6969/announce](udp://93.104.214.40:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://93.158.213.92:1337/announce](udp://93.158.213.92:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://94-227-232-84.access.telenet.be:6969/announce](udp://94-227-232-84.access.telenet.be:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://94.103.87.87:6969/announce](udp://94.103.87.87:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://94.136.190.183:1333/announce](udp://94.136.190.183:1333/announce) | - | 0.00% | 0 |
@@ -1835,6 +1835,7 @@
 | 🔴 死亡 | [udp://auratorrent.pl:8089/announce](udp://auratorrent.pl:8089/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://axell24.ru:6969/announce](udp://axell24.ru:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://bananas.space:6969/announce](udp://bananas.space:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://bandito.byterunner.io:6969/announce](udp://bandito.byterunner.io:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://bandito.org:80/announce](udp://bandito.org:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://bclearning.top:6969/announce](udp://bclearning.top:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://bedro.cloud:6969/announce](udp://bedro.cloud:6969/announce) | - | 0.00% | 0 |
@@ -1845,6 +1846,7 @@
 | 🔴 死亡 | [udp://bigtorrent.org:2710/announce](udp://bigtorrent.org:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://bioquantum.co.za:6969/announce](udp://bioquantum.co.za:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://bitsparadise.info:6969/announce](udp://bitsparadise.info:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce](udp://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://black-bird.ynh.fr:6969/announce](udp://black-bird.ynh.fr:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://blokas.io:6969/announce](udp://blokas.io:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://bms-hosxp.com:6969/announce](udp://bms-hosxp.com:6969/announce) | - | 0.00% | 0 |
@@ -2055,6 +2057,7 @@
 | 🔴 死亡 | [udp://ns1.monolithindustries.com:6969/announce](udp://ns1.monolithindustries.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://ns3109441.mypdns.org:6969/announce](udp://ns3109441.mypdns.org:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://nullzone.fr:6969/announce](udp://nullzone.fr:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://obey.torrentonline.cc:42069/announce](udp://obey.torrentonline.cc:42069/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://odd-hd.fr:6969/announce](udp://odd-hd.fr:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://oh.fuuuuuck.com:6969/announce](udp://oh.fuuuuuck.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://open-tracker.demonoid.ch:6969/announce](udp://open-tracker.demonoid.ch:6969/announce) | - | 0.00% | 0 |
@@ -2083,7 +2086,6 @@
 | 🔴 死亡 | [udp://opentracker.i2p.rocks:6969/announce](udp://opentracker.i2p.rocks:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://opentracker.io:6969/announce](udp://opentracker.io:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://opentracker.xyz:443/announce](udp://opentracker.xyz:443/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://opentrackr.org:1337/announce](udp://opentrackr.org:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://openwrt.lingyurouqing.xyz:6969/announce](udp://openwrt.lingyurouqing.xyz:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://oscar.reyesleon.xyz:6969/announce](udp://oscar.reyesleon.xyz:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://p2p.0g.cx:6969/announce](udp://p2p.0g.cx:6969/announce) | - | 0.00% | 0 |
@@ -2313,7 +2315,6 @@
 | 🔴 死亡 | [udp://tracker.iamhansen.xyz:2000/announce](udp://tracker.iamhansen.xyz:2000/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://tracker.ilibr.org:6969/announce](udp://tracker.ilibr.org:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://tracker.ilibr.org:80/announce](udp://tracker.ilibr.org:80/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://tracker.internetwarriors.net:1337/announce](udp://tracker.internetwarriors.net:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://tracker.istole.it:80/announce](udp://tracker.istole.it:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://tracker.ixuexi.click:6969/announce](udp://tracker.ixuexi.click:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://tracker.jae.moe:6969/announce](udp://tracker.jae.moe:6969/announce) | - | 0.00% | 0 |
@@ -2472,7 +2473,6 @@
 | 🔴 死亡 | [udp://trackerb.jonaslsa.com:6969/announce](udp://trackerb.jonaslsa.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://trackeropenbittorrent.uni.me:80/announce](udp://trackeropenbittorrent.uni.me:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://trackerxyz.tk:1337/announce](udp://trackerxyz.tk:1337/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://trackthis.cyber.pz.it:1337/announce](udp://trackthis.cyber.pz.it:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://traht.org:80/announce](udp://traht.org:80/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://trl-zhuqiy.dgj055.icu:6969/announce](udp://trl-zhuqiy.dgj055.icu:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://ts.populargamers.co.za:6969/announce](udp://ts.populargamers.co.za:6969/announce) | - | 0.00% | 0 |
@@ -2492,7 +2492,6 @@
 | 🔴 死亡 | [udp://uploads.gamecoast.net:6969/announce](udp://uploads.gamecoast.net:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://us-tracker.publictracker.xyz:6969/announce](udp://us-tracker.publictracker.xyz:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://v1046920.hosted-by-vdsina.ru:6969/announce](udp://v1046920.hosted-by-vdsina.ru:6969/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [udp://v2.iperson.xyz:6969/announce](udp://v2.iperson.xyz:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://v74853.hosted-by-vdsina.com:6969/announce](udp://v74853.hosted-by-vdsina.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://valakas.rollo.dnsabr.com:2710/announce](udp://valakas.rollo.dnsabr.com:2710/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://vibe.community:6969/announce](udp://vibe.community:6969/announce) | - | 0.00% | 0 |
@@ -2502,6 +2501,7 @@
 | 🔴 死亡 | [udp://wassermann.online:6969/announce](udp://wassermann.online:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://wepzone.net:6969/announce](udp://wepzone.net:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://wg.mortis.me:6969/announce](udp://wg.mortis.me:6969/announce) | - | 0.00% | 0 |
+| 🔴 死亡 | [udp://whybother.torrentonline.cc:42069/announce](udp://whybother.torrentonline.cc:42069/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://widemus.de:6969/announce](udp://widemus.de:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://www.2600.com:6969/announce](udp://www.2600.com:6969/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://www.eddie4.nl:6969/announce](udp://www.eddie4.nl:6969/announce) | - | 0.00% | 0 |
@@ -2534,132 +2534,132 @@
 | 🔴 死亡 | [udp://zer0day.ch:1337/announce](udp://zer0day.ch:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [udp://zer0day.to:1337/announce](udp://zer0day.to:1337/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [wss://tracker.dnlab.net:443/announce](wss://tracker.dnlab.net:443/announce) | - | 0.00% | 0 |
-| 🔴 死亡 | [wss://tracker.novage.com.ua:443/announce](wss://tracker.novage.com.ua:443/announce) | - | 0.00% | 0 |
 | 🔴 死亡 | [wss://tracker.sloppyta.co:443/announce](wss://tracker.sloppyta.co:443/announce) | - | 0.00% | 0 |
-| ⚠️ 无效 | [http://1337.abcvg.info/announce](http://1337.abcvg.info/announce) | 547 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://157.90.169.123/announce](http://157.90.169.123/announce) | 248 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://159.148.57.222:6969/announce](http://159.148.57.222:6969/announce) | 294 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://167.235.245.209/announce](http://167.235.245.209/announce) | 241 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://179.43.174.249/announce](http://179.43.174.249/announce) | 242 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://185.148.3.231/announce](http://185.148.3.231/announce) | 5127 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://45.146.254.59/announce](http://45.146.254.59/announce) | 1371 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://51.255.140.206/announce](http://51.255.140.206/announce) | 248 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://51.68.122.172/announce](http://51.68.122.172/announce) | 232 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://54.37.157.173/announce](http://54.37.157.173/announce) | 233 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://93.88.129.16/announce](http://93.88.129.16/announce) | 1344 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://alltorrents.net/bt/announce](http://alltorrents.net/bt/announce) | 318 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://alltorrents.net/bt:80/announce](http://alltorrents.net/bt:80/announce) | 288 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://bittracker.ru/announce](http://bittracker.ru/announce) | 577 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://bluebird-hd.org/announce](http://bluebird-hd.org/announce) | 633 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://bt.beatrice-raws.org/announce](http://bt.beatrice-raws.org/announce) | 278 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://carbon-bonsai-621.appspot.com/announce](http://carbon-bonsai-621.appspot.com/announce) | 81 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://datascene.net/announce](http://datascene.net/announce) | 104 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://divxhunt.me/announce](http://divxhunt.me/announce) | 488 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://ed2k.vip:33333/announce](http://ed2k.vip:33333/announce) | 569 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://i.bandito.org/announce](http://i.bandito.org/announce) | 192 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://kamikazee.duckdns.org:7777/announce](http://kamikazee.duckdns.org:7777/announce) | 4672 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://kaztorka.org/announce](http://kaztorka.org/announce) | 78 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://kinorun.com/announce](http://kinorun.com/announce) | 482 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://masters-tb.com/announce](http://masters-tb.com/announce) | 78 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://mediaclub.tv/announce](http://mediaclub.tv/announce) | 400 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://metal.iplay.ro/announce](http://metal.iplay.ro/announce) | 620 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://mkfs.ru/announce](http://mkfs.ru/announce) | 475 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://proaudiotorrents.org/announce](http://proaudiotorrents.org/announce) | 489 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://rds-zone.ro/announce](http://rds-zone.ro/announce) | 4779 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://retracker.joxnet.ru/announce](http://retracker.joxnet.ru/announce) | 618 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://s1124554.ha012.t.mydomain.zone/announce](http://s1124554.ha012.t.mydomain.zone/announce) | 259 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://s1130638.ha016.t.mydomain.zone/announce](http://s1130638.ha016.t.mydomain.zone/announce) | 128 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://s1130639.ha009.t.mydomain.zone/announce](http://s1130639.ha009.t.mydomain.zone/announce) | 98 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://s1130642.ha014.t.mydomain.zone/announce](http://s1130642.ha014.t.mydomain.zone/announce) | 444 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://siambit.com/announce](http://siambit.com/announce) | 228 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://sndabt.sdo.com/announce](http://sndabt.sdo.com/announce) | 1417 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tc-boxing.com/announce](http://tc-boxing.com/announce) | 389 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tk.leechshield.link/announce](http://tk.leechshield.link/announce) | 342 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://torrent.ubuntu.com:6969/announce](http://torrent.ubuntu.com:6969/announce) | 348 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://torrentsmd.com:8080/announce](http://torrentsmd.com:8080/announce) | 145 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://torrentzilla.org/announce](http://torrentzilla.org/announce) | 132 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.anirena.com/announce](http://tracker.anirena.com/announce) | 91 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce](http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce) | 25 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.blazing.de/announce](http://tracker.blazing.de/announce) | 748 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.bt-chat.com/announce](http://tracker.bt-chat.com/announce) | 242 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.cutie.dating/announce](http://tracker.cutie.dating/announce) | 2644 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.gaytorrent.ru/announce](http://tracker.gaytorrent.ru/announce) | 291 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.h0me.cc:8880/announce](http://tracker.h0me.cc:8880/announce) | 81 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.m-team.cc/announce](http://tracker.m-team.cc/announce) | 92 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.marshyonline.net/announce](http://tracker.marshyonline.net/announce) | 4670 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.openzim.org/announce](http://tracker.openzim.org/announce) | 377 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.torrentbytes.net/announce](http://tracker.torrentbytes.net/announce) | 565 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker.torrentino.com/announce](http://tracker.torrentino.com/announce) | 204 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker1.torrentino.com/announce](http://tracker1.torrentino.com/announce) | 140 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker2.ctix.cn:2095/announce](http://tracker2.ctix.cn:2095/announce) | 374 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker2.torrentino.com/announce](http://tracker2.torrentino.com/announce) | 218 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker3.torrentino.com/announce](http://tracker3.torrentino.com/announce) | 145 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker4.torrentino.com/announce](http://tracker4.torrentino.com/announce) | 553 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker5.torrentino.com/announce](http://tracker5.torrentino.com/announce) | 124 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://tracker9.bol.bg/announce](http://tracker9.bol.bg/announce) | 506 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://trun.tom.ru/announce](http://trun.tom.ru/announce) | 471 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://uatracker.net/announce](http://uatracker.net/announce) | 234 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.bitseduce.com/announce](http://www.bitseduce.com/announce) | 278 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.learnbits.me/announce](http://www.learnbits.me/announce) | 573 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.legittorrents.info/announce](http://www.legittorrents.info/announce) | 322 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.music-vid.com/announce](http://www.music-vid.com/announce) | 183 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.thetradersden.org/forums/tracker:80/announce](http://www.thetradersden.org/forums/tracker:80/announce) | 83 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.tribalmixes.com/announce](http://www.tribalmixes.com/announce) | 313 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.worldboxingvideoarchive.com/announce](http://www.worldboxingvideoarchive.com/announce) | 468 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.xwt-classics.net/announce](http://www.xwt-classics.net/announce) | 473 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://www.zone-torrent.net/announce](http://www.zone-torrent.net/announce) | 166 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://xtremewrestlingtorrents.net/announce](http://xtremewrestlingtorrents.net/announce) | 376 ms | 0.00% | 0 |
-| ⚠️ 无效 | [http://yolo.liberbear.com/announce](http://yolo.liberbear.com/announce) | 775 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://9001-digitaladeel-bkwl-launch-oovrfk6mpz.app.codeanywhere.com/announce](https://9001-digitaladeel-bkwl-launch-oovrfk6mpz.app.codeanywhere.com/announce) | 237 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://abir0dev.github.io/announce](https://abir0dev.github.io/announce) | 84 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://academic-p2p.appspot.com/announce](https://academic-p2p.appspot.com/announce) | 109 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://agsvpt.trackers.work/announce](https://agsvpt.trackers.work/announce) | 997 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://bigfoot1942.sektori.org/announce](https://bigfoot1942.sektori.org/announce) | 72 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://bittracker.nekosunevr.co.uk/announce](https://bittracker.nekosunevr.co.uk/announce) | 423 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://bt2.080609.xyz/announce](https://bt2.080609.xyz/announce) | 161 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://carapax.net/announce](https://carapax.net/announce) | 198 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://carbon-bonsai-621.appspot.com/announce](https://carbon-bonsai-621.appspot.com/announce) | 75 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://cernet-tracker.appspot.com/announce](https://cernet-tracker.appspot.com/announce) | 153 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://chdbits.xyz/announce](https://chdbits.xyz/announce) | 462 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://evening-badlands-6215.herokuapp.com/announce](https://evening-badlands-6215.herokuapp.com/announce) | 215 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://on.springsunday.net/announce](https://on.springsunday.net/announce) | 619 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://open.ftorrent.com/announce](https://open.ftorrent.com/announce) | 140 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://ourbits.club/announce](https://ourbits.club/announce) | 365 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://pt.btschool.club/announce](https://pt.btschool.club/announce) | 282 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://t.hddolby.com/announce](https://t.hddolby.com/announce) | 159 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://t.ubits.club/announce](https://t.ubits.club/announce) | 359 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://threads.canofsocks.com/announce](https://threads.canofsocks.com/announce) | 213 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tp.m-team.cc/announce](https://tp.m-team.cc/announce) | 118 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tr.qfruiti.com/announce](https://tr.qfruiti.com/announce) | 297 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tr.ready4.icu/announce](https://tr.ready4.icu/announce) | 156 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tr.zukizuki.org/announce](https://tr.zukizuki.org/announce) | 253 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.cangku.moe/announce](https://tracker.cangku.moe/announce) | 351 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.carpt.net/announce](https://tracker.carpt.net/announce) | 347 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.gcrenwp.top/announce](https://tracker.gcrenwp.top/announce) | 145 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.hdarea.club/announce](https://tracker.hdarea.club/announce) | 799 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.hdsky.me/announce](https://tracker.hdsky.me/announce) | 415 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.iochimari.moe/announce](https://tracker.iochimari.moe/announce) | 520 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.itscraftsoftware.my.id/announce](https://tracker.itscraftsoftware.my.id/announce) | 974 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.kawaii.id/announce](https://tracker.kawaii.id/announce) | 636 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.kmzs123.com/announce](https://tracker.kmzs123.com/announce) | 71 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.leechshield.link/announce](https://tracker.leechshield.link/announce) | 116 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.m-team.cc/announce](https://tracker.m-team.cc/announce) | 71 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.madtia.cc/announce](https://tracker.madtia.cc/announce) | 365 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.maya.no.eu.org/announce](https://tracker.maya.no.eu.org/announce) | 443 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.moeking.me/announce](https://tracker.moeking.me/announce) | 62 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.monikadesign.uk/announce](https://tracker.monikadesign.uk/announce) | 684 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.parrotsec.org/announce](https://tracker.parrotsec.org/announce) | 111 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.piggo.me/announce](https://tracker.piggo.me/announce) | 121 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.projectk.org/announce](https://tracker.projectk.org/announce) | 171 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.ptchdbits.co/announce](https://tracker.ptchdbits.co/announce) | 515 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.rainbowisland.co/announce](https://tracker.rainbowisland.co/announce) | 923 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.samcze.pl/announce](https://tracker.samcze.pl/announce) | 229 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.sjtu.edu.cn/announce](https://tracker.sjtu.edu.cn/announce) | 1751 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker.wsaoa.eu.org/announce](https://tracker.wsaoa.eu.org/announce) | 343 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://tracker1.520.jp/announce](https://tracker1.520.jp/announce) | 405 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://trackers.run/announce](https://trackers.run/announce) | 118 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://trakx.herokuapp.com/announce](https://trakx.herokuapp.com/announce) | 165 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://voxhost.fr/announce](https://voxhost.fr/announce) | 113 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://wolf.parrot.run/announce](https://wolf.parrot.run/announce) | 585 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://wsad.run.place/announce](https://wsad.run.place/announce) | 1059 ms | 0.00% | 0 |
-| ⚠️ 无效 | [https://xtremex.herokuapp.com/announce](https://xtremex.herokuapp.com/announce) | 238 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://157.90.169.123/announce](http://157.90.169.123/announce) | 289 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://159.148.57.222:6969/announce](http://159.148.57.222:6969/announce) | 312 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://167.235.245.209/announce](http://167.235.245.209/announce) | 301 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://179.43.174.249/announce](http://179.43.174.249/announce) | 294 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://51.255.140.206/announce](http://51.255.140.206/announce) | 253 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://51.68.122.172/announce](http://51.68.122.172/announce) | 253 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://54.37.157.173/announce](http://54.37.157.173/announce) | 262 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://93.88.129.16/announce](http://93.88.129.16/announce) | 364 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://alltorrents.net/bt/announce](http://alltorrents.net/bt/announce) | 339 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://alltorrents.net/bt:80/announce](http://alltorrents.net/bt:80/announce) | 323 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://bittracker.ru/announce](http://bittracker.ru/announce) | 608 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://bluebird-hd.org/announce](http://bluebird-hd.org/announce) | 861 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://bt.beatrice-raws.org/announce](http://bt.beatrice-raws.org/announce) | 303 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://carbon-bonsai-621.appspot.com/announce](http://carbon-bonsai-621.appspot.com/announce) | 88 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://datascene.net/announce](http://datascene.net/announce) | 105 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://divxhunt.me/announce](http://divxhunt.me/announce) | 344 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://ed2k.vip:33333/announce](http://ed2k.vip:33333/announce) | 697 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://i.bandito.org/announce](http://i.bandito.org/announce) | 157 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://kamikazee.duckdns.org:7777/announce](http://kamikazee.duckdns.org:7777/announce) | 5002 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://kaztorka.org/announce](http://kaztorka.org/announce) | 116 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://kinorun.com/announce](http://kinorun.com/announce) | 194 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://masters-tb.com/announce](http://masters-tb.com/announce) | 119 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://mediaclub.tv/announce](http://mediaclub.tv/announce) | 455 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://metal.iplay.ro/announce](http://metal.iplay.ro/announce) | 570 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://mkfs.ru/announce](http://mkfs.ru/announce) | 573 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://proaudiotorrents.org/announce](http://proaudiotorrents.org/announce) | 454 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://rds-zone.ro/announce](http://rds-zone.ro/announce) | 584 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://retracker.joxnet.ru/announce](http://retracker.joxnet.ru/announce) | 744 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://s1124554.ha012.t.mydomain.zone/announce](http://s1124554.ha012.t.mydomain.zone/announce) | 276 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://s1130638.ha016.t.mydomain.zone/announce](http://s1130638.ha016.t.mydomain.zone/announce) | 132 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://s1130639.ha009.t.mydomain.zone/announce](http://s1130639.ha009.t.mydomain.zone/announce) | 90 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://s1130642.ha014.t.mydomain.zone/announce](http://s1130642.ha014.t.mydomain.zone/announce) | 423 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://siambit.com/announce](http://siambit.com/announce) | 171 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://sndabt.sdo.com/announce](http://sndabt.sdo.com/announce) | 905 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tc-boxing.com/announce](http://tc-boxing.com/announce) | 1093 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tk.leechshield.link/announce](http://tk.leechshield.link/announce) | 364 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://torrent.ubuntu.com:6969/announce](http://torrent.ubuntu.com:6969/announce) | 373 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://torrentsmd.com:8080/announce](http://torrentsmd.com:8080/announce) | 74 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://torrentzilla.org/announce](http://torrentzilla.org/announce) | 179 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.anirena.com/announce](http://tracker.anirena.com/announce) | 93 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce](http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce) | 41 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.blazing.de/announce](http://tracker.blazing.de/announce) | 675 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.bt-chat.com/announce](http://tracker.bt-chat.com/announce) | 172 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.gaytorrent.ru/announce](http://tracker.gaytorrent.ru/announce) | 336 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.h0me.cc:8880/announce](http://tracker.h0me.cc:8880/announce) | 113 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.m-team.cc/announce](http://tracker.m-team.cc/announce) | 85 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.marshyonline.net/announce](http://tracker.marshyonline.net/announce) | 4100 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.openzim.org/announce](http://tracker.openzim.org/announce) | 450 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.torrentbytes.net/announce](http://tracker.torrentbytes.net/announce) | 577 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker.torrentino.com/announce](http://tracker.torrentino.com/announce) | 163 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker1.torrentino.com/announce](http://tracker1.torrentino.com/announce) | 319 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker2.ctix.cn:2095/announce](http://tracker2.ctix.cn:2095/announce) | 1346 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker2.torrentino.com/announce](http://tracker2.torrentino.com/announce) | 179 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker3.torrentino.com/announce](http://tracker3.torrentino.com/announce) | 176 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker4.torrentino.com/announce](http://tracker4.torrentino.com/announce) | 184 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker5.torrentino.com/announce](http://tracker5.torrentino.com/announce) | 130 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://tracker9.bol.bg/announce](http://tracker9.bol.bg/announce) | 368 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://trun.tom.ru/announce](http://trun.tom.ru/announce) | 803 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://uatracker.net/announce](http://uatracker.net/announce) | 274 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.bitseduce.com/announce](http://www.bitseduce.com/announce) | 276 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.learnbits.me/announce](http://www.learnbits.me/announce) | 605 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.legittorrents.info/announce](http://www.legittorrents.info/announce) | 154 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.music-vid.com/announce](http://www.music-vid.com/announce) | 137 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.thetradersden.org/forums/tracker:80/announce](http://www.thetradersden.org/forums/tracker:80/announce) | 112 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.tribalmixes.com/announce](http://www.tribalmixes.com/announce) | 367 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.worldboxingvideoarchive.com/announce](http://www.worldboxingvideoarchive.com/announce) | 459 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.xwt-classics.net/announce](http://www.xwt-classics.net/announce) | 374 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://www.zone-torrent.net/announce](http://www.zone-torrent.net/announce) | 158 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://xtremewrestlingtorrents.net/announce](http://xtremewrestlingtorrents.net/announce) | 372 ms | 0.00% | 0 |
+| ⚠️ 无效 | [http://yolo.liberbear.com/announce](http://yolo.liberbear.com/announce) | 551 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://1337.abcvg.info/announce](https://1337.abcvg.info/announce) | 395 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://9001-digitaladeel-bkwl-launch-oovrfk6mpz.app.codeanywhere.com/announce](https://9001-digitaladeel-bkwl-launch-oovrfk6mpz.app.codeanywhere.com/announce) | 395 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://abir0dev.github.io/announce](https://abir0dev.github.io/announce) | 104 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://academic-p2p.appspot.com/announce](https://academic-p2p.appspot.com/announce) | 90 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://agsvpt.trackers.work/announce](https://agsvpt.trackers.work/announce) | 1010 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://bigfoot1942.sektori.org/announce](https://bigfoot1942.sektori.org/announce) | 75 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://bittracker.nekosunevr.co.uk/announce](https://bittracker.nekosunevr.co.uk/announce) | 778 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://bt2.080609.xyz/announce](https://bt2.080609.xyz/announce) | 126 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://carapax.net/announce](https://carapax.net/announce) | 133 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://carbon-bonsai-621.appspot.com/announce](https://carbon-bonsai-621.appspot.com/announce) | 74 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://cernet-tracker.appspot.com/announce](https://cernet-tracker.appspot.com/announce) | 164 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://chdbits.xyz/announce](https://chdbits.xyz/announce) | 552 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://colibri.parrot.run/announce](https://colibri.parrot.run/announce) | 537 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://evening-badlands-6215.herokuapp.com/announce](https://evening-badlands-6215.herokuapp.com/announce) | 288 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://hdpt.xyz/announce](https://hdpt.xyz/announce) | 15142 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://on.springsunday.net/announce](https://on.springsunday.net/announce) | 655 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://ourbits.club/announce](https://ourbits.club/announce) | 150 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://pt.btschool.club/announce](https://pt.btschool.club/announce) | 540 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://t.hddolby.com/announce](https://t.hddolby.com/announce) | 164 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://t.ubits.club/announce](https://t.ubits.club/announce) | 305 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://threads.canofsocks.com/announce](https://threads.canofsocks.com/announce) | 174 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tp.m-team.cc/announce](https://tp.m-team.cc/announce) | 99 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tr.qfruiti.com/announce](https://tr.qfruiti.com/announce) | 257 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tr.ready4.icu/announce](https://tr.ready4.icu/announce) | 217 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tr.zukizuki.org/announce](https://tr.zukizuki.org/announce) | 343 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.cangku.moe/announce](https://tracker.cangku.moe/announce) | 336 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.carpt.net/announce](https://tracker.carpt.net/announce) | 361 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.cutie.dating/announce](https://tracker.cutie.dating/announce) | 2441 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.gcrenwp.top/announce](https://tracker.gcrenwp.top/announce) | 222 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.hdarea.club/announce](https://tracker.hdarea.club/announce) | 694 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.hdsky.me/announce](https://tracker.hdsky.me/announce) | 500 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.iochimari.moe/announce](https://tracker.iochimari.moe/announce) | 126 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.itscraftsoftware.my.id/announce](https://tracker.itscraftsoftware.my.id/announce) | 560 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.kawaii.id/announce](https://tracker.kawaii.id/announce) | 899 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.kmzs123.com/announce](https://tracker.kmzs123.com/announce) | 77 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.kuroy.me/announce](https://tracker.kuroy.me/announce) | 135 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.leechshield.link/announce](https://tracker.leechshield.link/announce) | 153 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.m-team.cc/announce](https://tracker.m-team.cc/announce) | 77 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.madtia.cc/announce](https://tracker.madtia.cc/announce) | 286 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.maya.no.eu.org/announce](https://tracker.maya.no.eu.org/announce) | 353 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.moeking.me/announce](https://tracker.moeking.me/announce) | 79 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.monikadesign.uk/announce](https://tracker.monikadesign.uk/announce) | 769 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.parrotsec.org/announce](https://tracker.parrotsec.org/announce) | 122 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.piggo.me/announce](https://tracker.piggo.me/announce) | 138 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.projectk.org/announce](https://tracker.projectk.org/announce) | 176 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.ptchdbits.co/announce](https://tracker.ptchdbits.co/announce) | 530 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.rainbowisland.co/announce](https://tracker.rainbowisland.co/announce) | 914 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.samcze.pl/announce](https://tracker.samcze.pl/announce) | 255 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.sjtu.edu.cn/announce](https://tracker.sjtu.edu.cn/announce) | 5941 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.wsaoa.eu.org/announce](https://tracker.wsaoa.eu.org/announce) | 251 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker.yemekyedim.com/announce](https://tracker.yemekyedim.com/announce) | 261 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://tracker1.520.jp/announce](https://tracker1.520.jp/announce) | 443 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://trackers.run/announce](https://trackers.run/announce) | 173 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://trakx.herokuapp.com/announce](https://trakx.herokuapp.com/announce) | 229 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://voxhost.fr/announce](https://voxhost.fr/announce) | 146 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://wolf.parrot.run/announce](https://wolf.parrot.run/announce) | 588 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://wsad.run.place/announce](https://wsad.run.place/announce) | 2075 ms | 0.00% | 0 |
+| ⚠️ 无效 | [https://xtremex.herokuapp.com/announce](https://xtremex.herokuapp.com/announce) | 284 ms | 0.00% | 0 |
