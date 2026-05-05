@@ -39,5 +39,5 @@ https://raw.githubusercontent.com/lighting9999/tracker/refs/heads/master/best.tx
 https://raw.githubusercontent.com/NoRRt/torrent_trackers/refs/heads/main/trackers.txt
 https://raw.githubusercontent.com/adysec/tracker/refs/heads/main/trackers_all.txt
 https://raw.githubusercontent.com/DeSireFire/animeTrackerList/refs/heads/master/AT_all.txt
-
+https://raw.githubusercontent.com/Tunglies/TrackersList/refs/heads/main/all.txt
 https://raw.githubusercontent.com/adysec/tracker/refs/heads/main/trackers_best.txt
