@@ -1,0 +1,47 @@
+# mkdocs.yml
+site_name: Tracker Status Dashboard
+site_description: BitTorrent tracker 可用性实时报告
+site_url: https://tracker-project.pages.dev
+repo_url: https://github.com/lighting9999/tracker-project
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 切换到暗色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到亮色模式
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      type: timeago
+      enable_creation_date: true
+
+markdown_extensions:
+  - tables
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+docs_dir: docs
+site_dir: public
