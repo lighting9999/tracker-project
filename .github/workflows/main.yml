@@ -1,0 +1,101 @@
+name: Tracker Check and Deploy
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'          # 每4小时运行一次
+  workflow_dispatch:               # 允许手动触发
+
+permissions:
+  contents: write                  # 提交 tracker 文件需要写权限
+
+concurrency:
+  group: tracker-pipeline
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 检出代码
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. 设置 Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests mkdocs mkdocs-material mkdocs-static-i18n mkdocs-git-revision-date-localized-plugin
+
+      # 3. 配置 Git 用户
+      - name: Configure Git
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+
+      # 4. 下载外部 tracker 源并合并
+      - name: Download and merge sources
+        run: |
+          mkdir -p webtracker/sources
+
+          if [ -f "download_sources.txt" ]; then
+            count=0
+            while IFS= read -r url; do
+              [[ -z "$url" || "$url" =~ ^# ]] && continue
+              count=$((count+1))
+              filename="source_${count}.txt"
+              echo "⬇️ Downloading: $url → webtracker/sources/$filename"
+              curl -sS --retry 2 --max-time 30 "$url" -o "webtracker/sources/$filename" || \
+                echo "⚠️ Failed: $url"
+            done < download_sources.txt
+          fi
+
+          true > webtracker/input_merged.txt
+          if [ -d "webtracker/sources" ]; then
+            cat webtracker/sources/*.txt >> webtracker/input_merged.txt
+          fi
+          if [ -f "direct_trackers.txt" ]; then
+            cat direct_trackers.txt >> webtracker/input_merged.txt
+          fi
+          sed -i '/^$/d' webtracker/input_merged.txt
+          echo "✅ Merged file has $(wc -l < webtracker/input_merged.txt) lines"
+
+      # 5. 运行 tracker 检查器（生成中英文文档、tracker 列表、历史记录）
+      - name: Run tracker checker
+        run: |
+          python tracker_checker.py webtracker/input_merged.txt trackers_best.txt --workers 40 --generate-docs
+
+      # 6. 提交生成的文件
+      - name: Commit updated files
+        run: |
+          date +'%Y%m%d%H' > date.txt
+          git add trackers_all.txt trackers_best*.txt tracker_history.tsv docs/ mkdocs.yml date.txt
+
+          if git diff --cached --quiet; then
+            echo "No changes, skip commit."
+            exit 0
+          fi
+
+          git commit -m "Update trackers $(date +'%Y-%m-%d %H:%M')"
+          # 推送（失败重试3次）
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push && break
+            sleep 5
+          done
+
+      # 7. 构建 MkDocs 站点（多语言）
+      - name: Build site
+        run: mkdocs build
+
+      # 8. 部署到 Cloudflare Pages
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy public/ --project-name=${{ secrets.CF_PAGES_PROJECT_NAME }} --branch=main
