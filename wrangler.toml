@@ -1,7 +1,7 @@
 # wrangler.toml
-name = "tracker-project"             # 与你的 Cloudflare Pages 项目名一致
-compatibility_date = "2025-03-01"    # 建议保留
-
+name = "tracker-project"
+compatibility_date = "2025-03-01"
+pages_build_output_dir = "./public"
 [site]
 bucket = "./public"                  # mkdocs build 的输出目录
 
