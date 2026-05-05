@@ -3,7 +3,8 @@ name: Tracker Check and Deploy
 on:
   schedule:
     - cron: '0 */4 * * *'          # 每4小时运行一次
-  workflow_dispatch:               # 允许手动触发
+  workflow_dispatch:
+  push: 
 
 permissions:
   contents: write                  # 提交 tracker 文件需要写权限
