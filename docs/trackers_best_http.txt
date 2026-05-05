@@ -1,6 +1,7 @@
 http://004430.xyz/announce
 http://107.189.2.131:1337/announce
 http://113.16.153.98:6969/announce
+http://1337.abcvg.info/announce
 http://140.235.237.23:6969/announce
 http://167.253.78.20:8080/announce
 http://172.245.168.134/announce
@@ -8,7 +9,6 @@ http://189.18.126.49:6969/announce
 http://200.111.152.53:1337/announce
 http://207.241.226.111:6969/announce
 http://207.241.231.226:6969/announce
-http://209.50.255.93:3218/announce
 http://211.75.205.187/announce
 http://211.75.205.187:6969/announce
 http://211.75.205.188/announce
@@ -24,6 +24,7 @@ http://43.250.54.137:6969/announce
 http://60.249.37.20/announce
 http://60.249.37.20:6969/announce
 http://91.98.161.68:6969/announce
+http://93.158.213.92:1337/announce
 http://95.217.167.10:6969/announce
 http://aboutbeautifulgallopinghorsesinthegreenpasture.online/announce
 http://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce
@@ -56,14 +57,14 @@ http://ehtracker.org/1453746/announce
 http://ehtracker.org/2496841/announce
 http://ehtracker.org/2541477/announce
 http://ehtracker.org/2566145/1159106xUfsJkT9Btg/announce
-http://ipv4announce.sktorrent.eu:6969/announce
 http://novaopcj.icu:10325/announce
 http://nyaa.tracker.wf:7777/announce
 http://open.tracker.cl:1337/announce
 http://opentracker.acgnx.se/announce
 http://opentrackr.org:1337/announce
+http://retracker.x2k.ru/announce
+http://share.hkg-fansub.info/announce
 http://sukebei.tracker.wf:8888/announce
-http://t.overflow.biz:6969/announce
 http://tk.cubicview.site/announce
 http://tk.trojangogogo.site:8989/announce
 http://torrent.arjlover.net:2710/announce
@@ -75,7 +76,6 @@ http://tr.kxmp.cf/announce
 http://tr.nyacat.pw/announce
 http://tr.ysagin.top:2710/announce
 http://tracker-udp.anirena.com/announce
-http://tracker-zhuqiy.dgj055.icu/announce
 http://tracker.004430.xyz:1337/announce
 http://tracker.acgnx.se/announce
 http://tracker.anonwebz.xyz:8080/announce
@@ -112,7 +112,6 @@ http://tracker.tvunderground.org.ru:3218/announce
 http://tracker.waaa.moe:6969/announce
 http://tracker.xn--djrq4gl4hvoi.top/announce
 http://tracker.zhuqiy.com/announce
-http://tracker.zhuqiy.dgj055.icu/announce
 http://tracker2.dler.com/announce
 http://tracker2.dler.org/announce
 http://tracker3.dler.org:2710/announce
