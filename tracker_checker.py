@@ -425,10 +425,7 @@ def generate_docs_markdown(results: List[CheckResult], history: Dict[str, Tracke
     # ---------- 构建 Markdown 首页 ----------
     index_md = f"""# Tracker 状态仪表盘
 
-**输入文件**: `{html_escape(input_file)}`  
-**输出文件**: `{html_escape(output_file)}`  
 **最后更新**: {last_update}
-
 [公开统计](public-stats/index.md)
 
 ## 统计摘要
@@ -445,7 +442,10 @@ def generate_docs_markdown(results: List[CheckResult], history: Dict[str, Tracke
 ## 快速下载
 
 - [所有存活 tracker](trackers_best.txt)
-- [HTTP](trackers_best_http.txt) · [HTTPS](trackers_best_https.txt) · [UDP](trackers_best_udp.txt) · [WSS](trackers_best_wss.txt)
+- [HTTP](trackers_best_http.txt) 
+- [HTTPS](trackers_best_https.txt) 
+- [UDP](trackers_best_udp.txt) 
+- [WSS](trackers_best_wss.txt)
 
 ## 详细状态
 
