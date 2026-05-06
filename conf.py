@@ -5,21 +5,18 @@ author = 'TrackerBot'
 language = 'en'
 
 extensions = [
-    'sphinx_design',          # 可选，增强 UI 组件（可移除，不影响基本功能）
+    'sphinx_rtd_dark_mode',    # 可选：自动暗色模式（需 pip 安装）
+    'sphinx_design',           # 可选：更好的 UI 组件
 ]
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
-# 使用内置 Alabaster 主题（简洁轻量）
-html_theme = 'alabaster'
-
-# 若你想使用默认的 Classic 主题，可替换为：
-# html_theme = 'classic'
+html_theme = 'sphinx_rtd_theme'
 
 html_static_path = ['static']
 
-# 将 tracker 下载文件复制到站点根目录，保持直接下载
+# 复制 tracker 文件到站点根目录
 html_extra_path = [
     'trackers_all.txt',
     'trackers_best.txt',
@@ -29,16 +26,16 @@ html_extra_path = [
     'trackers_best_wss.txt',
 ]
 
-# Alabaster 主题简单配置
 html_theme_options = {
-    'description': 'BitTorrent Tracker Live Status',
-    'github_user': 'lighting9999',
-    'github_repo': 'tracker-project',
-    'fixed_sidebar': True,
-    'page_width': '1080px',
-    'sidebar_width': '220px',
+    'navigation_depth': 3,
+    'collapse_navigation': False,
+    'sticky_navigation': True,
+    'includehidden': True,
+    'titles_only': False,
+    'logo_only': False,
+    'display_version': False,
 }
 
-# 多语言支持（保留，虽然当前 RST 已分目录，但可配合 sphinx-intl）
+# 多语言支持
 locale_dirs = ['locale/']
 gettext_compact = False
