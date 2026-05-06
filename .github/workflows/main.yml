@@ -3,7 +3,7 @@ name: Tracker Check and Deploy
 on:
   push:
   schedule:
-    - cron: '0 */16 * * *'
+    - cron: '0 */12 * * *'         # 每 16 小时运行一次（可根据需要调整）
   workflow_dispatch:
 
 permissions:
@@ -17,24 +17,30 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # ========= 1. 检出仓库 =========
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # ========= 2. 设置 Python =========
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.13'
 
+      # ========= 3. 安装依赖 =========
       - name: Install dependencies
-        run: pip install requests mkdocs mkdocs-material mkdocs-static-i18n mkdocs-git-revision-date-localized-plugin
+        run: |
+          pip install aiohttp sphinx sphinx-rtd-theme
 
+      # ========= 4. 配置 Git =========
       - name: Configure Git
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
+      # ========= 5. 下载 & 合并 tracker 源 =========
       - name: Download and merge sources
         run: |
           mkdir -p webtracker/sources
@@ -50,7 +56,7 @@ jobs:
             done < download_sources.txt
           fi
 
-          # —— 合并所有源到 raw 文件 ——
+          # 合并所有源到 raw 文件
           true > webtracker/input_merged_raw.txt
           if [ -d "webtracker/sources" ]; then
             cat webtracker/sources/*.txt >> webtracker/input_merged_raw.txt
@@ -59,7 +65,7 @@ jobs:
             cat direct_trackers.txt >> webtracker/input_merged_raw.txt
           fi
 
-          # —— 清洗管道：Windows换行/逗号拆分/注释/空格/空行/去重 ——
+          # 清洗管道：Windows换行/逗号拆分/注释/空格/空行/去重
           cat webtracker/input_merged_raw.txt \
             | sed 's/\r$//' \
             | tr ',' '\n' \
@@ -72,13 +78,26 @@ jobs:
           rm -f webtracker/input_merged_raw.txt
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
+      # ========= 6. 运行 tracker 检查器（异步验证 + 生成数据文件） =========
       - name: Run tracker checker
-        run: python tracker_checker.py webtracker/input_merged.txt trackers_best.txt --workers 50 --generate-docs
+        run: python check_trackers.py webtracker/input_merged.txt trackers_best.txt --workers 50
 
+      # ========= 7. 构建 Sphinx 文档源文件（分页 + 多语言） =========
+      - name: Generate Sphinx source
+        run: |
+          python build_docs.py \
+            --trackers-all trackers_all.txt \
+            --trackers-best trackers_best.txt \
+            --history tracker_history.tsv \
+            --output-dir source \
+            --page-size 100
+
+      # ========= 8. 提交生成的数据和文档源文件 =========
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
-          git add trackers_all.txt trackers_best*.txt tracker_history.tsv docs/ mkdocs.yml date.txt
+          # 提交 tracker 数据文件、历史、Sphinx 源文件、配置文件
+          git add trackers_all.txt trackers_best*.txt tracker_history.tsv source/ conf.py date.txt
           if git diff --cached --quiet; then
             echo "No changes, skip commit."
             exit 0
@@ -89,9 +108,11 @@ jobs:
             sleep 5
           done
 
+      # ========= 9. 构建 Sphinx HTML =========
       - name: Build site
-        run: mkdocs build
+        run: sphinx-build -b html source/ public/
 
+      # ========= 10. 部署到 Cloudflare Pages =========
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
