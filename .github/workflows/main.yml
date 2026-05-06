@@ -32,7 +32,7 @@ jobs:
       # ========= 3. 安装依赖 =========
       - name: Install dependencies
         run: |
-          pip install aiohttp sphinx sphinx-rtd-theme
+          pip install aiohttp sphinx sphinx-rtd-theme sphinx-rtd-dark-mode sphinx-design
 
       # ========= 4. 配置 Git =========
       - name: Configure Git
