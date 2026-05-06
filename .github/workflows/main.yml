@@ -1,7 +1,7 @@
 name: Tracker Check and Deploy
 
 on:
-  push:                           # <-- 修改点：移除 branches 限制，任何推送都触发
+  push:
   schedule:
     - cron: '0 */16 * * *'
   workflow_dispatch:
@@ -49,15 +49,28 @@ jobs:
                 echo "⚠️ Failed: $url"
             done < download_sources.txt
           fi
-          true > webtracker/input_merged.txt
+
+          # —— 合并所有源到 raw 文件 ——
+          true > webtracker/input_merged_raw.txt
           if [ -d "webtracker/sources" ]; then
-            cat webtracker/sources/*.txt >> webtracker/input_merged.txt
+            cat webtracker/sources/*.txt >> webtracker/input_merged_raw.txt
           fi
           if [ -f "direct_trackers.txt" ]; then
-            cat direct_trackers.txt >> webtracker/input_merged.txt
+            cat direct_trackers.txt >> webtracker/input_merged_raw.txt
           fi
-          sed -i '/^$/d' webtracker/input_merged.txt
-          echo "✅ Merged file has $(wc -l < webtracker/input_merged.txt) lines"
+
+          # —— 清洗管道：Windows换行/逗号拆分/注释/空格/空行/去重 ——
+          cat webtracker/input_merged_raw.txt \
+            | sed 's/\r$//' \
+            | tr ',' '\n' \
+            | sed 's/[[:space:]]*#.*//' \
+            | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' \
+            | sed '/^$/d' \
+            | sort -u \
+            > webtracker/input_merged.txt
+
+          rm -f webtracker/input_merged_raw.txt
+          echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
       - name: Run tracker checker
         run: python tracker_checker.py webtracker/input_merged.txt trackers_best.txt --workers 50 --generate-docs
