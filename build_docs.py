@@ -1,4 +1,4 @@
-```python
+
 #!/usr/bin/env python3
 import argparse, time
 from collections import defaultdict
@@ -236,4 +236,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-```
