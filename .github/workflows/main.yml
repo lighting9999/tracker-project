@@ -45,20 +45,21 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Download tracker sources (parallel)
-        shell: bash
+      - name: Download and merge sources (curl)
         run: |
           mkdir -p webtracker/sources
           if [ -f "download_sources.txt" ]; then
-            grep -v '^\s*$\|^\s*#' download_sources.txt | \
-              xargs -P4 -I {} sh -c \
-                'fname="webtracker/sources/source_$(printf "%04d" $((++i)))_.txt"; \
-                 echo "⬇️ Downloading: {} → $fname"; \
-                 curl -sS --retry 2 --max-time 30 "{}" -o "$fname" || echo "⚠️ Failed: {}"'
+            count=0
+            while IFS= read -r url; do
+              [[ -z "$url" || "$url" =~ ^# ]] && continue
+              count=$((count+1))
+              filename="source_${count}.txt"
+              echo "⬇️ Downloading: $url → webtracker/sources/$filename"
+              curl -sS --retry 2 --max-time 30 "$url" -o "webtracker/sources/$filename" || \
+                echo "⚠️ Failed: $url"
+            done < download_sources.txt
           fi
 
-      - name: Merge and clean tracker sources
-        run: |
           true > webtracker/input_merged_raw.txt
           if [ -d "webtracker/sources" ]; then
             cat webtracker/sources/*.txt >> webtracker/input_merged_raw.txt
@@ -82,7 +83,7 @@ jobs:
       - name: Run tracker checker
         run: python check_trackers.py webtracker/input_merged.txt trackers_best.txt --workers 50
 
-      - name: Generate static HTML
+      - name: Generate static HTML (multi-language, paginated)
         run: |
           python build_docs.py \
             --trackers-all trackers_all.txt \
@@ -101,6 +102,7 @@ jobs:
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
+          # 删除可能残留的旧构建目录，避免 git 干扰
           rm -rf source/ docs/
           git add trackers_all.txt trackers_best*.txt tracker_history.tsv date.txt
           if git diff --cached --quiet; then
