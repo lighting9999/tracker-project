@@ -113,4 +113,14 @@
       {{- range $paginator.Pagers -}}
         {{- if eq . $paginator -}}
           <span class="current">{{ .PageNumber }}</span>
-   
+        {{- else -}}
+          <a href="{{ .URL }}">{{ .PageNumber }}</a>
+        {{- end -}}
+        {{- if not (eq . $paginator.Last) }} | {{ end -}}
+      {{- end -}}
+    </div>
+    {{- end -}}
+    <a href="#top" class="back-to-top">🔝 {{ $locale.back_to_top }}</a>
+  </div>
+</body>
+</html>
