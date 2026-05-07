@@ -91,9 +91,8 @@ jobs:
 
       - name: Prepare Hugo data and static files
         run: |
-          # 生成 data/trackers.json
+          mkdir -p hugo/static               # 确保目录存在
           python build_docs.py --output-dir hugo/data
-          # 复制 tracker 文件到 static/
           cp trackers_all.txt trackers_best*.txt hugo/static/
 
       - name: Build Hugo site
@@ -111,7 +110,6 @@ jobs:
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
-          # 清理可能的临时构建目录
           rm -rf source/ docs/ public/ hugo/public/
           git add trackers_all.txt trackers_best*.txt tracker_history.tsv date.txt
           if git diff --cached --quiet; then
