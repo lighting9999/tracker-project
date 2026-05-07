@@ -1,0 +1,21 @@
+baseURL: https://tracker-project.pages.dev
+languageCode: en-us
+defaultContentLanguage: en
+paginate: 100
+
+languages:
+  en:
+    title: Tracker Status Dashboard
+    weight: 1
+  zh:
+    title: Tracker 状态仪表盘
+    weight: 2
+
+build:
+  writeStats: true
+
+# 将 static 目录复制到站点根
+module:
+  mounts:
+    - source: static
+      target: /
