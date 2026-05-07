@@ -3,7 +3,7 @@ name: Tracker Check and Deploy
 on:
   push:
   schedule:
-    - cron: '0 */12 * * *'
+    - cron: '0 */16 * * *'
   workflow_dispatch:
 
 permissions:
@@ -25,32 +25,42 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.14'
+          cache: 'pip'                     # pip 下载缓存
 
-      - name: Install dependencies
-        run: |
-          pip install aiohttp sphinx sphinx-rtd-theme sphinx-rtd-dark-mode sphinx-design
+      - name: Restore full Python packages cache
+        id: cache-python
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.pythonLocation }}/lib/python3.12/site-packages
+          key: python-deps-${{ runner.os }}-${{ hashFiles('**/conf.py', '**/build_docs.py', '**/check_trackers.py') }}
+          restore-keys: |
+            python-deps-${{ runner.os }}-
+
+      - name: Install dependencies (skip if cache hit)
+        if: steps.cache-python.outputs.cache-hit != 'true'
+        run: pip install aiohttp sphinx sphinx-rtd-theme sphinx-rtd-dark-mode sphinx-design
 
       - name: Configure Git
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Download and merge sources
+      - name: Download tracker sources (parallel)
+        shell: bash
         run: |
           mkdir -p webtracker/sources
           if [ -f "download_sources.txt" ]; then
-            count=0
-            while IFS= read -r url; do
-              [[ -z "$url" || "$url" =~ ^# ]] && continue
-              count=$((count+1))
-              filename="source_${count}.txt"
-              echo "⬇️ Downloading: $url → webtracker/sources/$filename"
-              curl -sS --retry 2 --max-time 30 "$url" -o "webtracker/sources/$filename" || \
-                echo "⚠️ Failed: $url"
-            done < download_sources.txt
+            # 过滤空行和注释行，使用 xargs 并行下载（最多4个并发）
+            grep -v '^\s*$\|^\s*#' download_sources.txt | \
+              xargs -P6 -I {} sh -c \
+                'fname="webtracker/sources/source_$(printf "%04d" $((++i)))_.txt"; \
+                 echo "⬇️ Downloading: {} → $fname"; \
+                 curl -sS --retry 2 --max-time 30 "{}" -o "$fname" || echo "⚠️ Failed: {}"'
           fi
 
+      - name: Merge and clean tracker sources
+        run: |
           true > webtracker/input_merged_raw.txt
           if [ -d "webtracker/sources" ]; then
             cat webtracker/sources/*.txt >> webtracker/input_merged_raw.txt
@@ -59,6 +69,7 @@ jobs:
             cat direct_trackers.txt >> webtracker/input_merged_raw.txt
           fi
 
+          # 清洗：Win换行、逗号拆分、去注释、去空格、去空行、排序去重
           cat webtracker/input_merged_raw.txt \
             | sed 's/\r$//' \
             | tr ',' '\n' \
@@ -88,22 +99,8 @@ jobs:
           cp conf.py source/
           cp trackers_all.txt trackers_best.txt trackers_best_http.txt trackers_best_https.txt trackers_best_udp.txt trackers_best_wss.txt source/
 
-      - name: Commit updated files
-        run: |
-          date +'%Y%m%d%H' > date.txt
-          git add trackers_all.txt trackers_best*.txt tracker_history.tsv date.txt
-          if git diff --cached --quiet; then
-            echo "No changes, skip commit."
-            exit 0
-          fi
-          git commit -m "Update trackers $(date +'%Y-%m-%d %H:%M') [skip ci]"
-          for i in 1 2 3; do
-            git pull --rebase origin ${{ github.ref_name }} && git push && break
-            sleep 5
-          done
-
-      - name: Build site
-        run: sphinx-build -b html source/ public/
+      - name: Build site (parallel)
+        run: sphinx-build -b html -j auto source/ public/
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
@@ -111,3 +108,18 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy public/ --project-name=${{ secrets.CF_PAGES_PROJECT_NAME }} --branch=${{ github.ref_name }}
+
+      - name: Commit updated files
+        run: |
+          date +'%Y%m%d%H' > date.txt
+          rm -rf source/ docs/            # 删除构建临时目录，避免 git 干扰
+          git add trackers_all.txt trackers_best*.txt tracker_history.tsv date.txt
+          if git diff --cached --quiet; then
+            echo "No changes, skip commit."
+            exit 0
+          fi
+          git commit -m "Update trackers $(date +'%Y-%m-%d %H:%M') [skip ci]"
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin ${{ github.ref_name }} && git push && break
+            sleep 5
+          done
