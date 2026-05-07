@@ -13,9 +13,3 @@ languages:
 
 build:
   writeStats: true
-
-# 将 static 目录复制到站点根
-module:
-  mounts:
-    - source: static
-      target: /
