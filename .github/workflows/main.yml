@@ -25,19 +25,19 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.14'
-          cache: 'pip'                     # pip 下载缓存
+          python-version: '3.12'
+          # 不使用 pip 自动缓存，因为缺少 requirements.txt/pyproject.toml
 
-      - name: Restore full Python packages cache
+      - name: Restore Python packages cache
         id: cache-python
         uses: actions/cache@v4
         with:
           path: ${{ env.pythonLocation }}/lib/python3.12/site-packages
-          key: python-deps-${{ runner.os }}-${{ hashFiles('**/conf.py', '**/build_docs.py', '**/check_trackers.py') }}
+          key: python-deps-${{ runner.os }}-${{ hashFiles('conf.py', 'build_docs.py', 'check_trackers.py') }}
           restore-keys: |
             python-deps-${{ runner.os }}-
 
-      - name: Install dependencies (skip if cache hit)
+      - name: Install dependencies
         if: steps.cache-python.outputs.cache-hit != 'true'
         run: pip install aiohttp sphinx sphinx-rtd-theme sphinx-rtd-dark-mode sphinx-design
 
@@ -51,9 +51,8 @@ jobs:
         run: |
           mkdir -p webtracker/sources
           if [ -f "download_sources.txt" ]; then
-            # 过滤空行和注释行，使用 xargs 并行下载（最多4个并发）
             grep -v '^\s*$\|^\s*#' download_sources.txt | \
-              xargs -P6 -I {} sh -c \
+              xargs -P4 -I {} sh -c \
                 'fname="webtracker/sources/source_$(printf "%04d" $((++i)))_.txt"; \
                  echo "⬇️ Downloading: {} → $fname"; \
                  curl -sS --retry 2 --max-time 30 "{}" -o "$fname" || echo "⚠️ Failed: {}"'
@@ -69,7 +68,6 @@ jobs:
             cat direct_trackers.txt >> webtracker/input_merged_raw.txt
           fi
 
-          # 清洗：Win换行、逗号拆分、去注释、去空格、去空行、排序去重
           cat webtracker/input_merged_raw.txt \
             | sed 's/\r$//' \
             | tr ',' '\n' \
@@ -112,7 +110,7 @@ jobs:
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
-          rm -rf source/ docs/            # 删除构建临时目录，避免 git 干扰
+          rm -rf source/ docs/
           git add trackers_all.txt trackers_best*.txt tracker_history.tsv date.txt
           if git diff --cached --quiet; then
             echo "No changes, skip commit."
