@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -51,7 +51,7 @@ Detailed Status
    * - 🔴 DEAD | udp://tracker.farted.net:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://tracker.fatkhoala.org:13710/announce | 100.00% | 1 |
    * - 🟢 ALIVE | udp://tracker.fatkhoala.org:13790/announce | 100.00% | 1 |
-   * - 🔴 DEAD | udp://tracker.filemail.com:6969/announce | 50.00% | 0 |
+   * - 🔴 DEAD | udp://tracker.filemail.com:6969/announce | 33.33% | 0 |
    * - 🔴 DEAD | udp://tracker.filepit.to:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.files.fm:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.filetracker.pl:8089/announce | 0.00% | 0 |

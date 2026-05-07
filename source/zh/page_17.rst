@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 17/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -43,7 +43,7 @@ Tracker 状态仪表盘 (页码 17/40)
    * - 🔴 DEAD | http://tracker.zerobytes.xyz:1337/announce | 0.00% | 0 |
    * - 🟢 ALIVE | http://tracker.zhuqiy.com/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://tracker.zhuqiy.com:443/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://tracker.zhuqiy.dgj055.icu/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | http://tracker.zhuqiy.dgj055.icu/announce | 33.33% | 1 |
    * - 🔴 DEAD | http://tracker.zhuqiy.eu.org:36107/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker.zhuqiy.top/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker01.loveapp.com:6789/announce | 0.00% | 0 |

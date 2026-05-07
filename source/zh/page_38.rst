@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 38/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -45,7 +45,7 @@ Tracker 状态仪表盘 (页码 38/40)
    * - 🔴 DEAD | udp://tracker.openbittorrent.com:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.openbtba.com:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://tracker.opentorrent.top:6969/announce | 100.00% | 1 |
-   * - 🔴 DEAD | udp://tracker.opentrackr.org:1337/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | udp://tracker.opentrackr.org:1337/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://tracker.orsvarn.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.pcfreetime.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.picotorrent.one:6969/announce | 0.00% | 0 |
@@ -82,7 +82,7 @@ Tracker 状态仪表盘 (页码 38/40)
    * - 🔴 DEAD | udp://tracker.sktorrent.net:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.skynetcloud.site:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.skyts.net:6969/announce | 0.00% | 0 |
-   * - 🔴 DEAD | udp://tracker.srv00.com:6969/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | udp://tracker.srv00.com:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://tracker.startwork.cv:1337/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.supertracker.net:1337/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.swateam.org.uk:2710/announce | 0.00% | 0 |
@@ -93,7 +93,7 @@ Tracker 状态仪表盘 (页码 38/40)
    * - 🔴 DEAD | udp://tracker.tcp.exchange:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.teambelgium.net:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.texoviva.com:9898/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://tracker.theoks.net:6969/announce | 100.00% | 1 |
+   * - 🔴 DEAD | udp://tracker.theoks.net:6969/announce | 66.67% | 0 |
    * - 🔴 DEAD | udp://tracker.thepiratebay.org:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.therarbg.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.therarbg.to:6969/announce | 0.00% | 0 |

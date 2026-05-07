@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 22/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -38,7 +38,7 @@ Tracker 状态仪表盘 (页码 22/40)
    * - 🔴 DEAD | https://tracker.tamersunion.org/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.tfile.me/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.tiny-vps.com:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | https://tracker.torrentbd.net/announce | 100.00% | 1 |
+   * - 🔴 DEAD | https://tracker.torrentbd.net/announce | 66.67% | 0 |
    * - 🔴 DEAD | https://tracker.torrentsnows.com/announce | 0.00% | 0 |
    * - 🟢 ALIVE | https://tracker.totheglory.im/announce | 100.00% | 1 |
    * - 🔴 DEAD | https://tracker.trafficmgr.net/announce | 0.00% | 0 |
@@ -99,7 +99,7 @@ Tracker 状态仪表盘 (页码 22/40)
    * - 🔴 DEAD | udp://101.99.94.187:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://103.122.21.50:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://103.196.36.31:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://103.251.166.126:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | udp://103.251.166.126:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://103.30.17.23:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://104.131.98.232:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://104.143.10.186:8000/announce | 0.00% | 0 |
@@ -115,14 +115,14 @@ Tracker 状态仪表盘 (页码 22/40)
    * - 🔴 DEAD | udp://107.175.221.194:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://107.182.30.76.16clouds.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://107.189.11.58:6969/announce | 0.00% | 0 |
-   * - 🔴 DEAD | udp://107.189.2.131:1337/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | udp://107.189.2.131:1337/announce | 33.33% | 1 |
    * - 🔴 DEAD | udp://107.189.3.200:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://107.189.4.235:1337/announce | 100.00% | 1 |
    * - 🟢 ALIVE | udp://107.189.7.165:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://108.53.194.223:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://108.61.166.249:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://109.121.134.121:1337/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://109.201.134.183:80/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | udp://109.201.134.183:80/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://109.248.43.36:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://109.72.83.214:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://11.rarbg.com/announce | 0.00% | 0 |

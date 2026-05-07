@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -31,7 +31,7 @@ Detailed Status
 .. list-table::
    :header: "Status", "URL", "Uptime", "Days"
 
-   * - 🟢 ALIVE | udp://tracker.wildkat.net:6969/announce | 50.00% | 1 |
+   * - 🔴 DEAD | udp://tracker.wildkat.net:6969/announce | 33.33% | 0 |
    * - 🔴 DEAD | udp://tracker.windsormetalbattery.com:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.x4w.co:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.x6c.co:6969/announce | 0.00% | 0 |
@@ -46,7 +46,7 @@ Detailed Status
    * - 🔴 DEAD | udp://tracker.ykat.xyz:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.yoshi210.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.yts.re/announce | 0.00% | 0 |
-   * - 🔴 DEAD | udp://tracker.yume-hatsuyuki.moe:6969/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | udp://tracker.yume-hatsuyuki.moe:6969/announce | 33.33% | 1 |
    * - 🔴 DEAD | udp://tracker.zaluan.xyz:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.zemoj.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.zer0day.to:1337/announce | 0.00% | 0 |
@@ -82,7 +82,7 @@ Detailed Status
    * - 🔴 DEAD | udp://trackerb.jonaslsa.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://trackeropenbittorrent.uni.me:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://trackerxyz.tk:1337/announce | 0.00% | 0 |
-   * - 🔴 DEAD | udp://trackthis.cyber.pz.it:1337/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | udp://trackthis.cyber.pz.it:1337/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://traht.org:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://trl-zhuqiy.dgj055.icu:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://ts.populargamers.co.za:6969/announce | 0.00% | 0 |
@@ -106,7 +106,7 @@ Detailed Status
    * - 🔴 DEAD | udp://us-tracker.publictracker.xyz:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://utracker.ghostchu-services.top:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://v1046920.hosted-by-vdsina.ru:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://v2.iperson.xyz:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | udp://v2.iperson.xyz:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://v6-tracker.0g.cx:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://v74853.hosted-by-vdsina.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://valakas.rollo.dnsabr.com:2710/announce | 0.00% | 0 |
@@ -123,7 +123,7 @@ Detailed Status
    * - 🔴 DEAD | udp://wegkxfcivgx.ydns.eu:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://wepzone.net:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://wg.mortis.me:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://whybother.torrentonline.cc:42069/announce | 100.00% | 1 |
+   * - 🔴 DEAD | udp://whybother.torrentonline.cc:42069/announce | 66.67% | 0 |
    * - 🔴 DEAD | udp://widemus.de:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://www.2600.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://www.eddie4.nl:6969/announce | 0.00% | 0 |

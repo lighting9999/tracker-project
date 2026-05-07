@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -81,7 +81,7 @@ Detailed Status
    * - 🔴 DEAD | http://207.246.79.17:6961/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://207.246.79.17:8080/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://209.209.112.121:2710/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://209.50.255.93:3218/announce | 100.00% | 1 |
+   * - 🔴 DEAD | http://209.50.255.93:3218/announce | 66.67% | 0 |
    * - 🔴 DEAD | http://210.244.71.11:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://210.244.71.25:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://210.244.71.26:6969/announce | 0.00% | 0 |

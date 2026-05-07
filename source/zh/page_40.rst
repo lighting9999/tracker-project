@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 40/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -60,23 +60,23 @@ Tracker 状态仪表盘 (页码 40/40)
    * - 🔴 DEAD | udp://zephir.monocul.us:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://zer0day.ch:1337/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://zer0day.to:1337/announce | 0.00% | 0 |
-   * - 🔴 DEAD | wss://qot.abiir.top/announce | 50.00% | 0 |
-   * - 🔴 DEAD | wss://qot.abiir.top:443/announce | 50.00% | 0 |
-   * - 🔴 DEAD | wss://spacetradersapi-chatbox.herokuapp.com/announce | 50.00% | 0 |
-   * - 🔴 DEAD | wss://spacetradersapi-chatbox.herokuapp.com:443/announce | 50.00% | 0 |
-   * - 🔴 DEAD | wss://tracker.btorrent.xyz/announce | 50.00% | 0 |
-   * - 🔴 DEAD | wss://tracker.btorrent.xyz:443/announce | 50.00% | 0 |
+   * - 🔴 DEAD | wss://qot.abiir.top/announce | 33.33% | 0 |
+   * - 🔴 DEAD | wss://qot.abiir.top:443/announce | 33.33% | 0 |
+   * - 🔴 DEAD | wss://spacetradersapi-chatbox.herokuapp.com/announce | 33.33% | 0 |
+   * - 🔴 DEAD | wss://spacetradersapi-chatbox.herokuapp.com:443/announce | 33.33% | 0 |
+   * - 🔴 DEAD | wss://tracker.btorrent.xyz/announce | 33.33% | 0 |
+   * - 🔴 DEAD | wss://tracker.btorrent.xyz:443/announce | 33.33% | 0 |
    * - 🔴 DEAD | wss://tracker.dnlab.net/announce | 0.00% | 0 |
    * - 🔴 DEAD | wss://tracker.dnlab.net:443/announce | 0.00% | 0 |
-   * - 🔴 DEAD | wss://tracker.files.fm:7073/announce | 50.00% | 0 |
+   * - 🔴 DEAD | wss://tracker.files.fm:7073/announce | 33.33% | 0 |
    * - 🔴 DEAD | wss://tracker.ghostchu-services.top/announce | 0.00% | 0 |
    * - 🔴 DEAD | wss://tracker.ghostchu-services.top:443/announce | 0.00% | 0 |
-   * - 🔴 DEAD | wss://tracker.magnetoo.io/announce | 50.00% | 0 |
-   * - 🔴 DEAD | wss://tracker.magnetoo.io:443/announce | 50.00% | 0 |
+   * - 🔴 DEAD | wss://tracker.magnetoo.io/announce | 33.33% | 0 |
+   * - 🔴 DEAD | wss://tracker.magnetoo.io:443/announce | 33.33% | 0 |
    * - 🟢 ALIVE | wss://tracker.novage.com.ua:443/announce | 100.00% | 1 |
    * - 🟢 ALIVE | wss://tracker.openwebtorrent.com/announce | 100.00% | 1 |
    * - 🟢 ALIVE | wss://tracker.openwebtorrent.com:443/announce | 100.00% | 1 |
    * - 🔴 DEAD | wss://tracker.sloppyta.co:443/announce | 0.00% | 0 |
-   * - 🔴 DEAD | wss://tracker.webtorrent.dev/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | wss://tracker.webtorrent.dev/announce | 33.33% | 1 |
 
 页码: `1 <page_1.rst>`_ | `2 <page_2.rst>`_ | `3 <page_3.rst>`_ | `4 <page_4.rst>`_ | `5 <page_5.rst>`_ | `6 <page_6.rst>`_ | `7 <page_7.rst>`_ | `8 <page_8.rst>`_ | `9 <page_9.rst>`_ | `10 <page_10.rst>`_ | `11 <page_11.rst>`_ | `12 <page_12.rst>`_ | `13 <page_13.rst>`_ | `14 <page_14.rst>`_ | `15 <page_15.rst>`_ | `16 <page_16.rst>`_ | `17 <page_17.rst>`_ | `18 <page_18.rst>`_ | `19 <page_19.rst>`_ | `20 <page_20.rst>`_ | `21 <page_21.rst>`_ | `22 <page_22.rst>`_ | `23 <page_23.rst>`_ | `24 <page_24.rst>`_ | `25 <page_25.rst>`_ | `26 <page_26.rst>`_ | `27 <page_27.rst>`_ | `28 <page_28.rst>`_ | `29 <page_29.rst>`_ | `30 <page_30.rst>`_ | `31 <page_31.rst>`_ | `32 <page_32.rst>`_ | `33 <page_33.rst>`_ | `34 <page_34.rst>`_ | `35 <page_35.rst>`_ | `36 <page_36.rst>`_ | `37 <page_37.rst>`_ | `38 <page_38.rst>`_ | `39 <page_39.rst>`_ | 40

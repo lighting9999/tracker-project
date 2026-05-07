@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -43,7 +43,7 @@ Detailed Status
    * - 🔴 DEAD | http://tracker.zerobytes.xyz:1337/announce | 0.00% | 0 |
    * - 🟢 ALIVE | http://tracker.zhuqiy.com/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://tracker.zhuqiy.com:443/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://tracker.zhuqiy.dgj055.icu/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | http://tracker.zhuqiy.dgj055.icu/announce | 33.33% | 1 |
    * - 🔴 DEAD | http://tracker.zhuqiy.eu.org:36107/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker.zhuqiy.top/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker01.loveapp.com:6789/announce | 0.00% | 0 |

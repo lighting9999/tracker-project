@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 14/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -60,7 +60,7 @@ Tracker 状态仪表盘 (页码 14/40)
    * - 🔴 DEAD | http://tr.cili001.com70/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tr.cili001.com:8070/announce | 0.00% | 0 |
    * - 🟢 ALIVE | http://tr.highstar.shop/announce | 100.00% | 1 |
-   * - 🟢 ALIVE | http://tr.kxmp.cf/announce | 100.00% | 1 |
+   * - 🔴 DEAD | http://tr.kxmp.cf/announce | 66.67% | 0 |
    * - 🟢 ALIVE | http://tr.nyacat.pw/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://tr.nyacat.pw:443/announce | 0.00% | 0 |
    * - 🟢 ALIVE | http://tr.ysagin.top:2710/announce | 100.00% | 1 |
@@ -72,11 +72,11 @@ Tracker 状态仪表盘 (页码 14/40)
    * - 🔴 DEAD | http://tracker-sanopiracy.hopto.org:9123/announce | 0.00% | 0 |
    * - 🟢 ALIVE | http://tracker-udp.anirena.com/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://tracker-udp.gbitt.info/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://tracker-zhuqiy.dgj055.icu/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | http://tracker-zhuqiy.dgj055.icu/announce | 66.67% | 1 |
    * - 🟢 ALIVE | http://tracker.004430.xyz:1337/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://tracker.1048576.cn:17272/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker.23794.top:6969/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://tracker.acgnx.se/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | http://tracker.acgnx.se/announce | 66.67% | 1 |
    * - 🔴 DEAD | http://tracker.aibt.xyz:900/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker.alaskantf.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker.aletorrenty.pl:2710/announce | 0.00% | 0 |

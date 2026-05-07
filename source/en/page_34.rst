@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -70,7 +70,7 @@ Detailed Status
    * - 🔴 DEAD | udp://odd-hd.fr:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://oh.fuuuuuck.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://onioniot.tk:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://open-tracker.demonoid.ch:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | udp://open-tracker.demonoid.ch:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://open.4ever.tk:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://open.8a.is:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://open.acgtracker.com:1096/announce | 0.00% | 0 |

@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -91,7 +91,7 @@ Detailed Status
    * - 🔴 DEAD | https://tracker.madassnews.net/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.madtia.cc/announce | 0.00% | 0 |
    * - 🟢 ALIVE | https://tracker.manager.v6.navy/announce | 100.00% | 1 |
-   * - 🔴 DEAD | https://tracker.maya.no.eu.org/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | https://tracker.maya.no.eu.org/announce | 33.33% | 1 |
    * - 🔴 DEAD | https://tracker.mg64.net:6881/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.midnightprogrammer.net/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.mlsub.net/announce | 0.00% | 0 |
@@ -127,7 +127,7 @@ Detailed Status
    * - 🔴 DEAD | https://tracker.renfei.net/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.renfei.net:8080/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.sakurato.art:23334/announce | 0.00% | 0 |
-   * - 🔴 DEAD | https://tracker.samcze.pl/announce | 50.00% | 0 |
+   * - 🔴 DEAD | https://tracker.samcze.pl/announce | 33.33% | 0 |
    * - 🔴 DEAD | https://tracker.shittyurl.org/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.sjtu.edu.cn/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tracker.skynetcloud.site:8443/announce | 0.00% | 0 |

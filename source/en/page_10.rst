@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -74,7 +74,7 @@ Detailed Status
    * - 🟢 ALIVE | http://bttracker.debian.org:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://btx.anifilm.tv/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://bughome.de:2832/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://bulkpeers.com:2710/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | http://bulkpeers.com:2710/announce | 33.33% | 1 |
    * - 🔴 DEAD | http://buny.uk:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | http://bvarf.tracker.sh:2086/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://bz.tracker.bz/announce | 0.00% | 0 |
@@ -82,12 +82,12 @@ Detailed Status
    * - 🔴 DEAD | http://carapax.net:443/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://carbon-bonsai-621.appspot.com/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://castradio.net:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://ch3oh.ru:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | http://ch3oh.ru:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | http://chihaya.de/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://chouchou.top:8080/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://cloud.nyap2p.com:8080/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://cn.pcfreetime.com:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://concen.org:6969/announce | 100.00% | 1 |
+   * - 🔴 DEAD | http://concen.org:6969/announce | 66.67% | 0 |
    * - 🟢 ALIVE | http://connect.swifte.space:2710/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://coppersurfer.tk:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://cpleft.com:2710/announce | 0.00% | 0 |

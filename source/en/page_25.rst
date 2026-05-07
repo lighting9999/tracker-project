@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -50,7 +50,7 @@ Detailed Status
    * - 🟢 ALIVE | udp://185.146.233.150:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://185.181.60.155:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://185.181.60.67:80/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://185.189.13.108:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | udp://185.189.13.108:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://185.21.216.185:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://185.216.179.62:25/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://185.225.68.26:6969/announce | 0.00% | 0 |

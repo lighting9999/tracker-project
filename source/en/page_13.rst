@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -45,7 +45,7 @@ Detailed Status
    * - 🔴 DEAD | http://retracker.spb.ru/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://retracker.telecom.by/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://retracker.telecom.kz/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://retracker.x2k.ru/announce | 100.00% | 1 |
+   * - 🔴 DEAD | http://retracker.x2k.ru/announce | 66.67% | 0 |
    * - 🔴 DEAD | http://retracker.xxtor.com/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://retracker01-msk-virt.corbina.net/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://rfc5746.mywaifu.best:6969/announce | 0.00% | 0 |
@@ -91,7 +91,7 @@ Detailed Status
    * - 🔴 DEAD | http://t.al.uy/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://t.dattebayo.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://t.jaekr.sh:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://t.nyaatracker.com/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | http://t.nyaatracker.com/announce | 66.67% | 1 |
    * - 🟢 ALIVE | http://t.overflow.biz:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://t.ppnow.net:2710/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://t.publictracker.xyz:6969/announce | 0.00% | 0 |

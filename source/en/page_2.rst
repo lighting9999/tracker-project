@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -55,7 +55,7 @@ Detailed Status
    * - 🔴 DEAD | http://129.211.39.174:11450/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://13.115.115.32:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://13.70.4.194:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://1337.abcvg.info/announce | 100.00% | 1 |
+   * - 🔴 DEAD | http://1337.abcvg.info/announce | 66.67% | 0 |
    * - 🔴 DEAD | http://1337.abcvg.info:443/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://138.124.183.78:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://138.199.241.244/announce | 0.00% | 0 |
@@ -115,7 +115,7 @@ Detailed Status
    * - 🔴 DEAD | http://163.172.209.40/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://163.172.29.130/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://167.235.245.209/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://167.253.78.20:8080/announce | 100.00% | 1 |
+   * - 🔴 DEAD | http://167.253.78.20:8080/announce | 66.67% | 0 |
    * - 🔴 DEAD | http://171.104.110.193:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://171.104.110.21:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://171.104.110.88:6969/announce | 0.00% | 0 |

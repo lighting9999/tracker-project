@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -64,7 +64,7 @@ Detailed Status
    * - 🔴 DEAD | https://chihaya-heroku.120181311.xyz/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://chihaya.de/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://cny.fan/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | https://colibri.parrot.run/announce | 50.00% | 1 |
+   * - 🔴 DEAD | https://colibri.parrot.run/announce | 33.33% | 0 |
    * - 🔴 DEAD | https://danielcloud.ddns.net/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://dev.tracker.cf-identity-wallet.metadata.dev.cf-deployments.org/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://docker-tracker-production.up.railway.app/announce | 0.00% | 0 |
@@ -121,7 +121,7 @@ Detailed Status
    * - 🔴 DEAD | https://retracker.gorcomnet.ru/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://retracker.krs-ix.ru/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://retracker.krs-ix.ru:80/announce | 0.00% | 0 |
-   * - 🔴 DEAD | https://retracker.x2k.ru/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | https://retracker.x2k.ru/announce | 66.67% | 1 |
    * - 🟢 ALIVE | https://retracker2.x2k.ru/announce | 100.00% | 1 |
    * - 🔴 DEAD | https://secure.pow7.com/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://seeders-paradise.org/announce | 0.00% | 0 |

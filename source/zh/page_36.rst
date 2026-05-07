@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 36/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -43,7 +43,7 @@ Tracker 状态仪表盘 (页码 36/40)
    * - 🔴 DEAD | udp://torrentclub.tech:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://torrents.artixlinux.org:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://torrents.hikarinokiseki.com:6969/announce | 0.00% | 0 |
-   * - 🔴 DEAD | udp://torrents.tmtime.dev:6969/announce | 50.00% | 0 |
+   * - 🔴 DEAD | udp://torrents.tmtime.dev:6969/announce | 33.33% | 0 |
    * - 🔴 DEAD | udp://torrentsmd.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://torrentsmd.com:8080/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://torrenttracker.nwc.acsalaska.net:6969/announce | 100.00% | 1 |
@@ -64,7 +64,7 @@ Tracker 状态仪表盘 (页码 36/40)
    * - 🔴 DEAD | udp://tracker-de-2.cutie.dating:1337/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker-de.ololosh.space:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://tracker-udp.anirena.com:80/announce | 100.00% | 1 |
-   * - 🔴 DEAD | udp://tracker-udp.gbitt.info:80/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | udp://tracker-udp.gbitt.info:80/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://tracker-us.silksa.co.za:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker-v6.opendev.cloud:8000/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://tracker.004430.xyz:1337/announce | 100.00% | 1 |
@@ -100,7 +100,7 @@ Tracker 状态仪表盘 (页码 36/40)
    * - 🔴 DEAD | udp://tracker.blackunicorn.xyz:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://tracker.bluefrog.pw:2710/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://tracker.bontal.net:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://tracker.breizh.pm:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | udp://tracker.breizh.pm:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://tracker.btsync.gq:233/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://tracker.btsync.gq:2710/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://tracker.btzoo.eu:80/announce | 100.00% | 1 |

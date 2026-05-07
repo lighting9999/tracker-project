@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 16/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -111,9 +111,9 @@ Tracker 状态仪表盘 (页码 16/40)
    * - 🔴 DEAD | http://tracker.trackerfix.com/announce | 0.00% | 0 |
    * - 🟢 ALIVE | http://tracker.trancetraffic.com/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://tracker.tricitytorrents.com:2710/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://tracker.tritan.gg:8080/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | http://tracker.tritan.gg:8080/announce | 66.67% | 1 |
    * - 🟢 ALIVE | http://tracker.trojangogogo.site:8080/announce | 100.00% | 1 |
-   * - 🟢 ALIVE | http://tracker.tvunderground.org.ru:3218/announce | 50.00% | 1 |
+   * - 🔴 DEAD | http://tracker.tvunderground.org.ru:3218/announce | 33.33% | 0 |
    * - 🔴 DEAD | http://tracker.umunu.ru:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker.uw0.xyz:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://tracker.valete.tf:9999/announce | 0.00% | 0 |

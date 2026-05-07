@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -58,7 +58,7 @@ Detailed Status
    * - 🔴 DEAD | http://nyaatorrents.info:3277/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://nyaatorrents.info:7266/00000000000000000000000000000000/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://omg.wtftrackr.pw:1337/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://open-tracker.info:6969/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | http://open-tracker.info:6969/announce | 33.33% | 1 |
    * - 🔴 DEAD | http://open-v6.demonoid.ch:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://open.8a.is:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://open.acgnxtracker.com/announce | 0.00% | 0 |
@@ -84,7 +84,7 @@ Detailed Status
    * - 🔴 DEAD | http://opentracker-milanesi.rhcloud.com/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://opentracker.91kf.top:16969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://opentracker.acgnx.com:6869/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://opentracker.acgnx.se/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | http://opentracker.acgnx.se/announce | 66.67% | 1 |
    * - 🔴 DEAD | http://opentracker.fr333dom.com:6666/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://opentracker.i2p.rocks:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://opentracker.io/announce | 0.00% | 0 |

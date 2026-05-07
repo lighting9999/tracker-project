@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -59,7 +59,7 @@ Detailed Status
    * - 🟢 ALIVE | udp://51.81.222.188:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://51.81.46.170:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://52.211.139.85:27022/announce | 100.00% | 1 |
-   * - 🟢 ALIVE | udp://52.58.128.163:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | udp://52.58.128.163:6969/announce | 66.67% | 1 |
    * - 🟢 ALIVE | udp://54.36.179.216:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://54.37.235.149:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://54.39.48.3:6969/announce | 0.00% | 0 |
@@ -92,7 +92,7 @@ Detailed Status
    * - 🔴 DEAD | udp://68.193.189.231:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://69.30.224.166:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://69.30.233.234:6969/announce | 0.00% | 0 |
-   * - 🔴 DEAD | udp://6ahddutb1ucc3cp.ru:6969/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | udp://6ahddutb1ucc3cp.ru:6969/announce | 33.33% | 1 |
    * - 🔴 DEAD | udp://6rt.tace.ru:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://7.rarbg.me:2710/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://74.119.149.136:6969/announce | 100.00% | 1 |

@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 32/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -128,7 +128,7 @@ Tracker 状态仪表盘 (页码 32/40)
    * - 🟢 ALIVE | udp://evan.im:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | udp://exodus.desync.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://exodus.desync.com:80/announce | 0.00% | 0 |
-   * - 🔴 DEAD | udp://explodie.org:6969/announce | 50.00% | 0 |
+   * - 🟢 ALIVE | udp://explodie.org:6969/announce | 66.67% | 1 |
    * - 🔴 DEAD | udp://extracker.dahrkael.net:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://f1sh.de:6969/announce | 0.00% | 0 |
 

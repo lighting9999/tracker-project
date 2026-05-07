@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -63,7 +63,7 @@ Detailed Status
    * - 🔴 DEAD | https://torrust.canofsocks.com/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tp.m-team.cc/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tr-rh-zhuqiy.dgj055.icu/announce | 0.00% | 0 |
-   * - 🔴 DEAD | https://tr-zhuqiy-1.dgj055.icu/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | https://tr-zhuqiy-1.dgj055.icu/announce | 33.33% | 1 |
    * - 🔴 DEAD | https://tr-zhuqiy-2.dgj055.icu/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tr.aag.moe/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tr.abiir.top/announce | 0.00% | 0 |
@@ -75,7 +75,7 @@ Detailed Status
    * - 🔴 DEAD | https://tr.doogh.club/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tr.fuckbitcoin.xyz/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tr.highstar.shop/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | https://tr.kxmp.cf/announce | 100.00% | 1 |
+   * - 🔴 DEAD | https://tr.kxmp.cf/announce | 66.67% | 0 |
    * - 🔴 DEAD | https://tr.kxmp.cf:80/announce | 0.00% | 0 |
    * - 🔴 DEAD | https://tr.kxmp.ml/announce | 0.00% | 0 |
    * - 🟢 ALIVE | https://tr.nyacat.pw/announce | 100.00% | 1 |

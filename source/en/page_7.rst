@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -130,6 +130,6 @@ Detailed Status
    * - 🔴 DEAD | http://75.127.14.224:2710/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://78.30.254.12:2710/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://78.46.225.225:2710/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://79.111.12.213:6969/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | http://79.111.12.213:6969/announce | 66.67% | 1 |
 
 Page: `1 <page_1.rst>`_ | `2 <page_2.rst>`_ | `3 <page_3.rst>`_ | `4 <page_4.rst>`_ | `5 <page_5.rst>`_ | `6 <page_6.rst>`_ | 7 | `8 <page_8.rst>`_ | `9 <page_9.rst>`_ | `10 <page_10.rst>`_ | `11 <page_11.rst>`_ | `12 <page_12.rst>`_ | `13 <page_13.rst>`_ | `14 <page_14.rst>`_ | `15 <page_15.rst>`_ | `16 <page_16.rst>`_ | `17 <page_17.rst>`_ | `18 <page_18.rst>`_ | `19 <page_19.rst>`_ | `20 <page_20.rst>`_ | `21 <page_21.rst>`_ | `22 <page_22.rst>`_ | `23 <page_23.rst>`_ | `24 <page_24.rst>`_ | `25 <page_25.rst>`_ | `26 <page_26.rst>`_ | `27 <page_27.rst>`_ | `28 <page_28.rst>`_ | `29 <page_29.rst>`_ | `30 <page_30.rst>`_ | `31 <page_31.rst>`_ | `32 <page_32.rst>`_ | `33 <page_33.rst>`_ | `34 <page_34.rst>`_ | `35 <page_35.rst>`_ | `36 <page_36.rst>`_ | `37 <page_37.rst>`_ | `38 <page_38.rst>`_ | `39 <page_39.rst>`_ | `40 <page_40.rst>`_

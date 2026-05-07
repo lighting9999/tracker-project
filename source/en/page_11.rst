@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -82,7 +82,7 @@ Detailed Status
    * - 🔴 DEAD | http://inferno.demonoid.ph:3415/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://ipv4.rer.lol:2710/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://ipv4.tracker.harry.lu/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://ipv4announce.sktorrent.eu:6969/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | http://ipv4announce.sktorrent.eu:6969/announce | 33.33% | 1 |
    * - 🔴 DEAD | http://ipv6.1337.cx:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://ipv6.bt-tracker.devnak.win:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://ipv6.govt.hu:6969/announce | 0.00% | 0 |
@@ -105,7 +105,7 @@ Detailed Status
    * - 🔴 DEAD | http://kinoarena.tv/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://kinorun.com/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://kiryuu-test.mywaifu.best:6969/announce | 0.00% | 0 |
-   * - 🔴 DEAD | http://kubanmedia.org:2710/announce | 0.00% | 0 |
+   * - 🟢 ALIVE | http://kubanmedia.org:2710/announce | 33.33% | 1 |
    * - 🔴 DEAD | http://laxclax.ddns.net00/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://laxclax.ddns.net:8000/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://leidenfro.st:6969/announce | 0.00% | 0 |

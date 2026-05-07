@@ -5,18 +5,18 @@ Stats Summary
 ------------------
 
 - Total Checked: 3947
-- Online: 323
-- Dead: 3624
+- Online: 338
+- Dead: 3609
 - Invalid: 0
-- Global Uptime: 8.18%
+- Global Uptime: 8.56%
 
 Protocols
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 Downloads
 ------------
@@ -115,7 +115,7 @@ Detailed Status
    * - 🔴 DEAD | udp://222.84.22.60:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://222.84.22.86:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://222.84.23.141:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://23.134.124.81:8081/announce | 100.00% | 1 |
+   * - 🔴 DEAD | udp://23.134.124.81:8081/announce | 66.67% | 0 |
    * - 🔴 DEAD | udp://23.134.88.11:6969/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://23.134.88.9:1337/announce | 100.00% | 1 |
    * - 🟢 ALIVE | udp://23.134.88.9:6969/announce | 100.00% | 1 |
@@ -127,7 +127,7 @@ Detailed Status
    * - 🔴 DEAD | udp://23.153.248.128:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://23.153.248.2:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://23.153.248.83:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | udp://23.157.120.14:6969/announce | 50.00% | 1 |
+   * - 🔴 DEAD | udp://23.157.120.14:6969/announce | 33.33% | 0 |
    * - 🔴 DEAD | udp://23.163.56.66:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | udp://23.168.232.9:1337/announce | 0.00% | 0 |
    * - 🟢 ALIVE | udp://23.175.184.30:23333/announce | 100.00% | 1 |

@@ -5,18 +5,18 @@ Tracker 状态仪表盘 (页码 13/40)
 ------------------
 
 - 总检测数: 3947
-- 在线: 323
-- 死亡: 3624
+- 在线: 338
+- 死亡: 3609
 - 无效: 0
-- 全局限存活率: 8.18%
+- 全局限存活率: 8.56%
 
 协议
 ------------
 
-- HTTP: 120
+- HTTP: 126
 - HTTPS: 29
-- UDP: 171
-- WSS: 3
+- UDP: 179
+- WSS: 4
 
 下载
 ------------
@@ -45,7 +45,7 @@ Tracker 状态仪表盘 (页码 13/40)
    * - 🔴 DEAD | http://retracker.spb.ru/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://retracker.telecom.by/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://retracker.telecom.kz/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://retracker.x2k.ru/announce | 100.00% | 1 |
+   * - 🔴 DEAD | http://retracker.x2k.ru/announce | 66.67% | 0 |
    * - 🔴 DEAD | http://retracker.xxtor.com/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://retracker01-msk-virt.corbina.net/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://rfc5746.mywaifu.best:6969/announce | 0.00% | 0 |
@@ -91,7 +91,7 @@ Tracker 状态仪表盘 (页码 13/40)
    * - 🔴 DEAD | http://t.al.uy/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://t.dattebayo.com:6969/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://t.jaekr.sh:6969/announce | 0.00% | 0 |
-   * - 🟢 ALIVE | http://t.nyaatracker.com/announce | 50.00% | 1 |
+   * - 🟢 ALIVE | http://t.nyaatracker.com/announce | 66.67% | 1 |
    * - 🟢 ALIVE | http://t.overflow.biz:6969/announce | 100.00% | 1 |
    * - 🔴 DEAD | http://t.ppnow.net:2710/announce | 0.00% | 0 |
    * - 🔴 DEAD | http://t.publictracker.xyz:6969/announce | 0.00% | 0 |
