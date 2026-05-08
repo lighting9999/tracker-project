@@ -4,124 +4,82 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ $locale.title }} ({{ $locale.page }} {{ $paginator.PageNumber }}/{{ $paginator.TotalPages }})</title>
-  <style>
-    :root {
-      --bg: #fff; --text: #212529; --link: #0d6efd;
-      --card-success: #198754; --card-danger: #dc3545; --card-warning: #ffc107;
-      --border: #dee2e6;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #212529; --text: #f8f9fa; --link: #6ea8fe;
-        --border: #495057;
-      }
-    }
-    body {
-      font-family: system-ui, sans-serif;
-      background: var(--bg); color: var(--text);
-      margin: 0; padding: 1rem;
-    }
-    .container { max-width: 1200px; margin: 0 auto; }
-    .stats { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
-    .stat-card { background: var(--border); padding: 0.5rem 1rem; border-radius: 8px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1rem;
-    }
-    .card { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-    .card-header { padding: 0.5rem 1rem; font-weight: bold; }
-    .card-body { padding: 0.5rem 1rem; }
-    .bg-success { background-color: var(--card-success); }
-    .bg-danger { background-color: var(--card-danger); }
-    .bg-warning { background-color: var(--card-warning); color: #212529 !important; }
-    .pagination { margin: 1.5rem 0; text-align: center; }
-    .pagination a, .pagination span { margin: 0 0.3rem; }
-    .current { font-weight: bold; }
-    .back-to-top { display: block; text-align: center; margin-top: 2rem; }
-    .lang-switch { display: flex; justify-content: flex-end; gap: 0.5rem; margin-bottom: 1rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{{ $locale.title }} ({{ $locale.page }} {{ $paginator.PageNumber }}/{{ $paginator.TotalPages }})</title>
+<style>
+:root{--bg:#f8fafc;--surface:#fff;--text:#1e293b;--text2:#64748b;--border:#e2e8f0;--ok:#10b981;--bad:#ef4444;--warn:#f59e0b;--link:#2563eb;--shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04)}@media(prefers-color-scheme:dark){:root{--bg:#0f172a;--surface:#1e293b;--text:#f1f5f9;--text2:#94a3b8;--border:#334155;--link:#60a5fa;--shadow:0 1px 3px rgba(0,0,0,.4)}}*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;min-height:100vh}.wrap{max-width:1280px;margin:0 auto;padding:1.5rem 1rem}.topbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem}.lang a{color:var(--link);text-decoration:none;font-size:.875rem;padding:.4rem .75rem;border:1px solid var(--border);border-radius:6px;transition:all .2s}.lang a:hover{background:var(--link);color:#fff;border-color:var(--link)}h1{font-size:1.5rem;font-weight:700;letter-spacing:-.02em}h1 span{font-weight:400;color:var(--text2);font-size:1rem}.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.25rem}.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem .875rem;box-shadow:var(--shadow)}.stat .label{font-size:.75rem;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.3rem}.stat .value{font-size:1.5rem;font-weight:700}.stat .value.big{font-size:1.75rem}.stat .sub{font-size:.75rem;color:var(--text2);margin-top:.15rem}.ok-text{color:var(--ok)}.bad-text{color:var(--bad)}.warn-text{color:var(--warn)}.section-title{font-size:1.1rem;font-weight:700;margin:1.5rem 0 .75rem}.dl-row{display:flex;flex-wrap:wrap;gap:.4rem 1rem;margin-bottom:.75rem;font-size:.875rem}.dl-row a{color:var(--link);text-decoration:none}.dl-row a:hover{text-decoration:underline}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:.75rem}.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;transition:transform .15s,box-shadow .15s}.card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1)}.card-head{display:flex;align-items:center;gap:.5rem;padding:.65rem 1rem;font-size:.8rem;font-weight:600;letter-spacing:.02em}.card-head.ok{background:linear-gradient(135deg,#10b981,#059669);color:#fff}.card-head.bad{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}.card-head.warn{background:linear-gradient(135deg,#f59e0b,#d97706);color:#000}.card-body{padding:.75rem 1rem;font-size:.875rem}.card-body p{display:flex;justify-content:space-between;align-items:center;padding:.35rem 0;border-bottom:1px solid var(--border)}.card-body p:last-child{border-bottom:0}.card-body strong{color:var(--text2);font-weight:500}.card-body a{color:var(--link);text-decoration:none;word-break:break-all;font-size:.8rem;max-width:70%}.card-body a:hover{text-decoration:underline}.pager{display:flex;justify-content:center;align-items:center;gap:.3rem;margin:1.5rem 0;flex-wrap:wrap}.pager a,.pager span{display:inline-flex;align-items:center;justify-content:center;min-width:2rem;height:2rem;padding:0 .5rem;border-radius:6px;font-size:.875rem;text-decoration:none;transition:all .2s}.pager a{background:var(--surface);border:1px solid var(--border);color:var(--text)}.pager a:hover{background:var(--link);color:#fff;border-color:var(--link)}.pager .cur{background:var(--link);color:#fff;border-color:var(--link);font-weight:700}.btt{display:block;text-align:center;margin-top:1.5rem;font-size:.875rem}.btt a{color:var(--link);text-decoration:none}.btt a:hover{text-decoration:underline}.foot{text-align:center;margin-top:2rem;font-size:.75rem;color:var(--text2)}@media(max-width:640px){.wrap{padding:1rem .75rem}h1{font-size:1.25rem}.grid{grid-template-columns:1fr}}
+</style>
 </head>
-<body id="top">
-  <div class="container">
-    <div class="lang-switch">
-      <span>
-        {{ range $.Site.Home.AllTranslations }}
-          <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
-        {{ end }}
-      </span>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <h1>{{ $locale.title }} <span>{{ $locale.page }} {{ $paginator.PageNumber }}/{{ $paginator.TotalPages }}</span></h1>
+    <div class="lang">
+      {{ range $.Site.Home.AllTranslations }}
+        <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+      {{ end }}
     </div>
-    <h1>{{ $locale.title }} ({{ $locale.page }} {{ $paginator.PageNumber }}/{{ $paginator.TotalPages }})</h1>
-    <div class="stats">
-      <div class="stat-card"><strong>{{ $locale.total_checked }}:</strong> {{ $data.total }}</div>
-      <div class="stat-card"><strong>{{ $locale.online }}:</strong> {{ $data.alive_count }}</div>
-      <div class="stat-card"><strong>{{ $locale.dead }}:</strong> {{ $data.dead_count }}</div>
-      <div class="stat-card"><strong>{{ $locale.invalid }}:</strong> {{ $data.invalid_count }}</div>
-      <div class="stat-card"><strong>{{ $locale.global_uptime }}:</strong> {{ $data.uptime_pct }}%</div>
-    </div>
-    <div class="stats">
-      <div class="stat-card">
-        <strong>{{ $locale.protocols }}:</strong>
-        HTTP: {{ $data.protocols.http }} |
-        HTTPS: {{ $data.protocols.https }} |
-        UDP: {{ $data.protocols.udp }} |
-        WSS: {{ $data.protocols.wss }}
-      </div>
-    </div>
-    <div class="stats">
-      <div class="stat-card">
-        <strong>{{ $locale.downloads }}:</strong>
-        <a href="/trackers_all.txt">{{ $locale.all_trackers }}</a> ·
-        <a href="/trackers_best.txt">{{ $locale.all_alive }}</a> ·
-        <a href="/trackers_best_http.txt">{{ $locale.http }}</a> ·
-        <a href="/trackers_best_https.txt">{{ $locale.https }}</a> ·
-        <a href="/trackers_best_udp.txt">{{ $locale.udp }}</a> ·
-        <a href="/trackers_best_wss.txt">{{ $locale.wss }}</a>
-      </div>
-    </div>
-    <h2>{{ $locale.detailed_status }}</h2>
-    <div class="grid">
-      {{- range $paginator.Pages -}}
-        {{- $tracker_url := trim .RawContent " \n\r" -}}
-        {{- $status := .Params.status | default "DEAD" -}}
-        {{- $up := printf "%.2f" (.Params.uptime | default 0) -}}
-        {{- $days := .Params.days | default 0 -}}
-        {{- $statusClass := "bg-danger" -}}
-        {{- $statusText := $locale.unavailable -}}
-        {{- if eq $status "ALIVE" -}}
-          {{- $statusClass = "bg-success" -}}
-          {{- $statusText = $locale.available -}}
-        {{- else if eq $status "INVALID" -}}
-          {{- $statusClass = "bg-warning" -}}
-          {{- $statusText = $locale.invalid -}}
-        {{- end -}}
-        <div class="card {{ $statusClass }}">
-          <div class="card-header">{{ $statusText }}</div>
-          <div class="card-body">
-            <p><strong>{{ $locale.url }}:</strong> <a href="{{ $tracker_url }}" target="_blank" style="color: inherit;">{{ $tracker_url }}</a></p>
-            <p><strong>{{ $locale.uptime }}:</strong> {{ $up }}%</p>
-            <p><strong>{{ $locale.days }}:</strong> {{ $days }}</p>
-          </div>
-        </div>
-      {{- end -}}
-    </div>
-    {{- if gt $paginator.TotalPages 1 -}}
-    <div class="pagination">
-      {{ $locale.page }}:
-      {{- range $paginator.Pagers -}}
-        {{- if eq . $paginator -}}
-          <span class="current">{{ .PageNumber }}</span>
-        {{- else -}}
-          <a href="{{ .URL }}">{{ .PageNumber }}</a>
-        {{- end -}}
-        {{- if not (eq . $paginator.Last) }} | {{ end -}}
-      {{- end -}}
-    </div>
-    {{- end -}}
-    <a href="#top" class="back-to-top">🔝 {{ $locale.back_to_top }}</a>
   </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="label">{{ $locale.total_checked }}</div><div class="value big">{{ $data.total }}</div></div>
+    <div class="stat"><div class="label">{{ $locale.online }}</div><div class="value ok-text">{{ $data.alive_count }}</div><div class="sub">{{ $data.uptime_pct }}%</div></div>
+    <div class="stat"><div class="label">{{ $locale.dead }}</div><div class="value bad-text">{{ $data.dead_count }}</div></div>
+    <div class="stat"><div class="label">{{ $locale.invalid }}</div><div class="value warn-text">{{ $data.invalid_count }}</div></div>
+    <div class="stat"><div class="label">{{ $locale.global_uptime }}</div><div class="value">{{ $data.uptime_pct }}%</div></div>
+    <div class="stat"><div class="label">{{ $locale.protocols }}</div><div class="value" style="font-size:1rem">HTTP {{ $data.protocols.http }} · HTTPS {{ $data.protocols.https }} · UDP {{ $data.protocols.udp }} · WSS {{ $data.protocols.wss }}</div></div>
+  </div>
+
+  <div class="dl-row">
+    <strong>{{ $locale.downloads }}:</strong>
+    <a href="/trackers_all.txt">{{ $locale.all_trackers }}</a> ·
+    <a href="/trackers_best.txt">{{ $locale.all_alive }}</a> ·
+    <a href="/trackers_best_http.txt">{{ $locale.http }}</a> ·
+    <a href="/trackers_best_https.txt">{{ $locale.https }}</a> ·
+    <a href="/trackers_best_udp.txt">{{ $locale.udp }}</a> ·
+    <a href="/trackers_best_wss.txt">{{ $locale.wss }}</a>
+  </div>
+
+  <div class="section-title">{{ $locale.detailed_status }}</div>
+  <div class="grid">
+    {{- range $paginator.Pages -}}
+      {{- $tracker_url := trim .RawContent " \n\r" -}}
+      {{- $status := .Params.status | default "DEAD" -}}
+      {{- $up := printf "%.2f" (float64 (.Params.uptime | default 0)) -}}
+      {{- $days := .Params.days | default 0 -}}
+      {{- if eq $status "ALIVE" -}}
+        {{- $headClass := "ok" -}}{{- $headText := $locale.available -}}
+      {{- else if eq $status "INVALID" -}}
+        {{- $headClass := "warn" -}}{{- $headText := $locale.invalid -}}
+      {{- else -}}
+        {{- $headClass := "bad" -}}{{- $headText := $locale.unavailable -}}
+      {{- end -}}
+      <div class="card">
+        <div class="card-head {{ $headClass }}">{{ $headText }}</div>
+        <div class="card-body">
+          <p><strong>{{ $locale.url }}</strong><a href="{{ $tracker_url }}" target="_blank">{{ $tracker_url }}</a></p>
+          <p><strong>{{ $locale.uptime }}</strong>{{ $up }}%</p>
+          <p><strong>{{ $locale.days }}</strong>{{ $days }}</p>
+        </div>
+      </div>
+    {{- end -}}
+  </div>
+
+  {{- if gt $paginator.TotalPages 1 -}}
+  <div class="pager">
+    {{- range $paginator.Pagers -}}
+      {{- if eq . $paginator -}}
+        <span class="cur">{{ .PageNumber }}</span>
+      {{- else -}}
+        <a href="{{ .URL }}">{{ .PageNumber }}</a>
+      {{- end -}}
+    {{- end -}}
+  </div>
+  {{- end -}}
+
+  <div class="btt"><a href="#top">🔝 {{ $locale.back_to_top }}</a></div>
+  <div class="foot">Tracker Status Dashboard · Auto-generated · {{ now.Format "2006-01-02 15:04 UTC" }}</div>
+</div>
 </body>
 </html>
