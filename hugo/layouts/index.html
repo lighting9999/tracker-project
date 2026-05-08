@@ -1,7 +1,6 @@
 {{- $locale := index .Site.Data.trackers.locales .Site.Language.Lang -}}
 {{- $data := .Site.Data.trackers -}}
-{{- $trackers := $data.trackers -}}
-{{- $paginator := .Paginate $trackers -}}
+{{- $paginator := .Paginate .Pages -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}">
 <head>
@@ -86,21 +85,23 @@
     <h2>{{ $locale.detailed_status }}</h2>
     <div class="grid">
       {{- range $paginator.Pages -}}
-        {{- $up := printf "%.2f" .uptime -}}
-        {{- $days := .days -}}
+        {{- $tracker_url := .Params.tracker_url -}}
+        {{- $status := .Params.status -}}
+        {{- $up := printf "%.2f" .Params.uptime -}}
+        {{- $days := .Params.days -}}
         {{- $statusClass := "bg-danger" -}}
         {{- $statusText := $locale.unavailable -}}
-        {{- if eq .status "ALIVE" -}}
+        {{- if eq $status "ALIVE" -}}
           {{- $statusClass = "bg-success" -}}
           {{- $statusText = $locale.available -}}
-        {{- else if eq .status "INVALID" -}}
+        {{- else if eq $status "INVALID" -}}
           {{- $statusClass = "bg-warning" -}}
           {{- $statusText = $locale.invalid -}}
         {{- end -}}
         <div class="card {{ $statusClass }}">
           <div class="card-header">{{ $statusText }}</div>
           <div class="card-body">
-            <p><strong>{{ $locale.url }}:</strong> <a href="{{ .url }}" target="_blank" style="color: inherit;">{{ .url }}</a></p>
+            <p><strong>{{ $locale.url }}:</strong> <a href="{{ $tracker_url }}" target="_blank" style="color: inherit;">{{ $tracker_url }}</a></p>
             <p><strong>{{ $locale.uptime }}:</strong> {{ $up }}%</p>
             <p><strong>{{ $locale.days }}:</strong> {{ $days }}</p>
           </div>
