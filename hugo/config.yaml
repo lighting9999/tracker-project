@@ -1,6 +1,7 @@
 baseURL: https://tracker-project.pages.dev
 languageCode: en-us
 defaultContentLanguage: en
+theme: congo
 paginate: 100
 
 languages:
@@ -11,5 +12,10 @@ languages:
     title: Tracker 状态仪表盘
     weight: 2
 
-build:
-  writeStats: true
+params:
+  darkMode: auto
+  showDate: true
+  showReadingTime: false
+  showWordCount: false
+  mainSections:
+    - trackers
