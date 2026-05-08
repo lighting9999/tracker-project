@@ -86,9 +86,9 @@
     <div class="grid">
       {{- range $paginator.Pages -}}
         {{- $tracker_url := trim .RawContent " \n\r" -}}
-        {{- $status := .Params.status -}}
-        {{- $up := printf "%.2f" .Params.uptime -}}
-        {{- $days := .Params.days -}}
+        {{- $status := .Params.status | default "DEAD" -}}
+        {{- $up := printf "%.2f" (.Params.uptime | default 0) -}}
+        {{- $days := .Params.days | default 0 -}}
         {{- $statusClass := "bg-danger" -}}
         {{- $statusText := $locale.unavailable -}}
         {{- if eq $status "ALIVE" -}}
