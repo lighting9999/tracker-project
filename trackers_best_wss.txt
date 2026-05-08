@@ -1,4 +1,2 @@
-wss://tracker.novage.com.ua:443/announce
 wss://tracker.openwebtorrent.com/announce
 wss://tracker.openwebtorrent.com:443/announce
-wss://tracker.webtorrent.dev/announce
