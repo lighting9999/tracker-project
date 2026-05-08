@@ -22,54 +22,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      # ============================
-      # 1. 准备 Go 环境（用于 checker）
-      # ============================
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.22'
 
-      - name: Build Go checker
-        run: |
-          cd $GITHUB_WORKSPACE
-          # 如果仓库中没有 go.mod，则自动初始化
-          if [ ! -f go.mod ]; then
-            go mod init tracker-checker
-          fi
-          go get github.com/gorilla/websocket
-          go build -o tracker-checker .
-
-      # ============================
-      # 2. 准备 Python 环境（用于 build_docs.py）
-      # ============================
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Restore Python packages cache
-        id: cache-python
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.pythonLocation }}/lib/python3.12/site-packages
-          key: python-deps-${{ runner.os }}-${{ hashFiles('build_docs.py') }}
-
-      - name: Install Python dependencies
-        if: steps.cache-python.outputs.cache-hit != 'true'
-        run: pip install aiohttp          # build_docs.py 不需要但可能其他用；实际仅需要标准库
-
-      # ============================
-      # 3. 配置 Git
-      # ============================
       - name: Configure Git
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
-      # ============================
-      # 4. 下载源文件并合并
-      # ============================
       - name: Download and merge sources (curl)
         run: |
           mkdir -p webtracker/sources
@@ -105,25 +67,34 @@ jobs:
           rm -f webtracker/input_merged_raw.txt
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
-      # ============================
-      # 5. 运行 Go 版 tracker checker
-      # ============================
+      - name: Build Go checker
+        run: go build -o tracker-checker check_trackers.go
+
       - name: Run tracker checker (Go)
         run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 100
 
-      # ============================
-      # 6. 生成 Hugo 所需数据 + 复制静态文件
-      # ============================
+      - name: Build Go docs generator
+        run: go build -o build_docs build_docs.go
+
       - name: Prepare Hugo data and static files
         run: |
-          mkdir -p hugo/static
-          # build_docs.py 需要读取 trackers_all.txt 等文件，由 Go checker 已生成
-          python build_docs.py --output-dir hugo/data
+          mkdir -p hugo/static hugo/content/en/trackers hugo/content/zh/trackers
+          # 创建必要的 Hugo 占位文件（如不存在）
+          if [ ! -f hugo/content/en/_index.md ]; then
+            echo -e "---\ntitle: English\n---" > hugo/content/en/_index.md
+          fi
+          if [ ! -f hugo/content/zh/_index.md ]; then
+            echo -e "---\ntitle: 中文\n---" > hugo/content/zh/_index.md
+          fi
+          if [ ! -f hugo/content/trackers/_index.md ]; then
+            echo -e "---\ntitle: Trackers\n---" > hugo/content/trackers/_index.md
+          fi
+          ./build_docs --trackers-all trackers_all.txt \
+                       --trackers-best trackers_best.txt \
+                       --history tracker_history.tsv \
+                       --output-dir hugo
           cp trackers_all.txt trackers_best*.txt hugo/static/
 
-      # ============================
-      # 7. 安装 Hugo 并构建站点
-      # ============================
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
@@ -135,9 +106,6 @@ jobs:
           cd hugo
           hugo --destination ../public
 
-      # ============================
-      # 8. 部署到 Cloudflare Pages
-      # ============================
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
@@ -145,13 +113,9 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy public/ --project-name=${{ secrets.CF_PAGES_PROJECT_NAME }} --branch=${{ github.ref_name }}
 
-      # ============================
-      # 9. 提交更新后的 tracker 数据文件
-      # ============================
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
-          # 清理临时产物，避免 git 干扰
           rm -rf source/ docs/ public/ hugo/public/
           git add trackers_all.txt trackers_best*.txt tracker_history.tsv date.txt
           if git diff --cached --quiet; then
