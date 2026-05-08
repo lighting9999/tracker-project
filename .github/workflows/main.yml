@@ -26,6 +26,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.22'
+          cache: true
 
       - name: Configure Git
         run: |
@@ -67,19 +68,26 @@ jobs:
           rm -f webtracker/input_merged_raw.txt
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
-      - name: Build Go checker
-        run: go build -o tracker-checker check_trackers.go
+      - name: Build Go tools
+        working-directory: ./
+        run: |
+          # 如果没有 go.mod，自动初始化
+          if [ ! -f "go.mod" ]; then
+            go mod init tracker-checker
+          fi
+          # 下载并记录所有依赖
+          go mod tidy
+          # 编译 checker 和 docs generator
+          go build -o tracker-checker check_trackers.go
+          go build -o build_docs build_docs.go
 
       - name: Run tracker checker (Go)
         run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 100
 
-      - name: Build Go docs generator
-        run: go build -o build_docs build_docs.go
-
       - name: Prepare Hugo data and static files
         run: |
           mkdir -p hugo/static hugo/content/en/trackers hugo/content/zh/trackers
-          # 创建必要的 Hugo 占位文件（如不存在）
+          # 创建 Hugo 必需占位文件（若尚不存在）
           if [ ! -f hugo/content/en/_index.md ]; then
             echo -e "---\ntitle: English\n---" > hugo/content/en/_index.md
           fi
