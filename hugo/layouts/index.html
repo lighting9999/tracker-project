@@ -85,7 +85,7 @@
     <h2>{{ $locale.detailed_status }}</h2>
     <div class="grid">
       {{- range $paginator.Pages -}}
-        {{- $tracker_url := .Params.tracker_url -}}
+        {{- $tracker_url := trim .RawContent " \n\r" -}}
         {{- $status := .Params.status -}}
         {{- $up := printf "%.2f" .Params.uptime -}}
         {{- $days := .Params.days -}}
