@@ -46,7 +46,7 @@
     {{- range $paginator.Pages -}}
       {{- $tracker_url := trim .RawContent " \n\r" -}}
       {{- $status := .Params.status | default "DEAD" -}}
-      {{- $up := printf "%.2f" (float64 (.Params.uptime | default 0)) -}}
+      {{- $up := printf "%.2f" (float (.Params.uptime | default 0)) -}}
       {{- $days := .Params.days | default 0 -}}
       {{- if eq $status "ALIVE" -}}
         {{- $headClass := "ok" -}}{{- $headText := $locale.available -}}
