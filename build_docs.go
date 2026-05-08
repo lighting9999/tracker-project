@@ -281,15 +281,17 @@ func main() {
 	}
 	for _, entry := range data.Trackers {
 		slug := safeSlug(entry.URL)
-		md := fmt.Sprintf(`---
-tracker_url: "%s"
+		// Front matter without any URL – only structured data.
+		frontMatter := fmt.Sprintf(`---
 status: "%s"
 uptime: %.2f
 days: %d
 protocol: "%s"
----
-%s
-`, entry.URL, entry.Status, entry.Uptime, entry.Days, entry.Protocol, entry.URL)
+---`, entry.Status, entry.Uptime, entry.Days, entry.Protocol)
+
+		// Body contains the tracker URL (plain text, will be accessible via .RawContent)
+		md := frontMatter + "\n" + entry.URL + "\n"
+
 		filename := fmt.Sprintf("%s.md", slug)
 		filePath := filepath.Join(contentDir, filename)
 		if err := os.WriteFile(filePath, []byte(md), 0644); err != nil {
