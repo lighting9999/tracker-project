@@ -84,9 +84,9 @@ jobs:
 
       - name: Install Hugo theme (Congo)
         run: |
+          mkdir -p hugo/themes
           cd hugo
-          git init
-          git submodule add https://github.com/jpanther/congo.git themes/congo
+          git clone --depth 1 https://github.com/jpanther/congo.git themes/congo
 
       - name: Prepare Hugo data and static files
         run: |
@@ -114,7 +114,7 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.126.0'
+          hugo-version: '0.131.0'
           extended: true
 
       - name: Build Hugo site
