@@ -68,8 +68,6 @@ jobs:
           rm -f webtracker/input_merged_raw.txt
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
-      - name: Fix unused import in build_docs.go
-        run: sed -i '/^[[:space:]]*"sort"$/d' build_docs.go
 
       - name: Build Go tools
         working-directory: ./
@@ -83,6 +81,12 @@ jobs:
 
       - name: Run tracker checker (Go)
         run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 100
+
+      - name: Install Hugo theme (Congo)
+        run: |
+          cd hugo
+          git init
+          git submodule add https://github.com/jpanther/congo.git themes/congo
 
       - name: Prepare Hugo data and static files
         run: |
