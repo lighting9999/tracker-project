@@ -19,7 +19,7 @@ en:
   download_tooltip_https: "HTTPS alive trackers"
   download_tooltip_udp: "UDP alive trackers"
   download_tooltip_wss: "WebSocket alive trackers"
-  footer_text: "Tracker Status · Auto-generated · {}"
+  footer_text: "Tracker Status · Auto-generated ·"
 
 zh:
   title: 追踪器状态
@@ -42,4 +42,4 @@ zh:
   download_tooltip_https: "HTTPS 可用的 tracker"
   download_tooltip_udp: "UDP 可用的 tracker"
   download_tooltip_wss: "WebSocket 可用的 tracker"
-  footer_text: "追踪器状态 · 自动生成 · {}"
+  footer_text: "追踪器状态 · 自动生成 ·"
