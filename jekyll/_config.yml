@@ -1,0 +1,26 @@
+title: Tracker Status
+description: BitTorrent tracker availability report
+baseurl: ""
+url: "https://tracker-project.pages.dev"
+
+# 启用 TeXt 主题
+theme: jekyll-text-theme
+
+# 可选皮肤 (default, dark, forest, ocean, chocolate, orange)
+text_skin: ocean
+
+# 高亮主题 (default, tomorrow, tomorrow-night, etc.)
+highlight_theme: default
+
+# 语言设置
+lang: en
+
+# 构建输出目录
+destination: _site
+
+# 排除文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .gitignore
