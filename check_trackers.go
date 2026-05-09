@@ -53,7 +53,7 @@ type TrackerHistory struct {
 }
 
 var (
-	trackerRe    = regexp.MustCompile(`(?i)(https?|udp|wss)://[^\s,]*?/announce`)
+	trackerRe    = regexp.MustCompile(`(?i)(https?|udp|wss?)://[^\s,]+?/announce[^\s,]*`)
 	httpClient   *http.Client
 	peerIDPrefix string
 )
@@ -112,7 +112,6 @@ func collapsePathSlashes(path string) string {
 	return string(out)
 }
 
-
 func bdecodeSimple(data []byte) bool {
 	if len(data) == 0 || data[0] != 'd' {
 		return false
@@ -133,7 +132,7 @@ func normalizeTrackerURL(raw string) (string, error) {
 		return "", err
 	}
 	scheme := strings.ToLower(u.Scheme)
-	if scheme != "http" && scheme != "https" && scheme != "udp" && scheme != "wss" {
+	if scheme != "http" && scheme != "https" && scheme != "udp" && scheme != "wss" && scheme != "ws" {
 		return "", fmt.Errorf("unsupported scheme")
 	}
 	host := u.Hostname()
@@ -152,23 +151,26 @@ func normalizeTrackerURL(raw string) (string, error) {
 		return "", fmt.Errorf("path must be related to /announce")
 	}
 	u.Path = normalizedPath
-	// 保留查询参数（如 passkey）
 	u.Fragment = ""
 
 	if (scheme == "http" && u.Port() == "80") || (scheme == "https" && u.Port() == "443") {
 		if ip := net.ParseIP(host); ip != nil && ip.To4() == nil {
-			// IPv6 地址：保留方括号
 			u.Host = "[" + host + "]"
 		} else {
 			u.Host = host
 		}
 	}
 
-	return u.String(), nil   // ← 补回这一行
-}                            // ← 补回这一行
+	return u.String(), nil
+}
 
 func bytesContains(data []byte, substr string) bool {
 	return strings.Contains(string(data), substr)
+}
+
+func isHTML(data []byte) bool {
+	head := strings.ToLower(string(data[:min(len(data), 200)]))
+	return strings.Contains(head, "<html") || strings.Contains(head, "<!doctype") || strings.Contains(head, "<body") || strings.Contains(head, "<head")
 }
 
 func isParkedDomain(content []byte) bool {
@@ -189,9 +191,7 @@ func isParkedDomain(content []byte) bool {
 			return true
 		}
 	}
-	head := string(content[:min(len(content), 500)])
-	head = strings.ToLower(head)
-	return strings.Contains(head, "<html") || strings.Contains(head, "<!doctype html")
+	return false
 }
 
 func min(a, b int) int {
@@ -202,59 +202,55 @@ func min(a, b int) int {
 }
 
 func checkHTTP(ctx context.Context, tracker string) (string, *int64) {
-    // 安全合并查询参数：先解析 tracker URL，然后用 tracker 原有参数与新参数合并
-    base, err := url.Parse(tracker)
-    if err != nil {
-        return StatusInvalid, nil
-    }
-    // 构造所需参数
-    baseParams := base.Query()
-    baseParams.Set("info_hash", "00000000000000000000")
-    baseParams.Set("peer_id", peerIDPrefix)
-    baseParams.Set("port", "6881")
-    baseParams.Set("uploaded", "0")
-    baseParams.Set("downloaded", "0")
-    baseParams.Set("left", "0")
-    baseParams.Set("compact", "1")
-    baseParams.Set("event", "started")
-    base.RawQuery = baseParams.Encode()
+	base, err := url.Parse(tracker)
+	if err != nil {
+		return StatusInvalid, nil
+	}
+	params := base.Query()
+	params.Set("info_hash", "00000000000000000000")
+	params.Set("peer_id", peerIDPrefix)
+	params.Set("port", "6881")
+	params.Set("uploaded", "0")
+	params.Set("downloaded", "0")
+	params.Set("left", "0")
+	params.Set("compact", "1")
+	params.Set("event", "started")
+	base.RawQuery = params.Encode()
 
-    req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
-    if err != nil {
-        return StatusDead, nil
-    }
-    start := time.Now()
-    resp, err := httpClient.Do(req)
-    if err != nil {
-        return StatusDead, nil
-    }
-    defer resp.Body.Close()
-    elapsed := int64(time.Since(start).Milliseconds())
-    body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
-    if err != nil {
-        return StatusDead, &elapsed
-    }
+	req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
+	if err != nil {
+		return StatusDead, nil
+	}
+	start := time.Now()
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return StatusDead, nil
+	}
+	defer resp.Body.Close()
+	elapsed := int64(time.Since(start).Milliseconds())
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
+	if err != nil {
+		return StatusDead, &elapsed
+	}
 
-    if isParkedDomain(body) {
-        return StatusInvalid, &elapsed
-    }
-    if bdecodeSimple(body) {
-        return StatusAlive, &elapsed
-    }
-    if resp.StatusCode == http.StatusOK {
-        head := strings.ToLower(string(body[:min(len(body), 200)]))
-        if strings.Contains(head, "<html") || strings.Contains(head, "<body") || strings.Contains(head, "<head") {
-            return StatusInvalid, &elapsed
-        }
-        if len(body) > 50000 {
-            return StatusInvalid, &elapsed
-        }
-        return StatusDead, &elapsed
-    }
-    if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
-        return StatusAlive, &elapsed
-    }
-    return StatusDead, &elapsed
+	if isHTML(body) || isParkedDomain(body) {
+		return StatusInvalid, &elapsed
+	}
+
+	if bdecodeSimple(body) {
+		return StatusAlive, &elapsed
+	}
+
+	if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
+		return StatusAlive, &elapsed
+	}
+
+	if resp.StatusCode == http.StatusOK {
+		if len(body) > 50000 {
+			return StatusInvalid, &elapsed
+		}
+	}
+	return StatusDead, &elapsed
 }
 
 func checkUDP(ctx context.Context, tracker string) (string, *int64) {
@@ -279,50 +275,74 @@ func checkUDP(ctx context.Context, tracker string) (string, *int64) {
 	conn.SetDeadline(time.Now().Add(defaultTimeout))
 
 	connectionID := uint64(0x41727101980)
-	action := uint32(0)
-	transID := uint32(randomInt(0, 0xFFFFFFFF))
-	packet := make([]byte, 16)
-	bigEndianPutUint64(packet[0:8], connectionID)
-	bigEndianPutUint32(packet[8:12], action)
-	bigEndianPutUint32(packet[12:16], transID)
+	transConnect := uint32(randomInt(0, 0xFFFFFFFF))
+	connReq := make([]byte, 16)
+	bigEndianPutUint64(connReq[0:8], connectionID)
+	bigEndianPutUint32(connReq[8:12], 0)
+	bigEndianPutUint32(connReq[12:16], transConnect)
 
 	start := time.Now()
-	if _, err := conn.Write(packet); err != nil {
+	if _, err := conn.Write(connReq); err != nil {
 		return StatusDead, nil
 	}
-	response := make([]byte, 16)
-	n, err := conn.Read(response)
+	connResp := make([]byte, 16)
+	n, err := conn.Read(connResp)
+	if err != nil {
+		return StatusDead, nil
+	}
+	if n < 16 {
+		return StatusDead, nil
+	}
+	if bigEndianUint32(connResp[0:4]) != 0 {
+		return StatusDead, nil
+	}
+	if bigEndianUint32(connResp[4:8]) != transConnect {
+		return StatusDead, nil
+	}
+	newConnectionID := bigEndianUint64(connResp[8:16])
+
+	infoHash := make([]byte, 20)
+	if _, err := rand.Read(infoHash); err != nil {
+		return StatusDead, nil
+	}
+	transAnnounce := uint32(randomInt(0, 0xFFFFFFFF))
+	annReq := make([]byte, 98)
+	bigEndianPutUint64(annReq[0:8], newConnectionID)
+	bigEndianPutUint32(annReq[8:12], 1)
+	bigEndianPutUint32(annReq[12:16], transAnnounce)
+	copy(annReq[16:36], infoHash)
+	copy(annReq[36:56], []byte(peerIDPrefix))
+	bigEndianPutUint64(annReq[56:64], 0)
+	bigEndianPutUint64(annReq[64:72], 0)
+	bigEndianPutUint64(annReq[72:80], 0)
+	bigEndianPutUint32(annReq[80:84], 2)
+	bigEndianPutUint32(annReq[84:88], 0)
+	bigEndianPutUint32(annReq[88:92], 0)
+	bigEndianPutInt32(annReq[92:96], -1)
+	bigEndianPutUint16(annReq[96:98], 6881)
+
+	if _, err := conn.Write(annReq); err != nil {
+		return StatusDead, nil
+	}
+	annResp := make([]byte, 2048)
+	n2, err := conn.Read(annResp)
 	if err != nil {
 		return StatusDead, nil
 	}
 	elapsed := int64(time.Since(start).Milliseconds())
-	if n >= 8 {
-		return StatusAlive, &elapsed
+	if n2 < 20 {
+		return StatusDead, &elapsed
+	}
+	if bigEndianUint32(annResp[0:4]) != 1 {
+		if bigEndianUint32(annResp[0:4]) == 3 {
+			return StatusAlive, &elapsed
+		}
+		return StatusDead, &elapsed
+	}
+	if bigEndianUint32(annResp[4:8]) != transAnnounce {
+		return StatusDead, &elapsed
 	}
 	return StatusAlive, &elapsed
-}
-
-func bigEndianPutUint64(b []byte, v uint64) {
-	b[0] = byte(v >> 56)
-	b[1] = byte(v >> 48)
-	b[2] = byte(v >> 40)
-	b[3] = byte(v >> 32)
-	b[4] = byte(v >> 24)
-	b[5] = byte(v >> 16)
-	b[6] = byte(v >> 8)
-	b[7] = byte(v)
-}
-
-func bigEndianPutUint32(b []byte, v uint32) {
-	b[0] = byte(v >> 24)
-	b[1] = byte(v >> 16)
-	b[2] = byte(v >> 8)
-	b[3] = byte(v)
-}
-
-func randomInt(min, max int) int {
-	n, _ := rand.Int(rand.Reader, big.NewInt(int64(max-min)))
-	return int(n.Int64()) + min
 }
 
 func checkWSS(ctx context.Context, tracker string) (string, *int64) {
@@ -352,7 +372,7 @@ func validateTracker(ctx context.Context, tracker string) CheckResult {
 		status, ping = checkHTTP(ctx, tracker)
 	case "udp":
 		status, ping = checkUDP(ctx, tracker)
-	case "wss":
+	case "wss", "ws":
 		status, ping = checkWSS(ctx, tracker)
 	default:
 		status = StatusInvalid
@@ -536,7 +556,7 @@ func updateHistory(hist map[string]*TrackerHistory, results []CheckResult, nowTs
 			entry = &TrackerHistory{}
 			hist[r.URL] = entry
 		}
-		wasAliveLast := entry.LastSeenTs != 0 && entry.LastSeenTs == entry.LastAliveTs
+		lastWasAlive := entry.LastSeenTs != 0 && entry.LastSeenTs == entry.LastAliveTs
 		entry.Checks++
 		if entry.FirstSeenTs == 0 {
 			entry.FirstSeenTs = nowTs
@@ -544,7 +564,7 @@ func updateHistory(hist map[string]*TrackerHistory, results []CheckResult, nowTs
 		entry.LastSeenTs = nowTs
 
 		if r.Status == StatusAlive {
-			if !wasAliveLast || entry.StreakAliveStartTs == 0 {
+			if !lastWasAlive || entry.StreakAliveStartTs == 0 {
 				entry.StreakAliveStartTs = nowTs
 			}
 			entry.AliveChecks++
@@ -566,6 +586,47 @@ func getProtocol(u string) string {
 	return parsed.Scheme
 }
 
+func bigEndianPutUint64(b []byte, v uint64) {
+	b[0] = byte(v >> 56)
+	b[1] = byte(v >> 48)
+	b[2] = byte(v >> 40)
+	b[3] = byte(v >> 32)
+	b[4] = byte(v >> 24)
+	b[5] = byte(v >> 16)
+	b[6] = byte(v >> 8)
+	b[7] = byte(v)
+}
+
+func bigEndianPutUint32(b []byte, v uint32) {
+	b[0] = byte(v >> 24)
+	b[1] = byte(v >> 16)
+	b[2] = byte(v >> 8)
+	b[3] = byte(v)
+}
+
+func bigEndianPutInt32(b []byte, v int32) {
+	bigEndianPutUint32(b, uint32(v))
+}
+
+func bigEndianPutUint16(b []byte, v uint16) {
+	b[0] = byte(v >> 8)
+	b[1] = byte(v)
+}
+
+func bigEndianUint64(b []byte) uint64 {
+	return uint64(b[0])<<56 | uint64(b[1])<<48 | uint64(b[2])<<40 | uint64(b[3])<<32 |
+		uint64(b[4])<<24 | uint64(b[5])<<16 | uint64(b[6])<<8 | uint64(b[7])
+}
+
+func bigEndianUint32(b []byte) uint32 {
+	return uint32(b[0])<<24 | uint32(b[1])<<16 | uint32(b[2])<<8 | uint32(b[3])
+}
+
+func randomInt(min, max int) int {
+	n, _ := rand.Int(rand.Reader, big.NewInt(int64(max-min)))
+	return int(n.Int64()) + min
+}
+
 func main() {
 	input := flag.String("input", "merged_trackers.txt", "Input file with raw tracker URLs")
 	output := flag.String("output", "trackers_best.txt", "File to write best (alive) trackers")
@@ -579,7 +640,6 @@ func main() {
 		concurrency = defaultWorkers
 	}
 
-	// Load
 	trackers, err := loadTrackers(inputFile)
 	if err != nil {
 		log.Fatalf("Failed to load trackers: %v", err)
@@ -595,37 +655,58 @@ func main() {
 		log.Fatalf("Error writing trackers_all.txt: %v", err)
 	}
 
-	// Concurrency
-	sem := make(chan struct{}, concurrency)
-	var wg sync.WaitGroup
-	var resultsLock sync.Mutex
-	results := make([]CheckResult, 0, len(allTrackers))
-
-	var completed int32
 	total := len(allTrackers)
-	startTime := time.Now()
+	jobs := make(chan string, total)
+	resultsCh := make(chan []CheckResult, concurrency)
+	progressCh := make(chan int, concurrency*2)
+
+	var wg sync.WaitGroup
 	ctx := context.Background()
 
-	for _, tracker := range allTrackers {
+	for w := 0; w < concurrency; w++ {
 		wg.Add(1)
-		go func(t string) {
+		go func() {
 			defer wg.Done()
-			sem <- struct{}{}
-			defer func() { <-sem }()
-
-			res := validateTracker(ctx, t)
-			resultsLock.Lock()
-			results = append(results, res)
-			resultsLock.Unlock()
-
-			done := atomic.AddInt32(&completed, 1)
-			fmt.Printf("[%d/%d] %s %s\n", done, total, res.Status, res.URL)
-		}(tracker)
+			local := make([]CheckResult, 0, total/concurrency+1)
+			for tracker := range jobs {
+				res := validateTracker(ctx, tracker)
+				local = append(local, res)
+				select {
+				case progressCh <- 1:
+				default:
+				}
+			}
+			resultsCh <- local
+		}()
 	}
-	wg.Wait()
-	close(sem)
 
-	// Summarize
+	var progressDone sync.WaitGroup
+	progressDone.Add(1)
+	var completed int32
+	go func() {
+		defer progressDone.Done()
+		for range progressCh {
+			done := atomic.AddInt32(&completed, 1)
+			fmt.Printf("[%d/%d] processed\n", done, total)
+		}
+	}()
+
+	startTime := time.Now()
+	for _, t := range allTrackers {
+		jobs <- t
+	}
+	close(jobs)
+
+	wg.Wait()
+	close(resultsCh)
+	close(progressCh)
+	progressDone.Wait()
+
+	var results []CheckResult
+	for r := range resultsCh {
+		results = append(results, r...)
+	}
+
 	var aliveList []string
 	var deadCount, invalidCount int
 	for _, r := range results {
@@ -640,11 +721,10 @@ func main() {
 	}
 	aliveList = sortUnique(aliveList)
 
-	// Write best files
 	if err := writeLines(outputFile, aliveList); err != nil {
 		log.Fatalf("Error writing %s: %v", outputFile, err)
 	}
-	for _, proto := range []string{"http", "https", "udp", "wss"} {
+	for _, proto := range []string{"http", "https", "udp", "ws", "wss"} {
 		var urls []string
 		for _, u := range aliveList {
 			if getProtocol(u) == proto {
@@ -654,7 +734,6 @@ func main() {
 		writeLines(filepath.Join(outputDir, "trackers_best_"+proto+".txt"), sortUnique(urls))
 	}
 
-	// History
 	historyPath := filepath.Join(outputDir, "tracker_history.tsv")
 	history, err := loadHistory(historyPath)
 	if err != nil {
