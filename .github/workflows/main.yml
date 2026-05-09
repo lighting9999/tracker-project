@@ -67,8 +67,13 @@ jobs:
           rm -f webtracker/input_merged_raw.txt
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
-      - name: Build Go tracker checker & JSON generator
-        run: go build -o tracker-checker build.go
+      - name: Setup Go modules and build
+        run: |
+          if [ ! -f "go.mod" ]; then
+            go mod init tracker-checker
+          fi
+          go mod tidy
+          go build -o tracker-checker build.go
 
       - name: Run tracker checker
         run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 200 -json-output jekyll/_data/trackers.json
