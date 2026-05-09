@@ -7,8 +7,11 @@ theme: jekyll-text-theme
 text_skin: ocean
 highlight_theme: default
 
-lang: en
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
 
+lang: en
 destination: _site
 
 exclude:
@@ -17,12 +20,10 @@ exclude:
   - vendor
   - .gitignore
 
-# 开启侧边栏和头部导航
 texts:
   sidebar:
     nav: all
 
-# 默认页面布局
 defaults:
   - scope:
       path: ""
