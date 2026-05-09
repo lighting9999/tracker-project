@@ -67,23 +67,11 @@ jobs:
           rm -f webtracker/input_merged_raw.txt
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
-      - name: Build Go tools
-        run: |
-          if [ ! -f "go.mod" ]; then go mod init tracker-checker; fi
-          go mod tidy
-          go build -o tracker-checker check_trackers.go
-          go build -o build_docs build_docs.go
+      - name: Build Go tracker checker & JSON generator
+        run: go build -o tracker-checker build.go
 
-      - name: Run tracker checker (Go)
-        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 200
-
-      - name: Generate Jekyll data
-        run: |
-          mkdir -p jekyll/_data
-          ./build_docs --trackers-all trackers_all.txt \
-                       --trackers-best trackers_best.txt \
-                       --history tracker_history.tsv \
-                       --output jekyll/_data/trackers.json
+      - name: Run tracker checker
+        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 200 -json-output jekyll/_data/trackers.json
 
       - name: Setup Ruby and Jekyll
         uses: ruby/setup-ruby@v1
@@ -92,15 +80,10 @@ jobs:
           bundler-cache: true
           working-directory: jekyll
 
-      - name: Bundle install (if needed)
-        run: |
-          cd jekyll
-          bundle config set --local path 'vendor/bundle'
-          bundle install
-
       - name: Build Jekyll site
         run: |
           cd jekyll
+          bundle install
           bundle exec jekyll build --destination ../public
 
       - name: Copy tracker download files to public
