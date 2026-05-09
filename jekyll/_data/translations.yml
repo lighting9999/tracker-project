@@ -1,0 +1,45 @@
+en:
+  title: Tracker Status
+  total_checked: Total Checked
+  online: Available
+  dead: Unavailable
+  invalid: Invalid
+  global_uptime: Global Uptime
+  protocols: Protocols
+  downloads: Downloads
+  all_trackers: All trackers (incl. dead/invalid)
+  all_alive: All available
+  http: HTTP
+  https: HTTPS
+  udp: UDP
+  wss: WSS
+  download_tooltip_all: "Complete list including dead and invalid trackers"
+  download_tooltip_best: "Only currently alive trackers"
+  download_tooltip_http: "HTTP alive trackers"
+  download_tooltip_https: "HTTPS alive trackers"
+  download_tooltip_udp: "UDP alive trackers"
+  download_tooltip_wss: "WebSocket alive trackers"
+  footer_text: "Tracker Status · Auto-generated · {}"
+
+zh:
+  title: 追踪器状态
+  total_checked: 总检测数
+  online: 可用
+  dead: 不可用
+  invalid: 无效
+  global_uptime: 全局在线率
+  protocols: 协议
+  downloads: 下载
+  all_trackers: 全部 tracker（含失效/无效）
+  all_alive: 所有可用
+  http: HTTP
+  https: HTTPS
+  udp: UDP
+  wss: WSS
+  download_tooltip_all: "包含已失效和无效的 tracker"
+  download_tooltip_best: "仅当前可用的 tracker"
+  download_tooltip_http: "HTTP 可用的 tracker"
+  download_tooltip_https: "HTTPS 可用的 tracker"
+  download_tooltip_udp: "UDP 可用的 tracker"
+  download_tooltip_wss: "WebSocket 可用的 tracker"
+  footer_text: "追踪器状态 · 自动生成 · {}"
