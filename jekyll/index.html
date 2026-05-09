@@ -1,145 +1,61 @@
 ---
-layout: default
+layout: page
+title: Tracker Status
 ---
 {% assign data = site.data.trackers %}
 {% assign loc = data.locales.en %}
 
 <style>
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-.stat-card {
-  background: var(--card-bg, #fff);
-  border-radius: 12px;
-  padding: 1.25rem 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  border: 1px solid var(--border-color, #e2e8f0);
-  text-align: center;
-  transition: transform .15s;
-}
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin: 32px 0; }
+.stat-card { background: var(--card-bg, var(--body-bg, #fff)); border-radius: 12px; padding: 20px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); border: 1px solid var(--border-color, #eaecef); text-align: center; transition: transform .15s; }
 .stat-card:hover { transform: translateY(-3px); }
-.stat-label {
-  font-size: .7rem;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: #64748b;
-  margin-bottom: .5rem;
-  font-weight: 600;
-}
+.stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: var(--text-muted, #8a8a8a); margin-bottom: 8px; font-weight: 600; }
 .stat-value { font-size: 2rem; font-weight: 800; }
 .ok { color: #10b981; }
 .bad { color: #ef4444; }
 .warn { color: #f59e0b; }
-.downloads {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem 1rem;
-  align-items: center;
-  padding: .75rem 1rem;
-  background: var(--card-bg, #fff);
-  border-radius: 8px;
-  border: 1px solid var(--border-color, #e2e8f0);
-  margin-bottom: 2rem;
-  font-size: .9rem;
-}
-.downloads a {
-  color: #3b82f6;
-  text-decoration: none;
-  padding: .2rem .6rem;
-  border-radius: 6px;
-  transition: background .2s;
-}
+.downloads { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 12px 16px; background: var(--card-bg, var(--body-bg, #fff)); border-radius: 8px; border: 1px solid var(--border-color, #eaecef); margin-bottom: 32px; font-size: 14px; }
+.downloads a { color: #3b82f6; text-decoration: none; padding: 4px 10px; border-radius: 6px; transition: background .2s; }
 .downloads a:hover { background: #3b82f6; color: #fff; }
-.proto-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-@media (max-width: 700px) { .proto-grid { grid-template-columns: repeat(2, 1fr); } }
-.proto-card {
-  background: var(--card-bg, #fff);
-  border-radius: 12px;
-  padding: 1.5rem 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  border: 1px solid var(--border-color, #e2e8f0);
-  text-align: center;
-  transition: transform .15s;
-}
+.proto-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+@media (max-width: 767px) { .proto-grid { grid-template-columns: repeat(2, 1fr); } }
+.proto-card { background: var(--card-bg, var(--body-bg, #fff)); border-radius: 12px; padding: 24px 16px; box-shadow: 0 2px 8px rgba(0,0,0,.04); border: 1px solid var(--border-color, #eaecef); text-align: center; transition: transform .15s; }
 .proto-card:hover { transform: translateY(-3px); }
-.proto-name { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+.proto-name { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
 .proto-count { font-size: 2rem; font-weight: 800; }
-.proto-pct { font-size: .8rem; color: #64748b; margin-top: .3rem; }
+.proto-pct { font-size: 13px; color: var(--text-muted, #8a8a8a); margin-top: 8px; }
 .http-color { color: #2563eb; }
 .https-color { color: #059669; }
 .udp-color { color: #d97706; }
 .wss-color { color: #7c3aed; }
 </style>
 
-<div class="container">
-  <h1 class="page-title">Tracker Status</h1>
-
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-label">{{ loc.total_checked }}</div>
-      <div class="stat-value">{{ data.total }}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">{{ loc.online }}</div>
-      <div class="stat-value ok">{{ data.alive_count }}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">{{ loc.dead }}</div>
-      <div class="stat-value bad">{{ data.dead_count }}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">{{ loc.invalid }}</div>
-      <div class="stat-value warn">{{ data.invalid_count }}</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">{{ loc.global_uptime }}</div>
-      <div class="stat-value">{{ data.uptime_pct | round: 1 }}%</div>
-    </div>
-  </div>
-
-  <div class="downloads">
-    <strong>{{ loc.downloads }}:</strong>
-    <a href="/trackers_all.txt">{{ loc.all_trackers }}</a>
-    <a href="/trackers_best.txt">{{ loc.all_alive }}</a>
-    <a href="/trackers_best_http.txt">{{ loc.http }}</a>
-    <a href="/trackers_best_https.txt">{{ loc.https }}</a>
-    <a href="/trackers_best_udp.txt">{{ loc.udp }}</a>
-    <a href="/trackers_best_wss.txt">{{ loc.wss }}</a>
-  </div>
-
-  {% assign p = data.protocols %}
-  <div class="proto-grid">
-    <div class="proto-card">
-      <div class="proto-name http-color">HTTP</div>
-      <div class="proto-count">{{ p.http }}</div>
-      <div class="proto-pct">{{ p.http_pct | round: 1 }}% of total</div>
-    </div>
-    <div class="proto-card">
-      <div class="proto-name https-color">HTTPS</div>
-      <div class="proto-count">{{ p.https }}</div>
-      <div class="proto-pct">{{ p.https_pct | round: 1 }}% of total</div>
-    </div>
-    <div class="proto-card">
-      <div class="proto-name udp-color">UDP</div>
-      <div class="proto-count">{{ p.udp }}</div>
-      <div class="proto-pct">{{ p.udp_pct | round: 1 }}% of total</div>
-    </div>
-    <div class="proto-card">
-      <div class="proto-name wss-color">WSS</div>
-      <div class="proto-count">{{ p.wss }}</div>
-      <div class="proto-pct">{{ p.wss_pct | round: 1 }}% of total</div>
-    </div>
-  </div>
-
-  <div style="text-align:center;color:#94a3b8;font-size:.75rem;margin-top:3rem;">
-    Tracker Status · Auto-generated · {{ "now" | date: "%Y-%m-%d %H:%M UTC" }}
-  </div>
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-label">{{ loc.total_checked }}</div><div class="stat-value">{{ data.total }}</div></div>
+  <div class="stat-card"><div class="stat-label">{{ loc.online }}</div><div class="stat-value ok">{{ data.alive_count }}</div></div>
+  <div class="stat-card"><div class="stat-label">{{ loc.dead }}</div><div class="stat-value bad">{{ data.dead_count }}</div></div>
+  <div class="stat-card"><div class="stat-label">{{ loc.invalid }}</div><div class="stat-value warn">{{ data.invalid_count }}</div></div>
+  <div class="stat-card"><div class="stat-label">{{ loc.global_uptime }}</div><div class="stat-value">{{ data.uptime_pct | round: 1 }}%</div></div>
 </div>
+
+<div class="downloads">
+  <strong>{{ loc.downloads }}:</strong>
+  <a href="/trackers_all.txt">{{ loc.all_trackers }}</a>
+  <a href="/trackers_best.txt">{{ loc.all_alive }}</a>
+  <a href="/trackers_best_http.txt">{{ loc.http }}</a>
+  <a href="/trackers_best_https.txt">{{ loc.https }}</a>
+  <a href="/trackers_best_udp.txt">{{ loc.udp }}</a>
+  <a href="/trackers_best_wss.txt">{{ loc.wss }}</a>
+</div>
+
+{% assign p = data.protocols %}
+<div class="proto-grid">
+  <div class="proto-card"><div class="proto-name http-color">HTTP</div><div class="proto-count">{{ p.http }}</div><div class="proto-pct">{{ p.http_pct | round: 1 }}% of total</div></div>
+  <div class="proto-card"><div class="proto-name https-color">HTTPS</div><div class="proto-count">{{ p.https }}</div><div class="proto-pct">{{ p.https_pct | round: 1 }}% of total</div></div>
+  <div class="proto-card"><div class="proto-name udp-color">UDP</div><div class="proto-count">{{ p.udp }}</div><div class="proto-pct">{{ p.udp_pct | round: 1 }}% of total</div></div>
+  <div class="proto-card"><div class="proto-name wss-color">WSS</div><div class="proto-count">{{ p.wss }}</div><div class="proto-pct">{{ p.wss_pct | round: 1 }}% of total</div></div>
+</div>
+
+<p style="text-align:center;color:var(--text-muted, #8a8a8a);font-size:13px;margin-top:48px;">
+  Tracker Status · Auto-generated · {{ "now" | date: "%Y-%m-%d %H:%M UTC" }}
+</p>
