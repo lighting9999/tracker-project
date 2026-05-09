@@ -75,7 +75,7 @@ jobs:
           go build -o build_docs build_docs.go
 
       - name: Run tracker checker (Go)
-        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 100
+        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 200
 
       - name: Generate Jekyll data
         run: |
