@@ -628,16 +628,15 @@ func randomInt(min, max int) int {
 	return int(n.Int64()) + min
 }
 
-// JSON output structures (integrated from build_docs)
+// ---------- JSON output structures (no translations) ----------
 type JekyllData struct {
-	Locales      map[string]map[string]string `json:"locales"`
-	Total        int                         `json:"total"`
-	AliveCount   int                         `json:"alive_count"`
-	DeadCount    int                         `json:"dead_count"`
-	InvalidCount int                         `json:"invalid_count"`
-	UptimePct    float64                     `json:"uptime_pct"`
-	Protocols    ProtocolStats               `json:"protocols"`
-	Trackers     []TrackerEntry              `json:"trackers"`
+	Total        int            `json:"total"`
+	AliveCount   int            `json:"alive_count"`
+	DeadCount    int            `json:"dead_count"`
+	InvalidCount int            `json:"invalid_count"`
+	UptimePct    float64        `json:"uptime_pct"`
+	Protocols    ProtocolStats  `json:"protocols"`
+	Trackers     []TrackerEntry `json:"trackers"`
 }
 
 type ProtocolStats struct {
@@ -780,7 +779,7 @@ func main() {
 		log.Fatalf("Failed to save history: %v", err)
 	}
 
-	// ----- Build Jekyll JSON data (using results directly) -----
+	// ----- Build Jekyll JSON data (pure numbers) -----
 	aliveCount := len(aliveList)
 	uptimePct := 0.0
 	if total > 0 {
@@ -832,46 +831,7 @@ func main() {
 		})
 	}
 
-	locales := map[string]map[string]string{
-		"en": {
-			"title":            "Tracker Status",
-			"stats_summary":    "Stats Summary",
-			"total_checked":    "Total Checked",
-			"online":           "Available",
-			"dead":             "Unavailable",
-			"invalid":          "Invalid",
-			"global_uptime":    "Global Uptime",
-			"protocols":        "Protocols",
-			"downloads":        "Downloads",
-			"all_trackers":     "All trackers (incl. dead/invalid)",
-			"all_alive":        "All available",
-			"http": "HTTP", "https": "HTTPS", "udp": "UDP", "wss": "WSS",
-			"detailed_status":  "Tracker Details",
-			"status": "Status", "url": "URL", "uptime": "Uptime",
-			"days": "Days", "page": "Page",
-			"available": "Available", "unavailable": "Unavailable",
-			"back_to_top": "Back to top",
-		},
-		"zh": {
-			"title":            "Tracker 状态",
-			"stats_summary":    "统计摘要",
-			"total_checked":    "总检测数",
-			"online":           "可用", "dead": "不可用", "invalid": "无效",
-			"global_uptime":    "全局在线率",
-			"protocols":        "协议", "downloads": "下载",
-			"all_trackers":     "全部 tracker（含失效/无效）",
-			"all_alive":        "所有可用",
-			"http": "HTTP", "https": "HTTPS", "udp": "UDP", "wss": "WSS",
-			"detailed_status":  "Tracker 详情",
-			"status": "状态", "url": "URL", "uptime": "在线率",
-			"days": "连续天数", "page": "页码",
-			"available": "可用", "unavailable": "不可用",
-			"back_to_top": "回到顶部",
-		},
-	}
-
 	jData := JekyllData{
-		Locales:      locales,
 		Total:        total,
 		AliveCount:   aliveCount,
 		DeadCount:    deadCount,
