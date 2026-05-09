@@ -64,6 +64,6 @@ lang: zh
   <div class="proto-card"><div class="proto-name wss-color">WSS</div><div class="proto-count">{{ p.wss }}</div><div class="proto-pct">{{ p.wss_pct | round: 1 }}% 占总量的</div></div>
 </div>
 
-<p style="text-align:center;color:var(--text-muted, #8a8a8a);font-size:13px;margin-top:48px;">
-  {{ loc.footer_text | replace: '{}', '2026-05-09 10:11 UTC' }}
+  <p style="text-align:center;color:var(--text-muted, #8a8a8a);font-size:13px;margin-top:48px;">
+  {{ loc.footer_text }} {{ "now" | date: "%Y-%m-%d %H:%M UTC" }}
 </p>
