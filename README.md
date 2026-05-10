@@ -3,10 +3,6 @@
 > Daily updated public BitTorrent tracker collection with automatic validation, self-hosted mirror pages, and multi-client support.
 
 <p align="center">
-  <img src="./assets/banner.png" width="100%" alt="Trackerlist Banner" />
-</p>
-
-<p align="center">
   <a href="https://github.com/lighting9999/tracker-project/actions/workflows/main.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/lighting9999/tracker-project/main.yml?style=for-the-badge&label=tracker-check" />
   </a>
