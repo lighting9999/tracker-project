@@ -1,7 +1,7 @@
 title: Tracker Status
 description: BitTorrent tracker availability report
 baseurl: ""
-url: "https://tracker-project.pages.dev"
+url: "https://tracker-list.pages.dev"
 
 theme: jekyll-text-theme
 text_skin: ocean
