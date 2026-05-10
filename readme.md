@@ -1,5 +1,5 @@
 # Trackerlist
-
+[![Tracker Check and Deploy](https://github.com/lighting9999/tracker-project/actions/workflows/main.yml/badge.svg)](https://github.com/lighting9999/tracker-project/actions/workflows/main.yml)
 每天更新！全网热门 Tracker 列表！
 # Tracker是什么?
 
@@ -15,8 +15,7 @@
 
  > **以上三者的优缺点是互补的，不存在谁替代谁，只有互相搭配 一起使用 效果才最好**
 
-****
-\# **以下为完整列表 ` best.txt ` 示例（末尾文件名可自行修改，选择一个速度快的地址）：**  
+
 
 ### 如何使用?
 ****
