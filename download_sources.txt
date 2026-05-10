@@ -25,9 +25,9 @@ https://raw.githubusercontent.com/kkkgo/all-tracker-list/main/trackerslist.txt
 https://raw.githubusercontent.com/dr5hx/tracker_merge/master/all.txt
 https://raw.githubusercontent.com/phiyuki/Tracker/main/main/trackers.txt
 https://raw.githubusercontent.com/Sinnar0047/trackerslist/master/trackers_all.txt
-https://raw.githubusercontent.com/roxio/LongTrackerList/main/2024_Trackers_ALL.txt
+
 https://raw.githubusercontent.com/Sereinfy/TrackersList/main/main/trackers.txt
-https://raw.githubusercontent.com/BoxMiao007/Library/main/Trackers/trackers.txt
+https://raw.githubusercontent.com/BoxMiao007/Tracker-List/refs/heads/main/trackers.txt
 https://raw.githubusercontent.com/wcj343169893/Trackerslist/main/trackerslist_exclude.txt
 https://raw.githubusercontent.com/wcj343169893/Trackerslist/main/trackerslist_combine.txt
 https://raw.githubusercontent.com/wcj343169893/Trackerslist/main/trackerslist_tracker.txt
