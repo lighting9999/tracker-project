@@ -1,0 +1,147 @@
+{% assign loc = site.data.translations[page.lang] %}
+{% assign data = site.data.trackers %}
+<!DOCTYPE html>
+<html lang="{{ page.lang }}" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ loc.title }}</title>
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary border-bottom shadow-sm" style="background: rgba(15,23,42,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-white" href="/">Tracker List</a>
+      <div class="d-flex align-items-center gap-2 ms-auto">
+        <a href="/en/" class="text-decoration-none {% if page.lang == 'en' %}text-white fw-semibold{% else %}text-muted{% endif %} small">EN</a>
+        <a href="/zh/" class="text-decoration-none {% if page.lang == 'zh' %}text-white fw-semibold{% else %}text-muted{% endif %} small">中文</a>
+        <button id="themeToggle" class="btn btn-sm btn-outline-light" aria-label="Toggle dark mode">🌓</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container py-4">
+    <!-- 统计卡片 - 添加 fade-up 类 -->
+    <div class="stats-grid">
+      <div class="stat-card fade-up"><div class="stat-label">{{ loc.total_checked }}</div><div class="stat-value" data-target="{{ data.total }}">0</div></div>
+      <div class="stat-card fade-up"><div class="stat-label">{{ loc.online }}</div><div class="stat-value ok" data-target="{{ data.alive_count }}">0</div></div>
+      <div class="stat-card fade-up"><div class="stat-label">{{ loc.dead }}</div><div class="stat-value bad" data-target="{{ data.dead_count }}">0</div></div>
+      <div class="stat-card fade-up"><div class="stat-label">{{ loc.invalid }}</div><div class="stat-value warn" data-target="{{ data.invalid_count }}">0</div></div>
+      <div class="stat-card fade-up"><div class="stat-label">{{ loc.global_uptime }}</div><div class="stat-value" data-target="{{ data.uptime_pct | times: 1.0 }}">0</div></div>
+    </div>
+
+    <!-- 下载区域（省略，同上） -->
+    <!-- ... -->
+
+    <!-- 协议卡片 - 也加入 fade-up 和数字动画（按需） -->
+    {% assign p = data.protocols %}
+    <div class="proto-grid">
+      <div class="proto-card fade-up"><div class="proto-name http-color">HTTP</div><div class="proto-count" data-target="{{ p.http }}">0</div><div class="proto-pct">{{ p.http_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
+      <div class="proto-card fade-up"><div class="proto-name https-color">HTTPS</div><div class="proto-count" data-target="{{ p.https }}">0</div><div class="proto-pct">{{ p.https_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
+      <div class="proto-card fade-up"><div class="proto-name udp-color">UDP</div><div class="proto-count" data-target="{{ p.udp }}">0</div><div class="proto-pct">{{ p.udp_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
+      <div class="proto-card fade-up"><div class="proto-name wss-color">WSS</div><div class="proto-count" data-target="{{ p.wss }}">0</div><div class="proto-pct">{{ p.wss_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
+    </div>
+
+    <p class="text-center text-muted small mt-5">
+      {{ loc.footer_prefix }} {{ "now" | date: "%Y-%m-%d %H:%M UTC" }}
+    </p>
+  </div>
+
+  <button id="backToTop" class="btn btn-primary rounded-circle back-to-top" title="Back to top">⬆️</button>
+
+  <script src="/assets/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ========= 1. 主题初始化：跟随系统偏好 + 手动覆盖 =========
+    (function() {
+      const html = document.documentElement;
+      const toggle = document.getElementById('themeToggle');
+      const stored = localStorage.getItem('theme');
+
+      function applyTheme(mode) {
+        html.setAttribute('data-bs-theme', mode);
+        localStorage.setItem('theme', mode);
+      }
+
+      // 初始主题
+      if (stored) {
+        applyTheme(stored);
+      } else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+      }
+
+      // 监听系统变化（仅当用户未手动设置时）
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+      systemDark.addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) {
+          applyTheme(e.matches ? 'dark' : 'light');
+        }
+      });
+
+      // 按钮切换
+      toggle.addEventListener('click', () => {
+        const current = html.getAttribute('data-bs-theme');
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      });
+    })();
+
+    // ========= 2. 计数动画函数 =========
+    function animateCounter(el, target, decimals = 0) {
+      const duration = 1500; // 毫秒
+      const startTime = performance.now();
+      const isFloat = target % 1 !== 0 || decimals > 0;
+      const startVal = 0;
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // easeOutExpo
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        let current = startVal + (target - startVal) * eased;
+
+        if (isFloat) {
+          el.textContent = current.toFixed(decimals) + '%';
+        } else {
+          el.textContent = Math.floor(current);
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          // 最终值确保精确
+          el.textContent = isFloat ? target.toFixed(decimals) + '%' : target;
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // 启动所有计数动画（当卡片进入视口或直接运行）
+    const counters = document.querySelectorAll('.stat-value[data-target], .proto-count[data-target]');
+    counters.forEach(el => {
+      const target = parseFloat(el.getAttribute('data-target'));
+      // 对于全局在线率百分比需要特殊处理（带小数点且显示 %）
+      if (el.classList.contains('stat-value') && el.textContent.includes('%')) {
+        animateCounter(el, target, 1);
+        el.textContent = '0%';
+      } else {
+        animateCounter(el, target);
+      }
+    });
+
+    // ========= 3. 回到顶部 =========
+    (function() {
+      const btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('show', window.scrollY > 400);
+      });
+      btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+    })();
+
+    // ========= 4. 可选：为第一个可下载区域保留手风琴（与之前相同）
+  </script>
+</body>
+</html>
