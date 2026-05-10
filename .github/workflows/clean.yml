@@ -1,3 +1,4 @@
+
 name: Cleanup Cloudflare Pages Deployments
 
 on:
@@ -20,15 +21,19 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install
-            run: pip install requests
+
+      - name: Install dependencies
+        run: pip install requests
+
       - name: Run deployment cleanup script
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CF_PAGES_PROJECT_NAME: ${{ secrets.CF_PAGES_PROJECT_NAME }}
           KEEP_DEPLOYMENTS: ${{ github.event.inputs.keep }}
+        shell: bash
         run: |
+          python << 'PYEOF'
           import os, requests, time
 
           API_TOKEN = os.environ['CLOUDFLARE_API_TOKEN']
@@ -71,7 +76,7 @@ jobs:
 
           for dep in to_delete:
               delete_deployment(dep["id"])
-              time.sleep(0.2)  # 避免触发限流
+              time.sleep(0.2)
 
           print("Cleanup completed!")
-        shell: python
+          PYEOF
