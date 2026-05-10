@@ -20,7 +20,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
+      - name: Install
+            run: pip install requests
       - name: Run deployment cleanup script
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
