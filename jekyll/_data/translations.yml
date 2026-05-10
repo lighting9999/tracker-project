@@ -20,6 +20,7 @@ en:
   download_tooltip_udp: "UDP alive trackers"
   download_tooltip_wss: "WebSocket alive trackers"
   footer_text: "Tracker Status · Auto-generated ·"
+download_info: "Each file contains one tracker URL per line, ready to be pasted into your BitTorrent client."
 
 zh:
   title: 追踪器状态
@@ -43,3 +44,4 @@ zh:
   download_tooltip_udp: "UDP 可用的 tracker"
   download_tooltip_wss: "WebSocket 可用的 tracker"
   footer_text: "追踪器状态 · 自动生成 ·"
+download_info: "每个文件每行一个 tracker URL，可直接粘贴到你的 BitTorrent 客户端中。"
