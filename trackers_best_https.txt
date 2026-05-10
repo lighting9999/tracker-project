@@ -5,7 +5,6 @@ https://bt.beatrice-raws.org/announce
 https://http1.torrust-tracker-demo.com/announce
 https://open.ftorrent.com/announce
 https://pybittrack.retiolus.net/announce
-https://retracker.x2k.ru/announce
 https://retracker2.x2k.ru/announce
 https://t.213891.xyz/announce
 https://torrent.tracker.durukanbal.com/announce
@@ -24,5 +23,4 @@ https://tracker.qingwapt.org/announce
 https://tracker.samcze.pl/announce
 https://tracker.torrentbd.net/announce
 https://tracker.totheglory.im/announce
-https://tracker.yemekyedim.com/announce
 https://tracker.zhuqiy.com/announce
