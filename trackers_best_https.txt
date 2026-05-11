@@ -22,4 +22,5 @@ https://tracker.pmman.tech/announce
 https://tracker.qingwapt.org/announce
 https://tracker.torrentbd.net/announce
 https://tracker.totheglory.im/announce
+https://tracker.yemekyedim.com/announce
 https://tracker.zhuqiy.com/announce
