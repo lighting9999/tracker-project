@@ -1,4 +1,3 @@
-wss://tracker.novage.com.ua:443/announce
 wss://tracker.openwebtorrent.com/announce
 wss://tracker.openwebtorrent.com:443/announce
 wss://tracker.openwebtorrent.com:443/announcehttp:/10.rarbg.com:80/announce
@@ -6,4 +5,3 @@ wss://tracker.openwebtorrent.com:443/announcehttp:/tracker.gbitt.info/announce
 wss://tracker.openwebtorrent.com:443/announceudp:/open.demonoid.ch:6969/announce
 wss://tracker.openwebtorrent.com:443/announceudp:/tracker.coppersurfer.tk:6969/announce
 wss://tracker.openwebtorrent.com:443/announceudp:/tracker.dler.com:6969/announce
-wss://tracker.webtorrent.dev/announce
