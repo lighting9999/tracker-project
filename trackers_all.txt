@@ -347,6 +347,7 @@ http://189.110.233.96:6969/announce
 http://189.18.126.32:6969/announce
 http://189.18.126.49:6969/announce
 http://189.18.127.125:6969/announce
+http://189.18.127.21:6969/announce
 http://189.18.127.57:6969/announce
 http://189.18.162.106:6969/announce
 http://189.18.162.54:6969/announce
@@ -2359,6 +2360,7 @@ udp://144.76.35.202:6969/announce
 udp://144.76.82.110:6969/announce
 udp://144.91.88.22:6969/announce
 udp://145.223.96.109:8000/announce
+udp://147.45.74.251:6969/announce
 udp://147.45.77.75:6969/announce
 udp://147job.com:6969/announce
 udp://148.113.168.115:6969/announce
@@ -2564,6 +2566,7 @@ udp://189.0.78.33:6969/announce
 udp://189.18.126.32:6969/announce
 udp://189.18.126.49:6969/announce
 udp://189.18.127.125:6969/announce
+udp://189.18.127.21:6969/announce
 udp://189.18.127.57:6969/announce
 udp://189.18.162.106:6969/announce
 udp://189.18.162.54:6969/announce

@@ -1,5 +1,4 @@
 https://004430.xyz/announce
-https://1337.abcvg.info/announce
 https://337hhh.xyz/announce
 https://bt.beatrice-raws.org/announce
 https://http1.torrust-tracker-demo.com/announce
@@ -22,5 +21,4 @@ https://tracker.pmman.tech/announce
 https://tracker.qingwapt.org/announce
 https://tracker.torrentbd.net/announce
 https://tracker.totheglory.im/announce
-https://tracker.yemekyedim.com/announce
 https://tracker.zhuqiy.com/announce
