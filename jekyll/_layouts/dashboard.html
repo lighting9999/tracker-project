@@ -8,11 +8,9 @@
   <title>{{ loc.title }}</title>
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary border-bottom shadow-sm" style="background: rgba(15,23,42,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
+  <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary border-bottom shadow-sm glass-nav">
     <div class="container">
       <a class="navbar-brand fw-bold text-white" href="/">Tracker List</a>
       <div class="d-flex align-items-center gap-2 ms-auto">
@@ -23,30 +21,103 @@
     </div>
   </nav>
 
+  <!-- 英雄区：在线率环形进度条 -->
+  <section class="hero-section">
+    <div class="container text-center">
+      <h1 class="hero-title">{{ loc.title }}</h1>
+      <div class="uptime-ring-container">
+        <svg class="uptime-ring" viewBox="0 0 120 120">
+          <circle class="ring-bg" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+          <circle class="ring-fill" cx="60" cy="60" r="52" fill="none" stroke="url(#gradient)" stroke-width="8" stroke-linecap="round"
+                  stroke-dasharray="326.7256"
+                  stroke-dashoffset="{{ 326.7256 | minus: data.uptime_pct | divided_by: 100.0 | times: 326.7256 }}"
+                  transform="rotate(-90 60 60)"/>
+          <defs>
+            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#22c55e"/>
+              <stop offset="100%" stop-color="#60a5fa"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="uptime-value">{{ data.uptime_pct | round: 1 }}<span class="uptime-percent">%</span></div>
+        <div class="uptime-label">{{ loc.global_uptime }}</div>
+      </div>
+    </div>
+  </section>
+
   <div class="container py-4">
-    <!-- 统计卡片 - 添加 fade-up 类 -->
+    <!-- 统计卡片 -->
+    <div class="section-header">
+      <h2 class="section-title">{{ loc.summary | default: "Summary" }}</h2>
+    </div>
     <div class="stats-grid">
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.total_checked }}</div><div class="stat-value" data-target="{{ data.total }}">0</div></div>
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.online }}</div><div class="stat-value ok" data-target="{{ data.alive_count }}">0</div></div>
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.dead }}</div><div class="stat-value bad" data-target="{{ data.dead_count }}">0</div></div>
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.invalid }}</div><div class="stat-value warn" data-target="{{ data.invalid_count }}">0</div></div>
-      <div class="stat-card fade-up"><div class="stat-label">{{ loc.global_uptime }}</div><div class="stat-value" data-target="{{ data.uptime_pct | times: 1.0 }}">0</div></div>
     </div>
 
-    <!-- 下载区域（省略，同上） -->
-    <!-- ... -->
+    <!-- 下载区域 -->
+    <div class="section-header mt-5">
+      <h2 class="section-title">{{ loc.downloads | default: "Downloads" }}</h2>
+    </div>
+    <div class="downloads-section">
+      <div class="downloads-explanation">{{ loc.download_info | default: "" }}</div>
+      <div class="accordion" id="downloadAccordion">
+        {% assign files = "trackers_all.txt,trackers_best.txt,trackers_best_http.txt,trackers_best_https.txt,trackers_best_udp.txt,trackers_best_wss.txt" | split: "," %}
+        {% assign icons = "📦,✅,🌐,🔒,📡,🕸️" | split: "," %}
+        {% assign types = "all,best,http,https,udp,wss" | split: "," %}
+        {% assign labels = loc.all_trackers,loc.all_alive,loc.http,loc.https,loc.udp,loc.wss %}
+        {% assign tooltips = loc.download_tooltip_all,loc.download_tooltip_best,loc.download_tooltip_http,loc.download_tooltip_https,loc.download_tooltip_udp,loc.download_tooltip_wss %}
+        {% assign btn_classes = "outline-primary,outline-success,outline-info,outline-info,outline-warning,outline-dark" | split: "," %}
 
-    <!-- 协议卡片 - 也加入 fade-up 和数字动画（按需） -->
+        {% for file in files %}
+          {% assign idx = forloop.index | minus: 1 %}
+          {% assign file_obj = site.static_files | where: "name", file | first %}
+          {% assign file_size = "" %}
+          {% if file_obj %}
+            {% assign size_kb = file_obj.size | divided_by: 1024.0 | round: 1 %}
+            {% assign file_size = size_kb | append: " KB" %}
+          {% endif %}
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button {% if file == 'trackers_all.txt' %}{% else %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ types[idx] }}">
+                {{ icons[idx] }} {{ labels[idx] | default: file }}
+                {% if file_size != "" %}
+                  <span class="badge bg-secondary rounded-pill file-size-badge ms-2">{{ file_size }}</span>
+                {% endif %}
+              </button>
+            </h2>
+            <div id="collapse{{ types[idx] }}" class="accordion-collapse collapse {% if file == 'trackers_all.txt' %}show{% endif %}" data-bs-parent="#downloadAccordion">
+              <div class="accordion-body d-flex flex-wrap align-items-center gap-3">
+                <a href="{{ '/' | relative_url }}{{ file }}" class="btn btn-sm btn-{{ btn_classes[idx] }}" title="{{ tooltips[idx] }}">
+                  {{ file }}
+                </a>
+                <button class="btn btn-sm btn-light copy-link-btn" data-url="{{ site.url | append: '/' | append: file }}" title="{{ loc.copy_link | default: 'Copy link' }}">
+                  {{ loc.copy_text | default: '📋 Copy' }}
+                </button>
+                <small class="text-muted">{{ tooltips[idx] | default: "" }}</small>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 协议统计 -->
+    <div class="section-header mt-5">
+      <h2 class="section-title">{{ loc.protocols | default: "Protocols" }}</h2>
+    </div>
     {% assign p = data.protocols %}
     <div class="proto-grid">
-      <div class="proto-card fade-up"><div class="proto-name http-color">HTTP</div><div class="proto-count" data-target="{{ p.http }}">0</div><div class="proto-pct">{{ p.http_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
-      <div class="proto-card fade-up"><div class="proto-name https-color">HTTPS</div><div class="proto-count" data-target="{{ p.https }}">0</div><div class="proto-pct">{{ p.https_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
-      <div class="proto-card fade-up"><div class="proto-name udp-color">UDP</div><div class="proto-count" data-target="{{ p.udp }}">0</div><div class="proto-pct">{{ p.udp_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
-      <div class="proto-card fade-up"><div class="proto-name wss-color">WSS</div><div class="proto-count" data-target="{{ p.wss }}">0</div><div class="proto-pct">{{ p.wss_pct | round: 1 }}% {{ loc.of_total_suffix }}</div></div>
+      <div class="proto-card fade-up"><div class="proto-name http-color">HTTP</div><div class="proto-count" data-target="{{ p.http }}">0</div><div class="proto-pct">{{ p.http_pct | round: 1 }}% {{ loc.of_total_suffix | default: "" }}</div></div>
+      <div class="proto-card fade-up"><div class="proto-name https-color">HTTPS</div><div class="proto-count" data-target="{{ p.https }}">0</div><div class="proto-pct">{{ p.https_pct | round: 1 }}% {{ loc.of_total_suffix | default: "" }}</div></div>
+      <div class="proto-card fade-up"><div class="proto-name udp-color">UDP</div><div class="proto-count" data-target="{{ p.udp }}">0</div><div class="proto-pct">{{ p.udp_pct | round: 1 }}% {{ loc.of_total_suffix | default: "" }}</div></div>
+      <div class="proto-card fade-up"><div class="proto-name wss-color">WSS</div><div class="proto-count" data-target="{{ p.wss }}">0</div><div class="proto-pct">{{ p.wss_pct | round: 1 }}% {{ loc.of_total_suffix | default: "" }}</div></div>
     </div>
 
     <p class="text-center text-muted small mt-5">
-      {{ loc.footer_prefix }} {{ "now" | date: "%Y-%m-%d %H:%M UTC" }}
+      {{ loc.footer_prefix | default: "" }} {{ "now" | date: "%Y-%m-%d %H:%M UTC" }}
     </p>
   </div>
 
@@ -54,94 +125,75 @@
 
   <script src="/assets/js/bootstrap.bundle.min.js"></script>
   <script>
-    // ========= 1. 主题初始化：跟随系统偏好 + 手动覆盖 =========
+    // ========= 主题跟随系统 =========
     (function() {
       const html = document.documentElement;
       const toggle = document.getElementById('themeToggle');
       const stored = localStorage.getItem('theme');
-
       function applyTheme(mode) {
         html.setAttribute('data-bs-theme', mode);
         localStorage.setItem('theme', mode);
       }
-
-      // 初始主题
-      if (stored) {
-        applyTheme(stored);
-      } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark ? 'dark' : 'light');
-      }
-
-      // 监听系统变化（仅当用户未手动设置时）
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-      systemDark.addEventListener('change', e => {
-        if (!localStorage.getItem('theme')) {
-          applyTheme(e.matches ? 'dark' : 'light');
-        }
+      if (stored) applyTheme(stored);
+      else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('theme')) applyTheme(e.matches ? 'dark' : 'light');
       });
-
-      // 按钮切换
       toggle.addEventListener('click', () => {
-        const current = html.getAttribute('data-bs-theme');
-        applyTheme(current === 'dark' ? 'light' : 'dark');
+        const cur = html.getAttribute('data-bs-theme');
+        applyTheme(cur === 'dark' ? 'light' : 'dark');
       });
     })();
 
-    // ========= 2. 计数动画函数 =========
+    // ========= 计数动画 =========
     function animateCounter(el, target, decimals = 0) {
-      const duration = 1500; // 毫秒
-      const startTime = performance.now();
+      const duration = 1500, start = performance.now();
       const isFloat = target % 1 !== 0 || decimals > 0;
-      const startVal = 0;
-
-      function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // easeOutExpo
-        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-        let current = startVal + (target - startVal) * eased;
-
-        if (isFloat) {
-          el.textContent = current.toFixed(decimals) + '%';
-        } else {
-          el.textContent = Math.floor(current);
-        }
-
-        if (progress < 1) {
-          requestAnimationFrame(update);
-        } else {
-          // 最终值确保精确
-          el.textContent = isFloat ? target.toFixed(decimals) + '%' : target;
-        }
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(2, -10 * progress);
+        let val = (target * eased);
+        el.textContent = isFloat ? val.toFixed(decimals) + '%' : Math.floor(val);
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = isFloat ? target.toFixed(decimals) + '%' : target;
       }
-
       requestAnimationFrame(update);
     }
 
-    // 启动所有计数动画（当卡片进入视口或直接运行）
-    const counters = document.querySelectorAll('.stat-value[data-target], .proto-count[data-target]');
-    counters.forEach(el => {
+    document.querySelectorAll('.stat-value[data-target], .proto-count[data-target]').forEach(el => {
       const target = parseFloat(el.getAttribute('data-target'));
-      // 对于全局在线率百分比需要特殊处理（带小数点且显示 %）
-      if (el.classList.contains('stat-value') && el.textContent.includes('%')) {
-        animateCounter(el, target, 1);
-        el.textContent = '0%';
-      } else {
-        animateCounter(el, target);
-      }
+      const isUptimeCard = el.closest('.stat-card')?.querySelector('.stat-label')?.textContent.includes('%');
+      animateCounter(el, target, isUptimeCard ? 1 : 0);
     });
 
-    // ========= 3. 回到顶部 =========
-    (function() {
-      const btn = document.getElementById('backToTop');
-      window.addEventListener('scroll', () => {
-        btn.classList.toggle('show', window.scrollY > 400);
+    // ========= 复制链接 =========
+    document.querySelectorAll('.copy-link-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const url = btn.getAttribute('data-url');
+        try {
+          await navigator.clipboard.writeText(url);
+        } catch (err) {
+          const ta = document.createElement('textarea');
+          ta.value = url;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '✅ Copied!';
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.disabled = false;
+        }, 2000);
       });
-      btn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
-    })();
+    });
 
-    // ========= 4. 可选：为第一个可下载区域保留手风琴（与之前相同）
+    // ========= 回到顶部 =========
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => backBtn.classList.toggle('show', window.scrollY > 500));
+    backBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
   </script>
 </body>
 </html>

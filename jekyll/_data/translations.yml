@@ -7,6 +7,7 @@ en:
   global_uptime: Global Uptime
   protocols: Protocols
   downloads: Downloads
+  summary: "Summary"
   all_trackers: All trackers (incl. dead/invalid)
   all_alive: All available
   http: HTTP
@@ -20,6 +21,8 @@ en:
   download_tooltip_https: "HTTPS alive trackers"
   download_tooltip_udp: "UDP alive trackers"
   download_tooltip_wss: "WebSocket alive trackers"
+  copy_text: "📋 Copy"
+  copy_link: "Copy link"
   footer_prefix: "Tracker Status · Auto-generated · "
   of_total_suffix: "of total"
 
@@ -32,6 +35,7 @@ zh:
   global_uptime: 全局在线率
   protocols: 协议
   downloads: 下载
+  summary: "摘要"
   all_trackers: 全部 tracker（含失效/无效）
   all_alive: 所有可用
   http: HTTP
@@ -45,5 +49,7 @@ zh:
   download_tooltip_https: "HTTPS 可用的 tracker"
   download_tooltip_udp: "UDP 可用的 tracker"
   download_tooltip_wss: "WebSocket 可用的 tracker"
+  copy_text: "📋 复制"
+  copy_link: "复制链接"
   footer_prefix: "追踪器状态 · 自动生成 · "
   of_total_suffix: "占总量的"
