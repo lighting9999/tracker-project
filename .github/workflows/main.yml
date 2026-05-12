@@ -76,9 +76,8 @@ jobs:
           go build -o tracker-checker build.go
 
       - name: Run tracker checker
-        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 300 -json-output jekyll/_data/trackers.json
+        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 300 -json-output jekyll/_data/trackers.json -retries 2 -compact0-fallback -insecure
 
-      # ---------- 下载 Bootstrap 5 CSS / JS 到 Jekyll 静态目录 ----------
       - name: Download Bootstrap and assets
         run: |
           mkdir -p jekyll/assets/css jekyll/assets/js
@@ -103,8 +102,8 @@ jobs:
       - name: Copy tracker download files to public
         run: |
           cp trackers_all.txt trackers_best*.txt public/
+          if [ -f trackers_peers.txt ]; then cp trackers_peers.txt public/; fi
 
-      # ---------- 生成 robots.txt 和 sitemap ----------
       - name: Generate robots.txt
         run: |
           cat > public/robots.txt <<EOF
@@ -112,7 +111,6 @@ jobs:
           Allow: /
           Sitemap: https://tracker-list.pages.dev/sitemap.xml
           EOF
-        # sitemap.xml 由 jekyll-sitemap 插件在构建时自动生成，无需额外操作
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
@@ -125,7 +123,7 @@ jobs:
         run: |
           date +'%Y%m%d%H' > date.txt
           rm -rf public/ _site/ jekyll/_site/
-          git add trackers_all.txt trackers_best*.txt tracker_history.tsv date.txt
+          git add trackers_all.txt trackers_best*.txt trackers_peers.txt tracker_history.tsv date.txt 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes, skip commit."
             exit 0

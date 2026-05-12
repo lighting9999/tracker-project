@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"context"
 	"crypto/rand"
+	"crypto/tls"
+	"encoding/hex"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -24,11 +26,13 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	"golang.org/x/net/proxy"
 )
 
 const (
 	defaultTimeout = 10 * time.Second
 	defaultWorkers = 50
+	defaultRetries = 1
 )
 
 const (
@@ -53,20 +57,76 @@ type TrackerHistory struct {
 	StreakAliveStartTs int64  `json:"streak_alive_start_ts"`
 }
 
+type JekyllData struct {
+	Total        int            `json:"total"`
+	AliveCount   int            `json:"alive_count"`
+	DeadCount    int            `json:"dead_count"`
+	InvalidCount int            `json:"invalid_count"`
+	UptimePct    float64        `json:"uptime_pct"`
+	Protocols    ProtocolStats  `json:"protocols"`
+	Trackers     []TrackerEntry `json:"trackers"`
+	AvgPingMs    float64        `json:"avg_ping_ms"`
+	MinPingMs    int64          `json:"min_ping_ms"`
+	MaxPingMs    int64          `json:"max_ping_ms"`
+}
+
+type ProtocolStats struct {
+	HTTP     int     `json:"http"`
+	HTTPS    int     `json:"https"`
+	UDP      int     `json:"udp"`
+	WSS      int     `json:"wss"`
+	WebRTC   int     `json:"webrtc"`
+	I2P      int     `json:"i2p"`
+	DNS      int     `json:"dns"`
+	HTTPPct  float64 `json:"http_pct"`
+	HTTPSPct float64 `json:"https_pct"`
+	UDPPct   float64 `json:"udp_pct"`
+	WSSPct   float64 `json:"wss_pct"`
+}
+
+type TrackerEntry struct {
+	URL      string  `json:"url"`
+	Status   string  `json:"status"`
+	Uptime   float64 `json:"uptime"`
+	Days     int     `json:"days"`
+	Protocol string  `json:"protocol"`
+	PingMs   *int64  `json:"ping_ms,omitempty"`
+}
+
 var (
-	trackerRe    = regexp.MustCompile(`(?i)(https?|udp|wss?)://[^\s,]+?/announce[^\s,]*`)
-	httpClient   *http.Client
+	trackerRe    = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
 	peerIDPrefix string
+	infoHashes   []string
+	hashIndex    uint32
+	userAgents   = []string{
+		"qBittorrent/4.6.0",
+		"Transmission/3.00",
+		"uTorrent/2210(25302)",
+		"BitTorrent/7.10.5",
+		"Deluge/2.0.3",
+		"aria2/1.36.0",
+		"libtorrent/1.2.18.0",
+	}
+
+	dnsCache     = map[string]*dnsCacheEntry{}
+	dnsCacheMu   sync.Mutex
+	dnsCacheTTL  = 10 * time.Minute
+	globalClient *http.Client
+
+	compact0Fallback bool
+	insecureSkip     bool
+	proxyAddr        string
+	peersCollector   = map[string]struct{}{}
+	peersMu          sync.Mutex
 )
+
+type dnsCacheEntry struct {
+	addrs []string
+	ts    time.Time
+}
 
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	httpClient = &http.Client{
-		Timeout: defaultTimeout,
-		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			return http.ErrUseLastResponse
-		},
-	}
 }
 
 func randomNumeric(n int) string {
@@ -117,13 +177,82 @@ func bdecodeSimple(data []byte) bool {
 	if len(data) == 0 || data[0] != 'd' {
 		return false
 	}
-	keys := []string{"interval", "peers", "failure reason"}
-	for _, k := range keys {
-		if bytesContains(data, k) {
+	for _, k := range []string{"interval", "peers", "failure reason"} {
+		if strings.Contains(string(data), k) {
 			return true
 		}
 	}
 	return false
+}
+
+func extractCompactPeers(data []byte) []string {
+	idx := strings.Index(string(data), "5:peers")
+	if idx == -1 {
+		return nil
+	}
+	rest := data[idx+7:]
+	if len(rest) < 1 {
+		return nil
+	}
+	var numStr string
+	i := 0
+	for i < len(rest) && rest[i] != ':' {
+		if rest[i] >= '0' && rest[i] <= '9' {
+			numStr += string(rest[i])
+			i++
+		} else {
+			break
+		}
+	}
+	if rest[i] != ':' {
+		return nil
+	}
+	length, err := strconv.Atoi(numStr)
+	if err != nil || length%6 != 0 || length == 0 {
+		return nil
+	}
+	peerBytes := rest[i+1 : i+1+length]
+	if len(peerBytes) < length {
+		return nil
+	}
+	var peers []string
+	for j := 0; j < length; j += 6 {
+		ip := net.IPv4(peerBytes[j], peerBytes[j+1], peerBytes[j+2], peerBytes[j+3]).String()
+		port := uint16(peerBytes[j+4])<<8 | uint16(peerBytes[j+5])
+		peers = append(peers, net.JoinHostPort(ip, strconv.Itoa(int(port))))
+	}
+	return peers
+}
+
+func cachedDial(network, addr string) (net.Conn, error) {
+	host, port, _ := net.SplitHostPort(addr)
+	if ip := net.ParseIP(host); ip != nil {
+		return net.Dial(network, addr)
+	}
+	dnsCacheMu.Lock()
+	entry, ok := dnsCache[host]
+	dnsCacheMu.Unlock()
+	if ok && time.Since(entry.ts) < dnsCacheTTL {
+		if len(entry.addrs) == 0 {
+			return net.Dial(network, addr)
+		}
+		return net.Dial(network, net.JoinHostPort(entry.addrs[0], port))
+	}
+	ips, err := net.LookupIP(host)
+	if err != nil {
+		dnsCacheMu.Lock()
+		dnsCache[host] = &dnsCacheEntry{addrs: []string{}, ts: time.Now()}
+		dnsCacheMu.Unlock()
+		return net.Dial(network, addr)
+	}
+	var addrs []string
+	for _, ip := range ips {
+		addrs = append(addrs, ip.String())
+	}
+	dnsCacheMu.Lock()
+	dnsCache[host] = &dnsCacheEntry{addrs: addrs, ts: time.Now()}
+	dnsCacheMu.Unlock()
+	return net.Dial(network, net.JoinHostPort(addrs[0], port))
 }
 
 func normalizeTrackerURL(raw string) (string, error) {
@@ -133,17 +262,20 @@ func normalizeTrackerURL(raw string) (string, error) {
 		return "", err
 	}
 	scheme := strings.ToLower(u.Scheme)
-	if scheme != "http" && scheme != "https" && scheme != "udp" && scheme != "wss" && scheme != "ws" {
+	if scheme != "http" && scheme != "https" && scheme != "udp" && scheme != "wss" && scheme != "ws" && scheme != "dns" {
 		return "", fmt.Errorf("unsupported scheme")
 	}
 	host := u.Hostname()
 	if host == "" {
 		return "", fmt.Errorf("no host")
 	}
-	if ip := net.ParseIP(host); ip == nil && !strings.Contains(host, ".") {
+	if ip := net.ParseIP(host); ip == nil && !strings.Contains(host, ".") && !strings.HasSuffix(host, ".i2p") {
 		return "", fmt.Errorf("invalid host")
 	}
 	normalizedPath := collapsePathSlashes(u.Path)
+	if scheme == "dns" {
+		return candidate, nil
+	}
 	if !(strings.HasSuffix(normalizedPath, "/announce") ||
 		strings.Contains(normalizedPath, "/announce?") ||
 		strings.HasSuffix(normalizedPath, "/announce.php") ||
@@ -161,17 +293,17 @@ func normalizeTrackerURL(raw string) (string, error) {
 			u.Host = host
 		}
 	}
-
 	return u.String(), nil
 }
 
-func bytesContains(data []byte, substr string) bool {
-	return strings.Contains(string(data), substr)
-}
-
 func isHTML(data []byte) bool {
-	head := strings.ToLower(string(data[:min(len(data), 200)]))
-	return strings.Contains(head, "<html") || strings.Contains(head, "<!doctype") || strings.Contains(head, "<body") || strings.Contains(head, "<head")
+	limit := len(data)
+	if limit > 200 {
+		limit = 200
+	}
+	head := strings.ToLower(string(data[:limit]))
+	return strings.Contains(head, "<html") || strings.Contains(head, "<!doctype") ||
+		strings.Contains(head, "<body") || strings.Contains(head, "<head")
 }
 
 func isParkedDomain(content []byte) bool {
@@ -195,26 +327,54 @@ func isParkedDomain(content []byte) bool {
 	return false
 }
 
-func min(a, b int) int {
-	if a < b {
-		return a
+func nextInfoHash() string {
+	if len(infoHashes) == 0 {
+		return ""
 	}
-	return b
+	idx := atomic.AddUint32(&hashIndex, 1) - 1
+	return infoHashes[idx%uint32(len(infoHashes))]
 }
 
-func checkHTTP(ctx context.Context, tracker string) (string, *int64) {
+func infoHashBytes(hashStr string) []byte {
+	if len(hashStr) != 40 {
+		return nil
+	}
+	raw, err := hex.DecodeString(hashStr)
+	if err != nil || len(raw) != 20 {
+		return nil
+	}
+	return raw
+}
+
+func randomUA() string {
+	return userAgents[randomInt(0, len(userAgents))]
+}
+
+func checkHTTP(ctx context.Context, tracker string, infoHash string) (string, *int64) {
+	return checkHTTPWithCompact(ctx, tracker, infoHash, true)
+}
+
+func checkHTTPWithCompact(ctx context.Context, tracker string, infoHash string, compact bool) (string, *int64) {
 	base, err := url.Parse(tracker)
 	if err != nil {
 		return StatusInvalid, nil
 	}
 	params := base.Query()
-	params.Set("info_hash", "00000000000000000000")
+	if raw := infoHashBytes(infoHash); raw != nil {
+		params.Set("info_hash", url.QueryEscape(string(raw)))
+	} else {
+		params.Set("info_hash", "00000000000000000000")
+	}
 	params.Set("peer_id", peerIDPrefix)
 	params.Set("port", "6881")
 	params.Set("uploaded", "0")
 	params.Set("downloaded", "0")
 	params.Set("left", "0")
-	params.Set("compact", "1")
+	if compact {
+		params.Set("compact", "1")
+	} else {
+		params.Set("compact", "0")
+	}
 	params.Set("event", "started")
 	base.RawQuery = params.Encode()
 
@@ -222,8 +382,9 @@ func checkHTTP(ctx context.Context, tracker string) (string, *int64) {
 	if err != nil {
 		return StatusDead, nil
 	}
+	req.Header.Set("User-Agent", randomUA())
 	start := time.Now()
-	resp, err := httpClient.Do(req)
+	resp, err := globalClient.Do(req)
 	if err != nil {
 		return StatusDead, nil
 	}
@@ -237,24 +398,33 @@ func checkHTTP(ctx context.Context, tracker string) (string, *int64) {
 	if isHTML(body) || isParkedDomain(body) {
 		return StatusInvalid, &elapsed
 	}
-
 	if bdecodeSimple(body) {
-		return StatusAlive, &elapsed
-	}
-
-	if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
-		return StatusAlive, &elapsed
-	}
-
-	if resp.StatusCode == http.StatusOK {
-		if len(body) > 50000 {
-			return StatusInvalid, &elapsed
+		if peers := extractCompactPeers(body); len(peers) > 0 {
+			peersMu.Lock()
+			for _, p := range peers {
+				peersCollector[p] = struct{}{}
+			}
+			peersMu.Unlock()
 		}
+		return StatusAlive, &elapsed
+	}
+	if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
+		if peers := extractCompactPeers(body); len(peers) > 0 {
+			peersMu.Lock()
+			for _, p := range peers {
+				peersCollector[p] = struct{}{}
+			}
+			peersMu.Unlock()
+		}
+		return StatusAlive, &elapsed
+	}
+	if resp.StatusCode == http.StatusOK && len(body) > 50000 {
+		return StatusInvalid, &elapsed
 	}
 	return StatusDead, &elapsed
 }
 
-func checkUDP(ctx context.Context, tracker string) (string, *int64) {
+func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *int64) {
 	u, err := url.Parse(tracker)
 	if err != nil {
 		return StatusInvalid, nil
@@ -288,30 +458,25 @@ func checkUDP(ctx context.Context, tracker string) (string, *int64) {
 	}
 	connResp := make([]byte, 16)
 	n, err := conn.Read(connResp)
-	if err != nil {
-		return StatusDead, nil
-	}
-	if n < 16 {
-		return StatusDead, nil
-	}
-	if bigEndianUint32(connResp[0:4]) != 0 {
-		return StatusDead, nil
-	}
-	if bigEndianUint32(connResp[4:8]) != transConnect {
+	if err != nil || n < 16 || bigEndianUint32(connResp[0:4]) != 0 || bigEndianUint32(connResp[4:8]) != transConnect {
 		return StatusDead, nil
 	}
 	newConnectionID := bigEndianUint64(connResp[8:16])
 
-	infoHash := make([]byte, 20)
-	if _, err := rand.Read(infoHash); err != nil {
-		return StatusDead, nil
+	infoHashBytes := infoHashBytes(infoHash)
+	if infoHashBytes == nil {
+		infoHashBytes = make([]byte, 20)
+		if _, err := rand.Read(infoHashBytes); err != nil {
+			return StatusDead, nil
+		}
 	}
+
 	transAnnounce := uint32(randomInt(0, 0xFFFFFFFF))
 	annReq := make([]byte, 98)
 	bigEndianPutUint64(annReq[0:8], newConnectionID)
 	bigEndianPutUint32(annReq[8:12], 1)
 	bigEndianPutUint32(annReq[12:16], transAnnounce)
-	copy(annReq[16:36], infoHash)
+	copy(annReq[16:36], infoHashBytes)
 	copy(annReq[36:56], []byte(peerIDPrefix))
 	bigEndianPutUint64(annReq[56:64], 0)
 	bigEndianPutUint64(annReq[64:72], 0)
@@ -327,28 +492,32 @@ func checkUDP(ctx context.Context, tracker string) (string, *int64) {
 	}
 	annResp := make([]byte, 2048)
 	n2, err := conn.Read(annResp)
-	if err != nil {
+	if err != nil || n2 < 20 {
 		return StatusDead, nil
 	}
 	elapsed := int64(time.Since(start).Milliseconds())
-	if n2 < 20 {
-		return StatusDead, &elapsed
+	action := bigEndianUint32(annResp[0:4])
+	if action == 1 && bigEndianUint32(annResp[4:8]) == transAnnounce {
+		return StatusAlive, &elapsed
 	}
-	if bigEndianUint32(annResp[0:4]) != 1 {
-		if bigEndianUint32(annResp[0:4]) == 3 {
-			return StatusAlive, &elapsed
-		}
-		return StatusDead, &elapsed
+	if action == 3 {
+		return StatusAlive, &elapsed
 	}
-	if bigEndianUint32(annResp[4:8]) != transAnnounce {
-		return StatusDead, &elapsed
-	}
-	return StatusAlive, &elapsed
+	return StatusDead, &elapsed
 }
 
 func checkWSS(ctx context.Context, tracker string) (string, *int64) {
 	dialer := websocket.Dialer{
 		HandshakeTimeout: defaultTimeout,
+		NetDialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			if proxyAddr != "" {
+				dialer, err := proxy.SOCKS5("tcp", proxyAddr, nil, proxy.Direct)
+				if err == nil {
+					return dialer.Dial(network, addr)
+				}
+			}
+			return cachedDial(network, addr)
+		},
 	}
 	start := time.Now()
 	conn, _, err := dialer.DialContext(ctx, tracker, nil)
@@ -360,25 +529,68 @@ func checkWSS(ctx context.Context, tracker string) (string, *int64) {
 	return StatusAlive, &elapsed
 }
 
+func checkDNS(ctx context.Context, tracker string) (string, *int64) {
+	u, err := url.Parse(tracker)
+	if err != nil {
+		return StatusInvalid, nil
+	}
+	domain := u.Hostname()
+	if domain == "" {
+		domain = strings.TrimPrefix(tracker, "dns://")
+	}
+	start := time.Now()
+	txts, err := net.LookupTXT(domain)
+	if err != nil {
+		return StatusDead, nil
+	}
+	elapsed := int64(time.Since(start).Milliseconds())
+	for _, txt := range txts {
+		if strings.Contains(strings.ToLower(txt), "bittorrent") || strings.Contains(txt, "peer") {
+			return StatusAlive, &elapsed
+		}
+	}
+	return StatusDead, &elapsed
+}
+
 func validateTracker(ctx context.Context, tracker string) CheckResult {
 	u, err := url.Parse(tracker)
 	if err != nil {
 		return CheckResult{URL: tracker, Status: StatusInvalid}
 	}
 	scheme := strings.ToLower(u.Scheme)
+	infoHash := nextInfoHash()
 	var status string
 	var ping *int64
 	switch scheme {
 	case "http", "https":
-		status, ping = checkHTTP(ctx, tracker)
+		status, ping = checkHTTP(ctx, tracker, infoHash)
+		if status != StatusAlive && compact0Fallback {
+			status, ping = checkHTTPWithCompact(ctx, tracker, infoHash, false)
+		}
 	case "udp":
-		status, ping = checkUDP(ctx, tracker)
+		status, ping = checkUDP(ctx, tracker, infoHash)
 	case "wss", "ws":
 		status, ping = checkWSS(ctx, tracker)
+	case "dns":
+		status, ping = checkDNS(ctx, tracker)
 	default:
 		status = StatusInvalid
 	}
 	return CheckResult{URL: tracker, Status: status, PingMs: ping}
+}
+
+func validateTrackerWithRetry(ctx context.Context, tracker string, maxAttempts int) CheckResult {
+	var last CheckResult
+	for attempt := 0; attempt < maxAttempts; attempt++ {
+		last = validateTracker(ctx, tracker)
+		if last.Status != StatusDead {
+			break
+		}
+		if attempt < maxAttempts-1 {
+			time.Sleep(time.Duration(500+randomInt(0, 1001)) * time.Millisecond)
+		}
+	}
+	return last
 }
 
 func loadTrackers(filepath string) ([]string, error) {
@@ -394,7 +606,7 @@ func loadTrackers(filepath string) ([]string, error) {
 	}
 	text := strings.ReplaceAll(string(content), ",", "\n")
 
-	var trackers []string
+	trackers := []string{}
 	seen := map[string]bool{}
 	scanner := bufio.NewScanner(strings.NewReader(text))
 	for scanner.Scan() {
@@ -403,8 +615,7 @@ func loadTrackers(filepath string) ([]string, error) {
 		if parsed == "" || strings.HasPrefix(parsed, "#") {
 			continue
 		}
-		matches := trackerRe.FindAllString(parsed, -1)
-		for _, match := range matches {
+		for _, match := range trackerRe.FindAllString(parsed, -1) {
 			norm, err := normalizeTrackerURL(match)
 			if err != nil {
 				continue
@@ -427,7 +638,7 @@ func filterBlacklist(trackers []string, blFile string) []string {
 		return trackers
 	}
 	defer f.Close()
-	var patterns []string
+	patterns := []string{}
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
@@ -584,7 +795,19 @@ func getProtocol(u string) string {
 	if err != nil {
 		return "other"
 	}
-	return parsed.Scheme
+	scheme := strings.ToLower(parsed.Scheme)
+	if scheme == "wss" || scheme == "ws" {
+		if strings.Contains(u, "webrtc") {
+			return "webrtc"
+		}
+	}
+	if strings.HasSuffix(parsed.Hostname(), ".i2p") {
+		return "i2p"
+	}
+	if scheme == "dns" {
+		return "dns"
+	}
+	return scheme
 }
 
 func bigEndianPutUint64(b []byte, v uint64) {
@@ -628,48 +851,66 @@ func randomInt(min, max int) int {
 	return int(n.Int64()) + min
 }
 
-// ---------- JSON output structures (no translations) ----------
-type JekyllData struct {
-	Total        int            `json:"total"`
-	AliveCount   int            `json:"alive_count"`
-	DeadCount    int            `json:"dead_count"`
-	InvalidCount int            `json:"invalid_count"`
-	UptimePct    float64        `json:"uptime_pct"`
-	Protocols    ProtocolStats  `json:"protocols"`
-	Trackers     []TrackerEntry `json:"trackers"`
-}
-
-type ProtocolStats struct {
-	HTTP     int     `json:"http"`
-	HTTPS    int     `json:"https"`
-	UDP      int     `json:"udp"`
-	WSS      int     `json:"wss"`
-	HTTPPct  float64 `json:"http_pct"`
-	HTTPSPct float64 `json:"https_pct"`
-	UDPPct   float64 `json:"udp_pct"`
-	WSSPct   float64 `json:"wss_pct"`
-}
-
-type TrackerEntry struct {
-	URL      string  `json:"url"`
-	Status   string  `json:"status"`
-	Uptime   float64 `json:"uptime"`
-	Days     int     `json:"days"`
-	Protocol string  `json:"protocol"`
-}
-
 func main() {
 	input := flag.String("input", "merged_trackers.txt", "Input file with raw tracker URLs")
 	output := flag.String("output", "trackers_best.txt", "File to write best (alive) trackers")
 	workers := flag.Int("workers", defaultWorkers, "Number of concurrent workers")
 	jsonOutput := flag.String("json-output", "jekyll/_data/trackers.json", "Path to output Jekyll JSON data")
+	infoHashesFlag := flag.String("info-hashes", "", "Comma-separated 40-char hex info_hash values (20 bytes each)")
+	retries := flag.Int("retries", defaultRetries, "Max additional retries for DEAD trackers (total attempts = 1 + retries)")
+	compact0 := flag.Bool("compact0-fallback", false, "Retry with compact=0 if compact=1 fails")
+	insecure := flag.Bool("insecure", false, "Skip TLS certificate verification")
+	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy address (e.g. socks5://127.0.0.1:9050)")
 	flag.Parse()
+
+	compact0Fallback = *compact0
+	insecureSkip = *insecure
+	proxyAddr = *proxyFlag
+
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecureSkip},
+		MaxIdleConns:    200,
+		MaxIdleConnsPerHost: 50,
+		IdleConnTimeout: 30 * time.Second,
+		DisableKeepAlives: false,
+	}
+	if proxyAddr != "" {
+		dialer, err := proxy.SOCKS5("tcp", proxyAddr, nil, proxy.Direct)
+		if err != nil {
+			log.Fatalf("Failed to create SOCKS5 dialer: %v", err)
+		}
+		tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return dialer.Dial(network, addr)
+		}
+	} else {
+		tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return cachedDial(network, addr)
+		}
+	}
+	globalClient = &http.Client{
+		Transport: tr,
+		Timeout:   defaultTimeout,
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
 
 	inputFile := *input
 	outputFile := *output
 	concurrency := *workers
 	if concurrency < 1 {
 		concurrency = defaultWorkers
+	}
+
+	if *infoHashesFlag != "" {
+		parts := strings.Split(*infoHashesFlag, ",")
+		for _, p := range parts {
+			p = strings.TrimSpace(p)
+			if len(p) != 40 {
+				log.Fatalf("invalid info_hash length: %q", p)
+			}
+			infoHashes = append(infoHashes, p)
+		}
 	}
 
 	trackers, err := loadTrackers(inputFile)
@@ -694,6 +935,7 @@ func main() {
 
 	var wg sync.WaitGroup
 	ctx := context.Background()
+	maxAttempts := *retries + 1
 
 	for w := 0; w < concurrency; w++ {
 		wg.Add(1)
@@ -701,7 +943,7 @@ func main() {
 			defer wg.Done()
 			local := make([]CheckResult, 0, total/concurrency+1)
 			for tracker := range jobs {
-				res := validateTracker(ctx, tracker)
+				res := validateTrackerWithRetry(ctx, tracker, maxAttempts)
 				local = append(local, res)
 				select {
 				case progressCh <- 1:
@@ -741,10 +983,25 @@ func main() {
 
 	var aliveList []string
 	var deadCount, invalidCount int
+	var sumPing int64
+	var countPing int64
+	var minPing int64 = -1
+	var maxPing int64
 	for _, r := range results {
 		switch r.Status {
 		case StatusAlive:
 			aliveList = append(aliveList, r.URL)
+			if r.PingMs != nil {
+				p := *r.PingMs
+				sumPing += p
+				countPing++
+				if minPing == -1 || p < minPing {
+					minPing = p
+				}
+				if p > maxPing {
+					maxPing = p
+				}
+			}
 		case StatusDead:
 			deadCount++
 		case StatusInvalid:
@@ -753,7 +1010,6 @@ func main() {
 	}
 	aliveList = sortUnique(aliveList)
 
-	// Write best files
 	if err := writeLines(outputFile, aliveList); err != nil {
 		log.Fatalf("Error writing %s: %v", outputFile, err)
 	}
@@ -767,7 +1023,15 @@ func main() {
 		writeLines(filepath.Join(outputDir, "trackers_best_"+proto+".txt"), sortUnique(urls))
 	}
 
-	// History
+	peersList := make([]string, 0, len(peersCollector))
+	for p := range peersCollector {
+		peersList = append(peersList, p)
+	}
+	sort.Strings(peersList)
+	if len(peersList) > 0 {
+		writeLines(filepath.Join(outputDir, "trackers_peers.txt"), peersList)
+	}
+
 	historyPath := filepath.Join(outputDir, "tracker_history.tsv")
 	history, err := loadHistory(historyPath)
 	if err != nil {
@@ -779,7 +1043,6 @@ func main() {
 		log.Fatalf("Failed to save history: %v", err)
 	}
 
-	// ----- Build Jekyll JSON data (pure numbers) -----
 	aliveCount := len(aliveList)
 	uptimePct := 0.0
 	if total > 0 {
@@ -788,8 +1051,7 @@ func main() {
 
 	protocols := ProtocolStats{}
 	for _, u := range aliveList {
-		proto := getProtocol(u)
-		switch proto {
+		switch getProtocol(u) {
 		case "http":
 			protocols.HTTP++
 		case "https":
@@ -798,6 +1060,12 @@ func main() {
 			protocols.UDP++
 		case "wss", "ws":
 			protocols.WSS++
+		case "webrtc":
+			protocols.WebRTC++
+		case "i2p":
+			protocols.I2P++
+		case "dns":
+			protocols.DNS++
 		}
 	}
 	if total > 0 {
@@ -807,7 +1075,6 @@ func main() {
 		protocols.WSSPct = float64(protocols.WSS) * 100 / float64(total)
 	}
 
-	// Build tracker entries with historical statistics
 	trackerEntries := make([]TrackerEntry, 0, total)
 	for _, r := range results {
 		hist := history[r.URL]
@@ -828,7 +1095,16 @@ func main() {
 			Uptime:   uptime,
 			Days:     days,
 			Protocol: getProtocol(r.URL),
+			PingMs:   r.PingMs,
 		})
+	}
+
+	var avgPing float64
+	if countPing > 0 {
+		avgPing = float64(sumPing) / float64(countPing)
+	}
+	if minPing == -1 {
+		minPing = 0
 	}
 
 	jData := JekyllData{
@@ -839,9 +1115,11 @@ func main() {
 		UptimePct:    uptimePct,
 		Protocols:    protocols,
 		Trackers:     trackerEntries,
+		AvgPingMs:    avgPing,
+		MinPingMs:    minPing,
+		MaxPingMs:    maxPing,
 	}
 
-	// Write JSON
 	if err := os.MkdirAll(filepath.Dir(*jsonOutput), 0755); err != nil {
 		log.Fatalf("Failed to create JSON output directory: %v", err)
 	}
