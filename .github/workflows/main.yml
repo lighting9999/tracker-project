@@ -76,7 +76,7 @@ jobs:
           go build -o tracker-checker build.go
 
       - name: Run tracker checker
-        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 300 -json-output jekyll/_data/trackers.json -retries 2 -compact0-fallback -insecure
+        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 800 -json-output jekyll/_data/trackers.json -retries 2 -compact0-fallback -insecure
 
       - name: Download Bootstrap and assets
         run: |
