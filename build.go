@@ -29,8 +29,8 @@ import (
 	"golang.org/x/net/proxy"
 )
 
-const defaultTimeout = 3 * time.Second
-const defaultWorkers = 1000
+const defaultTimeout = 5 * time.Second
+const defaultWorkers = 500
 const defaultRetries = 1
 
 const (
@@ -311,31 +311,49 @@ func hasIPv6Peers(data []byte) bool {
 	return true
 }
 
-func cachedDial(network, addr string) (net.Conn, error) {
+func cachedDialContext(ctx context.Context, network, addr string) (net.Conn, error) {
 	host, port, _ := net.SplitHostPort(addr)
 	if net.ParseIP(host) != nil {
-		return net.Dial(network, addr)
+		dialer := net.Dialer{}
+		return dialer.DialContext(ctx, network, addr)
 	}
 	if val, ok := dnsCache.Load(host); ok {
 		entry := val.(*dnsCacheEntry)
 		if time.Since(entry.ts) < dnsCacheTTL {
 			if len(entry.addrs) == 0 {
-				return net.Dial(network, addr)
+				dialer := net.Dialer{}
+				return dialer.DialContext(ctx, network, addr)
 			}
-			return net.Dial(network, net.JoinHostPort(entry.addrs[0], port))
+			dialer := net.Dialer{}
+			return dialer.DialContext(ctx, network, net.JoinHostPort(entry.addrs[0], port))
 		}
 	}
-	ips, err := net.LookupIP(host)
-	if err != nil {
-		dnsCache.Store(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now()})
-		return net.Dial(network, addr)
+	lookupCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+	var ips []net.IP
+	var lookupErr error
+	done := make(chan struct{})
+	go func() {
+		ips, lookupErr = net.LookupIP(host)
+		close(done)
+	}()
+	select {
+	case <-lookupCtx.Done():
+		return nil, lookupCtx.Err()
+	case <-done:
+		if lookupErr != nil {
+			dnsCache.Store(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now()})
+			dialer := net.Dialer{}
+			return dialer.DialContext(ctx, network, addr)
+		}
+		addrs := make([]string, len(ips))
+		for i, ip := range ips {
+			addrs[i] = ip.String()
+		}
+		dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
+		dialer := net.Dialer{}
+		return dialer.DialContext(ctx, network, net.JoinHostPort(addrs[0], port))
 	}
-	addrs := make([]string, len(ips))
-	for i, ip := range ips {
-		addrs[i] = ip.String()
-	}
-	dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
-	return net.Dial(network, net.JoinHostPort(addrs[0], port))
 }
 
 func normalizeTrackerURL(raw string) (string, error) {
@@ -598,16 +616,29 @@ func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *in
 		return StatusDead, nil
 	}
 	annResp := make([]byte, 2048)
-	n2, err := conn.Read(annResp)
-	if err != nil || n2 < 20 {
+	type readResult struct {
+		n   int
+		err error
+	}
+	done := make(chan readResult, 1)
+	go func() {
+		n, err := conn.Read(annResp)
+		done <- readResult{n, err}
+	}()
+	select {
+	case <-ctx.Done():
 		return StatusDead, nil
+	case r := <-done:
+		if r.err != nil || r.n < 20 {
+			return StatusDead, nil
+		}
+		elapsed := int64(time.Since(start).Milliseconds())
+		action := bigEndianUint32(annResp[0:4])
+		if (action == 1 && bigEndianUint32(annResp[4:8]) == transAnnounce) || action == 3 {
+			return StatusAlive, &elapsed
+		}
+		return StatusDead, &elapsed
 	}
-	elapsed := int64(time.Since(start).Milliseconds())
-	action := bigEndianUint32(annResp[0:4])
-	if (action == 1 && bigEndianUint32(annResp[4:8]) == transAnnounce) || action == 3 {
-		return StatusAlive, &elapsed
-	}
-	return StatusDead, &elapsed
 }
 
 func checkWSS(ctx context.Context, tracker string) (string, *int64) {
@@ -622,7 +653,7 @@ func checkWSS(ctx context.Context, tracker string) (string, *int64) {
 				}
 				return proxyDialer.Dial(network, addr)
 			}
-			return cachedDial(network, addr)
+			return cachedDialContext(ctx, network, addr)
 		},
 	}
 	start := time.Now()
@@ -981,7 +1012,7 @@ func main() {
 			}
 			return proxyDialer.Dial(network, addr)
 		}
-		return cachedDial(network, addr)
+		return cachedDialContext(ctx, network, addr)
 	}
 	globalClient = &http.Client{
 		Transport: tr,
@@ -1022,7 +1053,9 @@ func main() {
 	var wg sync.WaitGroup
 	var completed int32
 
-	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(context.Background(), 12*time.Minute)
+	defer cancel()
+
 	maxAttempts := *retries + 1
 
 	startTime := time.Now()
@@ -1042,12 +1075,19 @@ func main() {
 	for _, t := range allTrackers {
 		wg.Add(1)
 		go func(tracker string) {
-			defer wg.Done()
+			defer func() {
+				if r := recover(); r != nil {
+					log.Printf("Panic in tracker %s: %v", tracker, r)
+					results <- CheckResult{URL: tracker, Status: StatusInvalid}
+					atomic.AddInt32(&completed, 1)
+				}
+				<-sem
+				wg.Done()
+			}()
 			sem <- struct{}{}
 			res := validateTracker(ctx, tracker, maxAttempts)
 			results <- res
 			atomic.AddInt32(&completed, 1)
-			<-sem
 		}(t)
 	}
 
