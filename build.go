@@ -119,6 +119,10 @@ type contextDialer struct {
 	d proxy.Dialer
 }
 
+func (cd *contextDialer) Dial(network, addr string) (net.Conn, error) {
+	return cd.DialContext(context.Background(), network, addr)
+}
+
 func (cd *contextDialer) DialContext(ctx context.Context, network, addr string) (net.Conn, error) {
 	type dialerCtx interface {
 		DialContext(context.Context, string, string) (net.Conn, error)
