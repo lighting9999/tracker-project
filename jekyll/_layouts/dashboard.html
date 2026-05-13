@@ -8,6 +8,14 @@
   <title>{{ loc.title }}</title>
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .table-responsive { margin-top: 1.5rem; }
+    .badge-ipv6 { background-color: #22c55e; color: #000; font-weight: 500; }
+    .badge-ipv4 { background-color: #6c757d; }
+    .ping-badge { font-size: 0.75rem; background-color: rgba(13,110,253,0.1); color: #0d6efd; }
+    [data-bs-theme="dark"] .ping-badge { background-color: rgba(13,110,253,0.2); color: #6ea8fe; }
+    .copy-cell { cursor: pointer; }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary border-bottom shadow-sm glass-nav">
@@ -50,11 +58,13 @@
     <div class="section-header">
       <h2 class="section-title">{{ loc.summary | default: "Summary" }}</h2>
     </div>
+    {% assign ipv6_alive = data.trackers | where: "status", "ALIVE" | where: "supports_ipv6", true | size %}
     <div class="stats-grid">
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.total_checked }}</div><div class="stat-value" data-target="{{ data.total }}">0</div></div>
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.online }}</div><div class="stat-value ok" data-target="{{ data.alive_count }}">0</div></div>
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.dead }}</div><div class="stat-value bad" data-target="{{ data.dead_count }}">0</div></div>
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.invalid }}</div><div class="stat-value warn" data-target="{{ data.invalid_count }}">0</div></div>
+      <div class="stat-card fade-up"><div class="stat-label">{{ loc.ipv6_ready }}</div><div class="stat-value" data-target="{{ ipv6_alive }}">0</div><div class="stat-sub">({{ data.alive_count > 0 ? (ipv6_alive * 100.0 / data.alive_count) : 0 | round: 1 }}% of alive)</div></div>
     </div>
 
     <!-- 下载区域 -->
@@ -64,12 +74,12 @@
     <div class="downloads-section">
       <div class="downloads-explanation">{{ loc.download_info | default: "" }}</div>
       <div class="accordion" id="downloadAccordion">
-        {% assign files = "trackers_all.txt,trackers_best.txt,trackers_best_http.txt,trackers_best_https.txt,trackers_best_udp.txt,trackers_best_wss.txt" | split: "," %}
-        {% assign icons = "📦,✅,🌐,🔒,📡,🕸️" | split: "," %}
-        {% assign types = "all,best,http,https,udp,wss" | split: "," %}
-        {% assign labels = loc.all_trackers,loc.all_alive,loc.http,loc.https,loc.udp,loc.wss %}
-        {% assign tooltips = loc.download_tooltip_all,loc.download_tooltip_best,loc.download_tooltip_http,loc.download_tooltip_https,loc.download_tooltip_udp,loc.download_tooltip_wss %}
-        {% assign btn_classes = "outline-primary,outline-success,outline-info,outline-info,outline-warning,outline-dark" | split: "," %}
+        {% assign files = "trackers_all.txt,trackers_best.txt,trackers_best_http.txt,trackers_best_https.txt,trackers_best_udp.txt,trackers_best_wss.txt,trackers_best_ipv6.txt" | split: "," %}
+        {% assign icons = "📦,✅,🌐,🔒,📡,🕸️,🟢" | split: "," %}
+        {% assign types = "all,best,http,https,udp,wss,ipv6" | split: "," %}
+        {% assign labels = loc.all_trackers,loc.all_alive,loc.http,loc.https,loc.udp,loc.wss,loc.ipv6_trackers %}
+        {% assign tooltips = loc.download_tooltip_all,loc.download_tooltip_best,loc.download_tooltip_http,loc.download_tooltip_https,loc.download_tooltip_udp,loc.download_tooltip_wss,loc.download_tooltip_ipv6 %}
+        {% assign btn_classes = "outline-primary,outline-success,outline-info,outline-info,outline-warning,outline-dark,outline-success" | split: "," %}
 
         {% for file in files %}
           {% assign idx = forloop.index | minus: 1 %}
@@ -116,6 +126,54 @@
       <div class="proto-card fade-up"><div class="proto-name wss-color">WSS</div><div class="proto-count" data-target="{{ p.wss }}">0</div><div class="proto-pct">{{ p.wss_pct | round: 1 }}% {{ loc.of_total_suffix | default: "" }}</div></div>
     </div>
 
+    <!-- 详细列表（可折叠） -->
+    <div class="section-header mt-5">
+      <h2 class="section-title">{{ loc.details | default: "Tracker Details" }}</h2>
+      <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#trackerTableCollapse" aria-expanded="false">
+        {{ loc.show_hide | default: "Show/Hide" }}
+      </button>
+    </div>
+    <div class="collapse fade-up" id="trackerTableCollapse">
+      <div class="card shadow-sm">
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover table-sm mb-0" id="trackerTable">
+              <thead class="table-light">
+                <tr>
+                  <th>#</th>
+                  <th>{{ loc.url_label | default: "URL" }}</th>
+                  <th>{{ loc.status_label | default: "Status" }}</th>
+                  <th>{{ loc.protocol_label | default: "Protocol" }}</th>
+                  <th>{{ loc.ping_label | default: "Ping (ms)" }}</th>
+                  <th>{{ loc.ipv6_label | default: "IPv6" }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for tracker in data.trackers %}
+                <tr>
+                  <td>{{ forloop.index }}</td>
+                  <td class="copy-cell" data-url="{{ tracker.url }}" style="cursor: pointer;" title="{{ loc.copy_url | default: 'Click to copy URL' }}">{{ tracker.url | truncate: 80 }}</td>
+                  <td>
+                    {% if tracker.status == "ALIVE" %}
+                      <span class="badge bg-success">{{ loc.online_short | default: "Alive" }}</span>
+                    {% elsif tracker.status == "DEAD" %}
+                      <span class="badge bg-danger">{{ loc.dead_short | default: "Dead" }}</span>
+                    {% else %}
+                      <span class="badge bg-secondary">{{ loc.invalid_short | default: "Invalid" }}</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ tracker.protocol | upcase }}</td>
+                  <td>{% if tracker.ping_ms %}<span class="ping-badge px-2 py-1 rounded-pill">{{ tracker.ping_ms }}</span>{% else %}—{% endif %}</td>
+                  <td>{% if tracker.supports_ipv6 %}<span class="badge badge-ipv6">✓ IPv6</span>{% else %}<span class="badge badge-ipv4">IPv4</span>{% endif %}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p class="text-center text-muted small mt-5">
       {{ loc.footer_prefix | default: "" }} {{ "now" | date: "%Y-%m-%d %H:%M UTC" }}
     </p>
@@ -125,7 +183,7 @@
 
   <script src="/assets/js/bootstrap.bundle.min.js"></script>
   <script>
-    // ========= 主题跟随系统 =========
+    // 主题跟随系统（保持原有逻辑）
     (function() {
       const html = document.documentElement;
       const toggle = document.getElementById('themeToggle');
@@ -145,7 +203,7 @@
       });
     })();
 
-    // ========= 计数动画 =========
+    // 计数动画
     function animateCounter(el, target, decimals = 0) {
       const duration = 1500, start = performance.now();
       const isFloat = target % 1 !== 0 || decimals > 0;
@@ -153,44 +211,44 @@
         const progress = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(2, -10 * progress);
         let val = (target * eased);
-        el.textContent = isFloat ? val.toFixed(decimals) + '%' : Math.floor(val);
+        el.textContent = isFloat ? val.toFixed(decimals) : Math.floor(val);
         if (progress < 1) requestAnimationFrame(update);
-        else el.textContent = isFloat ? target.toFixed(decimals) + '%' : target;
+        else el.textContent = isFloat ? target.toFixed(decimals) : target;
       }
       requestAnimationFrame(update);
     }
-
     document.querySelectorAll('.stat-value[data-target], .proto-count[data-target]').forEach(el => {
       const target = parseFloat(el.getAttribute('data-target'));
-      const isUptimeCard = el.closest('.stat-card')?.querySelector('.stat-label')?.textContent.includes('%');
-      animateCounter(el, target, isUptimeCard ? 1 : 0);
+      const isPercent = el.closest('.stat-card')?.querySelector('.stat-sub') !== null;
+      animateCounter(el, target, isPercent ? 0 : 0);
     });
 
-    // ========= 复制链接 =========
+    // 复制链接按钮
     document.querySelectorAll('.copy-link-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         const url = btn.getAttribute('data-url');
-        try {
-          await navigator.clipboard.writeText(url);
-        } catch (err) {
-          const ta = document.createElement('textarea');
-          ta.value = url;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand('copy');
-          document.body.removeChild(ta);
-        }
-        const originalHTML = btn.innerHTML;
+        try { await navigator.clipboard.writeText(url); } catch(err) { /* fallback */ }
+        const original = btn.innerHTML;
         btn.innerHTML = '✅ Copied!';
         btn.disabled = true;
-        setTimeout(() => {
-          btn.innerHTML = originalHTML;
-          btn.disabled = false;
-        }, 2000);
+        setTimeout(() => { btn.innerHTML = original; btn.disabled = false; }, 2000);
       });
     });
 
-    // ========= 回到顶部 =========
+    // 表格复制 URL（点击单元格复制）
+    document.querySelectorAll('.copy-cell').forEach(cell => {
+      cell.addEventListener('click', async () => {
+        const url = cell.getAttribute('data-url');
+        try {
+          await navigator.clipboard.writeText(url);
+          const original = cell.innerHTML;
+          cell.innerHTML = '✓ Copied!';
+          setTimeout(() => { cell.innerHTML = original; }, 1000);
+        } catch(e) {}
+      });
+    });
+
+    // 回到顶部
     const backBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => backBtn.classList.toggle('show', window.scrollY > 500));
     backBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
