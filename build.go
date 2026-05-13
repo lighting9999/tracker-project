@@ -29,7 +29,7 @@ import (
 	"golang.org/x/net/proxy"
 )
 
-const defaultTimeout = 10 * time.Second
+const defaultTimeout = 3 * time.Second
 const defaultWorkers = 1000
 const defaultRetries = 1
 

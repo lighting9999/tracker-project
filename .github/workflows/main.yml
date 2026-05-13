@@ -100,7 +100,7 @@ jobs:
             -output trackers_best.txt \
             -workers 1000 \
             -json-output jekyll/_data/trackers.json \
-            -retries 2 \
+            -retries 1 \
             -compact0-fallback \
             -insecure \
             -proxy socks5://localhost:4444
