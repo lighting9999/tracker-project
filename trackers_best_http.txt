@@ -1,6 +1,5 @@
 http://004430.xyz/announce
 http://107.189.2.131:1337/announce
-http://123.245.62.39:6969/announce
 http://1337.abcvg.info/announce
 http://140.235.237.23:6969/announce
 http://167.253.78.20:8080/announce
@@ -39,6 +38,7 @@ http://bt.edwardk.info:6969/announce
 http://bt.nnm-club.cc:2710/announce
 http://bt.nnm-club.info:2710/announce
 http://bt.nnm-club.me:2710/announce
+http://bt.okmp3.ru:2710/announce
 http://bt.zlofenix.org:81/announce
 http://bt02.nnm-club.cc:2710/announce
 http://bt02.nnm-club.info:2710/announce
@@ -49,6 +49,8 @@ http://bt2.edwardk.info:4040/announce
 http://bt2.edwardk.info:6969/announce
 http://bttracker.debian.org:6969/announce
 http://bvarf.tracker.sh:2086/announce
+http://ch3oh.ru:6969/announce
+http://concen.org:6969/announce
 http://connect.swifte.space:2710/announce
 http://ehtracker.org/1/announce
 http://ehtracker.org/1104308/announce
@@ -81,11 +83,10 @@ http://tr.kxmp.cf/announce
 http://tr.nyacat.pw/announce
 http://tr.ysagin.top:2710/announce
 http://tracker-udp.anirena.com/announce
+http://tracker-zhuqiy.dgj055.icu/announce
 http://tracker.004430.xyz:1337/announce
-http://tracker.23794.top:6969/announce
 http://tracker.acgnx.se/announce
 http://tracker.anirena.com/announce
-http://tracker.anirena.com/announcehttp:/tracker1.itzmx.com:8080/announce
 http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce
 http://tracker.anonwebz.xyz:8080/announce
 http://tracker.auctor.tv:6969/announce
@@ -105,9 +106,11 @@ http://tracker.kali.org:6969/announce
 http://tracker.linkomanija.org:2710/announce
 http://tracker.minglong.org:8080/announce
 http://tracker.mywaifu.best:6969/announce
+http://tracker.novaopcj.eu.org:6969/announce
 http://tracker.nyaa.vc:6969/announce
 http://tracker.opentrackr.org:1337/announce
 http://tracker.pussytorrents.org:3000/announce
+http://tracker.qu.ax:6969/announce
 http://tracker.renfei.net:8080/announce
 http://tracker.swifte.space:2710/announce
 http://tracker.torrentbytes.net/announce.php

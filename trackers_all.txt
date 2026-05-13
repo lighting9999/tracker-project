@@ -1171,7 +1171,6 @@ http://open-v6.demonoid.ch:6969/announce
 http://open.8a.is:6969/announce
 http://open.acgnxtracker.com/announce
 http://open.acgtracker.com:1096/announce
-http://open.acgtracker.com:1096/announcehttp:/104.28.16.69/announce
 http://open.demonii.com:1337/announce
 http://open.demonii.com:6969/announce
 http://open.demonii.si/announce
@@ -1408,7 +1407,6 @@ http://tracker.ali213.net:8000/announce
 http://tracker.ali213.net:8080/announce
 http://tracker.anime-miako.to:6969/announce
 http://tracker.anirena.com/announce
-http://tracker.anirena.com/announcehttp:/tracker1.itzmx.com:8080/announce
 http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce
 http://tracker.anonwebz.xyz:8080/announce
 http://tracker.auctor.tv:6969/announce
@@ -2233,14 +2231,11 @@ https://trackers.ptlsp.com/announce
 https://trackers.run/announce
 https://trackme.theom.nz/announce
 https://trakx.herokuapp.com/announce
-https://trakx.herokuapp.com/announceudp:/93.158.213.92:1337/announce
 https://trunker.ghostchu-services.top/announce
 https://ttk.pp.ua/announce
 https://ttracker.just-h.party/announce
 https://voxhost.fr/announce
 https://w.wwwww.wtf/announce
-https://w.wwwww.wtf/announcehttp:/185.230.4.150:1337/announce
-https://w.wwwww.wtf/announceudp:/93.158.213.92:1337/announce
 https://wolf.parrot.run/announce
 https://wsad.run.place/announce
 https://www.peckservers.com:9000/announce
@@ -2288,7 +2283,7 @@ udp://109.248.43.36:6969/announce
 udp://109.72.83.214:80/announce
 udp://11.rarbg.com/announce
 udp://11.rarbg.com:80/announce
-udp://11.rarbg.me/announcehttp:/tracker.trackerfix.com:80/announce
+udp://11.rarbg.me/announce
 udp://110.187.214.10:6969/announce
 udp://110.187.214.137:6969/announce
 udp://110.187.214.29:6969/announce
@@ -3675,7 +3670,6 @@ udp://tracker.bitsearch.to:1337/announce
 udp://tracker.bittor.pw:1337/announce
 udp://tracker.blacksparrowmedia.net:6969/announce
 udp://tracker.blackunicorn.xyz:6969/announce
-udp://tracker.blackunicorn.xyz:6969/announceudp:/castradio.net:6969/announce
 udp://tracker.bluefrog.pw:2710/announce
 udp://tracker.bontal.net:6969/announce
 udp://tracker.breizh.pm:6969/announce
@@ -3840,7 +3834,6 @@ udp://tracker.prq.to:80/announce
 udp://tracker.ptrmc.net:6969/announce
 udp://tracker.publicbt.com:6969/announce
 udp://tracker.publicbt.com:80/announce
-udp://tracker.publicbt.com:80/announcehttp:/tracker.bt4g.com:2095/announce
 udp://tracker.publictracker.xyz:6969/announce
 udp://tracker.pubt.net:2710/announce
 udp://tracker.qu.ax:6969/announce
@@ -4040,7 +4033,6 @@ udp://zecircle.xyz:6969/announce
 udp://zephir.monocul.us:6969/announce
 udp://zer0day.ch:1337/announce
 udp://zer0day.to:1337/announce
-udp://zer0day.to:1337/announcehttp:/107.189.10.20.sslip.io:7777/announce
 ws://hub.bugout.link:80/announce
 ws://tracker.files.fm:7072/announce
 ws://tracker.ghostchu-services.top:80/announce
@@ -4062,10 +4054,5 @@ wss://tracker.magnetoo.io:443/announce
 wss://tracker.novage.com.ua:443/announce
 wss://tracker.openwebtorrent.com/announce
 wss://tracker.openwebtorrent.com:443/announce
-wss://tracker.openwebtorrent.com:443/announcehttp:/0123456789nonexistent.com:80/announce
-wss://tracker.openwebtorrent.com:443/announcehttp:/tracker.bt4g.com:2095/announce
-wss://tracker.openwebtorrent.com:443/announcehttp:/tracker.gbitt.info/announce
-wss://tracker.openwebtorrent.com:443/announceudp:/open.demonoid.ch:6969/announce
-wss://tracker.openwebtorrent.com:443/announceudp:/tracker.coppersurfer.tk:6969/announce
 wss://tracker.sloppyta.co:443/announce
 wss://tracker.webtorrent.dev/announce
