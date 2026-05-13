@@ -16,6 +16,19 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    services:
+      i2pd:
+        image: purplei2p/i2pd:latest
+        ports:
+          - 4447:4447
+        env:
+          I2PD_SAM_ENABLED: "false"
+        options: >-
+          --health-cmd "nc -z 127.0.0.1 4447 || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 6
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,7 +38,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
+          go-version: '1.23'
 
       - name: Configure Git
         run: |
@@ -76,7 +89,18 @@ jobs:
           go build -o tracker-checker build.go
 
       - name: Run tracker checker
-        run: ./tracker-checker -input webtracker/input_merged.txt -output trackers_best.txt -workers 800 -json-output jekyll/_data/trackers.json -retries 2 -compact0-fallback -insecure
+        run: |
+          # 仅传递代理地址，代码内部会自动对 .i2p 域名使用代理，其他直连
+          ./tracker-checker \
+            -input webtracker/input_merged.txt \
+            -output trackers_best.txt \
+            -workers 1000 \
+            -json-output jekyll/_data/trackers.json \
+            -retries 2 \
+            -compact0-fallback \
+            -insecure \
+            -proxy socks5://localhost:4447
+          echo "Alive trackers: $(wc -l < trackers_best.txt)"
 
       - name: Download Bootstrap and assets
         run: |
@@ -101,7 +125,7 @@ jobs:
 
       - name: Copy tracker download files to public
         run: |
-          cp trackers_all.txt trackers_best*.txt public/
+          cp trackers_all.txt trackers_best*.txt public/ 2>/dev/null || true
           if [ -f trackers_peers.txt ]; then cp trackers_peers.txt public/; fi
 
       - name: Generate robots.txt

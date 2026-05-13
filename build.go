@@ -29,11 +29,9 @@ import (
 	"golang.org/x/net/proxy"
 )
 
-const (
-	defaultTimeout = 10 * time.Second
-	defaultWorkers = 50
-	defaultRetries = 1
-)
+const defaultTimeout = 10 * time.Second
+const defaultWorkers = 1000
+const defaultRetries = 1
 
 const (
 	StatusAlive   = "ALIVE"
@@ -42,19 +40,20 @@ const (
 )
 
 type CheckResult struct {
-	URL    string `json:"url"`
-	Status string `json:"status"`
-	PingMs *int64 `json:"ping_ms,omitempty"`
+	URL          string  `json:"url"`
+	Status       string  `json:"status"`
+	PingMs       *int64  `json:"ping_ms,omitempty"`
+	SupportsIPv6 *bool   `json:"supports_ipv6,omitempty"`
 }
 
 type TrackerHistory struct {
-	Checks             uint64 `json:"checks"`
-	AliveChecks        uint64 `json:"alive_checks"`
-	FirstSeenTs        int64  `json:"first_seen_ts"`
-	FirstAliveTs       int64  `json:"first_alive_ts"`
-	LastSeenTs         int64  `json:"last_seen_ts"`
-	LastAliveTs        int64  `json:"last_alive_ts"`
-	StreakAliveStartTs int64  `json:"streak_alive_start_ts"`
+	Checks             uint64
+	AliveChecks        uint64
+	FirstSeenTs        int64
+	FirstAliveTs       int64
+	LastSeenTs         int64
+	LastAliveTs        int64
+	StreakAliveStartTs int64
 }
 
 type JekyllData struct {
@@ -85,39 +84,30 @@ type ProtocolStats struct {
 }
 
 type TrackerEntry struct {
-	URL      string  `json:"url"`
-	Status   string  `json:"status"`
-	Uptime   float64 `json:"uptime"`
-	Days     int     `json:"days"`
-	Protocol string  `json:"protocol"`
-	PingMs   *int64  `json:"ping_ms,omitempty"`
+	URL          string  `json:"url"`
+	Status       string  `json:"status"`
+	Uptime       float64 `json:"uptime"`
+	Days         int     `json:"days"`
+	Protocol     string  `json:"protocol"`
+	PingMs       *int64  `json:"ping_ms,omitempty"`
+	SupportsIPv6 *bool   `json:"supports_ipv6,omitempty"`
 }
 
 var (
-	trackerRe    = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
-	peerIDPrefix string
-	infoHashes   []string
-	hashIndex    uint32
-	userAgents   = []string{
-		"qBittorrent/4.6.0",
-		"Transmission/3.00",
-		"uTorrent/2210(25302)",
-		"BitTorrent/7.10.5",
-		"Deluge/2.0.3",
-		"aria2/1.36.0",
-		"libtorrent/1.2.18.0",
-	}
-
-	dnsCache     = map[string]*dnsCacheEntry{}
-	dnsCacheMu   sync.Mutex
-	dnsCacheTTL  = 10 * time.Minute
-	globalClient *http.Client
-
+	trackerRe      = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
+	peerIDPrefix   string
+	infoHashes     []string
+	hashIndex      uint32
+	userAgents     = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
+	dnsCache       sync.Map
+	dnsCacheTTL    = 10 * time.Minute
+	globalClient   *http.Client
 	compact0Fallback bool
-	insecureSkip     bool
-	proxyAddr        string
-	peersCollector   = map[string]struct{}{}
-	peersMu          sync.Mutex
+	insecureSkip   bool
+	proxyAddr      string
+	proxyDialer    proxy.Dialer
+	peersCollector sync.Map
+	hasIPv6        bool
 )
 
 type dnsCacheEntry struct {
@@ -125,18 +115,44 @@ type dnsCacheEntry struct {
 	ts    time.Time
 }
 
+type contextDialer struct {
+	d proxy.Dialer
+}
+
+func (cd *contextDialer) DialContext(ctx context.Context, network, addr string) (net.Conn, error) {
+	type dialerCtx interface {
+		DialContext(context.Context, string, string) (net.Conn, error)
+	}
+	if dc, ok := cd.d.(dialerCtx); ok {
+		return dc.DialContext(ctx, network, addr)
+	}
+	type result struct {
+		conn net.Conn
+		err  error
+	}
+	ch := make(chan result, 1)
+	go func() {
+		conn, err := cd.d.Dial(network, addr)
+		ch <- result{conn, err}
+	}()
+	select {
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	case r := <-ch:
+		return r.conn, r.err
+	}
+}
+
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
+	hasIPv6 = checkIPv6Support()
 }
 
 func randomNumeric(n int) string {
 	const digits = "0123456789"
 	ret := make([]byte, n)
 	for i := range ret {
-		bi, err := rand.Int(rand.Reader, big.NewInt(int64(len(digits))))
-		if err != nil {
-			bi = big.NewInt(0)
-		}
+		bi, _ := rand.Int(rand.Reader, big.NewInt(int64(len(digits))))
 		ret[i] = digits[bi.Int64()]
 	}
 	return string(ret)
@@ -145,8 +161,7 @@ func randomNumeric(n int) string {
 func parseTrackerLine(line string) string {
 	line = strings.TrimSpace(line)
 	if strings.HasPrefix(line, "[") && strings.Contains(line, "](") && strings.HasSuffix(line, ")") {
-		_, after, found := strings.Cut(line, "](")
-		if found {
+		if _, after, ok := strings.Cut(line, "]("); ok {
 			return strings.TrimSuffix(after, ")")
 		}
 	}
@@ -224,34 +239,98 @@ func extractCompactPeers(data []byte) []string {
 	return peers
 }
 
+func extractCompact6Peers(data []byte) []string {
+	idx := strings.Index(string(data), "6:peers6")
+	if idx == -1 {
+		return nil
+	}
+	rest := data[idx+8:]
+	if len(rest) < 1 {
+		return nil
+	}
+	var numStr string
+	i := 0
+	for i < len(rest) && rest[i] != ':' {
+		if rest[i] >= '0' && rest[i] <= '9' {
+			numStr += string(rest[i])
+			i++
+		} else {
+			break
+		}
+	}
+	if rest[i] != ':' {
+		return nil
+	}
+	length, err := strconv.Atoi(numStr)
+	if err != nil || length%18 != 0 || length == 0 {
+		return nil
+	}
+	peerBytes := rest[i+1 : i+1+length]
+	if len(peerBytes) < length {
+		return nil
+	}
+	var peers []string
+	for j := 0; j < length; j += 18 {
+		ip := net.IP(peerBytes[j : j+16]).String()
+		port := uint16(peerBytes[j+16])<<8 | uint16(peerBytes[j+17])
+		peers = append(peers, net.JoinHostPort(ip, strconv.Itoa(int(port))))
+	}
+	return peers
+}
+
+func hasIPv6Peers(data []byte) bool {
+	idx := strings.Index(string(data), "6:peers6")
+	if idx == -1 {
+		return false
+	}
+	rest := data[idx+8:]
+	if len(rest) < 1 {
+		return false
+	}
+	var numStr string
+	i := 0
+	for i < len(rest) && rest[i] != ':' {
+		if rest[i] >= '0' && rest[i] <= '9' {
+			numStr += string(rest[i])
+			i++
+		} else {
+			break
+		}
+	}
+	if rest[i] != ':' {
+		return false
+	}
+	length, err := strconv.Atoi(numStr)
+	if err != nil || length%18 != 0 || length == 0 {
+		return false
+	}
+	return true
+}
+
 func cachedDial(network, addr string) (net.Conn, error) {
 	host, port, _ := net.SplitHostPort(addr)
-	if ip := net.ParseIP(host); ip != nil {
+	if net.ParseIP(host) != nil {
 		return net.Dial(network, addr)
 	}
-	dnsCacheMu.Lock()
-	entry, ok := dnsCache[host]
-	dnsCacheMu.Unlock()
-	if ok && time.Since(entry.ts) < dnsCacheTTL {
-		if len(entry.addrs) == 0 {
-			return net.Dial(network, addr)
+	if val, ok := dnsCache.Load(host); ok {
+		entry := val.(*dnsCacheEntry)
+		if time.Since(entry.ts) < dnsCacheTTL {
+			if len(entry.addrs) == 0 {
+				return net.Dial(network, addr)
+			}
+			return net.Dial(network, net.JoinHostPort(entry.addrs[0], port))
 		}
-		return net.Dial(network, net.JoinHostPort(entry.addrs[0], port))
 	}
 	ips, err := net.LookupIP(host)
 	if err != nil {
-		dnsCacheMu.Lock()
-		dnsCache[host] = &dnsCacheEntry{addrs: []string{}, ts: time.Now()}
-		dnsCacheMu.Unlock()
+		dnsCache.Store(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now()})
 		return net.Dial(network, addr)
 	}
-	var addrs []string
-	for _, ip := range ips {
-		addrs = append(addrs, ip.String())
+	addrs := make([]string, len(ips))
+	for i, ip := range ips {
+		addrs[i] = ip.String()
 	}
-	dnsCacheMu.Lock()
-	dnsCache[host] = &dnsCacheEntry{addrs: addrs, ts: time.Now()}
-	dnsCacheMu.Unlock()
+	dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
 	return net.Dial(network, net.JoinHostPort(addrs[0], port))
 }
 
@@ -285,7 +364,6 @@ func normalizeTrackerURL(raw string) (string, error) {
 	}
 	u.Path = normalizedPath
 	u.Fragment = ""
-
 	if (scheme == "http" && u.Port() == "80") || (scheme == "https" && u.Port() == "443") {
 		if ip := net.ParseIP(host); ip != nil && ip.To4() == nil {
 			u.Host = "[" + host + "]"
@@ -350,14 +428,27 @@ func randomUA() string {
 	return userAgents[randomInt(0, len(userAgents))]
 }
 
-func checkHTTP(ctx context.Context, tracker string, infoHash string) (string, *int64) {
+func checkIPv6Support() bool {
+	addrs, err := net.InterfaceAddrs()
+	if err != nil {
+		return false
+	}
+	for _, a := range addrs {
+		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.To4() == nil && ipnet.IP.IsGlobalUnicast() {
+			return true
+		}
+	}
+	return false
+}
+
+func checkHTTP(ctx context.Context, tracker string, infoHash string) (string, *int64, *bool) {
 	return checkHTTPWithCompact(ctx, tracker, infoHash, true)
 }
 
-func checkHTTPWithCompact(ctx context.Context, tracker string, infoHash string, compact bool) (string, *int64) {
+func checkHTTPWithCompact(ctx context.Context, tracker string, infoHash string, compact bool) (string, *int64, *bool) {
 	base, err := url.Parse(tracker)
 	if err != nil {
-		return StatusInvalid, nil
+		return StatusInvalid, nil, nil
 	}
 	params := base.Query()
 	if raw := infoHashBytes(infoHash); raw != nil {
@@ -380,48 +471,60 @@ func checkHTTPWithCompact(ctx context.Context, tracker string, infoHash string, 
 
 	req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
 	if err != nil {
-		return StatusDead, nil
+		return StatusDead, nil, nil
 	}
 	req.Header.Set("User-Agent", randomUA())
 	start := time.Now()
 	resp, err := globalClient.Do(req)
 	if err != nil {
-		return StatusDead, nil
+		return StatusDead, nil, nil
 	}
 	defer resp.Body.Close()
 	elapsed := int64(time.Since(start).Milliseconds())
 	body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
 	if err != nil {
-		return StatusDead, &elapsed
+		return StatusDead, &elapsed, nil
 	}
-
 	if isHTML(body) || isParkedDomain(body) {
-		return StatusInvalid, &elapsed
+		return StatusInvalid, &elapsed, nil
 	}
+	supportsIPv6 := false
 	if bdecodeSimple(body) {
 		if peers := extractCompactPeers(body); len(peers) > 0 {
-			peersMu.Lock()
 			for _, p := range peers {
-				peersCollector[p] = struct{}{}
+				peersCollector.Store(p, struct{}{})
 			}
-			peersMu.Unlock()
 		}
-		return StatusAlive, &elapsed
+		if hasIPv6 && hasIPv6Peers(body) {
+			supportsIPv6 = true
+			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
+				for _, p := range peers6 {
+					peersCollector.Store(p, struct{}{})
+				}
+			}
+		}
+		return StatusAlive, &elapsed, &supportsIPv6
 	}
 	if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
 		if peers := extractCompactPeers(body); len(peers) > 0 {
-			peersMu.Lock()
 			for _, p := range peers {
-				peersCollector[p] = struct{}{}
+				peersCollector.Store(p, struct{}{})
 			}
-			peersMu.Unlock()
 		}
-		return StatusAlive, &elapsed
+		if hasIPv6 && hasIPv6Peers(body) {
+			supportsIPv6 = true
+			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
+				for _, p := range peers6 {
+					peersCollector.Store(p, struct{}{})
+				}
+			}
+		}
+		return StatusAlive, &elapsed, &supportsIPv6
 	}
 	if resp.StatusCode == http.StatusOK && len(body) > 50000 {
-		return StatusInvalid, &elapsed
+		return StatusInvalid, &elapsed, nil
 	}
-	return StatusDead, &elapsed
+	return StatusDead, &elapsed, nil
 }
 
 func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *int64) {
@@ -497,10 +600,7 @@ func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *in
 	}
 	elapsed := int64(time.Since(start).Milliseconds())
 	action := bigEndianUint32(annResp[0:4])
-	if action == 1 && bigEndianUint32(annResp[4:8]) == transAnnounce {
-		return StatusAlive, &elapsed
-	}
-	if action == 3 {
+	if (action == 1 && bigEndianUint32(annResp[4:8]) == transAnnounce) || action == 3 {
 		return StatusAlive, &elapsed
 	}
 	return StatusDead, &elapsed
@@ -510,11 +610,13 @@ func checkWSS(ctx context.Context, tracker string) (string, *int64) {
 	dialer := websocket.Dialer{
 		HandshakeTimeout: defaultTimeout,
 		NetDialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
-			if proxyAddr != "" {
-				dialer, err := proxy.SOCKS5("tcp", proxyAddr, nil, proxy.Direct)
-				if err == nil {
-					return dialer.Dial(network, addr)
+			if proxyAddr != "" && strings.HasSuffix(addr, ".i2p") {
+				if cd, ok := proxyDialer.(interface {
+					DialContext(context.Context, string, string) (net.Conn, error)
+				}); ok {
+					return cd.DialContext(ctx, network, addr)
 				}
+				return proxyDialer.Dial(network, addr)
 			}
 			return cachedDial(network, addr)
 		},
@@ -552,38 +654,36 @@ func checkDNS(ctx context.Context, tracker string) (string, *int64) {
 	return StatusDead, &elapsed
 }
 
-func validateTracker(ctx context.Context, tracker string) CheckResult {
-	u, err := url.Parse(tracker)
-	if err != nil {
-		return CheckResult{URL: tracker, Status: StatusInvalid}
-	}
-	scheme := strings.ToLower(u.Scheme)
-	infoHash := nextInfoHash()
-	var status string
-	var ping *int64
-	switch scheme {
-	case "http", "https":
-		status, ping = checkHTTP(ctx, tracker, infoHash)
-		if status != StatusAlive && compact0Fallback {
-			status, ping = checkHTTPWithCompact(ctx, tracker, infoHash, false)
-		}
-	case "udp":
-		status, ping = checkUDP(ctx, tracker, infoHash)
-	case "wss", "ws":
-		status, ping = checkWSS(ctx, tracker)
-	case "dns":
-		status, ping = checkDNS(ctx, tracker)
-	default:
-		status = StatusInvalid
-	}
-	return CheckResult{URL: tracker, Status: status, PingMs: ping}
-}
-
-func validateTrackerWithRetry(ctx context.Context, tracker string, maxAttempts int) CheckResult {
+func validateTracker(ctx context.Context, tracker string, maxAttempts int) CheckResult {
 	var last CheckResult
 	for attempt := 0; attempt < maxAttempts; attempt++ {
-		last = validateTracker(ctx, tracker)
-		if last.Status != StatusDead {
+		u, err := url.Parse(tracker)
+		if err != nil {
+			last = CheckResult{URL: tracker, Status: StatusInvalid}
+			break
+		}
+		scheme := strings.ToLower(u.Scheme)
+		infoHash := nextInfoHash()
+		var status string
+		var ping *int64
+		var supportsIPv6 *bool
+		switch scheme {
+		case "http", "https":
+			status, ping, supportsIPv6 = checkHTTP(ctx, tracker, infoHash)
+			if status != StatusAlive && compact0Fallback {
+				status, ping, supportsIPv6 = checkHTTPWithCompact(ctx, tracker, infoHash, false)
+			}
+		case "udp":
+			status, ping = checkUDP(ctx, tracker, infoHash)
+		case "wss", "ws":
+			status, ping = checkWSS(ctx, tracker)
+		case "dns":
+			status, ping = checkDNS(ctx, tracker)
+		default:
+			status = StatusInvalid
+		}
+		last = CheckResult{URL: tracker, Status: status, PingMs: ping, SupportsIPv6: supportsIPv6}
+		if status != StatusDead {
 			break
 		}
 		if attempt < maxAttempts-1 {
@@ -599,13 +699,11 @@ func loadTrackers(filepath string) ([]string, error) {
 		return nil, fmt.Errorf("error reading %s: %v", filepath, err)
 	}
 	defer f.Close()
-
 	content, err := io.ReadAll(f)
 	if err != nil {
 		return nil, err
 	}
 	text := strings.ReplaceAll(string(content), ",", "\n")
-
 	trackers := []string{}
 	seen := map[string]bool{}
 	scanner := bufio.NewScanner(strings.NewReader(text))
@@ -712,28 +810,14 @@ func loadHistory(path string) (map[string]*TrackerHistory, error) {
 			continue
 		}
 		var h TrackerHistory
-		if v, err := strconv.ParseUint(parts[1], 10, 64); err == nil {
-			h.Checks = v
-		}
-		if v, err := strconv.ParseUint(parts[2], 10, 64); err == nil {
-			h.AliveChecks = v
-		}
-		if v, err := strconv.ParseInt(parts[3], 10, 64); err == nil {
-			h.FirstSeenTs = v
-		}
-		if v, err := strconv.ParseInt(parts[4], 10, 64); err == nil {
-			h.FirstAliveTs = v
-		}
-		if v, err := strconv.ParseInt(parts[5], 10, 64); err == nil {
-			h.LastSeenTs = v
-		}
-		if v, err := strconv.ParseInt(parts[6], 10, 64); err == nil {
-			h.LastAliveTs = v
-		}
+		h.Checks, _ = strconv.ParseUint(parts[1], 10, 64)
+		h.AliveChecks, _ = strconv.ParseUint(parts[2], 10, 64)
+		h.FirstSeenTs, _ = strconv.ParseInt(parts[3], 10, 64)
+		h.FirstAliveTs, _ = strconv.ParseInt(parts[4], 10, 64)
+		h.LastSeenTs, _ = strconv.ParseInt(parts[5], 10, 64)
+		h.LastAliveTs, _ = strconv.ParseInt(parts[6], 10, 64)
 		if len(parts) >= 8 {
-			if v, err := strconv.ParseInt(parts[7], 10, 64); err == nil {
-				h.StreakAliveStartTs = v
-			}
+			h.StreakAliveStartTs, _ = strconv.ParseInt(parts[7], 10, 64)
 		} else if h.LastSeenTs != 0 && h.LastSeenTs == h.LastAliveTs {
 			h.StreakAliveStartTs = h.LastSeenTs
 		}
@@ -774,7 +858,6 @@ func updateHistory(hist map[string]*TrackerHistory, results []CheckResult, nowTs
 			entry.FirstSeenTs = nowTs
 		}
 		entry.LastSeenTs = nowTs
-
 		if r.Status == StatusAlive {
 			if !lastWasAlive || entry.StreakAliveStartTs == 0 {
 				entry.StreakAliveStartTs = nowTs
@@ -856,8 +939,8 @@ func main() {
 	output := flag.String("output", "trackers_best.txt", "File to write best (alive) trackers")
 	workers := flag.Int("workers", defaultWorkers, "Number of concurrent workers")
 	jsonOutput := flag.String("json-output", "jekyll/_data/trackers.json", "Path to output Jekyll JSON data")
-	infoHashesFlag := flag.String("info-hashes", "", "Comma-separated 40-char hex info_hash values (20 bytes each)")
-	retries := flag.Int("retries", defaultRetries, "Max additional retries for DEAD trackers (total attempts = 1 + retries)")
+	infoHashesFlag := flag.String("info-hashes", "", "Comma-separated 40-char hex info_hash values")
+	retries := flag.Int("retries", defaultRetries, "Max additional retries for DEAD trackers")
 	compact0 := flag.Bool("compact0-fallback", false, "Retry with compact=0 if compact=1 fails")
 	insecure := flag.Bool("insecure", false, "Skip TLS certificate verification")
 	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy address (e.g. socks5://127.0.0.1:9050)")
@@ -867,25 +950,34 @@ func main() {
 	insecureSkip = *insecure
 	proxyAddr = *proxyFlag
 
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecureSkip},
-		MaxIdleConns:    200,
-		MaxIdleConnsPerHost: 50,
-		IdleConnTimeout: 30 * time.Second,
-		DisableKeepAlives: false,
-	}
 	if proxyAddr != "" {
-		dialer, err := proxy.SOCKS5("tcp", proxyAddr, nil, proxy.Direct)
+		rawDialer, err := proxy.SOCKS5("tcp", proxyAddr, nil, proxy.Direct)
 		if err != nil {
 			log.Fatalf("Failed to create SOCKS5 dialer: %v", err)
 		}
-		tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
-			return dialer.Dial(network, addr)
+		proxyDialer = &contextDialer{d: rawDialer}
+	}
+
+	tr := &http.Transport{
+		TLSClientConfig:       &tls.Config{InsecureSkipVerify: insecureSkip},
+		MaxIdleConns:          5000,
+		MaxIdleConnsPerHost:   200,
+		MaxConnsPerHost:       0,
+		IdleConnTimeout:       90 * time.Second,
+		DisableKeepAlives:     false,
+		ForceAttemptHTTP2:     true,
+	}
+	tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+		host, _, _ := net.SplitHostPort(addr)
+		if proxyAddr != "" && strings.HasSuffix(host, ".i2p") {
+			if cd, ok := proxyDialer.(interface {
+				DialContext(context.Context, string, string) (net.Conn, error)
+			}); ok {
+				return cd.DialContext(ctx, network, addr)
+			}
+			return proxyDialer.Dial(network, addr)
 		}
-	} else {
-		tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
-			return cachedDial(network, addr)
-		}
+		return cachedDial(network, addr)
 	}
 	globalClient = &http.Client{
 		Transport: tr,
@@ -895,16 +987,8 @@ func main() {
 		},
 	}
 
-	inputFile := *input
-	outputFile := *output
-	concurrency := *workers
-	if concurrency < 1 {
-		concurrency = defaultWorkers
-	}
-
 	if *infoHashesFlag != "" {
-		parts := strings.Split(*infoHashesFlag, ",")
-		for _, p := range parts {
+		for _, p := range strings.Split(*infoHashesFlag, ",") {
 			p = strings.TrimSpace(p)
 			if len(p) != 40 {
 				log.Fatalf("invalid info_hash length: %q", p)
@@ -913,7 +997,7 @@ func main() {
 		}
 	}
 
-	trackers, err := loadTrackers(inputFile)
+	trackers, err := loadTrackers(*input)
 	if err != nil {
 		log.Fatalf("Failed to load trackers: %v", err)
 	}
@@ -923,62 +1007,52 @@ func main() {
 		log.Fatal("No valid trackers found.")
 	}
 
-	outputDir := filepath.Dir(outputFile)
+	outputDir := filepath.Dir(*output)
 	if err := writeLines(filepath.Join(outputDir, "trackers_all.txt"), allTrackers); err != nil {
 		log.Fatalf("Error writing trackers_all.txt: %v", err)
 	}
 
 	total := len(allTrackers)
-	jobs := make(chan string, total)
-	resultsCh := make(chan []CheckResult, concurrency)
-	progressCh := make(chan int, concurrency*2)
-
+	sem := make(chan struct{}, *workers)
+	results := make(chan CheckResult, total)
 	var wg sync.WaitGroup
+	var completed int32
+
 	ctx := context.Background()
 	maxAttempts := *retries + 1
 
-	for w := 0; w < concurrency; w++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			local := make([]CheckResult, 0, total/concurrency+1)
-			for tracker := range jobs {
-				res := validateTrackerWithRetry(ctx, tracker, maxAttempts)
-				local = append(local, res)
-				select {
-				case progressCh <- 1:
-				default:
-				}
-			}
-			resultsCh <- local
-		}()
-	}
+	startTime := time.Now()
 
-	var progressDone sync.WaitGroup
-	progressDone.Add(1)
-	var completed int32
 	go func() {
-		defer progressDone.Done()
-		for range progressCh {
-			done := atomic.AddInt32(&completed, 1)
+		ticker := time.NewTicker(1 * time.Second)
+		defer ticker.Stop()
+		for range ticker.C {
+			done := atomic.LoadInt32(&completed)
 			fmt.Printf("[%d/%d] processed\n", done, total)
+			if done >= int32(total) {
+				return
+			}
 		}
 	}()
 
-	startTime := time.Now()
 	for _, t := range allTrackers {
-		jobs <- t
+		wg.Add(1)
+		go func(tracker string) {
+			defer wg.Done()
+			sem <- struct{}{}
+			res := validateTracker(ctx, tracker, maxAttempts)
+			results <- res
+			atomic.AddInt32(&completed, 1)
+			<-sem
+		}(t)
 	}
-	close(jobs)
 
 	wg.Wait()
-	close(resultsCh)
-	close(progressCh)
-	progressDone.Wait()
+	close(results)
 
-	var results []CheckResult
-	for r := range resultsCh {
-		results = append(results, r...)
+	var allResults []CheckResult
+	for res := range results {
+		allResults = append(allResults, res)
 	}
 
 	var aliveList []string
@@ -987,7 +1061,7 @@ func main() {
 	var countPing int64
 	var minPing int64 = -1
 	var maxPing int64
-	for _, r := range results {
+	for _, r := range allResults {
 		switch r.Status {
 		case StatusAlive:
 			aliveList = append(aliveList, r.URL)
@@ -1010,8 +1084,8 @@ func main() {
 	}
 	aliveList = sortUnique(aliveList)
 
-	if err := writeLines(outputFile, aliveList); err != nil {
-		log.Fatalf("Error writing %s: %v", outputFile, err)
+	if err := writeLines(*output, aliveList); err != nil {
+		log.Fatalf("Error writing %s: %v", *output, err)
 	}
 	for _, proto := range []string{"http", "https", "udp", "ws", "wss"} {
 		var urls []string
@@ -1023,10 +1097,11 @@ func main() {
 		writeLines(filepath.Join(outputDir, "trackers_best_"+proto+".txt"), sortUnique(urls))
 	}
 
-	peersList := make([]string, 0, len(peersCollector))
-	for p := range peersCollector {
-		peersList = append(peersList, p)
-	}
+	var peersList []string
+	peersCollector.Range(func(key, value interface{}) bool {
+		peersList = append(peersList, key.(string))
+		return true
+	})
 	sort.Strings(peersList)
 	if len(peersList) > 0 {
 		writeLines(filepath.Join(outputDir, "trackers_peers.txt"), peersList)
@@ -1038,7 +1113,7 @@ func main() {
 		log.Fatalf("Failed to load history: %v", err)
 	}
 	nowTs := time.Now().Unix()
-	updateHistory(history, results, nowTs)
+	updateHistory(history, allResults, nowTs)
 	if err := saveHistory(historyPath, history); err != nil {
 		log.Fatalf("Failed to save history: %v", err)
 	}
@@ -1076,7 +1151,7 @@ func main() {
 	}
 
 	trackerEntries := make([]TrackerEntry, 0, total)
-	for _, r := range results {
+	for _, r := range allResults {
 		hist := history[r.URL]
 		if hist == nil {
 			hist = &TrackerHistory{}
@@ -1090,12 +1165,13 @@ func main() {
 			days = int((nowTs - hist.StreakAliveStartTs) / 86400) + 1
 		}
 		trackerEntries = append(trackerEntries, TrackerEntry{
-			URL:      r.URL,
-			Status:   r.Status,
-			Uptime:   uptime,
-			Days:     days,
-			Protocol: getProtocol(r.URL),
-			PingMs:   r.PingMs,
+			URL:          r.URL,
+			Status:       r.Status,
+			Uptime:       uptime,
+			Days:         days,
+			Protocol:     getProtocol(r.URL),
+			PingMs:       r.PingMs,
+			SupportsIPv6: r.SupportsIPv6,
 		})
 	}
 
@@ -1134,5 +1210,5 @@ func main() {
 
 	elapsed := time.Since(startTime).Round(time.Millisecond)
 	fmt.Printf("Checked %d trackers in %s. Alive: %d, Dead: %d, Invalid: %d\n",
-		len(results), elapsed, aliveCount, deadCount, invalidCount)
+		len(allResults), elapsed, aliveCount, deadCount, invalidCount)
 }
