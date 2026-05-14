@@ -20,7 +20,7 @@ jobs:
       i2pd:
         image: purplei2p/i2pd:latest
         ports:
-          - 4444:4444   # SOCKS5 代理端口
+          - 4444:4444
         env:
           I2PD_SAM_ENABLED: "false"
         options: >-
@@ -68,10 +68,8 @@ jobs:
             cat direct_trackers.txt >> webtracker/input_merged_raw.txt
           fi
 
-          # 修复粘连 URL：在每个协议前缀前插入换行
           sed -i 's/\(https\?:\/\/\|udp:\/\/\|ws:\/\/\|wss:\/\/\|dns:\/\/\)/\n\1/g' webtracker/input_merged_raw.txt
 
-          # 清洗并仅保留包含 announce 的 URL
           cat webtracker/input_merged_raw.txt \
             | sed 's/\r$//' \
             | tr ',' '\n' \
@@ -105,6 +103,12 @@ jobs:
             -insecure \
             -proxy socks5://localhost:4444
           echo "Alive trackers: $(wc -l < trackers_best.txt)"
+          if [ -f trackers_best_ipv6.txt ]; then
+            echo "IPv6-capable alive trackers: $(wc -l < trackers_best_ipv6.txt)"
+          fi
+          if [ -f trackers_best_dual.txt ]; then
+            echo "Dual-stack (IPv4+IPv6) alive trackers: $(wc -l < trackers_best_dual.txt)"
+          fi
 
       - name: Download Bootstrap and assets
         run: |
