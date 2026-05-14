@@ -1,6 +1,6 @@
-http://123.245.62.39:6969/announce
-http://167.253.78.20:8080/announce
-http://ch3oh.ru:6969/announce
-https://1337.abcvg.info/announce
+http://bt.okmp3.ru:2710/announce
+http://concen.org:6969/announce
 https://tr-rh-zhuqiy.dgj055.icu/announce
-https://tracker-zhuqiy.dgj055.icu/announce
+https://tr-zhuqiy-1.dgj055.icu/announce
+https://tr.kxmp.cf/announce
+https://tr.torland.ga/announce
