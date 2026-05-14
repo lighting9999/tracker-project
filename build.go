@@ -18,11 +18,13 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"sort"
 	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
+	"syscall"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -137,7 +139,7 @@ func (cd *contextDialer) DialContext(ctx context.Context, network, addr string) 
 	}
 	var dialer net.Dialer
 	if cd.ipv4 {
-		dialer = net.Dialer{Control: func(_, addr string, _ syscall.RawConn) error {
+		dialer.Control = func(_, addr string, _ syscall.RawConn) error {
 			host, _, _ := net.SplitHostPort(addr)
 			ips, err := net.LookupIP(host)
 			if err != nil {
@@ -149,9 +151,9 @@ func (cd *contextDialer) DialContext(ctx context.Context, network, addr string) 
 				}
 			}
 			return fmt.Errorf("no IPv4 address for %s", host)
-		}}
+		}
 	} else if cd.ipv6 {
-		dialer = net.Dialer{Control: func(_, addr string, _ syscall.RawConn) error {
+		dialer.Control = func(_, addr string, _ syscall.RawConn) error {
 			host, _, _ := net.SplitHostPort(addr)
 			ips, err := net.LookupIP(host)
 			if err != nil {
@@ -163,7 +165,7 @@ func (cd *contextDialer) DialContext(ctx context.Context, network, addr string) 
 				}
 			}
 			return fmt.Errorf("no IPv6 address for %s", host)
-		}}
+		}
 	}
 	return dialer.DialContext(ctx, network, addr)
 }
@@ -302,7 +304,7 @@ func extractCompact6Peers(data []byte) []string {
 	return peers
 }
 
-func hasIPv6Peers(data []byte) bool {
+func responseHasIPv6Peers(data []byte) bool {
 	idx := strings.Index(string(data), "6:peers6")
 	if idx == -1 {
 		return false
@@ -549,7 +551,7 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 				peersCollector.Store(p, struct{}{})
 			}
 		}
-		has6 := hasIPv6Peers(body)
+		has6 := responseHasIPv6Peers(body)
 		if has6 {
 			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
 				for _, p := range peers6 {
@@ -565,7 +567,7 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 				peersCollector.Store(p, struct{}{})
 			}
 		}
-		has6 := hasIPv6Peers(body)
+		has6 := responseHasIPv6Peers(body)
 		if has6 {
 			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
 				for _, p := range peers6 {
@@ -582,18 +584,17 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 }
 
 func checkHTTP(ctx context.Context, tracker string, infoHash string) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
-	has4 := false
-	has6 := false
+	alive4, ping4, has6inResp4, err4 := checkHTTPWithFamily(ctx, tracker, infoHash, true, true, false)
+	has4 := alive4
 	var bestPing *int64
-	alive4, ping4, has6InResp4, err4 := checkHTTPWithFamily(ctx, tracker, infoHash, true, true, false)
-	if alive4 {
-		has4 = true
+	if has4 {
 		bestPing = ping4
-		if has6InResp4 {
-			has6 = true
-		}
 	}
-	if !has6 && (has4 && !has6InResp4) {
+	var has6 bool
+	if has4 && has6inResp4 {
+		has6 = true
+	}
+	if !has6 {
 		alive6, ping6, _, err6 := checkHTTPWithFamily(ctx, tracker, infoHash, true, false, true)
 		if alive6 {
 			has6 = true
@@ -601,15 +602,19 @@ func checkHTTP(ctx context.Context, tracker string, infoHash string) (status str
 				bestPing = ping6
 			}
 		}
+		_ = err6
 	}
 	if has4 && has6 {
-		return StatusAlive, bestPing, &has4, &has6
+		true4, true6 := true, true
+		return StatusAlive, bestPing, &true4, &true6
 	}
 	if has4 {
-		return StatusAlive, bestPing, &has4, nil
+		true4 := true
+		return StatusAlive, bestPing, &true4, nil
 	}
 	if has6 {
-		return StatusAlive, bestPing, nil, &has6
+		true6 := true
+		return StatusAlive, bestPing, nil, &true6
 	}
 	if err4 == nil || (err4 != nil && !alive4) {
 		return StatusDead, nil, nil, nil
@@ -774,7 +779,7 @@ func validateTracker(ctx context.Context, tracker string, maxAttempts int) Check
 		case "http", "https":
 			status, ping, supportsIPv4, supportsIPv6 = checkHTTP(ctx, tracker, infoHash)
 			if status != StatusAlive && compact0Fallback {
-				altStatus, altPing, alt4, alt6 := checkHTTP(ctx, tracker, infoHash) // using compact0?
+				altStatus, altPing, alt4, alt6 := checkHTTP(ctx, tracker, infoHash)
 				if altStatus == StatusAlive {
 					status, ping, supportsIPv4, supportsIPv6 = altStatus, altPing, alt4, alt6
 				}
