@@ -43,6 +43,7 @@ type CheckResult struct {
 	URL          string  `json:"url"`
 	Status       string  `json:"status"`
 	PingMs       *int64  `json:"ping_ms,omitempty"`
+	SupportsIPv4 *bool   `json:"supports_ipv4,omitempty"`
 	SupportsIPv6 *bool   `json:"supports_ipv6,omitempty"`
 }
 
@@ -90,24 +91,24 @@ type TrackerEntry struct {
 	Days         int     `json:"days"`
 	Protocol     string  `json:"protocol"`
 	PingMs       *int64  `json:"ping_ms,omitempty"`
+	SupportsIPv4 *bool   `json:"supports_ipv4,omitempty"`
 	SupportsIPv6 *bool   `json:"supports_ipv6,omitempty"`
 }
 
 var (
-	trackerRe      = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
-	peerIDPrefix   string
-	infoHashes     []string
-	hashIndex      uint32
-	userAgents     = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
-	dnsCache       sync.Map
-	dnsCacheTTL    = 10 * time.Minute
-	globalClient   *http.Client
-	compact0Fallback bool
-	insecureSkip   bool
-	proxyAddr      string
-	proxyDialer    proxy.Dialer
-	peersCollector sync.Map
-	hasIPv6        bool
+	trackerRe          = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
+	peerIDPrefix       string
+	infoHashes         []string
+	hashIndex          uint32
+	userAgents         = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
+	dnsCache           sync.Map
+	dnsCacheTTL        = 10 * time.Minute
+	globalClient       *http.Client
+	compact0Fallback   bool
+	insecureSkip       bool
+	proxyAddr          string
+	proxyDialer        proxy.Dialer
+	peersCollector     sync.Map
 )
 
 type dnsCacheEntry struct {
@@ -116,7 +117,9 @@ type dnsCacheEntry struct {
 }
 
 type contextDialer struct {
-	d proxy.Dialer
+	d      proxy.Dialer
+	ipv4   bool
+	ipv6   bool
 }
 
 func (cd *contextDialer) Dial(network, addr string) (net.Conn, error) {
@@ -127,29 +130,46 @@ func (cd *contextDialer) DialContext(ctx context.Context, network, addr string) 
 	type dialerCtx interface {
 		DialContext(context.Context, string, string) (net.Conn, error)
 	}
-	if dc, ok := cd.d.(dialerCtx); ok {
-		return dc.DialContext(ctx, network, addr)
+	if cd.d != nil {
+		if dc, ok := cd.d.(dialerCtx); ok {
+			return dc.DialContext(ctx, network, addr)
+		}
 	}
-	type result struct {
-		conn net.Conn
-		err  error
+	var dialer net.Dialer
+	if cd.ipv4 {
+		dialer = net.Dialer{Control: func(_, addr string, _ syscall.RawConn) error {
+			host, _, _ := net.SplitHostPort(addr)
+			ips, err := net.LookupIP(host)
+			if err != nil {
+				return err
+			}
+			for _, ip := range ips {
+				if ip.To4() != nil {
+					return nil
+				}
+			}
+			return fmt.Errorf("no IPv4 address for %s", host)
+		}}
+	} else if cd.ipv6 {
+		dialer = net.Dialer{Control: func(_, addr string, _ syscall.RawConn) error {
+			host, _, _ := net.SplitHostPort(addr)
+			ips, err := net.LookupIP(host)
+			if err != nil {
+				return err
+			}
+			for _, ip := range ips {
+				if ip.To4() == nil {
+					return nil
+				}
+			}
+			return fmt.Errorf("no IPv6 address for %s", host)
+		}}
 	}
-	ch := make(chan result, 1)
-	go func() {
-		conn, err := cd.d.Dial(network, addr)
-		ch <- result{conn, err}
-	}()
-	select {
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	case r := <-ch:
-		return r.conn, r.err
-	}
+	return dialer.DialContext(ctx, network, addr)
 }
 
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	hasIPv6 = checkIPv6Support()
 }
 
 func randomNumeric(n int) string {
@@ -311,49 +331,73 @@ func hasIPv6Peers(data []byte) bool {
 	return true
 }
 
-func cachedDialContext(ctx context.Context, network, addr string) (net.Conn, error) {
+func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6Only bool) (net.Conn, error) {
 	host, port, _ := net.SplitHostPort(addr)
 	if net.ParseIP(host) != nil {
 		dialer := net.Dialer{}
+		if ipv4Only && net.ParseIP(host).To4() == nil {
+			return nil, fmt.Errorf("not an IPv4 address")
+		}
+		if ipv6Only && net.ParseIP(host).To4() != nil {
+			return nil, fmt.Errorf("not an IPv6 address")
+		}
 		return dialer.DialContext(ctx, network, addr)
 	}
+	var ips []net.IP
 	if val, ok := dnsCache.Load(host); ok {
 		entry := val.(*dnsCacheEntry)
 		if time.Since(entry.ts) < dnsCacheTTL {
-			if len(entry.addrs) == 0 {
+			ips = make([]net.IP, len(entry.addrs))
+			for i, a := range entry.addrs {
+				ips[i] = net.ParseIP(a)
+			}
+		}
+	}
+	if ips == nil {
+		lookupCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
+		defer cancel()
+		var err error
+		done := make(chan struct{})
+		go func() {
+			ips, err = net.LookupIP(host)
+			close(done)
+		}()
+		select {
+		case <-lookupCtx.Done():
+			return nil, lookupCtx.Err()
+		case <-done:
+			if err != nil {
+				dnsCache.Store(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now()})
 				dialer := net.Dialer{}
 				return dialer.DialContext(ctx, network, addr)
 			}
-			dialer := net.Dialer{}
-			return dialer.DialContext(ctx, network, net.JoinHostPort(entry.addrs[0], port))
+			addrs := make([]string, len(ips))
+			for i, ip := range ips {
+				addrs[i] = ip.String()
+			}
+			dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
 		}
 	}
-	lookupCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
-	defer cancel()
-	var ips []net.IP
-	var lookupErr error
-	done := make(chan struct{})
-	go func() {
-		ips, lookupErr = net.LookupIP(host)
-		close(done)
-	}()
-	select {
-	case <-lookupCtx.Done():
-		return nil, lookupCtx.Err()
-	case <-done:
-		if lookupErr != nil {
-			dnsCache.Store(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now()})
-			dialer := net.Dialer{}
-			return dialer.DialContext(ctx, network, addr)
+	var targetIP net.IP
+	for _, ip := range ips {
+		if ipv4Only && ip.To4() != nil {
+			targetIP = ip
+			break
 		}
-		addrs := make([]string, len(ips))
-		for i, ip := range ips {
-			addrs[i] = ip.String()
+		if ipv6Only && ip.To4() == nil {
+			targetIP = ip
+			break
 		}
-		dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
-		dialer := net.Dialer{}
-		return dialer.DialContext(ctx, network, net.JoinHostPort(addrs[0], port))
+		if !ipv4Only && !ipv6Only {
+			targetIP = ip
+			break
+		}
 	}
+	if targetIP == nil {
+		return nil, fmt.Errorf("no suitable IP address for %s", host)
+	}
+	dialer := net.Dialer{}
+	return dialer.DialContext(ctx, network, net.JoinHostPort(targetIP.String(), port))
 }
 
 func normalizeTrackerURL(raw string) (string, error) {
@@ -450,27 +494,10 @@ func randomUA() string {
 	return userAgents[randomInt(0, len(userAgents))]
 }
 
-func checkIPv6Support() bool {
-	addrs, err := net.InterfaceAddrs()
-	if err != nil {
-		return false
-	}
-	for _, a := range addrs {
-		if ipnet, ok := a.(*net.IPNet); ok && !ipnet.IP.IsLoopback() && ipnet.IP.To4() == nil && ipnet.IP.IsGlobalUnicast() {
-			return true
-		}
-	}
-	return false
-}
-
-func checkHTTP(ctx context.Context, tracker string, infoHash string) (string, *int64, *bool) {
-	return checkHTTPWithCompact(ctx, tracker, infoHash, true)
-}
-
-func checkHTTPWithCompact(ctx context.Context, tracker string, infoHash string, compact bool) (string, *int64, *bool) {
+func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, compact bool, ipv4Only, ipv6Only bool) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
 	base, err := url.Parse(tracker)
 	if err != nil {
-		return StatusInvalid, nil, nil
+		return false, nil, false, err
 	}
 	params := base.Query()
 	if raw := infoHashBytes(infoHash); raw != nil {
@@ -493,39 +520,44 @@ func checkHTTPWithCompact(ctx context.Context, tracker string, infoHash string, 
 
 	req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
 	if err != nil {
-		return StatusDead, nil, nil
+		return false, nil, false, err
 	}
 	req.Header.Set("User-Agent", randomUA())
 	start := time.Now()
+	transport := globalClient.Transport.(*http.Transport)
+	oldDialContext := transport.DialContext
+	transport.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+		return cachedDialContext(ctx, network, addr, ipv4Only, ipv6Only)
+	}
+	defer func() { transport.DialContext = oldDialContext }()
 	resp, err := globalClient.Do(req)
 	if err != nil {
-		return StatusDead, nil, nil
+		return false, nil, false, err
 	}
 	defer resp.Body.Close()
 	elapsed := int64(time.Since(start).Milliseconds())
 	body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
 	if err != nil {
-		return StatusDead, &elapsed, nil
+		return false, &elapsed, false, err
 	}
 	if isHTML(body) || isParkedDomain(body) {
-		return StatusInvalid, &elapsed, nil
+		return false, &elapsed, false, fmt.Errorf("html or parked")
 	}
-	supportsIPv6 := false
 	if bdecodeSimple(body) {
 		if peers := extractCompactPeers(body); len(peers) > 0 {
 			for _, p := range peers {
 				peersCollector.Store(p, struct{}{})
 			}
 		}
-		if hasIPv6 && hasIPv6Peers(body) {
-			supportsIPv6 = true
+		has6 := hasIPv6Peers(body)
+		if has6 {
 			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
 				for _, p := range peers6 {
 					peersCollector.Store(p, struct{}{})
 				}
 			}
 		}
-		return StatusAlive, &elapsed, &supportsIPv6
+		return true, &elapsed, has6, nil
 	}
 	if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
 		if peers := extractCompactPeers(body); len(peers) > 0 {
@@ -533,20 +565,56 @@ func checkHTTPWithCompact(ctx context.Context, tracker string, infoHash string, 
 				peersCollector.Store(p, struct{}{})
 			}
 		}
-		if hasIPv6 && hasIPv6Peers(body) {
-			supportsIPv6 = true
+		has6 := hasIPv6Peers(body)
+		if has6 {
 			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
 				for _, p := range peers6 {
 					peersCollector.Store(p, struct{}{})
 				}
 			}
 		}
-		return StatusAlive, &elapsed, &supportsIPv6
+		return true, &elapsed, has6, nil
 	}
 	if resp.StatusCode == http.StatusOK && len(body) > 50000 {
-		return StatusInvalid, &elapsed, nil
+		return false, &elapsed, false, fmt.Errorf("too large")
 	}
-	return StatusDead, &elapsed, nil
+	return false, &elapsed, false, fmt.Errorf("invalid response")
+}
+
+func checkHTTP(ctx context.Context, tracker string, infoHash string) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
+	has4 := false
+	has6 := false
+	var bestPing *int64
+	alive4, ping4, has6InResp4, err4 := checkHTTPWithFamily(ctx, tracker, infoHash, true, true, false)
+	if alive4 {
+		has4 = true
+		bestPing = ping4
+		if has6InResp4 {
+			has6 = true
+		}
+	}
+	if !has6 && (has4 && !has6InResp4) {
+		alive6, ping6, _, err6 := checkHTTPWithFamily(ctx, tracker, infoHash, true, false, true)
+		if alive6 {
+			has6 = true
+			if bestPing == nil || (ping6 != nil && (bestPing == nil || *ping6 < *bestPing)) {
+				bestPing = ping6
+			}
+		}
+	}
+	if has4 && has6 {
+		return StatusAlive, bestPing, &has4, &has6
+	}
+	if has4 {
+		return StatusAlive, bestPing, &has4, nil
+	}
+	if has6 {
+		return StatusAlive, bestPing, nil, &has6
+	}
+	if err4 == nil || (err4 != nil && !alive4) {
+		return StatusDead, nil, nil, nil
+	}
+	return StatusInvalid, nil, nil, nil
 }
 
 func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *int64) {
@@ -653,7 +721,7 @@ func checkWSS(ctx context.Context, tracker string) (string, *int64) {
 				}
 				return proxyDialer.Dial(network, addr)
 			}
-			return cachedDialContext(ctx, network, addr)
+			return cachedDialContext(ctx, network, addr, false, false)
 		},
 	}
 	start := time.Now()
@@ -701,12 +769,15 @@ func validateTracker(ctx context.Context, tracker string, maxAttempts int) Check
 		infoHash := nextInfoHash()
 		var status string
 		var ping *int64
-		var supportsIPv6 *bool
+		var supportsIPv4, supportsIPv6 *bool
 		switch scheme {
 		case "http", "https":
-			status, ping, supportsIPv6 = checkHTTP(ctx, tracker, infoHash)
+			status, ping, supportsIPv4, supportsIPv6 = checkHTTP(ctx, tracker, infoHash)
 			if status != StatusAlive && compact0Fallback {
-				status, ping, supportsIPv6 = checkHTTPWithCompact(ctx, tracker, infoHash, false)
+				altStatus, altPing, alt4, alt6 := checkHTTP(ctx, tracker, infoHash) // using compact0?
+				if altStatus == StatusAlive {
+					status, ping, supportsIPv4, supportsIPv6 = altStatus, altPing, alt4, alt6
+				}
 			}
 		case "udp":
 			status, ping = checkUDP(ctx, tracker, infoHash)
@@ -717,7 +788,7 @@ func validateTracker(ctx context.Context, tracker string, maxAttempts int) Check
 		default:
 			status = StatusInvalid
 		}
-		last = CheckResult{URL: tracker, Status: status, PingMs: ping, SupportsIPv6: supportsIPv6}
+		last = CheckResult{URL: tracker, Status: status, PingMs: ping, SupportsIPv4: supportsIPv4, SupportsIPv6: supportsIPv6}
 		if status != StatusDead {
 			break
 		}
@@ -1012,7 +1083,7 @@ func main() {
 			}
 			return proxyDialer.Dial(network, addr)
 		}
-		return cachedDialContext(ctx, network, addr)
+		return cachedDialContext(ctx, network, addr, false, false)
 	}
 	globalClient = &http.Client{
 		Transport: tr,
@@ -1100,15 +1171,28 @@ func main() {
 	}
 
 	var aliveList []string
+	var aliveIPv4List []string
+	var aliveIPv6List []string
+	var aliveDualList []string
 	var deadCount, invalidCount int
 	var sumPing int64
 	var countPing int64
 	var minPing int64 = -1
 	var maxPing int64
+
 	for _, r := range allResults {
 		switch r.Status {
 		case StatusAlive:
 			aliveList = append(aliveList, r.URL)
+			has4 := r.SupportsIPv4 != nil && *r.SupportsIPv4
+			has6 := r.SupportsIPv6 != nil && *r.SupportsIPv6
+			if has4 && has6 {
+				aliveDualList = append(aliveDualList, r.URL)
+			} else if has4 {
+				aliveIPv4List = append(aliveIPv4List, r.URL)
+			} else if has6 {
+				aliveIPv6List = append(aliveIPv6List, r.URL)
+			}
 			if r.PingMs != nil {
 				p := *r.PingMs
 				sumPing += p
@@ -1127,9 +1211,21 @@ func main() {
 		}
 	}
 	aliveList = sortUnique(aliveList)
+	aliveIPv4List = sortUnique(aliveIPv4List)
+	aliveIPv6List = sortUnique(aliveIPv6List)
+	aliveDualList = sortUnique(aliveDualList)
 
 	if err := writeLines(*output, aliveList); err != nil {
 		log.Fatalf("Error writing %s: %v", *output, err)
+	}
+	if err := writeLines(filepath.Join(outputDir, "trackers_best_ipv4.txt"), aliveIPv4List); err != nil {
+		log.Printf("Warning: could not write ipv4 list: %v", err)
+	}
+	if err := writeLines(filepath.Join(outputDir, "trackers_best_ipv6.txt"), aliveIPv6List); err != nil {
+		log.Printf("Warning: could not write ipv6 list: %v", err)
+	}
+	if err := writeLines(filepath.Join(outputDir, "trackers_best_dual.txt"), aliveDualList); err != nil {
+		log.Printf("Warning: could not write dual list: %v", err)
 	}
 	for _, proto := range []string{"http", "https", "udp", "ws", "wss"} {
 		var urls []string
@@ -1215,6 +1311,7 @@ func main() {
 			Days:         days,
 			Protocol:     getProtocol(r.URL),
 			PingMs:       r.PingMs,
+			SupportsIPv4: r.SupportsIPv4,
 			SupportsIPv6: r.SupportsIPv6,
 		})
 	}
