@@ -1,5 +1,8 @@
 http://004430.xyz/announce
+http://0123456789nonexistent.com/announce
+http://0d.kebhana.mx:443/announce
 http://107.189.2.131:1337/announce
+http://1337.abcvg.info/announce
 http://140.235.237.23:6969/announce
 http://167.253.78.20:8080/announce
 http://172.245.168.134/announce
@@ -20,6 +23,7 @@ http://37.120.182.83/announce
 http://60.249.37.20/announce
 http://60.249.37.20:6969/announce
 http://79.111.12.213:6969/announce
+http://93.158.213.92:1337/announce
 http://95.217.167.10:6969/announce
 http://aboutbeautifulgallopinghorsesinthegreenpasture.online/announce
 http://alltorrents.net/bt/announce.php
@@ -36,6 +40,7 @@ http://bt.edwardk.info:6969/announce
 http://bt.nnm-club.cc:2710/announce
 http://bt.nnm-club.info:2710/announce
 http://bt.nnm-club.me:2710/announce
+http://bt.okmp3.ru:2710/announce
 http://bt.piratbit.club/00107048edc7c83f77fd6518bbaef5ec/announce
 http://bt.piratbit.club/ffffffff672a23706548d27974231c21/announce
 http://bt.piratbit.club/ffffffff94d84f5644dfe38d10eabb41/announce
@@ -63,11 +68,15 @@ http://ehtracker.org/2566145/1159106xUfsJkT9Btg/announce
 http://metal.iplay.ro/announce.php
 http://novaopcj.icu:10325/announce
 http://nyaa.tracker.wf:7777/announce
+http://omg.wtftrackr.pw:1337/announce
 http://opentracker.acgnx.se/announce
 http://opentrackr.org:1337/announce
 http://proaudiotorrents.org/announce.php
 http://retracker.x2k.ru/announce
+http://seeders-paradise.org/announce
+http://shubt.net:2710/announce
 http://sukebei.tracker.wf:8888/announce
+http://t.nyaatracker.com/announce
 http://t.overflow.biz:6969/announce
 http://tc-boxing.com/announce.php
 http://tk.cubicview.site/announce
@@ -77,6 +86,7 @@ http://torrent.fedoraproject.org:6969/announce
 http://torrent.unix-ag.uni-kl.de/announce
 http://torrentclub.online:54123/announce
 http://tr.highstar.shop/announce
+http://tr.kxmp.cf/announce
 http://tr.nyacat.pw/announce
 http://tr.ysagin.top:2710/announce
 http://tracker-udp.anirena.com/announce
@@ -85,7 +95,6 @@ http://tracker.acgnx.se/announce
 http://tracker.anirena.com/announce
 http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce
 http://tracker.anonwebz.xyz:8080/announce
-http://tracker.auctor.tv:6969/announce
 http://tracker.breizh.pm:6969/announce
 http://tracker.bt4g.com:2095/announce
 http://tracker.coppersurfer.site:2710/announce
@@ -105,7 +114,6 @@ http://tracker.novaopcj.eu.org:6969/announce
 http://tracker.nyaa.vc:6969/announce
 http://tracker.opentrackr.org:1337/announce
 http://tracker.pussytorrents.org:3000/announce
-http://tracker.qu.ax:6969/announce
 http://tracker.renfei.net:8080/announce
 http://tracker.swifte.space:2710/announce
 http://tracker.torrentbytes.net/announce.php
