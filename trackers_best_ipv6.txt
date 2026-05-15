@@ -1,6 +1,3 @@
-http://bt.okmp3.ru:2710/announce
-http://concen.org:6969/announce
-https://tr-rh-zhuqiy.dgj055.icu/announce
-https://tr-zhuqiy-1.dgj055.icu/announce
-https://tr.kxmp.cf/announce
-https://tr.torland.ga/announce
+http://tracker-zhuqiy.dgj055.icu/announce
+https://1337.abcvg.info/announce
+https://tracker.moeblog.cn/announce
