@@ -45,7 +45,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
-      - name: Download and merge sources (curl)
+      - name: Download and merge sources
         run: |
           mkdir -p webtracker/sources
           if [ -f "download_sources.txt" ]; then
@@ -89,7 +89,6 @@ jobs:
             go mod init tracker-checker
           fi
           go mod tidy
-          # 编译四个独立检查器（源文件位于 script/ 目录）
           go build -o check_http script/check_http.go
           go build -o check_udp script/check_udp.go
           go build -o check_wss script/check_wss.go
@@ -154,17 +153,18 @@ jobs:
         run: |
           cp trackers_all.txt trackers_best*.txt public/ 2>/dev/null || true
           if [ -f trackers_peers.txt ]; then cp trackers_peers.txt public/; fi
-          # 复制各协议生成的存活列表（可选）
           cp trackers_best_http.txt trackers_best_https.txt trackers_best_i2p.txt \
              trackers_best_udp.txt trackers_best_ws.txt public/ 2>/dev/null || true
 
-      - name: Generate robots.txt
+      - name: Generate robots.txt and commit to repo
         run: |
-          cat > public/robots.txt <<EOF
+          cat > robots.txt <<EOF
           User-agent: *
           Allow: /
           Sitemap: https://tracker-list.pages.dev/sitemap.xml
           EOF
+          cp robots.txt public/
+          git add robots.txt
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
@@ -178,7 +178,7 @@ jobs:
           date +'%Y%m%d%H' > date.txt
           rm -rf public/ _site/ jekyll/_site/
           git add trackers_all.txt trackers_best*.txt trackers_peers.txt tracker_history.tsv \
-                  trackers_http.json trackers_udp.json trackers_wss.json date.txt 2>/dev/null || true
+                  trackers_http.json trackers_udp.json trackers_wss.json date.txt robots.txt 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes, skip commit."
             exit 0
