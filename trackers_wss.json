@@ -3,35 +3,28 @@
     "url": "wss://tracker.openwebtorrent.com/announce",
     "status": "ALIVE",
     "protocol": "wss",
-    "ping_ms": 391,
+    "ping_ms": 329,
     "supports_ipv4": true
   },
   {
     "url": "wss://tracker.webtorrent.dev/announce",
     "status": "ALIVE",
     "protocol": "wss",
-    "ping_ms": 562,
+    "ping_ms": 526,
     "supports_ipv4": true
   },
   {
-    "url": "wss://tracker.novage.com.ua/announce",
-    "status": "ALIVE",
-    "protocol": "wss",
-    "ping_ms": 678,
-    "supports_ipv4": true
-  },
-  {
-    "url": "ws://tracker.ghostchu-services.top/announce",
+    "url": "ws://hub.bugout.link/announce",
     "status": "DEAD",
     "protocol": "ws"
   },
   {
-    "url": "wss://spacetradersapi-chatbox.herokuapp.com/announce",
+    "url": "wss://tracker.dnlab.net/announce",
     "status": "DEAD",
     "protocol": "wss"
   },
   {
-    "url": "ws://tracker.sloppyta.co/announce",
+    "url": "ws://tracker.nighthawk.pw:4201/announce",
     "status": "DEAD",
     "protocol": "ws"
   },
@@ -46,27 +39,34 @@
     "protocol": "wss"
   },
   {
-    "url": "wss://qot.abiir.top/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "ws://tracker.nighthawk.pw:4201/announce",
-    "status": "DEAD",
-    "protocol": "ws"
-  },
-  {
-    "url": "ws://hub.bugout.link/announce",
-    "status": "DEAD",
-    "protocol": "ws"
-  },
-  {
     "url": "wss://tracker.btorrent.xyz/announce",
     "status": "DEAD",
     "protocol": "wss"
   },
   {
-    "url": "wss://tracker.dnlab.net/announce",
+    "url": "ws://tracker.sloppyta.co/announce",
+    "status": "DEAD",
+    "protocol": "ws"
+  },
+  {
+    "url": "ws://tracker.ghostchu-services.top/announce",
+    "status": "DEAD",
+    "protocol": "ws"
+  },
+  {
+    "url": "wss://qot.abiir.top/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "wss://tracker.novage.com.ua/announce",
+    "status": "ALIVE",
+    "protocol": "wss",
+    "ping_ms": 1645,
+    "supports_ipv4": true
+  },
+  {
+    "url": "wss://spacetradersapi-chatbox.herokuapp.com/announce",
     "status": "DEAD",
     "protocol": "wss"
   },
