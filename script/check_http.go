@@ -67,17 +67,16 @@ var (
 	dnsCacheTTL      = 10 * time.Minute
 	compact0Fallback bool
 	insecureSkip     bool
-	proxyAddrs       []string
 	proxyPool        []proxy.Dialer
 	proxyMu          sync.Mutex
 	proxyIdx         uint32
 	peersCollector   sync.Map
 	rateLimiter      *rate.Limiter
-
-	useSAM     bool
-	samHost    string
-	samSession *sam3.SAM
-	samMu      sync.Mutex
+	useSAM           bool
+	samHost          string
+	samSession       *sam3.SAM
+	samStream        *sam3.StreamSession
+	samMu            sync.Mutex
 )
 
 type dnsCacheEntry struct {
@@ -327,29 +326,43 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 	return dialer.DialContext(ctx, network, net.JoinHostPort(targetIP.String(), port))
 }
 
-func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
+func initSAM() error {
 	samMu.Lock()
 	defer samMu.Unlock()
-	if samSession == nil {
-		s, err := sam3.NewSAM(samHost)
-		if err != nil {
-			return nil, fmt.Errorf("failed to create SAM session: %w", err)
-		}
-		samSession = s
+	if samSession != nil {
+		return nil
+	}
+	sam, err := sam3.NewSAM(samHost)
+	if err != nil {
+		return fmt.Errorf("SAM new: %w", err)
+	}
+	samSession = sam
+	keys := sam3.NewKeys()
+	stream, err := sam.NewStreamSession("tracker-checker", keys, sam3.Options{})
+	if err != nil {
+		return fmt.Errorf("SAM stream session: %w", err)
+	}
+	samStream = stream
+	return nil
+}
+
+func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
+	if err := initSAM(); err != nil {
+		return nil, err
 	}
 	host, port, err := net.SplitHostPort(addr)
 	if err != nil {
 		return nil, err
 	}
 	dest := host + ".i2p"
-	type dialResult struct {
+	type result struct {
 		conn net.Conn
 		err  error
 	}
-	ch := make(chan dialResult, 1)
+	ch := make(chan result, 1)
 	go func() {
-		conn, err := samSession.Dial("tcp", net.JoinHostPort(dest, port))
-		ch <- dialResult{conn, err}
+		conn, err := samStream.DialI2P(dest, port)
+		ch <- result{conn, err}
 	}()
 	select {
 	case <-ctx.Done():
