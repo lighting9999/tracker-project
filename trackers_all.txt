@@ -125,6 +125,7 @@ http://13.115.115.32:6969/announce
 http://13.70.4.194:6969/announce
 http://1337.abcvg.info/announce
 http://1337.abcvg.info:443/announce
+http://135.181.203.12:6969/announce
 http://138.124.183.78:6969/announce
 http://138.199.241.244/announce
 http://139.202.228.28:6969/announce
@@ -184,6 +185,7 @@ http://163.172.209.40/announce
 http://163.172.29.130/announce
 http://167.235.245.209/announce
 http://167.253.78.20:8080/announce
+http://168.119.183.174/announce
 http://171.104.110.193:6969/announce
 http://171.104.110.21:6969/announce
 http://171.104.110.88:6969/announce
@@ -509,6 +511,7 @@ http://220.130.15.27:6969/announce
 http://220.130.15.30/announce
 http://220.130.15.30:6969/announce
 http://220.162.244.175:53880/announce
+http://220.173.36.63:6969/announce
 http://220.173.39.135:6969/announce
 http://220.200.35.40:2710/announce
 http://220.250.51.200:2710/announce
@@ -888,6 +891,7 @@ http://blackz.ro/announce
 http://blackz.ro/announce.php
 http://bluebird-hd.org/announce
 http://bluebird-hd.org/announce.php
+http://bluraycd.wicp.net:2710/announce
 http://bobbialbano.com:6969/announce
 http://bovetorrents.hol.es/announce.php
 http://bt-club.ws/announce
@@ -1222,6 +1226,7 @@ http://pirates-united.info:6969/announce
 http://pirates.sumotracker.com/announce
 http://play.aimisayo.com:6969/announce
 http://pornograd.net/announce
+http://post.greedland.net:2710/announce
 http://potuk.com:2710/announce
 http://pow7.com/announce
 http://pow7.com:443/announce
@@ -1366,6 +1371,7 @@ http://torrent.spywareterminator.com:6969/announce
 http://torrent.ubuntu.com:6969/announce
 http://torrent.unix-ag.uni-kl.de/announce
 http://torrentclub.online:54123/announce
+http://torrentclub.tech:6969/announce
 http://torrentino.net:4444/announce
 http://torrents-nn.cn:2710/announce
 http://torrents.hikarinokiseki.com:6969/announce
@@ -1429,6 +1435,7 @@ http://tracker.bittorrent.kz/announce
 http://tracker.bittorrent.nibblepoker.lu:49227/announce
 http://tracker.blazing.de:6969/announce
 http://tracker.blazing.de/announce
+http://tracker.blucd.org:2710/announce
 http://tracker.breizh.pm:6969/announce
 http://tracker.bt-chat.com/announce
 http://tracker.bt-hash.com/announce
@@ -1448,6 +1455,9 @@ http://tracker.coppersurfer.site:2710/announce
 http://tracker.coppersurfer.tk:6969/announce
 http://tracker.corpscorp.online/announce
 http://tracker.cpleft.com:2710/announce
+http://tracker.csze.com/announce
+http://tracker.csze.com/announce.php
+http://tracker.csze.com:8080/announce
 http://tracker.cubicview.site/announce
 http://tracker.cubonegro.org/announce
 http://tracker.cutie.dating/announce
@@ -1549,6 +1559,7 @@ http://tracker.merded.xyz00/announce
 http://tracker.merded.xyz:8000/announce
 http://tracker.mg64.net:6881/announce
 http://tracker.mightynova.com:4315/announce
+http://tracker.miltareas.com/announce
 http://tracker.minglong.org80/announce
 http://tracker.minglong.org:8080/announce
 http://tracker.moeblog.cn:443/announce
@@ -1565,6 +1576,7 @@ http://tracker.noobsubs.net/announce
 http://tracker.novalayer.org:6969/announce
 http://tracker.novaopcj.eu.org:6969/announce
 http://tracker.nucozer-tracker.ml:2710/announce
+http://tracker.nwps.ws:6969/announce
 http://tracker.nwps.ws/announce
 http://tracker.nyaa.uk:6969/announce
 http://tracker.nyaa.vc:6969/announce
@@ -1629,6 +1641,7 @@ http://tracker.theempire.bz:3110/announce
 http://tracker.thepiratebay.org/announce
 http://tracker.tiny-vps.com:6969/announce
 http://tracker.tntvillage.scambioetico.org:2710/announce
+http://tracker.toolv.com/announce
 http://tracker.torrent.to:2710/announce
 http://tracker.torrentalk.com:2710/announce
 http://tracker.torrentbay.to:6969/announce
@@ -1654,13 +1667,16 @@ http://tracker.umunu.ru:6969/announce
 http://tracker.uw0.xyz:6969/announce
 http://tracker.valete.tf:9999/announce
 http://tracker.vanitycore.co:6969/announce
+http://tracker.veryamt.com/announce
 http://tracker.videodrugproject.com/announce
 http://tracker.vivancos.eu/announce
+http://tracker.vonogre.com/announce
 http://tracker.vraphim.com:6969/announce
 http://tracker.vrpnet.org:6969/announce
 http://tracker.waaa.moe:6969/announce
 http://tracker.wepzone.net:6969/announce
 http://tracker.windsormetalbattery.com/announce
+http://tracker.winglai.com/announce
 http://tracker.x4w.co:6969/announce
 http://tracker.xdvdz.com:2710/announce
 http://tracker.xfapi.top:6868/announce
@@ -2254,9 +2270,11 @@ https://yolo.liberbear.com/announce
 https://yolo.liberbear.com:80/announce
 https://yuki.bt.bontal.net/announce
 https://zer0day.000webhostapp.com/announce
+https://zqzx.xyz/announce
 udp://0205.uptm.ch:6969/announce
 udp://10.rarbg.com/announce
 udp://10.rarbg.com:6969/announce
+udp://10.rarbg.me:80/announce
 udp://101.99.91.160:6969/announce
 udp://101.99.94.187:6969/announce
 udp://103.122.21.50:6969/announce
@@ -2316,6 +2334,7 @@ udp://118.196.100.63:6969/announce
 udp://118.25.157.230:6969/announce
 udp://119.28.134.203:6969/announce
 udp://119.28.71.45:8080/announce
+udp://12.rarbg.me:80/announce
 udp://120.36.84.188:2710/announce
 udp://120.36.84.3:2710/announce
 udp://120.36.84.3:6969/announce
@@ -2621,6 +2640,7 @@ udp://193.107.16.156:80/announce
 udp://193.148.251.93:6969/announce
 udp://193.177.162.187:6969/announce
 udp://193.187.90.12:6969/announce
+udp://193.218.118.220:6969/announce
 udp://193.233.161.213:6969/announce
 udp://193.34.92.5:80/announce
 udp://193.37.214.12:6969/announce
@@ -2639,6 +2659,7 @@ udp://195.201.94.195:6969/announce
 udp://198.100.149.66:6969/announce
 udp://198.50.195.216:7777/announce
 udp://198.91.25.157:8000/announce
+udp://199.187.121.233:6969/announce
 udp://199.195.249.193:1337/announce
 udp://199.217.118.72:6969/announce
 udp://1c.premierzal.ru:6969/announce
@@ -3087,6 +3108,9 @@ udp://89.234.156.205:80/announce
 udp://89.36.216.8:6969/announce
 udp://89.47.160.50:6969/announce
 udp://9.rarbg.com:2710/announce
+udp://9.rarbg.com:2730/announce
+udp://9.rarbg.com:2740/announce
+udp://9.rarbg.com:2770/announce
 udp://9.rarbg.com:2780/announce
 udp://9.rarbg.com:2790/announce
 udp://9.rarbg.com:2810/announce
@@ -3099,10 +3123,12 @@ udp://9.rarbg.com:80/announce
 udp://9.rarbg.me:2710/announce
 udp://9.rarbg.me:2720/announce
 udp://9.rarbg.me:2730/announce
+udp://9.rarbg.me:2750/announce
 udp://9.rarbg.me:2770/announce
 udp://9.rarbg.me:2780/announce
 udp://9.rarbg.me:2790/announce
 udp://9.rarbg.me:2890/announce
+udp://9.rarbg.me:2920/announce
 udp://9.rarbg.me:2930/announce
 udp://9.rarbg.me:2980/announce
 udp://9.rarbg.to:2710/announce
@@ -3112,6 +3138,7 @@ udp://9.rarbg.to:2800/announce
 udp://9.rarbg.to:2850/announce
 udp://9.rarbg.to:2910/announce
 udp://9.rarbg.to:2920/announce
+udp://9.rarbg.to:2980/announce
 udp://91.121.145.207:6969/announce
 udp://91.121.54.8:6969/announce
 udp://91.121.54.8:80/announce
@@ -3162,6 +3189,7 @@ udp://[2a04:c44:e00:32e0:4cf:6aff:fe00:aa1]:6969/announce
 udp://[2a0f:e586:f:f::220]:6969/announce
 udp://[2a0f:e586:f:f::81]:6969/announce
 udp://[302:68d0:f0d5:b88d::fdb]:6969/announce
+udp://a.leopard-raws.org:6969/announce
 udp://aaa.army:8866/announce
 udp://aarsen.me:6969/announce
 udp://abufinzio.monocul.us:6969/announce
@@ -3232,6 +3260,8 @@ udp://bt.rutor.org:2710/announce
 udp://bt.sc-ol.com:2710/announce
 udp://bt.xxx-tracker.com:2710/announce
 udp://bt1.archive.org:6969/announce
+udp://bt1.btally.net:6969/announce
+udp://bt1.btally.net:8888/announce
 udp://bt1.xxxxbt.cc:6969/announce
 udp://bt2.3kb.xyz:6969/announce
 udp://bt2.54new.com:8080/announce
@@ -3324,6 +3354,7 @@ udp://fleira.no:6969/announce
 udp://forever-tracker.zooki.xyz:6969/announce
 udp://fosstorrents.com:6969/announce
 udp://fr33dom.h33t.com:3310/announce
+udp://fr33domtracker.h33t.com:3310/announce
 udp://free-tracker.zooki.xyz:6969/announce
 udp://free.open.tracker.0.starka.st:15480/announce
 udp://free.publictracker.xyz:6969/announce
@@ -3504,6 +3535,7 @@ udp://peru.subventas.com:53/announce
 udp://pirate.hz.is:1337/announce
 udp://pirate.t-1.org:1337/announce
 udp://play.aimisayo.com:6969/announce
+udp://pornleech.com:2710/announce
 udp://pornograd.net:80/announce
 udp://pow7.com/announce
 udp://pow7.com:80/announce
@@ -3724,6 +3756,7 @@ udp://tracker.dump.cl:6969/announce
 udp://tracker.dutchtracking.com:6969/announce
 udp://tracker.dutchtracking.com:80/announce
 udp://tracker.dutchtracking.nl:80/announce
+udp://tracker.dyn.im:6969/announce
 udp://tracker.dyne.org:6969/announce
 udp://tracker.e-utp.net:6969/announce
 udp://tracker.eddie4.nl:6969/announce
@@ -3814,6 +3847,7 @@ udp://tracker.mywaifu.best:6969/announce
 udp://tracker.nanoha.org:443/announce
 udp://tracker.nartlof.com.br:6969/announce
 udp://tracker.netmap.top:6969/announce
+udp://tracker.nextrp.ru:6969/announce
 udp://tracker.nighthawk.pw:2052/announce
 udp://tracker.nitrix.me:6969/announce
 udp://tracker.novalayer.org:6969/announce
@@ -3827,8 +3861,10 @@ udp://tracker.ololosh.space:6969/announce
 udp://tracker.open-data.network:8888/announce
 udp://tracker.open-internet.nl:6969/announce
 udp://tracker.openbittorrent.com/announce
+udp://tracker.openbittorrent.com:1337/announce
 udp://tracker.openbittorrent.com:6969/announce
 udp://tracker.openbittorrent.com:80/announce
+udp://tracker.openbittorrent.com:80/announce.php
 udp://tracker.openbtba.com:6969/announce
 udp://tracker.opentorrent.top:6969/announce
 udp://tracker.opentrackr.org:1337/announce
@@ -3887,6 +3923,7 @@ udp://tracker.therarbg.to:6969/announce
 udp://tracker.tiny-vps.com:6969/announce
 udp://tracker.tnl.one:8000/announce
 udp://tracker.tntvillage.scambioetico.org:2710/announce
+udp://tracker.token.ro:80/announce
 udp://tracker.torrent.eu.org:451/announce
 udp://tracker.torrentbay.to:6969/announce
 udp://tracker.torrentbox.com:2710/announce
@@ -3938,6 +3975,7 @@ udp://tracker.zaluan.xyz:6969/announce
 udp://tracker.zemoj.com:6969/announce
 udp://tracker.zer0day.to:1337/announce
 udp://tracker.zerobytes.xyz:1337/announce
+udp://tracker.zond.org:80/announce
 udp://tracker.zum.bi:6969/announce
 udp://tracker.zupix.online:1333/announce
 udp://tracker.zupix.online:6969/announce
