@@ -74,8 +74,7 @@ var (
 	rateLimiter      *rate.Limiter
 	useSAM           bool
 	samHost          string
-	samSession       *sam3.SAM
-	samStream        *sam3.StreamSession
+	samConn          net.Conn
 	samMu            sync.Mutex
 )
 
@@ -326,29 +325,23 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 	return dialer.DialContext(ctx, network, net.JoinHostPort(targetIP.String(), port))
 }
 
-func initSAM() error {
+func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
 	samMu.Lock()
 	defer samMu.Unlock()
-	if samSession != nil {
-		return nil
-	}
-	sam, err := sam3.NewSAM(samHost)
-	if err != nil {
-		return fmt.Errorf("SAM new: %w", err)
-	}
-	samSession = sam
-	keys := sam3.NewKeys()
-	stream, err := sam.NewStreamSession("tracker-checker", keys, sam3.Options{})
-	if err != nil {
-		return fmt.Errorf("SAM stream session: %w", err)
-	}
-	samStream = stream
-	return nil
-}
-
-func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
-	if err := initSAM(); err != nil {
-		return nil, err
+	if samConn == nil {
+		sam, err := sam3.NewSAM(samHost)
+		if err != nil {
+			return nil, fmt.Errorf("SAM new: %w", err)
+		}
+		keys, err := sam.NewKeys()
+		if err != nil {
+			return nil, fmt.Errorf("SAM keys: %w", err)
+		}
+		s, err := sam.NewStreamSession("tracker-checker", keys, "inbound.length=3")
+		if err != nil {
+			return nil, fmt.Errorf("SAM stream: %w", err)
+		}
+		samConn = s.(net.Conn)
 	}
 	host, port, err := net.SplitHostPort(addr)
 	if err != nil {
@@ -361,7 +354,9 @@ func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
 	}
 	ch := make(chan result, 1)
 	go func() {
-		conn, err := samStream.DialI2P(dest, port)
+		conn, err := samConn.(interface {
+			Dial(string) (net.Conn, error)
+		}).Dial(dest + ":" + port)
 		ch <- result{conn, err}
 	}()
 	select {
