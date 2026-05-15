@@ -25,8 +25,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
-
-	"github.com/eyedeekay/sam3"
+	"github.com/go-i2p/sam3"
 	"golang.org/x/net/proxy"
 	"golang.org/x/time/rate"
 )
