@@ -25,7 +25,6 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/gorilla/websocket"
 	"golang.org/x/net/proxy"
 	"golang.org/x/time/rate"
 )
@@ -58,33 +57,26 @@ type TrackerEntry struct {
 }
 
 var (
-	trackerRe      = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
-	peerIDPrefix   string
-	infoHashes     []string
-	hashIndex      uint32
-	userAgents     = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
-	dnsCache       sync.Map
-	dnsCacheTTL    = 10 * time.Minute
-	globalClient   *http.Client
+	trackerRe        = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
+	peerIDPrefix     string
+	infoHashes       []string
+	hashIndex        uint32
+	userAgents       = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
+	dnsCache         sync.Map
+	dnsCacheTTL      = 10 * time.Minute
 	compact0Fallback bool
-	insecureSkip   bool
-	proxyAddrs     []string
-	proxyPool      []proxy.Dialer
-	proxyMu        sync.Mutex
-	proxyIdx       uint32
-	peersCollector sync.Map
-	rateLimiter    *rate.Limiter
+	insecureSkip     bool
+	proxyAddrs       []string
+	proxyPool        []proxy.Dialer
+	proxyMu          sync.Mutex
+	proxyIdx         uint32
+	peersCollector   sync.Map
+	rateLimiter      *rate.Limiter
 )
 
 type dnsCacheEntry struct {
 	addrs []string
 	ts    time.Time
-}
-
-type contextDialer struct {
-	d    proxy.Dialer
-	ipv4 bool
-	ipv6 bool
 }
 
 func init() {
@@ -720,7 +712,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to create SOCKS5 dialer: %v", err)
 		}
-		proxyPool = append(proxyPool, &contextDialer{d: rawDialer})
+		proxyPool = append(proxyPool, rawDialer)
 	}
 
 	allTrackers, err := loadTrackers(*input)
