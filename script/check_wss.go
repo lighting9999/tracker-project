@@ -5,7 +5,6 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/tls"
-	"encoding/hex"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -13,14 +12,11 @@ import (
 	"log"
 	"math/big"
 	"net"
-	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
 	"slices"
-	"sort"
-	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -65,7 +61,6 @@ var (
 	hashIndex      uint32
 	dnsCache       sync.Map
 	dnsCacheTTL    = 10 * time.Minute
-	globalClient   *http.Client
 	insecureSkip   bool
 	proxyAddrs     []string
 	proxyPool      []proxy.Dialer
@@ -78,12 +73,6 @@ var (
 type dnsCacheEntry struct {
 	addrs []string
 	ts    time.Time
-}
-
-type contextDialer struct {
-	d    proxy.Dialer
-	ipv4 bool
-	ipv6 bool
 }
 
 func init() {
@@ -259,6 +248,12 @@ func checkWSSWithFamily(ctx context.Context, tracker string, ipv4Only, ipv6Only 
 	dialer := websocket.Dialer{
 		HandshakeTimeout: defaultTimeout,
 		NetDialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			host, _, _ := net.SplitHostPort(addr)
+			if strings.HasSuffix(host, ".i2p") {
+				if p := getNextProxy(); p != nil {
+					return p.Dial(network, addr)
+				}
+			}
 			return cachedDialContext(ctx, network, addr, ipv4Only, ipv6Only)
 		},
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecureSkip},
@@ -273,7 +268,7 @@ func checkWSSWithFamily(ctx context.Context, tracker string, ipv4Only, ipv6Only 
 	return true, &elapsed, nil
 }
 
-func checkWSS(ctx context.Context, tracker string) (string, *int64, *bool, *bool) {
+func checkWSS(ctx context.Context, tracker string) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
 	alive4, ping4, err4 := checkWSSWithFamily(ctx, tracker, true, false)
 	has4 := alive4
 	var bestPing *int64
@@ -312,7 +307,6 @@ func validateTracker(ctx context.Context, tracker string, maxAttempts int) Check
 			break
 		}
 		scheme := strings.ToLower(u.Scheme)
-		infoHash := ""
 		var status string
 		var ping *int64
 		var supportsIPv4, supportsIPv6 *bool
@@ -418,7 +412,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("Failed to create SOCKS5 dialer: %v", err)
 		}
-		proxyPool = append(proxyPool, &contextDialer{d: rawDialer})
+		proxyPool = append(proxyPool, rawDialer)
 	}
 
 	allTrackers, err := loadTrackers(*input)
