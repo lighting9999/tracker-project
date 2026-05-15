@@ -1,50 +1,20 @@
 [
   {
-    "url": "wss://tracker.openwebtorrent.com/announce",
-    "status": "ALIVE",
-    "protocol": "wss",
-    "ping_ms": 329,
-    "supports_ipv4": true
-  },
-  {
     "url": "wss://tracker.webtorrent.dev/announce",
     "status": "ALIVE",
     "protocol": "wss",
-    "ping_ms": 526,
+    "ping_ms": 486,
+    "supports_ipv4": true
+  },
+  {
+    "url": "wss://tracker.openwebtorrent.com/announce",
+    "status": "ALIVE",
+    "protocol": "wss",
+    "ping_ms": 391,
     "supports_ipv4": true
   },
   {
     "url": "ws://hub.bugout.link/announce",
-    "status": "DEAD",
-    "protocol": "ws"
-  },
-  {
-    "url": "wss://tracker.dnlab.net/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "ws://tracker.nighthawk.pw:4201/announce",
-    "status": "DEAD",
-    "protocol": "ws"
-  },
-  {
-    "url": "wss://tracker.sloppyta.co/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "wss://tracker.ghostchu-services.top/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "wss://tracker.btorrent.xyz/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "ws://tracker.sloppyta.co/announce",
     "status": "DEAD",
     "protocol": "ws"
   },
@@ -59,14 +29,42 @@
     "protocol": "wss"
   },
   {
-    "url": "wss://tracker.novage.com.ua/announce",
-    "status": "ALIVE",
-    "protocol": "wss",
-    "ping_ms": 1645,
-    "supports_ipv4": true
+    "url": "wss://tracker.dnlab.net/announce",
+    "status": "DEAD",
+    "protocol": "wss"
   },
   {
     "url": "wss://spacetradersapi-chatbox.herokuapp.com/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "wss://tracker.sloppyta.co/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "ws://tracker.sloppyta.co/announce",
+    "status": "DEAD",
+    "protocol": "ws"
+  },
+  {
+    "url": "ws://tracker.nighthawk.pw:4201/announce",
+    "status": "DEAD",
+    "protocol": "ws"
+  },
+  {
+    "url": "wss://tracker.btorrent.xyz/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "wss://tracker.ghostchu-services.top/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "wss://tracker.magnetoo.io/announce",
     "status": "DEAD",
     "protocol": "wss"
   },
@@ -76,9 +74,11 @@
     "protocol": "wss"
   },
   {
-    "url": "wss://tracker.magnetoo.io/announce",
-    "status": "DEAD",
-    "protocol": "wss"
+    "url": "wss://tracker.novage.com.ua/announce",
+    "status": "ALIVE",
+    "protocol": "wss",
+    "ping_ms": 4606,
+    "supports_ipv4": true
   },
   {
     "url": "ws://tracker.files.fm:7072/announce",
