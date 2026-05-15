@@ -3,49 +3,31 @@ description: "Global public BitTorrent tracker availability dashboard"
 baseurl: ""
 url: "https://tracker-list.pages.dev"
 
-# 主题与外观
-theme: jekyll-text-theme
-text_skin: ocean
-highlight_theme: default
-
-# 启用插件（sitemap、feed、SEO 标签）
+# SEO 与索引
+lang: en
 plugins:
   - jekyll-sitemap
   - jekyll-feed
-  - jekyll-seo-tag         # 新增：增强搜索引擎读取的元标签与多语言交替链接
+  - jekyll-seo-tag
 
-# 语言设置（多语言基础，具体翻译依赖 _data/translations.yml）
-lang: en
-languages:
-  - en
-  - zh
+# jekyll-seo-tag 默认配置
+social:
+  name: "Tracker Status"
+  links:
+    - "https://github.com/lighting9999/tracker-list"
 
-# 构建输出
-destination: _site
-
-# 排除文件
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - vendor
-  - .gitignore
-
-# 默认布局
+# 确保所有页面可被索引
 defaults:
   - scope:
       path: ""
     values:
       layout: page
+      robots: "index, follow"
 
-# 侧边栏导航（可自行增减链接）
-texts:
-  sidebar:
-    nav:
-      - title: "English"
-        url: "/en/"
-      - title: "中文"
-        url: "/zh/"
-      - title: "Downloads"
-        url: "/trackers_best.txt"
-      - title: "GitHub"
-        url: "https://github.com/lighting9999/tracker-list"
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .gitignore
+  - script/
+  - webtracker/
