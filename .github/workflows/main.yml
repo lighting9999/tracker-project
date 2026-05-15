@@ -21,10 +21,11 @@ jobs:
         image: purplei2p/i2pd:latest
         ports:
           - 4444:4444
+          - 7656:7656
         env:
-          I2PD_SAM_ENABLED: "false"
+          I2PD_SAM_ENABLED: "true"
         options: >-
-          --health-cmd "nc -z 127.0.0.1 4444 || exit 1"
+          --health-cmd "nc -z 127.0.0.1 4444 && nc -z 127.0.0.1 7656 || exit 1"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 6
@@ -98,11 +99,12 @@ jobs:
         run: |
           ./check_http \
             -input webtracker/input_merged.txt \
-            -workers 500 \
+            -workers 800 \
             -retries 1 \
             -compact0-fallback \
             -insecure \
-            -proxy socks5://localhost:4444
+            -proxy socks5://localhost:4444 \
+            -sam
           echo "HTTP/HTTPS/I2P check completed"
 
       - name: Run UDP checker

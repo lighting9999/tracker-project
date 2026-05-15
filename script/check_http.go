@@ -5,6 +5,7 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/tls"
+	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
 	"flag"
@@ -25,6 +26,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/eyedeekay/sam3"
 	"golang.org/x/net/proxy"
 	"golang.org/x/time/rate"
 )
@@ -72,6 +74,11 @@ var (
 	proxyIdx         uint32
 	peersCollector   sync.Map
 	rateLimiter      *rate.Limiter
+
+	useSAM     bool
+	samHost    string
+	samSession *sam3.SAM
+	samMu      sync.Mutex
 )
 
 type dnsCacheEntry struct {
@@ -321,6 +328,31 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 	return dialer.DialContext(ctx, network, net.JoinHostPort(targetIP.String(), port))
 }
 
+func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
+	samMu.Lock()
+	defer samMu.Unlock()
+	if samSession == nil {
+		s, err := sam3.NewSAM(samHost)
+		if err != nil {
+			return nil, fmt.Errorf("failed to create SAM session: %w", err)
+		}
+		samSession = s
+	}
+	host, port, err := net.SplitHostPort(addr)
+	if err != nil {
+		return nil, err
+	}
+	// SAM stream connect to destination (base32 or base64)
+	// For .i2p domain, we need to convert to base32? Usually the host is already a .i2p address.
+	// sam3.StreamDial expects a destination string (base32 or b64).
+	dest := host + ".i2p"
+	conn, err := samSession.DialContext(ctx, "tcp", net.JoinHostPort(dest, port))
+	if err != nil {
+		return nil, err
+	}
+	return conn, nil
+}
+
 func getNextProxy() proxy.Dialer {
 	if len(proxyPool) == 0 {
 		return nil
@@ -333,14 +365,13 @@ func getNextProxy() proxy.Dialer {
 
 func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 	key := fmt.Sprintf("v4:%v_v6:%v", ipv4Only, ipv6Only)
-	var tr *http.Transport
 	if cached, ok := httpClientCache.Load(key); ok {
 		return cached.(*http.Client)
 	}
-	tr = &http.Transport{
+	tr := &http.Transport{
 		TLSClientConfig:       &tls.Config{InsecureSkipVerify: insecureSkip},
-		MaxIdleConns:          100,
-		MaxIdleConnsPerHost:   20,
+		MaxIdleConns:          200,
+		MaxIdleConnsPerHost:   50,
 		IdleConnTimeout:       90 * time.Second,
 		DisableKeepAlives:     false,
 		ForceAttemptHTTP2:     true,
@@ -348,6 +379,9 @@ func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 	tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
 		host, _, _ := net.SplitHostPort(addr)
 		if strings.HasSuffix(host, ".i2p") {
+			if useSAM {
+				return dialSAM(ctx, addr)
+			}
 			if p := getNextProxy(); p != nil {
 				return p.Dial(network, addr)
 			}
@@ -499,6 +533,12 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 	defer resp.Body.Close()
 	elapsed := int64(time.Since(start).Milliseconds())
 	if resp.StatusCode == http.StatusTooManyRequests {
+		if retryAfter := resp.Header.Get("Retry-After"); retryAfter != "" {
+			if sec, _ := strconv.Atoi(retryAfter); sec > 0 {
+				time.Sleep(time.Duration(sec) * time.Second)
+				return checkHTTPWithFamily(ctx, tracker, infoHash, compact, ipv4Only, ipv6Only)
+			}
+		}
 		return false, &elapsed, false, fmt.Errorf("rate limited")
 	}
 	body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
@@ -703,10 +743,15 @@ func main() {
 	compact0 := flag.Bool("compact0-fallback", false, "Fallback to compact=0")
 	insecure := flag.Bool("insecure", false, "Skip TLS")
 	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy")
+	samFlag := flag.Bool("sam", false, "Enable I2P SAM bridge (port 7656)")
+	samHostFlag := flag.String("sam-host", "127.0.0.1:7656", "SAM bridge address")
 	flag.Parse()
 
 	compact0Fallback = *compact0
 	insecureSkip = *insecure
+	useSAM = *samFlag
+	samHost = *samHostFlag
+
 	if *proxyFlag != "" {
 		rawDialer, err := proxy.SOCKS5("tcp", *proxyFlag, nil, proxy.Direct)
 		if err != nil {
