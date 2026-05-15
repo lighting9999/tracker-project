@@ -82,7 +82,7 @@ type dnsCacheEntry struct {
 
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	rateLimiter = rate.NewLimiter(rate.Limit(100), 1)
+	rateLimiter = rate.NewLimiter(rate.Limit(200), 10)
 }
 
 func randomNumeric(n int) string {
