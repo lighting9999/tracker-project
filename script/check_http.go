@@ -25,7 +25,6 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/go-i2p/sam3"
 	"golang.org/x/net/proxy"
 	"golang.org/x/time/rate"
 )
@@ -74,8 +73,6 @@ var (
 	rateLimiter      *rate.Limiter
 	useSAM           bool
 	samHost          string
-	samConn          net.Conn
-	samMu            sync.Mutex
 )
 
 type dnsCacheEntry struct {
@@ -325,46 +322,89 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 	return dialer.DialContext(ctx, network, net.JoinHostPort(targetIP.String(), port))
 }
 
-func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
-	samMu.Lock()
-	defer samMu.Unlock()
-	if samConn == nil {
-		sam, err := sam3.NewSAM(samHost)
-		if err != nil {
-			return nil, fmt.Errorf("SAM new: %w", err)
-		}
-		keys, err := sam.NewKeys()
-		if err != nil {
-			return nil, fmt.Errorf("SAM keys: %w", err)
-		}
-		s, err := sam.NewStreamSession("tracker-checker", keys, "inbound.length=3")
-		if err != nil {
-			return nil, fmt.Errorf("SAM stream: %w", err)
-		}
-		samConn = s.(net.Conn)
+func samHello(conn net.Conn) error {
+	_, err := fmt.Fprintf(conn, "HELLO VERSION MIN=3.0 MAX=3.0\n")
+	if err != nil {
+		return err
 	}
+	reader := bufio.NewReader(conn)
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		return err
+	}
+	if !strings.HasPrefix(line, "HELLO REPLY") {
+		return fmt.Errorf("bad hello reply: %s", line)
+	}
+	return nil
+}
+
+func samCreateSession(conn net.Conn, sessionID string) error {
+	cmd := fmt.Sprintf("SESSION CREATE STYLE=STREAM ID=%s DESTINATION=TRANSIENT\n", sessionID)
+	_, err := conn.Write([]byte(cmd))
+	if err != nil {
+		return err
+	}
+	reader := bufio.NewReader(conn)
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		return err
+	}
+	if !strings.Contains(line, "RESULT=OK") {
+		return fmt.Errorf("session create failed: %s", line)
+	}
+	return nil
+}
+
+func samStreamConnect(conn net.Conn, sessionID, dest, port string) error {
+	cmd := fmt.Sprintf("STREAM CONNECT ID=%s DESTINATION=%s PORT=%s\n", sessionID, dest, port)
+	_, err := conn.Write([]byte(cmd))
+	if err != nil {
+		return err
+	}
+	reader := bufio.NewReader(conn)
+	line, err := reader.ReadString('\n')
+	if err != nil {
+		return err
+	}
+	if !strings.Contains(line, "RESULT=OK") {
+		return fmt.Errorf("stream connect failed: %s", line)
+	}
+	return nil
+}
+
+func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
 	host, port, err := net.SplitHostPort(addr)
 	if err != nil {
 		return nil, err
 	}
 	dest := host + ".i2p"
-	type result struct {
-		conn net.Conn
-		err  error
+	samConn, err := net.DialTimeout("tcp", samHost, defaultTimeout)
+	if err != nil {
+		return nil, fmt.Errorf("connect to SAM bridge: %w", err)
 	}
-	ch := make(chan result, 1)
-	go func() {
-		conn, err := samConn.(interface {
-			Dial(string) (net.Conn, error)
-		}).Dial(dest + ":" + port)
-		ch <- result{conn, err}
-	}()
-	select {
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	case r := <-ch:
-		return r.conn, r.err
+	if err := samHello(samConn); err != nil {
+		samConn.Close()
+		return nil, fmt.Errorf("sam hello: %w", err)
 	}
+	sessionID := fmt.Sprintf("tracker-%d", randomInt(0, 1<<31))
+	if err := samCreateSession(samConn, sessionID); err != nil {
+		samConn.Close()
+		return nil, fmt.Errorf("sam session: %w", err)
+	}
+	if err := samStreamConnect(samConn, sessionID, dest, port); err != nil {
+		samConn.Close()
+		return nil, fmt.Errorf("sam connect: %w", err)
+	}
+	return &samStreamConn{Conn: samConn, reader: bufio.NewReader(samConn)}, nil
+}
+
+type samStreamConn struct {
+	net.Conn
+	reader *bufio.Reader
+}
+
+func (c *samStreamConn) Read(b []byte) (int, error) {
+	return c.reader.Read(b)
 }
 
 func getNextProxy() proxy.Dialer {
