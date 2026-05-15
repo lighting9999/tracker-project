@@ -398,8 +398,8 @@ http://191.255.193.16:6969/announce
 http://191.255.193.44:6969/announce
 http://192.3.165.191:6969/announce
 http://192.9.228.30:6699/announce
-http://193.107.16.156/announce
 http://193.107.16.156:2710/announce
+http://193.107.16.156/announce
 http://193.177.162.187:6969/announce
 http://193.31.26.113:6969/announce
 http://193.37.214.12:6969/announce
@@ -563,7 +563,6 @@ http://34.94.213.23/announce
 http://34.94.213.23:11451/announce
 http://34.94.213.23:2710/announce
 http://34.94.76.146/announce
-http://34.94.76.146/announce.php
 http://34.94.76.146:11450/announce
 http://34.94.76.146:1337/announce
 http://34.94.76.146:2701/announce
@@ -571,6 +570,7 @@ http://34.94.76.146:2710/announce
 http://34.94.76.146:443/announce
 http://34.94.76.146:6960/announce
 http://34.94.76.146:6969/announce
+http://34.94.76.146/announce.php
 http://35.227.12.84/announce
 http://35.227.12.84:2710/announce
 http://35.227.59.57/announce
@@ -797,13 +797,13 @@ http://87.253.152.137/announce
 http://88.99.189.199:6969/announce
 http://89.110.76.229:6969/announce
 http://9.rarbg.com:2710/announce
-http://91.121.54.8/announce
 http://91.121.54.8:6969/announce
+http://91.121.54.8/announce
 http://91.207.136.85/announce
 http://91.216.110.47/announce
 http://91.217.91.21:3218/announce
-http://91.218.230.81/announce
 http://91.218.230.81:6969/announce
+http://91.218.230.81/announce
 http://91.224.92.110:6969/announce
 http://91.230.210.146/announce
 http://91.98.161.68:6969/announce
@@ -996,8 +996,8 @@ http://datascene.net/announce
 http://datascene.net/announce.php
 http://debuz.com:6969/announce
 http://denis.stalker.h3q.com/announce
-http://denis.stalker.h3q.com/announce.php
 http://denis.stalker.h3q.com:6969/announce
+http://denis.stalker.h3q.com/announce.php
 http://derpyradio.net:6969/announce
 http://dht.dhtclub.com:666/announce
 http://divxfinal.com/announce.php
@@ -1214,8 +1214,8 @@ http://parag.rs:6969/announce
 http://passpulse.net:8000/announce
 http://peersteers.org/announce
 http://peersteers.org/announce.php?ak=11d5e667ab&
-http://photodiode.mine.nu/announce
 http://photodiode.mine.nu:6969/announce
+http://photodiode.mine.nu/announce
 http://piratbit.net/bt/announce.php
 http://pirates-united.info:6969/announce
 http://pirates.sumotracker.com/announce
@@ -1426,8 +1426,8 @@ http://tracker.bittor.pw:1337/announce
 http://tracker.bittorrent.am/announce
 http://tracker.bittorrent.kz/announce
 http://tracker.bittorrent.nibblepoker.lu:49227/announce
-http://tracker.blazing.de/announce
 http://tracker.blazing.de:6969/announce
+http://tracker.blazing.de/announce
 http://tracker.breizh.pm:6969/announce
 http://tracker.bt-chat.com/announce
 http://tracker.bt-hash.com/announce
@@ -1480,8 +1480,8 @@ http://tracker.file09.com/announce
 http://tracker.filemail.com:6969/announce
 http://tracker.files.fm:6969/announce
 http://tracker.filetracker.pl:8089/announce
-http://tracker.flashtorrents.org/announce
 http://tracker.flashtorrents.org:6969/announce
+http://tracker.flashtorrents.org/announce
 http://tracker.foreverpirates.co:443/announce
 http://tracker.frozen-layer.com:6969/announce
 http://tracker.frozen-layer.net:6969/announce
@@ -1529,8 +1529,8 @@ http://tracker.ktxp.com:6868/announce
 http://tracker.ktxp.com:7070/announce
 http://tracker.kuroy.me:443/announce
 http://tracker.kuroy.me:5944/announce
-http://tracker.leechers-paradise.org/announce
 http://tracker.leechers-paradise.org:6969/announce
+http://tracker.leechers-paradise.org/announce
 http://tracker.leechshield.link:443/announce
 http://tracker.leena.network:6969/announce
 http://tracker.lelux.fi/announce
