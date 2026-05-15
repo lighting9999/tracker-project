@@ -89,26 +89,45 @@ jobs:
             go mod init tracker-checker
           fi
           go mod tidy
-          go build -o tracker-checker build.go
+          # 编译四个独立检查器（源文件位于 script/ 目录）
+          go build -o check_http script/check_http.go
+          go build -o check_udp script/check_udp.go
+          go build -o check_wss script/check_wss.go
+          go build -o merge script/merge.go
 
-      - name: Run tracker checker
+      - name: Run HTTP/HTTPS/I2P checker
         run: |
-          ./tracker-checker \
+          ./check_http \
             -input webtracker/input_merged.txt \
-            -output trackers_best.txt \
-            -workers 1000 \
-            -json-output jekyll/_data/trackers.json \
+            -workers 500 \
             -retries 1 \
             -compact0-fallback \
             -insecure \
             -proxy socks5://localhost:4444
-          echo "Alive trackers: $(wc -l < trackers_best.txt)"
-          if [ -f trackers_best_ipv6.txt ]; then
-            echo "IPv6-capable alive trackers: $(wc -l < trackers_best_ipv6.txt)"
-          fi
-          if [ -f trackers_best_dual.txt ]; then
-            echo "Dual-stack (IPv4+IPv6) alive trackers: $(wc -l < trackers_best_dual.txt)"
-          fi
+          echo "HTTP/HTTPS/I2P check completed"
+
+      - name: Run UDP checker
+        run: |
+          ./check_udp \
+            -input webtracker/input_merged.txt \
+            -workers 500 \
+            -retries 1
+          echo "UDP check completed"
+
+      - name: Run WSS/WS checker
+        run: |
+          ./check_wss \
+            -input webtracker/input_merged.txt \
+            -workers 500 \
+            -retries 1 \
+            -insecure \
+            -proxy socks5://localhost:4444
+          echo "WSS/WS check completed"
+
+      - name: Merge results
+        run: |
+          ./merge -input webtracker/input_merged.txt
+          echo "Merge completed"
 
       - name: Download Bootstrap and assets
         run: |
@@ -135,6 +154,9 @@ jobs:
         run: |
           cp trackers_all.txt trackers_best*.txt public/ 2>/dev/null || true
           if [ -f trackers_peers.txt ]; then cp trackers_peers.txt public/; fi
+          # 复制各协议生成的存活列表（可选）
+          cp trackers_best_http.txt trackers_best_https.txt trackers_best_i2p.txt \
+             trackers_best_udp.txt trackers_best_ws.txt public/ 2>/dev/null || true
 
       - name: Generate robots.txt
         run: |
@@ -155,7 +177,8 @@ jobs:
         run: |
           date +'%Y%m%d%H' > date.txt
           rm -rf public/ _site/ jekyll/_site/
-          git add trackers_all.txt trackers_best*.txt trackers_peers.txt tracker_history.tsv date.txt 2>/dev/null || true
+          git add trackers_all.txt trackers_best*.txt trackers_peers.txt tracker_history.tsv \
+                  trackers_http.json trackers_udp.json trackers_wss.json date.txt 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes, skip commit."
             exit 0
