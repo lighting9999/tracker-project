@@ -5,7 +5,6 @@ import (
 	"context"
 	"crypto/rand"
 	"crypto/tls"
-	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
 	"flag"
@@ -25,6 +24,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
 	"github.com/go-i2p/sam3"
 	"golang.org/x/net/proxy"
 	"golang.org/x/time/rate"
@@ -341,15 +341,22 @@ func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
 	if err != nil {
 		return nil, err
 	}
-	// SAM stream connect to destination (base32 or base64)
-	// For .i2p domain, we need to convert to base32? Usually the host is already a .i2p address.
-	// sam3.StreamDial expects a destination string (base32 or b64).
 	dest := host + ".i2p"
-	conn, err := samSession.DialContext(ctx, "tcp", net.JoinHostPort(dest, port))
-	if err != nil {
-		return nil, err
+	type dialResult struct {
+		conn net.Conn
+		err  error
 	}
-	return conn, nil
+	ch := make(chan dialResult, 1)
+	go func() {
+		conn, err := samSession.Dial("tcp", net.JoinHostPort(dest, port))
+		ch <- dialResult{conn, err}
+	}()
+	select {
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	case r := <-ch:
+		return r.conn, r.err
+	}
 }
 
 func getNextProxy() proxy.Dialer {
