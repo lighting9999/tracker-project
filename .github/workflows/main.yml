@@ -105,7 +105,7 @@ jobs:
             -insecure \
             -proxy socks5://localhost:4444 \
             -sam \
-            -dns 8.8.8.8 \
+            -dns 1.1.1.1 \
             -dns-timeout 5s \
             -rate-limit 2000
           echo "HTTP/HTTPS/I2P check completed"
@@ -118,7 +118,7 @@ jobs:
             -retries 1 \
             -insecure \
             -proxy socks5://localhost:4444 \
-            -dns 8.8.8.8 \
+            -dns 1.1.1.1 \
             -dns-timeout 5s \
             -rate-limit 2000
           echo "UDP+WSS check completed"
@@ -177,7 +177,6 @@ jobs:
         run: |
           date +'%Y%m%d%H' > date.txt
           rm -rf public/ _site/ jekyll/_site/
-          # Commit only text files + the essential Jekyll data JSON
           git add trackers_all.txt trackers_best*.txt trackers_alive_*.txt \
                    trackers_peers.txt tracker_history.tsv date.txt robots.txt \
                    jekyll/_data/trackers.json 2>/dev/null || true

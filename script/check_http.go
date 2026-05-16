@@ -1,3 +1,4 @@
+// check_http.go
 package main
 
 import (
@@ -83,6 +84,11 @@ var (
 	hostsFilePath     string
 	samConnCache      sync.Map
 	samGroup          singleflight.Group
+	colorReset        = "\033[0m"
+	colorRed          = "\033[31m"
+	colorGreen        = "\033[32m"
+	colorYellow       = "\033[33m"
+	colorBlue         = "\033[34m"
 )
 
 type dnsCacheEntry struct {
@@ -107,7 +113,8 @@ func (c *samPooledConn) Close() error {
 
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	rateLimiter = rate.NewLimiter(rate.Limit(1000), 100)
+	rateLimiter = rate.NewLimiter(rate.Limit(2000), 200)
+	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 
 func randomNumeric(n int) string {
@@ -560,8 +567,8 @@ func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 	cookieJar, _ := cookiejar.New(nil)
 	tr := &http.Transport{
 		TLSClientConfig:       &tls.Config{InsecureSkipVerify: insecureSkip},
-		MaxIdleConns:          500,
-		MaxIdleConnsPerHost:   100,
+		MaxIdleConns:          2000,
+		MaxIdleConnsPerHost:   200,
 		IdleConnTimeout:       90 * time.Second,
 		DisableKeepAlives:     false,
 		ForceAttemptHTTP2:     true,
@@ -948,6 +955,19 @@ func writeLines(path string, lines []string) error {
 	return nil
 }
 
+func colorize(status string) string {
+	switch status {
+	case StatusAlive:
+		return colorGreen + status + colorReset
+	case StatusDead:
+		return colorRed + status + colorReset
+	case StatusInvalid:
+		return colorYellow + status + colorReset
+	default:
+		return status
+	}
+}
+
 func main() {
 	input := flag.String("input", "merged_trackers.txt", "Input file")
 	workers := flag.Int("workers", defaultWorkers, "Concurrent workers")
@@ -957,10 +977,10 @@ func main() {
 	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy")
 	samFlag := flag.Bool("sam", false, "Enable I2P SAM bridge (port 7656)")
 	samHostFlag := flag.String("sam-host", "127.0.0.1:7656", "SAM bridge address")
-	dnsFlag := flag.String("dns", "", "Custom DNS server (e.g., 8.8.8.8:53)")
+	dnsFlag := flag.String("dns", "1.1.1.1:53", "Custom DNS server")
 	dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS lookup timeout")
 	hostsFileFlag := flag.String("hosts-file", "", "Custom hosts file path")
-	rateLimitFlag := flag.Int("rate-limit", 1000, "Max requests per second")
+	rateLimitFlag := flag.Int("rate-limit", 2000, "Max requests per second")
 	flag.Parse()
 
 	compact0Fallback = *compact0
@@ -1001,24 +1021,13 @@ func main() {
 
 	maxAttempts := *retries + 1
 
-	go func() {
-		ticker := time.NewTicker(1 * time.Second)
-		defer ticker.Stop()
-		for range ticker.C {
-			done := atomic.LoadInt32(&completed)
-			fmt.Printf("[HTTP] [%d/%d] processed\n", done, total)
-			if done >= int32(total) {
-				return
-			}
-		}
-	}()
-
+	startTime := time.Now()
 	for _, t := range httpTrackers {
 		wg.Add(1)
 		go func(tracker string) {
 			defer func() {
 				if r := recover(); r != nil {
-					log.Printf("Panic in tracker %s: %v", tracker, r)
+					log.Printf("%sPanic in tracker %s: %v%s", colorRed, tracker, r, colorReset)
 					results <- CheckResult{URL: tracker, Status: StatusInvalid}
 					atomic.AddInt32(&completed, 1)
 				}
@@ -1027,13 +1036,21 @@ func main() {
 			}()
 			sem <- struct{}{}
 			res := validateTracker(ctx, tracker, maxAttempts)
+			done := atomic.AddInt32(&completed, 1)
+			coloredStatus := colorize(res.Status)
+			pingStr := "N/A"
+			if res.PingMs != nil {
+				pingStr = fmt.Sprintf("%dms", *res.PingMs)
+			}
+			fmt.Printf("%s[%d/%d]%s %s %s %s\n",
+				colorBlue, done, total, colorReset, tracker, coloredStatus, pingStr)
 			results <- res
-			atomic.AddInt32(&completed, 1)
 		}(t)
 	}
 
 	wg.Wait()
 	close(results)
+	elapsed := time.Since(startTime)
 
 	var allResults []CheckResult
 	for res := range results {
@@ -1088,5 +1105,10 @@ func main() {
 
 	jsonData, _ := json.MarshalIndent(entries, "", "  ")
 	os.WriteFile(filepath.Join(outputDir, "trackers_http.json"), jsonData, 0644)
-	fmt.Println("HTTP/HTTPS/I2P check complete")
+
+	fmt.Printf("%s✓ HTTP/HTTPS/I2P check finished in %s%s\n", colorGreen, elapsed, colorReset)
+	fmt.Printf("%s  Total trackers: %d%s\n", colorBlue, total, colorReset)
+	aliveCount := len(httpList) + len(httpsList) + len(i2pList)
+	fmt.Printf("%s  Alive: %d%s\n", colorGreen, aliveCount, colorReset)
+	fmt.Printf("%s  Dead: %d%s\n", colorRed, total-aliveCount, colorReset)
 }

@@ -1,3 +1,4 @@
+// check_udp_wss.go
 package main
 
 import (
@@ -85,7 +86,6 @@ var (
 	colorBlue      = "\033[34m"
 	colorMagenta   = "\033[35m"
 	colorCyan      = "\033[36m"
-	colorWhite     = "\033[37m"
 )
 
 type dnsCacheEntry struct {
@@ -95,7 +95,8 @@ type dnsCacheEntry struct {
 
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	rateLimiter = rate.NewLimiter(rate.Limit(1000), 100)
+	rateLimiter = rate.NewLimiter(rate.Limit(2000), 200)
+	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 
 func randomNumeric(n int) string {
@@ -846,10 +847,10 @@ func main() {
 	retries := flag.Int("retries", defaultRetries, "Retries")
 	insecure := flag.Bool("insecure", false, "Skip TLS")
 	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy")
-	dnsFlag := flag.String("dns", "", "Custom DNS server (e.g., 8.8.8.8:53)")
+	dnsFlag := flag.String("dns", "1.1.1.1:53", "Custom DNS server")
 	dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS lookup timeout")
 	hostsFileFlag := flag.String("hosts-file", "", "Custom hosts file path")
-	rateLimitFlag := flag.Int("rate-limit", 1000, "Max requests per second")
+	rateLimitFlag := flag.Int("rate-limit", 2000, "Max requests per second")
 	flag.Parse()
 
 	insecureSkip = *insecure
@@ -887,20 +888,6 @@ func main() {
 
 	maxAttempts := *retries + 1
 
-	go func() {
-		ticker := time.NewTicker(1 * time.Second)
-		defer ticker.Stop()
-		for range ticker.C {
-			done := atomic.LoadInt32(&completed)
-			percent := float64(done) * 100 / float64(total)
-			fmt.Printf("%s[%s] %sProgress: %d/%d (%.1f%%)%s\n",
-				colorBlue, time.Now().Format("15:04:05"), colorReset, done, total, percent, colorReset)
-			if done >= int32(total) {
-				return
-			}
-		}
-	}()
-
 	startTime := time.Now()
 	for _, t := range udpWssTrackers {
 		wg.Add(1)
@@ -916,6 +903,7 @@ func main() {
 			}()
 			sem <- struct{}{}
 			res := validateTracker(ctx, tracker, maxAttempts)
+			done := atomic.AddInt32(&completed, 1)
 			u, _ := url.Parse(tracker)
 			proto := strings.ToLower(u.Scheme)
 			coloredProto := protocolColor(proto)
@@ -924,11 +912,9 @@ func main() {
 			if res.PingMs != nil {
 				pingStr = fmt.Sprintf("%dms", *res.PingMs)
 			}
-			fmt.Printf("%s[%s] %s%s %s %s %s%s\n",
-				colorBlue, time.Now().Format("15:04:05"), colorReset,
-				coloredProto, tracker, coloredStatus, pingStr, colorReset)
+			fmt.Printf("%s[%d/%d]%s %s %s %s %s\n",
+				colorBlue, done, total, colorReset, coloredProto, tracker, coloredStatus, pingStr)
 			results <- res
-			atomic.AddInt32(&completed, 1)
 		}(t)
 	}
 
@@ -996,7 +982,7 @@ func main() {
 	os.WriteFile(filepath.Join(outputDir, "trackers_udp_wss.json"), jsonData, 0644)
 
 	fmt.Printf("%s✓ UDP+WSS check finished in %s%s\n", colorGreen, elapsed, colorReset)
-	fmt.Printf("%s  Total trackers: %d%s\n", colorWhite, total, colorReset)
+	fmt.Printf("%s  Total trackers: %d%s\n", colorBlue, total, colorReset)
 	fmt.Printf("%s  Alive: %d%s\n", colorGreen, len(aliveList), colorReset)
 	fmt.Printf("%s  Dead: %d%s\n", colorRed, total-len(aliveList), colorReset)
 	fmt.Printf("%s  Avg response time: %.2f ms%s\n", colorYellow, avgPing, colorReset)
