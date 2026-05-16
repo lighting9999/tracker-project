@@ -31,6 +31,7 @@ http://110.187.214.6:6969/announce
 http://110.187.215.166:6969/announce
 http://113.13.6.40:6969/announce
 http://113.13.7.124:6969/announce
+http://113.13.7.90:6969/announce
 http://113.16.153.249:6969/announce
 http://113.16.153.98:6969/announce
 http://113.16.155.111:6969/announce
@@ -1643,6 +1644,7 @@ http://tracker.thepiratebay.org/announce
 http://tracker.tiny-vps.com:6969/announce
 http://tracker.tntvillage.scambioetico.org:2710/announce
 http://tracker.toolv.com/announce
+http://tracker.torrent.eu.org:451/announce
 http://tracker.torrent.to:2710/announce
 http://tracker.torrentalk.com:2710/announce
 http://tracker.torrentbay.to:6969/announce
@@ -2217,6 +2219,7 @@ https://tracker.srv00.com/announce
 https://tracker.tamersunion.org/announce
 https://tracker.tfile.me/announce
 https://tracker.tiny-vps.com:6969/announce
+https://tracker.torrent.eu.org:451/announce
 https://tracker.torrentbd.net/announce
 https://tracker.torrentsnows.com/announce
 https://tracker.totheglory.im/announce
