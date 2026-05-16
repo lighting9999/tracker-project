@@ -7,256 +7,10 @@ layout: default
 <html lang="{{ page.lang }}" data-bs-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>{{ loc.title }}</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-  <style>
-    /* ==================== 自定义样式 ==================== */
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #e2e8f0;
-      min-height: 100vh;
-      margin: 0;
-      overflow-x: hidden;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .glass-nav {
-      background: rgba(15, 23, 42, 0.8) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-    }
-    .hero-section {
-      padding: 80px 0 60px;
-      text-align: center;
-    }
-    .hero-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 40px;
-    }
-    .uptime-ring-container {
-      position: relative;
-      display: inline-block;
-      width: 180px;
-      height: 180px;
-    }
-    .uptime-ring {
-      width: 100%;
-      height: 100%;
-    }
-    .ring-fill {
-      transition: stroke-dashoffset 1.5s ease-out;
-    }
-    .uptime-value {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 2.4rem;
-      font-weight: 800;
-      color: white;
-      line-height: 1;
-    }
-    .uptime-percent {
-      font-size: 1.4rem;
-      font-weight: 600;
-      opacity: 0.8;
-    }
-    .uptime-label {
-      position: absolute;
-      bottom: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: rgba(255,255,255,0.6);
-      font-weight: 600;
-    }
-    .section-header {
-      margin-bottom: 24px;
-    }
-    .section-title {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: white;
-      border-left: 4px solid #22c55e;
-      padding-left: 16px;
-    }
-    .stat-card, .proto-card, .accordion-item {
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(14px) saturate(120%);
-      -webkit-backdrop-filter: blur(14px) saturate(120%);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 24px 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-      transition: transform 0.3s cubic-bezier(0.2,0.9,0.4,1), box-shadow 0.3s, background 0.3s;
-    }
-    .stat-card:hover, .proto-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
-      background: rgba(255,255,255,0.1);
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    .stat-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: rgba(226,232,240,0.7);
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-    .stat-value {
-      font-size: 2.5rem;
-      font-weight: 800;
-      line-height: 1;
-    }
-    .ok { color: #22c55e; }
-    .bad { color: #ef4444; }
-    .warn { color: #f59e0b; }
-    .downloads-section { margin-bottom: 40px; }
-    .downloads-explanation {
-      font-size: 0.95rem;
-      color: rgba(226,232,240,0.65);
-      margin-bottom: 16px;
-    }
-    .accordion-item { margin-bottom: 12px; }
-    .accordion-button {
-      background: transparent;
-      color: #f1f5f9;
-      font-weight: 600;
-      box-shadow: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .accordion-button:not(.collapsed) {
-      background: rgba(255,255,255,0.08);
-      color: white;
-    }
-    .accordion-button::after {
-      filter: brightness(0) invert(1);
-    }
-    .file-size-badge {
-      font-size: 0.7rem;
-      font-weight: 500;
-      opacity: 0.85;
-    }
-    .copy-link-btn {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #e2e8f0;
-      transition: all 0.2s;
-    }
-    .copy-link-btn:hover {
-      background: rgba(255,255,255,0.25);
-      color: white;
-    }
-    .proto-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .proto-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .proto-count {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-    .proto-pct { font-size: 0.85rem; opacity: 0.7; }
-    .http-color { color: #60a5fa; }
-    .https-color { color: #34d399; }
-    .udp-color { color: #fbbf24; }
-    .wss-color { color: #a78bfa; }
-    .fade-up {
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.6s ease-out forwards;
-    }
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .stat-card:nth-child(1) { animation-delay: 0.05s; }
-    .stat-card:nth-child(2) { animation-delay: 0.1s; }
-    .stat-card:nth-child(3) { animation-delay: 0.15s; }
-    .stat-card:nth-child(4) { animation-delay: 0.2s; }
-    .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.3s, transform 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      z-index: 1000;
-    }
-    .back-to-top.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    footer { opacity: 0.6; font-size: 0.85rem; }
-    .badge-ipv6 { background-color: #22c55e; color: #000; font-weight: 500; }
-    .badge-ipv4 { background-color: #6c757d; }
-    .ping-badge {
-      font-size: 0.75rem;
-      background-color: rgba(13,110,253,0.1);
-      color: #0d6efd;
-    }
-    [data-bs-theme="dark"] .ping-badge {
-      background-color: rgba(13,110,253,0.2);
-      color: #6ea8fe;
-    }
-    .copy-cell { cursor: pointer; }
-    .toolbar-label { font-size: 0.75rem; margin-bottom: 4px; color: #94a3b8; }
-    .pagination .page-link { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e2e8f0; }
-    .pagination .page-item.disabled .page-link { background: rgba(255,255,255,0.05); color: #6c757d; }
-    .pagination .active .page-link { background: #22c55e; border-color: #22c55e; color: #000; }
-    table { color: #e2e8f0; }
-    .table-light { background-color: rgba(255,255,255,0.08); color: #fff; }
-    .form-control, .form-select {
-      background-color: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.2);
-      color: #fff;
-    }
-    .form-control:focus, .form-select:focus {
-      background-color: rgba(255,255,255,0.15);
-      border-color: #22c55e;
-      color: #fff;
-      box-shadow: 0 0 0 0.25rem rgba(34,197,94,0.25);
-    }
-    .form-control::placeholder { color: #94a3b8; }
-  </style>
+  <style>/*! compressed */body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);color:#e2e8f0;min-height:100vh;margin:0;overflow-x:hidden}body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background-image:radial-gradient(circle at 25% 25%,rgba(255,255,255,0.02) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:-1}.glass-nav{background:rgba(15,23,42,0.8)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.1)!important}.hero-section{padding:80px 0 60px;text-align:center}.hero-title{font-size:2.5rem;font-weight:800;color:white;margin-bottom:40px}.uptime-ring-container{position:relative;display:inline-block;width:180px;height:180px}.uptime-ring{width:100%;height:100%}.ring-fill{transition:stroke-dashoffset 1.5s ease-out}.uptime-value{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2.4rem;font-weight:800;color:white;line-height:1}.uptime-percent{font-size:1.4rem;font-weight:600;opacity:0.8}.uptime-label{position:absolute;bottom:15px;left:50%;transform:translateX(-50%);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px;color:rgba(255,255,255,0.6);font-weight:600}.section-header{margin-bottom:24px}.section-title{font-size:1.4rem;font-weight:700;color:white;border-left:4px solid #22c55e;padding-left:16px}.stat-card,.proto-card,.accordion-item{background:rgba(255,255,255,0.06);backdrop-filter:blur(14px) saturate(120%);-webkit-backdrop-filter:blur(14px) saturate(120%);border:1px solid rgba(255,255,255,0.12);border-radius:18px;padding:24px 20px;box-shadow:0 8px 32px rgba(0,0,0,0.25);transition:transform 0.3s cubic-bezier(0.2,0.9,0.4,1),box-shadow 0.3s,background 0.3s}.stat-card:hover,.proto-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 16px 40px rgba(0,0,0,0.4);background:rgba(255,255,255,0.1)}.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px;margin-bottom:20px}.stat-label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px;color:rgba(226,232,240,0.7);margin-bottom:10px;font-weight:600}.stat-value{font-size:2.5rem;font-weight:800;line-height:1}.ok{color:#22c55e}.bad{color:#ef4444}.warn{color:#f59e0b}.downloads-section{margin-bottom:40px}.downloads-explanation{font-size:0.95rem;color:rgba(226,232,240,0.65);margin-bottom:16px}.accordion-item{margin-bottom:12px}.accordion-button{background:transparent;color:#f1f5f9;font-weight:600;box-shadow:none;display:flex;align-items:center;gap:8px}.accordion-button:not(.collapsed){background:rgba(255,255,255,0.08);color:white}.accordion-button::after{filter:brightness(0) invert(1)}.file-size-badge{font-size:0.7rem;font-weight:500;opacity:0.85}.copy-link-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);color:#e2e8f0;transition:all 0.2s}.copy-link-btn:hover{background:rgba(255,255,255,0.25);color:white}.proto-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;margin-bottom:40px}.proto-name{font-size:1.1rem;font-weight:700;margin-bottom:8px}.proto-count{font-size:2.2rem;font-weight:800;margin-bottom:6px}.proto-pct{font-size:0.85rem;opacity:0.7}.http-color{color:#60a5fa}.https-color{color:#34d399}.udp-color{color:#fbbf24}.wss-color{color:#a78bfa}.fade-up{opacity:0;transform:translateY(16px);animation:fadeUp 0.6s ease-out forwards}@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}.stat-card:nth-child(1){animation-delay:0.05s}.stat-card:nth-child(2){animation-delay:0.1s}.stat-card:nth-child(3){animation-delay:0.15s}.stat-card:nth-child(4){animation-delay:0.2s}.back-to-top{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background-color:#22c55e;color:#000;border:none;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(20px);transition:opacity 0.3s,transform 0.3s,background 0.2s;box-shadow:0 4px 12px rgba(0,0,0,0.4);z-index:1000;cursor:pointer}.back-to-top.show{opacity:1;transform:translateY(0)}.back-to-top:hover{background-color:#16a34a;transform:translateY(0) scale(1.05)}footer{opacity:0.6;font-size:0.85rem}.badge-ipv6{background-color:#22c55e;color:#000;font-weight:500}.badge-ipv4{background-color:#6c757d}.ping-badge{font-size:0.75rem;background-color:rgba(13,110,253,0.1);color:#0d6efd}[data-bs-theme="dark"] .ping-badge{background-color:rgba(13,110,253,0.2);color:#6ea8fe}.copy-cell{cursor:pointer}.toolbar-label{font-size:0.75rem;margin-bottom:4px;color:#94a3b8}.pagination .page-link{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:#e2e8f0}.pagination .page-item.disabled .page-link{background:rgba(255,255,255,0.05);color:#6c757d}.pagination .active .page-link{background:#22c55e;border-color:#22c55e;color:#000}table{color:#e2e8f0}.table-light{background-color:rgba(255,255,255,0.08);color:#fff}.form-control,.form-select{background-color:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2);color:#fff}.form-control:focus,.form-select:focus{background-color:rgba(255,255,255,0.15);border-color:#22c55e;color:#fff;box-shadow:0 0 0 0.25rem rgba(34,197,94,0.25)}.form-control::placeholder{color:#94a3b8}@media (max-width:768px){.stats-grid{grid-template-columns:1fr 1fr;gap:12px}.proto-grid{grid-template-columns:1fr 1fr;gap:12px}.hero-title{font-size:1.8rem}.uptime-ring-container{width:140px;height:140px}.uptime-value{font-size:1.8rem}.stat-value{font-size:1.8rem}.proto-count{font-size:1.6rem}.toolbar-label{font-size:0.7rem}.table-responsive{font-size:0.85rem}.back-to-top{width:44px;height:44px;bottom:20px;right:20px}}</style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary border-bottom shadow-sm glass-nav">
@@ -294,7 +48,6 @@ layout: default
   </section>
 
   <div class="container py-4">
-    <!-- 统计卡片 -->
     <div class="section-header">
       <h2 class="section-title">{{ loc.summary | default: "Summary" }}</h2>
     </div>
@@ -315,7 +68,6 @@ layout: default
       <div class="stat-card fade-up"><div class="stat-label">{{ loc.invalid }}</div><div class="stat-value warn" data-target="{{ data.invalid_count }}">0</div></div>
     </div>
 
-    <!-- IPv6 统计与进度条 -->
     <div class="row g-3 mb-4">
       <div class="col-md-4">
         <div class="stat-card text-center">
@@ -343,7 +95,6 @@ layout: default
       </div>
     </div>
 
-    <!-- 下载区域 -->
     <div class="section-header mt-5">
       <h2 class="section-title">{{ loc.downloads | default: "Downloads" }}</h2>
     </div>
@@ -390,7 +141,6 @@ layout: default
       </div>
     </div>
 
-    <!-- 协议统计 -->
     <div class="section-header mt-5">
       <h2 class="section-title">{{ loc.protocols | default: "Protocols" }}</h2>
     </div>
@@ -402,7 +152,6 @@ layout: default
       <div class="proto-card fade-up"><div class="proto-name wss-color">WSS</div><div class="proto-count" data-target="{{ p.wss }}">0</div><div class="proto-pct">{{ p.wss_pct | round: 1 }}% {{ loc.of_total_suffix | default: "" }}</div></div>
     </div>
 
-    <!-- 详细列表（可折叠 + 功能完善） -->
     <div class="section-header mt-5">
       <h2 class="section-title">{{ loc.details | default: "Tracker Details" }}</h2>
       <button class="btn btn-sm btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#trackerTableCollapse" aria-expanded="false">
@@ -412,7 +161,6 @@ layout: default
     <div class="collapse fade-up" id="trackerTableCollapse">
       <div class="card shadow-sm">
         <div class="card-body">
-          <!-- 工具栏 -->
           <div class="row g-3 mb-3 align-items-end">
             <div class="col-md-3">
               <div class="toolbar-label">{{ loc.search_label | default: "Search" }}</div>
@@ -472,7 +220,6 @@ layout: default
             </table>
           </div>
 
-          <!-- 分页控件 -->
           <div class="d-flex justify-content-between align-items-center mt-3">
             <div id="tableInfo" class="small text-muted"></div>
             <nav>
@@ -488,11 +235,10 @@ layout: default
     </p>
   </div>
 
-  <button id="backToTop" class="btn btn-primary rounded-circle back-to-top" title="Back to top">⬆️</button>
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">⬆️</button>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // ==================== 注入 Jekyll 数据 ====================
     const rawTrackers = {{ data.trackers | jsonify }};
     const trackers = rawTrackers.map(t => ({
       url: t.url,
@@ -502,13 +248,11 @@ layout: default
       supports_ipv6: t.supports_ipv6 === true
     }));
 
-    // ==================== 全局变量 ====================
     let filteredData = [...trackers];
     let currentPage = 1;
     let pageSize = 20;
     let currentSort = { column: 'url', order: 'asc' };
 
-    // DOM 元素
     const tbody = document.getElementById('trackerTableBody');
     const searchInput = document.getElementById('searchInput');
     const statusFilter = document.getElementById('statusFilter');
@@ -518,7 +262,6 @@ layout: default
     const paginationDiv = document.getElementById('pagination');
     const tableInfo = document.getElementById('tableInfo');
 
-    // ==================== 辅助函数 ====================
     function applyFilters() {
       const searchTerm = searchInput.value.toLowerCase();
       const status = statusFilter.value;
@@ -579,7 +322,6 @@ layout: default
         tbody.appendChild(row);
       });
 
-      // 重新绑定复制事件
       document.querySelectorAll('.copy-cell').forEach(cell => {
         cell.addEventListener('click', async (e) => {
           const url = cell.getAttribute('data-url');
@@ -653,7 +395,6 @@ layout: default
       });
     }
 
-    // ==================== 事件监听 ====================
     searchInput.addEventListener('input', () => { applyFilters(); });
     statusFilter.addEventListener('change', () => { applyFilters(); });
     protocolFilter.addEventListener('change', () => { applyFilters(); });
@@ -664,7 +405,6 @@ layout: default
       renderTable();
     });
 
-    // 排序
     document.querySelectorAll('.sortable').forEach(th => {
       th.addEventListener('click', () => {
         const column = th.getAttribute('data-sort');
@@ -678,7 +418,6 @@ layout: default
       });
     });
 
-    // 主题切换与计数动画（保持原有逻辑）
     (function() {
       const html = document.documentElement;
       const toggle = document.getElementById('themeToggle');
@@ -721,7 +460,6 @@ layout: default
       animateCounter(el, target, 0);
     });
 
-    // 复制链接按钮
     document.querySelectorAll('.copy-link-btn').forEach(btn => {
       btn.addEventListener('click', async () => {
         const url = btn.getAttribute('data-url');
@@ -733,12 +471,10 @@ layout: default
       });
     });
 
-    // 回到顶部
     const backBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => backBtn.classList.toggle('show', window.scrollY > 500));
     backBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
 
-    // 初始化表格
     applyFilters();
   </script>
 </body>
