@@ -86,14 +86,19 @@ jobs:
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
       - name: Setup Go modules and build
+        env:
+          GOMAXPROCS: "4"
+          GOPROXY: "https://goproxy.cn,direct"
+          GOSUMDB: "sum.golang.google.cn"
+          GOCACHE: "/tmp/go-cache"
         run: |
           if [ ! -f "go.mod" ]; then
             go mod init tracker-checker
           fi
-          go mod tidy
-          go build -o check_http script/check_http.go
-          go build -o check_udp_wss script/check_udp_wss.go
-          go build -o merge script/merge.go
+          go mod download
+          CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_http script/check_http.go
+          CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_udp_wss script/check_udp_wss.go
+          CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o merge script/merge.go
 
       - name: Run HTTP/HTTPS/I2P checker
         run: |
