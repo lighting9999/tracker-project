@@ -3,57 +3,27 @@
     "url": "wss://tracker.openwebtorrent.com/announce",
     "status": "ALIVE",
     "protocol": "wss",
-    "ping_ms": 389,
+    "ping_ms": 408,
     "supports_ipv4": true
   },
   {
     "url": "wss://tracker.webtorrent.dev/announce",
     "status": "ALIVE",
     "protocol": "wss",
-    "ping_ms": 669,
+    "ping_ms": 645,
     "supports_ipv4": true
   },
   {
-    "url": "ws://tracker.ghostchu-services.top/announce",
+    "url": "wss://tracker.sloppyta.co/announce",
     "status": "DEAD",
-    "protocol": "ws"
+    "protocol": "wss"
   },
   {
     "url": "wss://tracker.novage.com.ua/announce",
     "status": "ALIVE",
     "protocol": "wss",
-    "ping_ms": 805,
+    "ping_ms": 753,
     "supports_ipv4": true
-  },
-  {
-    "url": "wss://tracker.magnetoo.io/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "wss://tracker.btorrent.xyz/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "ws://tracker.nighthawk.pw:4201/announce",
-    "status": "DEAD",
-    "protocol": "ws"
-  },
-  {
-    "url": "wss://tracker.ghostchu-services.top/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "wss://tracker.dnlab.net/announce",
-    "status": "DEAD",
-    "protocol": "wss"
-  },
-  {
-    "url": "wss://spacetradersapi-chatbox.herokuapp.com/announce",
-    "status": "DEAD",
-    "protocol": "wss"
   },
   {
     "url": "ws://tracker.sloppyta.co/announce",
@@ -61,7 +31,7 @@
     "protocol": "ws"
   },
   {
-    "url": "wss://tracker.sloppyta.co/announce",
+    "url": "wss://tracker.dnlab.net/announce",
     "status": "DEAD",
     "protocol": "wss"
   },
@@ -71,7 +41,37 @@
     "protocol": "ws"
   },
   {
+    "url": "ws://tracker.ghostchu-services.top/announce",
+    "status": "DEAD",
+    "protocol": "ws"
+  },
+  {
+    "url": "wss://tracker.ghostchu-services.top/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "ws://tracker.nighthawk.pw:4201/announce",
+    "status": "DEAD",
+    "protocol": "ws"
+  },
+  {
+    "url": "wss://tracker.btorrent.xyz/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "wss://tracker.magnetoo.io/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
     "url": "wss://qot.abiir.top/announce",
+    "status": "DEAD",
+    "protocol": "wss"
+  },
+  {
+    "url": "wss://spacetradersapi-chatbox.herokuapp.com/announce",
     "status": "DEAD",
     "protocol": "wss"
   },
