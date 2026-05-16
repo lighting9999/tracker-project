@@ -92,8 +92,7 @@ jobs:
           fi
           go mod tidy
           go build -o check_http script/check_http.go
-          go build -o check_udp script/check_udp.go
-          go build -o check_wss script/check_wss.go
+          go build -o check_udp_wss script/check_udp_wss.go
           go build -o merge script/merge.go
 
       - name: Run HTTP/HTTPS/I2P checker
@@ -111,20 +110,9 @@ jobs:
             -rate-limit 2000
           echo "HTTP/HTTPS/I2P check completed"
 
-      - name: Run UDP checker
+      - name: Run UDP+WSS checker
         run: |
-          ./check_udp \
-            -input webtracker/input_merged.txt \
-            -workers 1000 \
-            -retries 1 \
-            -dns 8.8.8.8 \
-            -dns-timeout 5s \
-            -rate-limit 2000
-          echo "UDP check completed"
-
-      - name: Run WSS/WS checker
-        run: |
-          ./check_wss \
+          ./check_udp_wss \
             -input webtracker/input_merged.txt \
             -workers 1000 \
             -retries 1 \
@@ -133,7 +121,7 @@ jobs:
             -dns 8.8.8.8 \
             -dns-timeout 5s \
             -rate-limit 2000
-          echo "WSS/WS check completed"
+          echo "UDP+WSS check completed"
 
       - name: Merge results
         run: |
@@ -189,8 +177,10 @@ jobs:
         run: |
           date +'%Y%m%d%H' > date.txt
           rm -rf public/ _site/ jekyll/_site/
-          git add trackers_all.txt trackers_best*.txt trackers_alive_*.txt trackers_peers.txt tracker_history.tsv \
-                  trackers_http.json trackers_udp.json trackers_wss.json date.txt robots.txt 2>/dev/null || true
+          # Commit only text files + the essential Jekyll data JSON
+          git add trackers_all.txt trackers_best*.txt trackers_alive_*.txt \
+                   trackers_peers.txt tracker_history.tsv date.txt robots.txt \
+                   jekyll/_data/trackers.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes, skip commit."
             exit 0

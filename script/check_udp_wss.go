@@ -1,10 +1,10 @@
-// check_udp.go
 package main
 
 import (
 	"bufio"
 	"context"
 	"crypto/rand"
+	"crypto/tls"
 	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
@@ -14,6 +14,8 @@ import (
 	"log"
 	"math/big"
 	"net"
+	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -26,6 +28,8 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/gorilla/websocket"
+	"golang.org/x/net/proxy"
 	"golang.org/x/time/rate"
 )
 
@@ -57,7 +61,7 @@ type TrackerEntry struct {
 }
 
 var (
-	trackerRe      = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
+	trackerRe      = regexp.MustCompile(`(?i)(udp|wss?|https?)://[^\s,]+?/announce[^\s,]*`)
 	peerIDPrefix   string
 	infoHashes     []string
 	hashIndex      uint32
@@ -70,6 +74,18 @@ var (
 	hostsMap       map[string][]string
 	hostsMapMu     sync.RWMutex
 	hostsFilePath  string
+	insecureSkip   bool
+	proxyPool      []proxy.Dialer
+	proxyMu        sync.Mutex
+	proxyIdx       uint32
+	colorReset     = "\033[0m"
+	colorRed       = "\033[31m"
+	colorGreen     = "\033[32m"
+	colorYellow    = "\033[33m"
+	colorBlue      = "\033[34m"
+	colorMagenta   = "\033[35m"
+	colorCyan      = "\033[36m"
+	colorWhite     = "\033[37m"
 )
 
 type dnsCacheEntry struct {
@@ -247,6 +263,85 @@ func resolveUDPAddrWithHosts(ctx context.Context, network, addr string) (*net.UD
 	return nil, fmt.Errorf("no IP for %s", host)
 }
 
+func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6Only bool) (net.Conn, error) {
+	host, port, _ := net.SplitHostPort(addr)
+	if net.ParseIP(host) != nil {
+		dialer := net.Dialer{}
+		if ipv4Only && net.ParseIP(host).To4() == nil {
+			return nil, fmt.Errorf("not an IPv4 address")
+		}
+		if ipv6Only && net.ParseIP(host).To4() != nil {
+			return nil, fmt.Errorf("not an IPv6 address")
+		}
+		return dialer.DialContext(ctx, network, addr)
+	}
+	var ips []net.IP
+	if val, ok := dnsCache.Load(host); ok {
+		entry := val.(*dnsCacheEntry)
+		if time.Since(entry.ts) < dnsCacheTTL {
+			ips = make([]net.IP, len(entry.addrs))
+			for i, a := range entry.addrs {
+				ips[i] = net.ParseIP(a)
+			}
+		}
+	}
+	if ips == nil {
+		lookupCtx, cancel := context.WithTimeout(ctx, dnsTimeout)
+		defer cancel()
+		var err error
+		done := make(chan struct{})
+		go func() {
+			ips, err = lookupIPWithHosts(lookupCtx, host)
+			close(done)
+		}()
+		select {
+		case <-lookupCtx.Done():
+			return nil, lookupCtx.Err()
+		case <-done:
+			if err != nil {
+				dnsCache.Store(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now()})
+				dialer := net.Dialer{}
+				return dialer.DialContext(ctx, network, addr)
+			}
+			addrs := make([]string, len(ips))
+			for i, ip := range ips {
+				addrs[i] = ip.String()
+			}
+			dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
+		}
+	}
+	var targetIP net.IP
+	for _, ip := range ips {
+		if ipv4Only && ip.To4() != nil {
+			targetIP = ip
+			break
+		}
+		if ipv6Only && ip.To4() == nil {
+			targetIP = ip
+			break
+		}
+		if !ipv4Only && !ipv6Only {
+			targetIP = ip
+			break
+		}
+	}
+	if targetIP == nil {
+		return nil, fmt.Errorf("no suitable IP address for %s", host)
+	}
+	dialer := net.Dialer{}
+	return dialer.DialContext(ctx, network, net.JoinHostPort(targetIP.String(), port))
+}
+
+func getNextProxy() proxy.Dialer {
+	if len(proxyPool) == 0 {
+		return nil
+	}
+	proxyMu.Lock()
+	defer proxyMu.Unlock()
+	idx := atomic.AddUint32(&proxyIdx, 1) - 1
+	return proxyPool[idx%uint32(len(proxyPool))]
+}
+
 func bdecodeSimple(data []byte) bool {
 	if len(data) == 0 || data[0] != 'd' {
 		return false
@@ -373,14 +468,14 @@ func normalizeTrackerURL(raw string) (string, error) {
 		return "", err
 	}
 	scheme := strings.ToLower(u.Scheme)
-	if scheme != "udp" {
+	if scheme != "udp" && scheme != "ws" && scheme != "wss" {
 		return "", fmt.Errorf("unsupported scheme")
 	}
 	host := u.Hostname()
 	if host == "" {
 		return "", fmt.Errorf("no host")
 	}
-	if ip := net.ParseIP(host); ip == nil && !strings.Contains(host, ".") {
+	if ip := net.ParseIP(host); ip == nil && !strings.Contains(host, ".") && !strings.HasSuffix(host, ".i2p") {
 		return "", fmt.Errorf("invalid host")
 	}
 	normalizedPath := collapsePathSlashes(u.Path)
@@ -393,6 +488,15 @@ func normalizeTrackerURL(raw string) (string, error) {
 	}
 	u.Path = normalizedPath
 	u.Fragment = ""
+	if (scheme == "udp" && u.Port() == "80") ||
+		(scheme == "ws" && u.Port() == "80") ||
+		(scheme == "wss" && u.Port() == "443") {
+		if ip := net.ParseIP(host); ip != nil && ip.To4() == nil {
+			u.Host = "[" + host + "]"
+		} else {
+			u.Host = host
+		}
+	}
 	return u.String(), nil
 }
 
@@ -514,7 +618,7 @@ func checkUDPWithFamily(ctx context.Context, tracker string, infoHash string, ip
 }
 
 func checkUDP(ctx context.Context, tracker string, infoHash string) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
-	alive4, ping4, has6inResp4, err4 := checkUDPWithFamily(ctx, tracker, infoHash, false)
+	alive4, ping4, has6inResp4, _ := checkUDPWithFamily(ctx, tracker, infoHash, false)
 	has4 := alive4
 	var bestPing *int64
 	if has4 {
@@ -525,14 +629,74 @@ func checkUDP(ctx context.Context, tracker string, infoHash string) (status stri
 		has6 = true
 	}
 	if !has6 {
-		alive6, ping6, _, err6 := checkUDPWithFamily(ctx, tracker, infoHash, true)
+		alive6, ping6, _, _ := checkUDPWithFamily(ctx, tracker, infoHash, true)
 		if alive6 {
 			has6 = true
 			if bestPing == nil || (ping6 != nil && (bestPing == nil || *ping6 < *bestPing)) {
 				bestPing = ping6
 			}
 		}
-		_ = err6
+	}
+	if has4 && has6 {
+		true4, true6 := true, true
+		return StatusAlive, bestPing, &true4, &true6
+	}
+	if has4 {
+		true4 := true
+		return StatusAlive, bestPing, &true4, nil
+	}
+	if has6 {
+		true6 := true
+		return StatusAlive, bestPing, nil, &true6
+	}
+	return StatusDead, nil, nil, nil
+}
+
+func checkWSSWithFamily(ctx context.Context, tracker string, ipv4Only, ipv6Only bool) (bool, *int64, error) {
+	if err := rateLimiter.Wait(ctx); err != nil {
+		return false, nil, err
+	}
+	cookieJar, _ := cookiejar.New(nil)
+	header := http.Header{}
+	header.Set("User-Agent", "qBittorrent/4.6.0")
+	dialer := websocket.Dialer{
+		HandshakeTimeout: defaultTimeout,
+		NetDialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+			host, _, _ := net.SplitHostPort(addr)
+			if strings.HasSuffix(host, ".i2p") {
+				if p := getNextProxy(); p != nil {
+					return p.Dial(network, addr)
+				}
+			}
+			return cachedDialContext(ctx, network, addr, ipv4Only, ipv6Only)
+		},
+		Proxy:            http.ProxyFromEnvironment,
+		TLSClientConfig:  &tls.Config{InsecureSkipVerify: insecureSkip},
+		Jar:              cookieJar,
+		Subprotocols:     []string{"binary"},
+		EnableCompression: true,
+	}
+	start := time.Now()
+	conn, _, err := dialer.DialContext(ctx, tracker, header)
+	if err != nil {
+		return false, nil, err
+	}
+	defer conn.Close()
+	elapsed := int64(time.Since(start).Milliseconds())
+	return true, &elapsed, nil
+}
+
+func checkWSS(ctx context.Context, tracker string) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
+	alive4, ping4, _ := checkWSSWithFamily(ctx, tracker, true, false)
+	has4 := alive4
+	var bestPing *int64
+	if has4 {
+		bestPing = ping4
+	}
+	alive6, ping6, _ := checkWSSWithFamily(ctx, tracker, false, true)
+	has6 := alive6
+	if has6 && (bestPing == nil || (ping6 != nil && (bestPing == nil || *ping6 < *bestPing))) {
+		bestPing = ping6
 	}
 	if has4 && has6 {
 		true4, true6 := true, true
@@ -565,6 +729,8 @@ func validateTracker(ctx context.Context, tracker string, maxAttempts int) Check
 		switch scheme {
 		case "udp":
 			status, ping, supportsIPv4, supportsIPv6 = checkUDP(ctx, tracker, infoHash)
+		case "ws", "wss":
+			status, ping, supportsIPv4, supportsIPv6 = checkWSS(ctx, tracker)
 		default:
 			status = StatusInvalid
 		}
@@ -613,14 +779,14 @@ func loadTrackers(filepath string) ([]string, error) {
 	return trackers, scanner.Err()
 }
 
-func filterByProtocol(trackers []string, protocol string) []string {
+func filterByProtocols(trackers []string, protocols []string) []string {
 	var filtered []string
 	for _, t := range trackers {
 		u, err := url.Parse(t)
 		if err != nil {
 			continue
 		}
-		if strings.ToLower(u.Scheme) == protocol {
+		if slices.Contains(protocols, strings.ToLower(u.Scheme)) {
 			filtered = append(filtered, t)
 		}
 	}
@@ -650,32 +816,67 @@ func writeLines(path string, lines []string) error {
 	return nil
 }
 
+func colorize(status string) string {
+	switch status {
+	case StatusAlive:
+		return colorGreen + status + colorReset
+	case StatusDead:
+		return colorRed + status + colorReset
+	case StatusInvalid:
+		return colorYellow + status + colorReset
+	default:
+		return status
+	}
+}
+
+func protocolColor(proto string) string {
+	switch proto {
+	case "udp":
+		return colorCyan + proto + colorReset
+	case "ws", "wss":
+		return colorMagenta + proto + colorReset
+	default:
+		return proto
+	}
+}
+
 func main() {
 	input := flag.String("input", "merged_trackers.txt", "Input file")
 	workers := flag.Int("workers", defaultWorkers, "Concurrent workers")
 	retries := flag.Int("retries", defaultRetries, "Retries")
+	insecure := flag.Bool("insecure", false, "Skip TLS")
+	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy")
 	dnsFlag := flag.String("dns", "", "Custom DNS server (e.g., 8.8.8.8:53)")
 	dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS lookup timeout")
 	hostsFileFlag := flag.String("hosts-file", "", "Custom hosts file path")
 	rateLimitFlag := flag.Int("rate-limit", 1000, "Max requests per second")
 	flag.Parse()
 
+	insecureSkip = *insecure
 	customDNS = *dnsFlag
 	dnsTimeout = *dnsTimeoutFlag
 	hostsFilePath = *hostsFileFlag
 	rateLimiter = rate.NewLimiter(rate.Limit(*rateLimitFlag), *rateLimitFlag)
+
+	if *proxyFlag != "" {
+		rawDialer, err := proxy.SOCKS5("tcp", *proxyFlag, nil, proxy.Direct)
+		if err != nil {
+			log.Fatalf("Failed to create SOCKS5 dialer: %v", err)
+		}
+		proxyPool = append(proxyPool, rawDialer)
+	}
 	loadHostsFile()
 
 	allTrackers, err := loadTrackers(*input)
 	if err != nil {
 		log.Fatalf("Failed to load trackers: %v", err)
 	}
-	udpTrackers := filterByProtocol(allTrackers, "udp")
-	if len(udpTrackers) == 0 {
-		log.Fatal("No UDP trackers found.")
+	udpWssTrackers := filterByProtocols(allTrackers, []string{"udp", "ws", "wss"})
+	if len(udpWssTrackers) == 0 {
+		log.Fatal("No UDP/WS/WSS trackers found.")
 	}
 
-	total := len(udpTrackers)
+	total := len(udpWssTrackers)
 	sem := make(chan struct{}, *workers)
 	results := make(chan CheckResult, total)
 	var wg sync.WaitGroup
@@ -691,19 +892,22 @@ func main() {
 		defer ticker.Stop()
 		for range ticker.C {
 			done := atomic.LoadInt32(&completed)
-			fmt.Printf("[UDP] [%d/%d] processed\n", done, total)
+			percent := float64(done) * 100 / float64(total)
+			fmt.Printf("%s[%s] %sProgress: %d/%d (%.1f%%)%s\n",
+				colorBlue, time.Now().Format("15:04:05"), colorReset, done, total, percent, colorReset)
 			if done >= int32(total) {
 				return
 			}
 		}
 	}()
 
-	for _, t := range udpTrackers {
+	startTime := time.Now()
+	for _, t := range udpWssTrackers {
 		wg.Add(1)
 		go func(tracker string) {
 			defer func() {
 				if r := recover(); r != nil {
-					log.Printf("Panic in tracker %s: %v", tracker, r)
+					log.Printf("%sPanic in tracker %s: %v%s", colorRed, tracker, r, colorReset)
 					results <- CheckResult{URL: tracker, Status: StatusInvalid}
 					atomic.AddInt32(&completed, 1)
 				}
@@ -712,6 +916,17 @@ func main() {
 			}()
 			sem <- struct{}{}
 			res := validateTracker(ctx, tracker, maxAttempts)
+			u, _ := url.Parse(tracker)
+			proto := strings.ToLower(u.Scheme)
+			coloredProto := protocolColor(proto)
+			coloredStatus := colorize(res.Status)
+			pingStr := "N/A"
+			if res.PingMs != nil {
+				pingStr = fmt.Sprintf("%dms", *res.PingMs)
+			}
+			fmt.Printf("%s[%s] %s%s %s %s %s%s\n",
+				colorBlue, time.Now().Format("15:04:05"), colorReset,
+				coloredProto, tracker, coloredStatus, pingStr, colorReset)
 			results <- res
 			atomic.AddInt32(&completed, 1)
 		}(t)
@@ -719,19 +934,25 @@ func main() {
 
 	wg.Wait()
 	close(results)
+	elapsed := time.Since(startTime)
 
 	var allResults []CheckResult
 	for res := range results {
 		allResults = append(allResults, res)
 	}
 
-	var aliveList, aliveIPv4Only, aliveIPv6Only, aliveDualStack []string
+	var aliveList, aliveUDP, aliveWS, aliveIPv4Only, aliveIPv6Only, aliveDualStack []string
 	var entries []TrackerEntry
+	var sumPing int64
+	var countPing int64
+
 	for _, r := range allResults {
+		u, _ := url.Parse(r.URL)
+		protocol := strings.ToLower(u.Scheme)
 		entry := TrackerEntry{
 			URL:          r.URL,
 			Status:       r.Status,
-			Protocol:     "udp",
+			Protocol:     protocol,
 			PingMs:       r.PingMs,
 			SupportsIPv4: r.SupportsIPv4,
 			SupportsIPv6: r.SupportsIPv6,
@@ -739,6 +960,11 @@ func main() {
 		entries = append(entries, entry)
 		if r.Status == StatusAlive {
 			aliveList = append(aliveList, r.URL)
+			if protocol == "udp" {
+				aliveUDP = append(aliveUDP, r.URL)
+			} else if protocol == "ws" || protocol == "wss" {
+				aliveWS = append(aliveWS, r.URL)
+			}
 			if r.SupportsIPv4 != nil && r.SupportsIPv6 != nil && *r.SupportsIPv4 && *r.SupportsIPv6 {
 				aliveDualStack = append(aliveDualStack, r.URL)
 			} else if r.SupportsIPv4 != nil && *r.SupportsIPv4 && (r.SupportsIPv6 == nil || !*r.SupportsIPv6) {
@@ -746,16 +972,32 @@ func main() {
 			} else if r.SupportsIPv6 != nil && *r.SupportsIPv6 && (r.SupportsIPv4 == nil || !*r.SupportsIPv4) {
 				aliveIPv6Only = append(aliveIPv6Only, r.URL)
 			}
+			if r.PingMs != nil {
+				sumPing += *r.PingMs
+				countPing++
+			}
 		}
 	}
 
+	avgPing := 0.0
+	if countPing > 0 {
+		avgPing = float64(sumPing) / float64(countPing)
+	}
+
 	outputDir := filepath.Dir(".")
-	writeLines(filepath.Join(outputDir, "trackers_best_udp.txt"), sortUnique(aliveList))
-	writeLines(filepath.Join(outputDir, "trackers_best_udp_ipv4only.txt"), sortUnique(aliveIPv4Only))
-	writeLines(filepath.Join(outputDir, "trackers_best_udp_ipv6only.txt"), sortUnique(aliveIPv6Only))
-	writeLines(filepath.Join(outputDir, "trackers_best_udp_dualstack.txt"), sortUnique(aliveDualStack))
+	writeLines(filepath.Join(outputDir, "trackers_best_udp_wss.txt"), sortUnique(aliveList))
+	writeLines(filepath.Join(outputDir, "trackers_best_udp.txt"), sortUnique(aliveUDP))
+	writeLines(filepath.Join(outputDir, "trackers_best_ws.txt"), sortUnique(aliveWS))
+	writeLines(filepath.Join(outputDir, "trackers_alive_ipv4only.txt"), sortUnique(aliveIPv4Only))
+	writeLines(filepath.Join(outputDir, "trackers_alive_ipv6only.txt"), sortUnique(aliveIPv6Only))
+	writeLines(filepath.Join(outputDir, "trackers_alive_dualstack.txt"), sortUnique(aliveDualStack))
 
 	jsonData, _ := json.MarshalIndent(entries, "", "  ")
-	os.WriteFile(filepath.Join(outputDir, "trackers_udp.json"), jsonData, 0644)
-	fmt.Println("UDP check complete")
+	os.WriteFile(filepath.Join(outputDir, "trackers_udp_wss.json"), jsonData, 0644)
+
+	fmt.Printf("%s✓ UDP+WSS check finished in %s%s\n", colorGreen, elapsed, colorReset)
+	fmt.Printf("%s  Total trackers: %d%s\n", colorWhite, total, colorReset)
+	fmt.Printf("%s  Alive: %d%s\n", colorGreen, len(aliveList), colorReset)
+	fmt.Printf("%s  Dead: %d%s\n", colorRed, total-len(aliveList), colorReset)
+	fmt.Printf("%s  Avg response time: %.2f ms%s\n", colorYellow, avgPing, colorReset)
 }

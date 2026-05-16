@@ -1,4 +1,3 @@
-// merge.go
 package main
 
 import (
@@ -305,17 +304,13 @@ func main() {
 	writeLines("trackers_all.txt", allTrackers)
 
 	httpEntries, _ := loadJSONResults("trackers_http.json")
-	udpEntries, _ := loadJSONResults("trackers_udp.json")
-	wssEntries, _ := loadJSONResults("trackers_wss.json")
+	udpWssEntries, _ := loadJSONResults("trackers_udp_wss.json")
 
 	allEntries := make(map[string]TrackerEntry)
 	for _, e := range httpEntries {
 		allEntries[e.URL] = e
 	}
-	for _, e := range udpEntries {
-		allEntries[e.URL] = e
-	}
-	for _, e := range wssEntries {
+	for _, e := range udpWssEntries {
 		allEntries[e.URL] = e
 	}
 
