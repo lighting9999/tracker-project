@@ -14,10 +14,12 @@ import (
 	"math/big"
 	"net"
 	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"slices"
 	"strconv"
 	"strings"
@@ -26,11 +28,12 @@ import (
 	"time"
 
 	"golang.org/x/net/proxy"
+	"golang.org/x/sync/singleflight"
 	"golang.org/x/time/rate"
 )
 
 const defaultTimeout = 5 * time.Second
-const defaultWorkers = 500
+const defaultWorkers = 1000
 const defaultRetries = 1
 
 const (
@@ -57,22 +60,29 @@ type TrackerEntry struct {
 }
 
 var (
-	trackerRe        = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
-	peerIDPrefix     string
-	infoHashes       []string
-	hashIndex        uint32
-	userAgents       = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
-	dnsCache         sync.Map
-	dnsCacheTTL      = 10 * time.Minute
-	compact0Fallback bool
-	insecureSkip     bool
-	proxyPool        []proxy.Dialer
-	proxyMu          sync.Mutex
-	proxyIdx         uint32
-	peersCollector   sync.Map
-	rateLimiter      *rate.Limiter
-	useSAM           bool
-	samHost          string
+	trackerRe         = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
+	peerIDPrefix      string
+	infoHashes        []string
+	hashIndex         uint32
+	userAgents        = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
+	dnsCache          sync.Map
+	dnsCacheTTL       = 10 * time.Minute
+	compact0Fallback  bool
+	insecureSkip      bool
+	proxyPool         []proxy.Dialer
+	proxyMu           sync.Mutex
+	proxyIdx          uint32
+	peersCollector    sync.Map
+	rateLimiter       *rate.Limiter
+	useSAM            bool
+	samHost           string
+	customDNS         string
+	dnsTimeout        time.Duration
+	hostsMap          map[string][]string
+	hostsMapMu        sync.RWMutex
+	hostsFilePath     string
+	samConnCache      sync.Map
+	samGroup          singleflight.Group
 )
 
 type dnsCacheEntry struct {
@@ -80,9 +90,24 @@ type dnsCacheEntry struct {
 	ts    time.Time
 }
 
+type samPooledConn struct {
+	net.Conn
+	host string
+	once sync.Once
+}
+
+func (c *samPooledConn) Close() error {
+	var err error
+	c.once.Do(func() {
+		samConnCache.Delete(c.host)
+		err = c.Conn.Close()
+	})
+	return err
+}
+
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	rateLimiter = rate.NewLimiter(rate.Limit(200), 10)
+	rateLimiter = rate.NewLimiter(rate.Limit(1000), 100)
 }
 
 func randomNumeric(n int) string {
@@ -253,6 +278,85 @@ func responseHasIPv6Peers(data []byte) bool {
 	return true
 }
 
+func loadHostsFile() {
+	hostsMapMu.Lock()
+	defer hostsMapMu.Unlock()
+	hostsMap = make(map[string][]string)
+	path := hostsFilePath
+	if path == "" {
+		if runtime.GOOS == "windows" {
+			path = `C:\Windows\System32\drivers\etc\hosts`
+		} else {
+			path = "/etc/hosts"
+		}
+	}
+	f, err := os.Open(path)
+	if err != nil {
+		return
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if i := strings.Index(line, "#"); i >= 0 {
+			line = line[:i]
+		}
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		fields := strings.Fields(line)
+		if len(fields) < 2 {
+			continue
+		}
+		ip := fields[0]
+		for _, host := range fields[1:] {
+			hostsMap[strings.ToLower(host)] = append(hostsMap[strings.ToLower(host)], ip)
+		}
+	}
+}
+
+func lookupIPWithHosts(ctx context.Context, host string) ([]net.IP, error) {
+	hostLower := strings.ToLower(host)
+	hostsMapMu.RLock()
+	ipsStr, ok := hostsMap[hostLower]
+	hostsMapMu.RUnlock()
+	if ok {
+		ips := make([]net.IP, 0, len(ipsStr))
+		for _, s := range ipsStr {
+			if ip := net.ParseIP(s); ip != nil {
+				ips = append(ips, ip)
+			}
+		}
+		if len(ips) > 0 {
+			return ips, nil
+		}
+	}
+	dialer := &net.Dialer{Timeout: dnsTimeout}
+	resolver := &net.Resolver{
+		PreferGo: true,
+		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+			if customDNS != "" {
+				if !strings.Contains(customDNS, ":") {
+					address = customDNS + ":53"
+				} else {
+					address = customDNS
+				}
+			}
+			return dialer.DialContext(ctx, network, address)
+		},
+	}
+	addrs, err := resolver.LookupIPAddr(ctx, host)
+	if err != nil {
+		return nil, err
+	}
+	ips := make([]net.IP, len(addrs))
+	for i, addr := range addrs {
+		ips[i] = addr.IP
+	}
+	return ips, nil
+}
+
 func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6Only bool) (net.Conn, error) {
 	host, port, _ := net.SplitHostPort(addr)
 	if net.ParseIP(host) != nil {
@@ -276,12 +380,12 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 		}
 	}
 	if ips == nil {
-		lookupCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
+		lookupCtx, cancel := context.WithTimeout(ctx, dnsTimeout)
 		defer cancel()
 		var err error
 		done := make(chan struct{})
 		go func() {
-			ips, err = net.LookupIP(host)
+			ips, err = lookupIPWithHosts(lookupCtx, host)
 			close(done)
 		}()
 		select {
@@ -372,12 +476,7 @@ func samStreamConnect(conn net.Conn, sessionID, dest, port string) error {
 	return nil
 }
 
-func dialSAM(ctx context.Context, addr string) (net.Conn, error) {
-	host, port, err := net.SplitHostPort(addr)
-	if err != nil {
-		return nil, err
-	}
-	dest := host + ".i2p"
+func dialSAMRaw(ctx context.Context, dest, port string) (net.Conn, error) {
 	samConn, err := net.DialTimeout("tcp", samHost, defaultTimeout)
 	if err != nil {
 		return nil, fmt.Errorf("connect to SAM bridge: %w", err)
@@ -407,6 +506,42 @@ func (c *samStreamConn) Read(b []byte) (int, error) {
 	return c.reader.Read(b)
 }
 
+func getSAMConnection(ctx context.Context, hostWithPort string) (net.Conn, error) {
+	host, port, err := net.SplitHostPort(hostWithPort)
+	if err != nil {
+		return nil, err
+	}
+	if !strings.HasSuffix(host, ".i2p") {
+		return nil, fmt.Errorf("not an i2p host")
+	}
+	key := host
+	if cached, ok := samConnCache.Load(key); ok {
+		conn := cached.(*samPooledConn)
+		if conn.Conn != nil {
+			return conn, nil
+		}
+	}
+	v, err, _ := samGroup.Do(key, func() (interface{}, error) {
+		if cached, ok := samConnCache.Load(key); ok {
+			conn := cached.(*samPooledConn)
+			if conn.Conn != nil {
+				return conn, nil
+			}
+		}
+		rawConn, err := dialSAMRaw(ctx, host, port)
+		if err != nil {
+			return nil, err
+		}
+		pooled := &samPooledConn{Conn: rawConn, host: key}
+		samConnCache.Store(key, pooled)
+		return pooled, nil
+	})
+	if err != nil {
+		return nil, err
+	}
+	return v.(net.Conn), nil
+}
+
 func getNextProxy() proxy.Dialer {
 	if len(proxyPool) == 0 {
 		return nil
@@ -422,10 +557,11 @@ func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 	if cached, ok := httpClientCache.Load(key); ok {
 		return cached.(*http.Client)
 	}
+	cookieJar, _ := cookiejar.New(nil)
 	tr := &http.Transport{
 		TLSClientConfig:       &tls.Config{InsecureSkipVerify: insecureSkip},
-		MaxIdleConns:          200,
-		MaxIdleConnsPerHost:   50,
+		MaxIdleConns:          500,
+		MaxIdleConnsPerHost:   100,
 		IdleConnTimeout:       90 * time.Second,
 		DisableKeepAlives:     false,
 		ForceAttemptHTTP2:     true,
@@ -434,7 +570,7 @@ func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 		host, _, _ := net.SplitHostPort(addr)
 		if strings.HasSuffix(host, ".i2p") {
 			if useSAM {
-				return dialSAM(ctx, addr)
+				return getSAMConnection(ctx, addr)
 			}
 			if p := getNextProxy(); p != nil {
 				return p.Dial(network, addr)
@@ -445,6 +581,7 @@ func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 	client := &http.Client{
 		Transport: tr,
 		Timeout:   defaultTimeout,
+		Jar:       cookieJar,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -549,95 +686,116 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 	if err := rateLimiter.Wait(ctx); err != nil {
 		return false, nil, false, err
 	}
-	base, err := url.Parse(tracker)
-	if err != nil {
-		return false, nil, false, err
-	}
-	params := base.Query()
-	if raw := infoHashBytes(infoHash); raw != nil {
-		params.Set("info_hash", url.QueryEscape(string(raw)))
-	} else {
-		params.Set("info_hash", "00000000000000000000")
-	}
-	params.Set("peer_id", peerIDPrefix)
-	params.Set("port", "6881")
-	params.Set("uploaded", "0")
-	params.Set("downloaded", "0")
-	params.Set("left", "0")
-	if compact {
-		params.Set("compact", "1")
-	} else {
-		params.Set("compact", "0")
-	}
-	params.Set("event", "started")
-	base.RawQuery = params.Encode()
-
-	req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
-	if err != nil {
-		return false, nil, false, err
-	}
-	req.Header.Set("User-Agent", randomUA())
-
-	client := getHTTPClient(ipv4Only, ipv6Only)
-	start := time.Now()
-	resp, err := client.Do(req)
-	if err != nil {
-		return false, nil, false, err
-	}
-	defer resp.Body.Close()
-	elapsed := int64(time.Since(start).Milliseconds())
-	if resp.StatusCode == http.StatusTooManyRequests {
-		if retryAfter := resp.Header.Get("Retry-After"); retryAfter != "" {
-			if sec, _ := strconv.Atoi(retryAfter); sec > 0 {
-				time.Sleep(time.Duration(sec) * time.Second)
-				return checkHTTPWithFamily(ctx, tracker, infoHash, compact, ipv4Only, ipv6Only)
-			}
+	const max429Retries = 2
+	for retry := 0; retry <= max429Retries; retry++ {
+		base, err := url.Parse(tracker)
+		if err != nil {
+			return false, nil, false, err
 		}
-		return false, &elapsed, false, fmt.Errorf("rate limited")
-	}
-	body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
-	if err != nil {
-		return false, &elapsed, false, err
-	}
-	if isHTML(body) || isParkedDomain(body) {
-		return false, &elapsed, false, fmt.Errorf("html or parked")
-	}
-	if bdecodeSimple(body) {
-		if peers := extractCompactPeers(body); len(peers) > 0 {
-			for _, p := range peers {
-				peersCollector.Store(p, struct{}{})
-			}
+		params := base.Query()
+		if raw := infoHashBytes(infoHash); raw != nil {
+			params.Set("info_hash", url.QueryEscape(string(raw)))
+		} else {
+			params.Set("info_hash", "00000000000000000000")
 		}
-		has6 := responseHasIPv6Peers(body)
-		if has6 {
-			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
-				for _, p := range peers6 {
+		params.Set("peer_id", peerIDPrefix)
+		params.Set("port", "6881")
+		params.Set("uploaded", "0")
+		params.Set("downloaded", "0")
+		params.Set("left", "0")
+		if compact {
+			params.Set("compact", "1")
+		} else {
+			params.Set("compact", "0")
+		}
+		params.Set("event", "started")
+		base.RawQuery = params.Encode()
+
+		req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
+		if err != nil {
+			return false, nil, false, err
+		}
+		req.Header.Set("User-Agent", randomUA())
+
+		client := getHTTPClient(ipv4Only, ipv6Only)
+		start := time.Now()
+		resp, err := client.Do(req)
+		if err != nil {
+			return false, nil, false, err
+		}
+		elapsed := int64(time.Since(start).Milliseconds())
+		if resp.StatusCode == http.StatusTooManyRequests {
+			resp.Body.Close()
+			retryAfter := resp.Header.Get("Retry-After")
+			if retryAfter != "" {
+				if sec, err := strconv.Atoi(retryAfter); err == nil && sec > 0 {
+					select {
+					case <-time.After(time.Duration(sec) * time.Second):
+					case <-ctx.Done():
+						return false, &elapsed, false, ctx.Err()
+					}
+					continue
+				}
+				if t, err := http.ParseTime(retryAfter); err == nil {
+					wait := time.Until(t)
+					if wait > 0 {
+						select {
+						case <-time.After(wait):
+						case <-ctx.Done():
+							return false, &elapsed, false, ctx.Err()
+						}
+						continue
+					}
+				}
+			}
+			return false, &elapsed, false, fmt.Errorf("rate limited")
+		}
+		body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
+		resp.Body.Close()
+		if err != nil {
+			return false, &elapsed, false, err
+		}
+		if isHTML(body) || isParkedDomain(body) {
+			return false, &elapsed, false, fmt.Errorf("html or parked")
+		}
+		if bdecodeSimple(body) {
+			if peers := extractCompactPeers(body); len(peers) > 0 {
+				for _, p := range peers {
 					peersCollector.Store(p, struct{}{})
 				}
 			}
-		}
-		return true, &elapsed, has6, nil
-	}
-	if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
-		if peers := extractCompactPeers(body); len(peers) > 0 {
-			for _, p := range peers {
-				peersCollector.Store(p, struct{}{})
+			has6 := responseHasIPv6Peers(body)
+			if has6 {
+				if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
+					for _, p := range peers6 {
+						peersCollector.Store(p, struct{}{})
+					}
+				}
 			}
+			return true, &elapsed, has6, nil
 		}
-		has6 := responseHasIPv6Peers(body)
-		if has6 {
-			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
-				for _, p := range peers6 {
+		if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
+			if peers := extractCompactPeers(body); len(peers) > 0 {
+				for _, p := range peers {
 					peersCollector.Store(p, struct{}{})
 				}
 			}
+			has6 := responseHasIPv6Peers(body)
+			if has6 {
+				if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
+					for _, p := range peers6 {
+						peersCollector.Store(p, struct{}{})
+					}
+				}
+			}
+			return true, &elapsed, has6, nil
 		}
-		return true, &elapsed, has6, nil
+		if resp.StatusCode == http.StatusOK && len(body) > 50000 {
+			return false, &elapsed, false, fmt.Errorf("too large")
+		}
+		return false, &elapsed, false, fmt.Errorf("invalid response")
 	}
-	if resp.StatusCode == http.StatusOK && len(body) > 50000 {
-		return false, &elapsed, false, fmt.Errorf("too large")
-	}
-	return false, &elapsed, false, fmt.Errorf("invalid response")
+	return false, nil, false, fmt.Errorf("max retries for 429 exceeded")
 }
 
 func checkHTTP(ctx context.Context, tracker string, infoHash string, useCompact0 bool) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
@@ -799,12 +957,20 @@ func main() {
 	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy")
 	samFlag := flag.Bool("sam", false, "Enable I2P SAM bridge (port 7656)")
 	samHostFlag := flag.String("sam-host", "127.0.0.1:7656", "SAM bridge address")
+	dnsFlag := flag.String("dns", "", "Custom DNS server (e.g., 8.8.8.8:53)")
+	dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS lookup timeout")
+	hostsFileFlag := flag.String("hosts-file", "", "Custom hosts file path")
+	rateLimitFlag := flag.Int("rate-limit", 1000, "Max requests per second")
 	flag.Parse()
 
 	compact0Fallback = *compact0
 	insecureSkip = *insecure
 	useSAM = *samFlag
 	samHost = *samHostFlag
+	customDNS = *dnsFlag
+	dnsTimeout = *dnsTimeoutFlag
+	hostsFilePath = *hostsFileFlag
+	rateLimiter = rate.NewLimiter(rate.Limit(*rateLimitFlag), *rateLimitFlag)
 
 	if *proxyFlag != "" {
 		rawDialer, err := proxy.SOCKS5("tcp", *proxyFlag, nil, proxy.Direct)
@@ -813,6 +979,7 @@ func main() {
 		}
 		proxyPool = append(proxyPool, rawDialer)
 	}
+	loadHostsFile()
 
 	allTrackers, err := loadTrackers(*input)
 	if err != nil {
@@ -874,6 +1041,7 @@ func main() {
 	}
 
 	var httpList, httpsList, i2pList []string
+	var ipv4OnlyList, ipv6OnlyList, dualStackList []string
 	var entries []TrackerEntry
 	for _, r := range allResults {
 		u, _ := url.Parse(r.URL)
@@ -900,6 +1068,13 @@ func main() {
 			} else if protocol == "i2p" {
 				i2pList = append(i2pList, r.URL)
 			}
+			if r.SupportsIPv4 != nil && r.SupportsIPv6 != nil && *r.SupportsIPv4 && *r.SupportsIPv6 {
+				dualStackList = append(dualStackList, r.URL)
+			} else if r.SupportsIPv4 != nil && *r.SupportsIPv4 && (r.SupportsIPv6 == nil || !*r.SupportsIPv6) {
+				ipv4OnlyList = append(ipv4OnlyList, r.URL)
+			} else if r.SupportsIPv6 != nil && *r.SupportsIPv6 && (r.SupportsIPv4 == nil || !*r.SupportsIPv4) {
+				ipv6OnlyList = append(ipv6OnlyList, r.URL)
+			}
 		}
 	}
 
@@ -907,6 +1082,9 @@ func main() {
 	writeLines(filepath.Join(outputDir, "trackers_best_http.txt"), sortUnique(httpList))
 	writeLines(filepath.Join(outputDir, "trackers_best_https.txt"), sortUnique(httpsList))
 	writeLines(filepath.Join(outputDir, "trackers_best_i2p.txt"), sortUnique(i2pList))
+	writeLines(filepath.Join(outputDir, "trackers_alive_ipv4only.txt"), sortUnique(ipv4OnlyList))
+	writeLines(filepath.Join(outputDir, "trackers_alive_ipv6only.txt"), sortUnique(ipv6OnlyList))
+	writeLines(filepath.Join(outputDir, "trackers_alive_dualstack.txt"), sortUnique(dualStackList))
 
 	jsonData, _ := json.MarshalIndent(entries, "", "  ")
 	os.WriteFile(filepath.Join(outputDir, "trackers_http.json"), jsonData, 0644)
