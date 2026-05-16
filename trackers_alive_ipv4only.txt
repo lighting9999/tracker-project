@@ -23,7 +23,6 @@ http://60.249.37.20/announce
 http://60.249.37.20:6969/announce
 http://79.111.12.213:6969/announce
 http://85.121.5.80:6969/announce
-http://92.112.126.44:6969/announce
 http://93.158.213.92:1337/announce
 http://94.72.140.51:6969/announce
 http://95.217.167.10:6969/announce
@@ -116,7 +115,6 @@ https://tracker.gcrenwp.top/announce
 https://tracker.leechshield.link/announce
 https://tracker.manager.v6.navy/announce
 https://tracker.moeblog.cn/announce
-https://tracker.moeking.me/announce
 https://tracker.moviesdb.top/announce
 https://tracker.nekomi.cn/announce
 https://tracker.pmman.tech/announce
