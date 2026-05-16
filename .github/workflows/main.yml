@@ -97,9 +97,9 @@ jobs:
           fi
           go mod tidy
           go mod download
-          CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_http script/check_http.go
-          CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_udp_wss script/check_udp_wss.go
-          CGO_ENABLED=0 go build -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o merge script/merge.go
+          CGO_ENABLED=0 go build -v -x -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_http script/check_http.go
+          CGO_ENABLED=0 go build -v -x -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_udp_wss script/check_udp_wss.go
+          CGO_ENABLED=0 go build -v -x -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o merge script/merge.go
 
       - name: Run HTTP/HTTPS/I2P checker
         run: |
