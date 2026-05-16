@@ -1,3 +1,4 @@
+// check_udp.go
 package main
 
 import (
@@ -17,6 +18,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"slices"
 	"strconv"
 	"strings"
@@ -28,7 +30,7 @@ import (
 )
 
 const defaultTimeout = 5 * time.Second
-const defaultWorkers = 500
+const defaultWorkers = 1000
 const defaultRetries = 1
 
 const (
@@ -63,6 +65,11 @@ var (
 	dnsCacheTTL    = 10 * time.Minute
 	peersCollector sync.Map
 	rateLimiter    *rate.Limiter
+	customDNS      string
+	dnsTimeout     time.Duration
+	hostsMap       map[string][]string
+	hostsMapMu     sync.RWMutex
+	hostsFilePath  string
 )
 
 type dnsCacheEntry struct {
@@ -72,7 +79,7 @@ type dnsCacheEntry struct {
 
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	rateLimiter = rate.NewLimiter(rate.Limit(100), 1)
+	rateLimiter = rate.NewLimiter(rate.Limit(1000), 100)
 }
 
 func randomNumeric(n int) string {
@@ -118,6 +125,126 @@ func collapsePathSlashes(path string) string {
 		return "/"
 	}
 	return string(out)
+}
+
+func loadHostsFile() {
+	hostsMapMu.Lock()
+	defer hostsMapMu.Unlock()
+	hostsMap = make(map[string][]string)
+	path := hostsFilePath
+	if path == "" {
+		if runtime.GOOS == "windows" {
+			path = `C:\Windows\System32\drivers\etc\hosts`
+		} else {
+			path = "/etc/hosts"
+		}
+	}
+	f, err := os.Open(path)
+	if err != nil {
+		return
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if i := strings.Index(line, "#"); i >= 0 {
+			line = line[:i]
+		}
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		fields := strings.Fields(line)
+		if len(fields) < 2 {
+			continue
+		}
+		ip := fields[0]
+		for _, host := range fields[1:] {
+			hostsMap[strings.ToLower(host)] = append(hostsMap[strings.ToLower(host)], ip)
+		}
+	}
+}
+
+func lookupIPWithHosts(ctx context.Context, host string) ([]net.IP, error) {
+	hostLower := strings.ToLower(host)
+	hostsMapMu.RLock()
+	ipsStr, ok := hostsMap[hostLower]
+	hostsMapMu.RUnlock()
+	if ok {
+		ips := make([]net.IP, 0, len(ipsStr))
+		for _, s := range ipsStr {
+			if ip := net.ParseIP(s); ip != nil {
+				ips = append(ips, ip)
+			}
+		}
+		if len(ips) > 0 {
+			return ips, nil
+		}
+	}
+	dialer := &net.Dialer{Timeout: dnsTimeout}
+	resolver := &net.Resolver{
+		PreferGo: true,
+		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+			if customDNS != "" {
+				if !strings.Contains(customDNS, ":") {
+					address = customDNS + ":53"
+				} else {
+					address = customDNS
+				}
+			}
+			return dialer.DialContext(ctx, network, address)
+		},
+	}
+	addrs, err := resolver.LookupIPAddr(ctx, host)
+	if err != nil {
+		return nil, err
+	}
+	ips := make([]net.IP, len(addrs))
+	for i, addr := range addrs {
+		ips[i] = addr.IP
+	}
+	return ips, nil
+}
+
+func resolveUDPAddrWithHosts(ctx context.Context, network, addr string) (*net.UDPAddr, error) {
+	host, portStr, err := net.SplitHostPort(addr)
+	if err != nil {
+		return nil, err
+	}
+	port, err := strconv.Atoi(portStr)
+	if err != nil {
+		return nil, err
+	}
+	var ips []net.IP
+	if net.ParseIP(host) != nil {
+		ips = []net.IP{net.ParseIP(host)}
+	} else {
+		if val, ok := dnsCache.Load(host); ok {
+			entry := val.(*dnsCacheEntry)
+			if time.Since(entry.ts) < dnsCacheTTL {
+				ips = make([]net.IP, len(entry.addrs))
+				for i, a := range entry.addrs {
+					ips[i] = net.ParseIP(a)
+				}
+			}
+		}
+		if ips == nil {
+			var err error
+			ips, err = lookupIPWithHosts(ctx, host)
+			if err != nil {
+				return nil, err
+			}
+			addrs := make([]string, len(ips))
+			for i, ip := range ips {
+				addrs[i] = ip.String()
+			}
+			dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
+		}
+	}
+	for _, ip := range ips {
+		return &net.UDPAddr{IP: ip, Port: port}, nil
+	}
+	return nil, fmt.Errorf("no IP for %s", host)
 }
 
 func bdecodeSimple(data []byte) bool {
@@ -288,26 +415,29 @@ func infoHashBytes(hashStr string) []byte {
 	return raw
 }
 
-func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *int64, *bool) {
+func checkUDPWithFamily(ctx context.Context, tracker string, infoHash string, ipv6Only bool) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
 	if err := rateLimiter.Wait(ctx); err != nil {
-		return StatusDead, nil, nil
+		return false, nil, false, err
 	}
 	u, err := url.Parse(tracker)
 	if err != nil {
-		return StatusInvalid, nil, nil
+		return false, nil, false, err
 	}
 	host := u.Hostname()
 	port := u.Port()
 	if port == "" {
 		port = "80"
 	}
-	addr, err := net.ResolveUDPAddr("udp", net.JoinHostPort(host, port))
+	addr, err := resolveUDPAddrWithHosts(ctx, "udp", net.JoinHostPort(host, port))
 	if err != nil {
-		return StatusInvalid, nil, nil
+		return false, nil, false, err
+	}
+	if ipv6Only && addr.IP.To4() != nil {
+		return false, nil, false, fmt.Errorf("ipv6 only but got ipv4")
 	}
 	conn, err := net.DialUDP("udp", nil, addr)
 	if err != nil {
-		return StatusDead, nil, nil
+		return false, nil, false, err
 	}
 	defer conn.Close()
 	conn.SetDeadline(time.Now().Add(defaultTimeout))
@@ -321,12 +451,12 @@ func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *in
 
 	start := time.Now()
 	if _, err := conn.Write(connReq); err != nil {
-		return StatusDead, nil, nil
+		return false, nil, false, err
 	}
 	connResp := make([]byte, 16)
 	n, err := conn.Read(connResp)
 	if err != nil || n < 16 || binary.BigEndian.Uint32(connResp[0:4]) != 0 || binary.BigEndian.Uint32(connResp[4:8]) != transConnect {
-		return StatusDead, nil, nil
+		return false, nil, false, fmt.Errorf("connect failed")
 	}
 	newConnectionID := binary.BigEndian.Uint64(connResp[8:16])
 
@@ -334,7 +464,7 @@ func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *in
 	if ih == nil {
 		ih = make([]byte, 20)
 		if _, err := rand.Read(ih); err != nil {
-			return StatusDead, nil, nil
+			return false, nil, false, err
 		}
 	}
 
@@ -355,33 +485,68 @@ func checkUDP(ctx context.Context, tracker string, infoHash string) (string, *in
 	binary.BigEndian.PutUint16(annReq[96:98], 6881)
 
 	if _, err := conn.Write(annReq); err != nil {
-		return StatusDead, nil, nil
+		return false, nil, false, err
 	}
 	annResp := make([]byte, 2048)
-	type readResult struct {
-		n   int
-		err error
+	n, err = conn.Read(annResp)
+	if err != nil || n < 20 {
+		return false, nil, false, err
 	}
-	done := make(chan readResult, 1)
-	go func() {
-		n, err := conn.Read(annResp)
-		done <- readResult{n, err}
-	}()
-	select {
-	case <-ctx.Done():
-		return StatusDead, nil, nil
-	case r := <-done:
-		if r.err != nil || r.n < 20 {
-			return StatusDead, nil, nil
+	elapsed := int64(time.Since(start).Milliseconds())
+	action := binary.BigEndian.Uint32(annResp[0:4])
+	if (action == 1 && binary.BigEndian.Uint32(annResp[4:8]) == transAnnounce) || action == 3 {
+		has6 := responseHasIPv6Peers(annResp[:n])
+		if has6 {
+			if peers6 := extractCompact6Peers(annResp[:n]); len(peers6) > 0 {
+				for _, p := range peers6 {
+					peersCollector.Store(p, struct{}{})
+				}
+			}
 		}
-		elapsed := int64(time.Since(start).Milliseconds())
-		action := binary.BigEndian.Uint32(annResp[0:4])
-		if (action == 1 && binary.BigEndian.Uint32(annResp[4:8]) == transAnnounce) || action == 3 {
-			supportsIPv6 := responseHasIPv6Peers(annResp[:r.n])
-			return StatusAlive, &elapsed, &supportsIPv6
+		if peers := extractCompactPeers(annResp[:n]); len(peers) > 0 {
+			for _, p := range peers {
+				peersCollector.Store(p, struct{}{})
+			}
 		}
-		return StatusDead, &elapsed, nil
+		return true, &elapsed, has6, nil
 	}
+	return false, &elapsed, false, nil
+}
+
+func checkUDP(ctx context.Context, tracker string, infoHash string) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
+	alive4, ping4, has6inResp4, err4 := checkUDPWithFamily(ctx, tracker, infoHash, false)
+	has4 := alive4
+	var bestPing *int64
+	if has4 {
+		bestPing = ping4
+	}
+	has6 := false
+	if has4 && has6inResp4 {
+		has6 = true
+	}
+	if !has6 {
+		alive6, ping6, _, err6 := checkUDPWithFamily(ctx, tracker, infoHash, true)
+		if alive6 {
+			has6 = true
+			if bestPing == nil || (ping6 != nil && (bestPing == nil || *ping6 < *bestPing)) {
+				bestPing = ping6
+			}
+		}
+		_ = err6
+	}
+	if has4 && has6 {
+		true4, true6 := true, true
+		return StatusAlive, bestPing, &true4, &true6
+	}
+	if has4 {
+		true4 := true
+		return StatusAlive, bestPing, &true4, nil
+	}
+	if has6 {
+		true6 := true
+		return StatusAlive, bestPing, nil, &true6
+	}
+	return StatusDead, nil, nil, nil
 }
 
 func validateTracker(ctx context.Context, tracker string, maxAttempts int) CheckResult {
@@ -396,15 +561,14 @@ func validateTracker(ctx context.Context, tracker string, maxAttempts int) Check
 		infoHash := nextInfoHash()
 		var status string
 		var ping *int64
-		var supportsIPv6 *bool
+		var supportsIPv4, supportsIPv6 *bool
 		switch scheme {
 		case "udp":
-			status, ping, supportsIPv6 = checkUDP(ctx, tracker, infoHash)
+			status, ping, supportsIPv4, supportsIPv6 = checkUDP(ctx, tracker, infoHash)
 		default:
 			status = StatusInvalid
 		}
-		supportsIPv4 := true
-		last = CheckResult{URL: tracker, Status: status, PingMs: ping, SupportsIPv4: &supportsIPv4, SupportsIPv6: supportsIPv6}
+		last = CheckResult{URL: tracker, Status: status, PingMs: ping, SupportsIPv4: supportsIPv4, SupportsIPv6: supportsIPv6}
 		if status != StatusDead {
 			break
 		}
@@ -490,7 +654,17 @@ func main() {
 	input := flag.String("input", "merged_trackers.txt", "Input file")
 	workers := flag.Int("workers", defaultWorkers, "Concurrent workers")
 	retries := flag.Int("retries", defaultRetries, "Retries")
+	dnsFlag := flag.String("dns", "", "Custom DNS server (e.g., 8.8.8.8:53)")
+	dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS lookup timeout")
+	hostsFileFlag := flag.String("hosts-file", "", "Custom hosts file path")
+	rateLimitFlag := flag.Int("rate-limit", 1000, "Max requests per second")
 	flag.Parse()
+
+	customDNS = *dnsFlag
+	dnsTimeout = *dnsTimeoutFlag
+	hostsFilePath = *hostsFileFlag
+	rateLimiter = rate.NewLimiter(rate.Limit(*rateLimitFlag), *rateLimitFlag)
+	loadHostsFile()
 
 	allTrackers, err := loadTrackers(*input)
 	if err != nil {
@@ -551,7 +725,7 @@ func main() {
 		allResults = append(allResults, res)
 	}
 
-	var aliveList []string
+	var aliveList, aliveIPv4Only, aliveIPv6Only, aliveDualStack []string
 	var entries []TrackerEntry
 	for _, r := range allResults {
 		entry := TrackerEntry{
@@ -565,11 +739,22 @@ func main() {
 		entries = append(entries, entry)
 		if r.Status == StatusAlive {
 			aliveList = append(aliveList, r.URL)
+			if r.SupportsIPv4 != nil && r.SupportsIPv6 != nil && *r.SupportsIPv4 && *r.SupportsIPv6 {
+				aliveDualStack = append(aliveDualStack, r.URL)
+			} else if r.SupportsIPv4 != nil && *r.SupportsIPv4 && (r.SupportsIPv6 == nil || !*r.SupportsIPv6) {
+				aliveIPv4Only = append(aliveIPv4Only, r.URL)
+			} else if r.SupportsIPv6 != nil && *r.SupportsIPv6 && (r.SupportsIPv4 == nil || !*r.SupportsIPv4) {
+				aliveIPv6Only = append(aliveIPv6Only, r.URL)
+			}
 		}
 	}
 
 	outputDir := filepath.Dir(".")
 	writeLines(filepath.Join(outputDir, "trackers_best_udp.txt"), sortUnique(aliveList))
+	writeLines(filepath.Join(outputDir, "trackers_best_udp_ipv4only.txt"), sortUnique(aliveIPv4Only))
+	writeLines(filepath.Join(outputDir, "trackers_best_udp_ipv6only.txt"), sortUnique(aliveIPv6Only))
+	writeLines(filepath.Join(outputDir, "trackers_best_udp_dualstack.txt"), sortUnique(aliveDualStack))
+
 	jsonData, _ := json.MarshalIndent(entries, "", "  ")
 	os.WriteFile(filepath.Join(outputDir, "trackers_udp.json"), jsonData, 0644)
 	fmt.Println("UDP check complete")

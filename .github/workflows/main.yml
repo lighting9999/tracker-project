@@ -39,7 +39,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.23'
+          go-version: '1.25'
 
       - name: Configure Git
         run: |
@@ -100,30 +100,39 @@ jobs:
         run: |
           ./check_http \
             -input webtracker/input_merged.txt \
-            -workers 800 \
+            -workers 1000 \
             -retries 1 \
             -compact0-fallback \
             -insecure \
             -proxy socks5://localhost:4444 \
-            -sam
+            -sam \
+            -dns 8.8.8.8 \
+            -dns-timeout 5s \
+            -rate-limit 2000
           echo "HTTP/HTTPS/I2P check completed"
 
       - name: Run UDP checker
         run: |
           ./check_udp \
             -input webtracker/input_merged.txt \
-            -workers 500 \
-            -retries 1
+            -workers 1000 \
+            -retries 1 \
+            -dns 8.8.8.8 \
+            -dns-timeout 5s \
+            -rate-limit 2000
           echo "UDP check completed"
 
       - name: Run WSS/WS checker
         run: |
           ./check_wss \
             -input webtracker/input_merged.txt \
-            -workers 500 \
+            -workers 1000 \
             -retries 1 \
             -insecure \
-            -proxy socks5://localhost:4444
+            -proxy socks5://localhost:4444 \
+            -dns 8.8.8.8 \
+            -dns-timeout 5s \
+            -rate-limit 2000
           echo "WSS/WS check completed"
 
       - name: Merge results
@@ -154,7 +163,7 @@ jobs:
 
       - name: Copy tracker download files to public
         run: |
-          cp trackers_all.txt trackers_best*.txt public/ 2>/dev/null || true
+          cp trackers_all.txt trackers_best*.txt trackers_alive_*.txt public/ 2>/dev/null || true
           if [ -f trackers_peers.txt ]; then cp trackers_peers.txt public/; fi
           cp trackers_best_http.txt trackers_best_https.txt trackers_best_i2p.txt \
              trackers_best_udp.txt trackers_best_ws.txt public/ 2>/dev/null || true
@@ -180,7 +189,7 @@ jobs:
         run: |
           date +'%Y%m%d%H' > date.txt
           rm -rf public/ _site/ jekyll/_site/
-          git add trackers_all.txt trackers_best*.txt trackers_peers.txt tracker_history.tsv \
+          git add trackers_all.txt trackers_best*.txt trackers_alive_*.txt trackers_peers.txt tracker_history.tsv \
                   trackers_http.json trackers_udp.json trackers_wss.json date.txt robots.txt 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes, skip commit."

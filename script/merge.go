@@ -1,3 +1,4 @@
+// merge.go
 package main
 
 import (
@@ -319,8 +320,8 @@ func main() {
 	}
 
 	var finalEntries []TrackerEntry
-	var aliveList []string
-	var aliveHTTP, aliveHTTPS, aliveUDP, aliveWSS, aliveI2P []string
+	var aliveList, aliveHTTP, aliveHTTPS, aliveUDP, aliveWSS, aliveI2P []string
+	var aliveIPv4Only, aliveIPv6Only, aliveDualStack []string
 	var totalAlive, totalDead, totalInvalid int
 	var sumPing int64
 	var countPing int64
@@ -350,6 +351,13 @@ func main() {
 			case "i2p":
 				aliveI2P = append(aliveI2P, url)
 			}
+			if entry.SupportsIPv4 != nil && entry.SupportsIPv6 != nil && *entry.SupportsIPv4 && *entry.SupportsIPv6 {
+				aliveDualStack = append(aliveDualStack, url)
+			} else if entry.SupportsIPv4 != nil && *entry.SupportsIPv4 && (entry.SupportsIPv6 == nil || !*entry.SupportsIPv6) {
+				aliveIPv4Only = append(aliveIPv4Only, url)
+			} else if entry.SupportsIPv6 != nil && *entry.SupportsIPv6 && (entry.SupportsIPv4 == nil || !*entry.SupportsIPv4) {
+				aliveIPv6Only = append(aliveIPv6Only, url)
+			}
 			if entry.PingMs != nil {
 				p := *entry.PingMs
 				sumPing += p
@@ -375,6 +383,9 @@ func main() {
 	writeLines("trackers_best_udp.txt", sortUnique(aliveUDP))
 	writeLines("trackers_best_ws.txt", sortUnique(aliveWSS))
 	writeLines("trackers_best_i2p.txt", sortUnique(aliveI2P))
+	writeLines("trackers_alive_ipv4only.txt", sortUnique(aliveIPv4Only))
+	writeLines("trackers_alive_ipv6only.txt", sortUnique(aliveIPv6Only))
+	writeLines("trackers_alive_dualstack.txt", sortUnique(aliveDualStack))
 
 	protocols := ProtocolStats{}
 	for _, u := range aliveList {

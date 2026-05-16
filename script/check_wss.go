@@ -1,3 +1,4 @@
+// check_wss.go
 package main
 
 import (
@@ -12,11 +13,15 @@ import (
 	"log"
 	"math/big"
 	"net"
+	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"slices"
+	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -28,7 +33,7 @@ import (
 )
 
 const defaultTimeout = 5 * time.Second
-const defaultWorkers = 500
+const defaultWorkers = 1000
 const defaultRetries = 1
 
 const (
@@ -62,12 +67,16 @@ var (
 	dnsCache       sync.Map
 	dnsCacheTTL    = 10 * time.Minute
 	insecureSkip   bool
-	proxyAddrs     []string
 	proxyPool      []proxy.Dialer
 	proxyMu        sync.Mutex
 	proxyIdx       uint32
 	peersCollector sync.Map
 	rateLimiter    *rate.Limiter
+	customDNS      string
+	dnsTimeout     time.Duration
+	hostsMap       map[string][]string
+	hostsMapMu     sync.RWMutex
+	hostsFilePath  string
 )
 
 type dnsCacheEntry struct {
@@ -77,7 +86,7 @@ type dnsCacheEntry struct {
 
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
-	rateLimiter = rate.NewLimiter(rate.Limit(100), 1)
+	rateLimiter = rate.NewLimiter(rate.Limit(1000), 100)
 }
 
 func randomNumeric(n int) string {
@@ -125,6 +134,85 @@ func collapsePathSlashes(path string) string {
 	return string(out)
 }
 
+func loadHostsFile() {
+	hostsMapMu.Lock()
+	defer hostsMapMu.Unlock()
+	hostsMap = make(map[string][]string)
+	path := hostsFilePath
+	if path == "" {
+		if runtime.GOOS == "windows" {
+			path = `C:\Windows\System32\drivers\etc\hosts`
+		} else {
+			path = "/etc/hosts"
+		}
+	}
+	f, err := os.Open(path)
+	if err != nil {
+		return
+	}
+	defer f.Close()
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if i := strings.Index(line, "#"); i >= 0 {
+			line = line[:i]
+		}
+		line = strings.TrimSpace(line)
+		if line == "" {
+			continue
+		}
+		fields := strings.Fields(line)
+		if len(fields) < 2 {
+			continue
+		}
+		ip := fields[0]
+		for _, host := range fields[1:] {
+			hostsMap[strings.ToLower(host)] = append(hostsMap[strings.ToLower(host)], ip)
+		}
+	}
+}
+
+func lookupIPWithHosts(ctx context.Context, host string) ([]net.IP, error) {
+	hostLower := strings.ToLower(host)
+	hostsMapMu.RLock()
+	ipsStr, ok := hostsMap[hostLower]
+	hostsMapMu.RUnlock()
+	if ok {
+		ips := make([]net.IP, 0, len(ipsStr))
+		for _, s := range ipsStr {
+			if ip := net.ParseIP(s); ip != nil {
+				ips = append(ips, ip)
+			}
+		}
+		if len(ips) > 0 {
+			return ips, nil
+		}
+	}
+	dialer := &net.Dialer{Timeout: dnsTimeout}
+	resolver := &net.Resolver{
+		PreferGo: true,
+		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+			if customDNS != "" {
+				if !strings.Contains(customDNS, ":") {
+					address = customDNS + ":53"
+				} else {
+					address = customDNS
+				}
+			}
+			return dialer.DialContext(ctx, network, address)
+		},
+	}
+	addrs, err := resolver.LookupIPAddr(ctx, host)
+	if err != nil {
+		return nil, err
+	}
+	ips := make([]net.IP, len(addrs))
+	for i, addr := range addrs {
+		ips[i] = addr.IP
+	}
+	return ips, nil
+}
+
 func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6Only bool) (net.Conn, error) {
 	host, port, _ := net.SplitHostPort(addr)
 	if net.ParseIP(host) != nil {
@@ -148,12 +236,12 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 		}
 	}
 	if ips == nil {
-		lookupCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
+		lookupCtx, cancel := context.WithTimeout(ctx, dnsTimeout)
 		defer cancel()
 		var err error
 		done := make(chan struct{})
 		go func() {
-			ips, err = net.LookupIP(host)
+			ips, err = lookupIPWithHosts(lookupCtx, host)
 			close(done)
 		}()
 		select {
@@ -245,6 +333,9 @@ func checkWSSWithFamily(ctx context.Context, tracker string, ipv4Only, ipv6Only 
 	if err := rateLimiter.Wait(ctx); err != nil {
 		return false, nil, err
 	}
+	cookieJar, _ := cookiejar.New(nil)
+	header := http.Header{}
+	header.Set("User-Agent", "qBittorrent/4.6.0")
 	dialer := websocket.Dialer{
 		HandshakeTimeout: defaultTimeout,
 		NetDialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
@@ -256,10 +347,14 @@ func checkWSSWithFamily(ctx context.Context, tracker string, ipv4Only, ipv6Only 
 			}
 			return cachedDialContext(ctx, network, addr, ipv4Only, ipv6Only)
 		},
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: insecureSkip},
+		Proxy:            http.ProxyFromEnvironment,
+		TLSClientConfig:  &tls.Config{InsecureSkipVerify: insecureSkip},
+		Jar:              cookieJar,
+		Subprotocols:     []string{"binary"},
+		EnableCompression: true,
 	}
 	start := time.Now()
-	conn, _, err := dialer.DialContext(ctx, tracker, nil)
+	conn, _, err := dialer.DialContext(ctx, tracker, header)
 	if err != nil {
 		return false, nil, err
 	}
@@ -292,10 +387,7 @@ func checkWSS(ctx context.Context, tracker string) (status string, ping *int64, 
 		true6 := true
 		return StatusAlive, bestPing, nil, &true6
 	}
-	if err4 != nil && !alive4 {
-		return StatusDead, nil, nil, nil
-	}
-	return StatusInvalid, nil, nil, nil
+	return StatusDead, nil, nil, nil
 }
 
 func validateTracker(ctx context.Context, tracker string, maxAttempts int) CheckResult {
@@ -404,9 +496,18 @@ func main() {
 	retries := flag.Int("retries", defaultRetries, "Retries")
 	insecure := flag.Bool("insecure", false, "Skip TLS")
 	proxyFlag := flag.String("proxy", "", "SOCKS5 proxy")
+	dnsFlag := flag.String("dns", "", "Custom DNS server (e.g., 8.8.8.8:53)")
+	dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS lookup timeout")
+	hostsFileFlag := flag.String("hosts-file", "", "Custom hosts file path")
+	rateLimitFlag := flag.Int("rate-limit", 1000, "Max requests per second")
 	flag.Parse()
 
 	insecureSkip = *insecure
+	customDNS = *dnsFlag
+	dnsTimeout = *dnsTimeoutFlag
+	hostsFilePath = *hostsFileFlag
+	rateLimiter = rate.NewLimiter(rate.Limit(*rateLimitFlag), *rateLimitFlag)
+
 	if *proxyFlag != "" {
 		rawDialer, err := proxy.SOCKS5("tcp", *proxyFlag, nil, proxy.Direct)
 		if err != nil {
@@ -414,6 +515,7 @@ func main() {
 		}
 		proxyPool = append(proxyPool, rawDialer)
 	}
+	loadHostsFile()
 
 	allTrackers, err := loadTrackers(*input)
 	if err != nil {
@@ -474,7 +576,7 @@ func main() {
 		allResults = append(allResults, res)
 	}
 
-	var aliveList []string
+	var aliveList, aliveIPv4Only, aliveIPv6Only, aliveDualStack []string
 	var entries []TrackerEntry
 	for _, r := range allResults {
 		u, _ := url.Parse(r.URL)
@@ -490,11 +592,22 @@ func main() {
 		entries = append(entries, entry)
 		if r.Status == StatusAlive {
 			aliveList = append(aliveList, r.URL)
+			if r.SupportsIPv4 != nil && r.SupportsIPv6 != nil && *r.SupportsIPv4 && *r.SupportsIPv6 {
+				aliveDualStack = append(aliveDualStack, r.URL)
+			} else if r.SupportsIPv4 != nil && *r.SupportsIPv4 && (r.SupportsIPv6 == nil || !*r.SupportsIPv6) {
+				aliveIPv4Only = append(aliveIPv4Only, r.URL)
+			} else if r.SupportsIPv6 != nil && *r.SupportsIPv6 && (r.SupportsIPv4 == nil || !*r.SupportsIPv4) {
+				aliveIPv6Only = append(aliveIPv6Only, r.URL)
+			}
 		}
 	}
 
 	outputDir := filepath.Dir(".")
 	writeLines(filepath.Join(outputDir, "trackers_best_ws.txt"), sortUnique(aliveList))
+	writeLines(filepath.Join(outputDir, "trackers_best_ws_ipv4only.txt"), sortUnique(aliveIPv4Only))
+	writeLines(filepath.Join(outputDir, "trackers_best_ws_ipv6only.txt"), sortUnique(aliveIPv6Only))
+	writeLines(filepath.Join(outputDir, "trackers_best_ws_dualstack.txt"), sortUnique(aliveDualStack))
+
 	jsonData, _ := json.MarshalIndent(entries, "", "  ")
 	os.WriteFile(filepath.Join(outputDir, "trackers_wss.json"), jsonData, 0644)
 	fmt.Println("WSS/WS check complete")
