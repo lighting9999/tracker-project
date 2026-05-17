@@ -1,3 +1,2 @@
 http://92.112.126.44:6969/announce
-http://tracker.qu.ax:6969/announce
-https://tracker.moeking.me/announce
+http://tracker.novaopcj.eu.org:6969/announce
