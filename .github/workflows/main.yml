@@ -39,7 +39,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.25'          # Fixed: use stable version
+          go-version: '1.25'
 
       - name: Configure Git
         run: |
@@ -87,7 +87,6 @@ jobs:
 
       - name: Setup Go modules and build
         env:
-          GOMAXPROCS: "4"
           GOPROXY: "https://goproxy.cn,direct"
           GOSUMDB: "sum.golang.google.cn"
           GOCACHE: "/tmp/go-cache"
@@ -97,9 +96,9 @@ jobs:
           fi
           go mod tidy
           go mod download
-          CGO_ENABLED=0 go build -v -x -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_http script/check_http.go
-          CGO_ENABLED=0 go build -v -x -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_udp_wss script/check_udp_wss.go
-          CGO_ENABLED=0 go build -v -x -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o merge script/merge.go
+          CGO_ENABLED=0 go build -v -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_http script/check_http.go
+          CGO_ENABLED=0 go build -v -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o check_udp_wss script/check_udp_wss.go
+          CGO_ENABLED=0 go build -v -ldflags="-s -w" -trimpath -gcflags="-l=4" -p 4 -o merge script/merge.go
 
       - name: Run HTTP/HTTPS/I2P checker
         run: |
@@ -113,7 +112,8 @@ jobs:
             -sam \
             -dns 1.1.1.1 \
             -dns-timeout 5s \
-            -rate-limit 2000
+            -rate-limit 2000 \
+            -shards 4
           echo "HTTP/HTTPS/I2P check completed"
 
       - name: Run UDP+WSS checker
@@ -126,7 +126,8 @@ jobs:
             -proxy socks5://localhost:4444 \
             -dns 1.1.1.1 \
             -dns-timeout 5s \
-            -rate-limit 2000
+            -rate-limit 2000 \
+            -shards 4
           echo "UDP+WSS check completed"
 
       - name: Merge results
