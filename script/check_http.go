@@ -1,4 +1,3 @@
-// check_http.go
 package main
 
 import (
@@ -7,7 +6,6 @@ import (
 	"crypto/rand"
 	"crypto/tls"
 	"encoding/hex"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -31,11 +29,15 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/sync/singleflight"
 	"golang.org/x/time/rate"
+	jsoniter "github.com/json-iterator/go"
+	lru "github.com/hashicorp/golang-lru/v2"
 )
 
 const defaultTimeout = 5 * time.Second
 const defaultWorkers = 1000
 const defaultRetries = 1
+const batchSize = 100
+const maxPeersCollector = 10000
 
 const (
 	StatusAlive   = "ALIVE"
@@ -60,20 +62,28 @@ type TrackerEntry struct {
 	SupportsIPv6 *bool   `json:"supports_ipv6,omitempty"`
 }
 
+type dnsCacheEntry struct {
+	addrs []string
+	ts    time.Time
+	isErr bool
+}
+
 var (
 	trackerRe         = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
 	peerIDPrefix      string
 	infoHashes        []string
 	hashIndex         uint32
 	userAgents        = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
-	dnsCache          sync.Map
+	dnsCache          *lru.Cache[string, *dnsCacheEntry]
 	dnsCacheTTL       = 10 * time.Minute
+	dnsNegativeTTL    = 30 * time.Second
 	compact0Fallback  bool
 	insecureSkip      bool
 	proxyPool         []proxy.Dialer
 	proxyMu           sync.Mutex
 	proxyIdx          uint32
 	peersCollector    sync.Map
+	peersCollectorCnt int32
 	rateLimiter       *rate.Limiter
 	useSAM            bool
 	samHost           string
@@ -89,12 +99,15 @@ var (
 	colorGreen        = "\033[32m"
 	colorYellow       = "\033[33m"
 	colorBlue         = "\033[34m"
+	colorCyan         = "\033[36m"
+	json              = jsoniter.ConfigCompatibleWithStandardLibrary
+	logCh             = make(chan string, 10000)
+	logWg             sync.WaitGroup
+	bufferPool        = sync.Pool{New: func() interface{} { return make([]byte, 0, 4096) }}
+	httpClientCache   sync.Map
+	preWarmOnce       sync.Once
+	dnsSingleflight   singleflight.Group
 )
-
-type dnsCacheEntry struct {
-	addrs []string
-	ts    time.Time
-}
 
 type samPooledConn struct {
 	net.Conn
@@ -114,7 +127,18 @@ func (c *samPooledConn) Close() error {
 func init() {
 	peerIDPrefix = fmt.Sprintf("-RS0001-%s", randomNumeric(12))
 	rateLimiter = rate.NewLimiter(rate.Limit(2000), 200)
-	runtime.GOMAXPROCS(runtime.NumCPU())
+	var err error
+	dnsCache, err = lru.New[string, *dnsCacheEntry](5000)
+	if err != nil {
+		panic(err)
+	}
+	logWg.Add(1)
+	go func() {
+		defer logWg.Done()
+		for msg := range logCh {
+			fmt.Print(msg)
+		}
+	}()
 }
 
 func randomNumeric(n int) string {
@@ -127,9 +151,7 @@ func randomNumeric(n int) string {
 	return string(ret)
 }
 
-func randomUA() string {
-	return userAgents[randomInt(0, len(userAgents))]
-}
+func randomUA() string { return userAgents[randomInt(0, len(userAgents))] }
 
 func randomInt(min, max int) int {
 	n, _ := rand.Int(rand.Reader, big.NewInt(int64(max-min)))
@@ -197,11 +219,14 @@ func extractCompactPeers(data []byte) []string {
 			break
 		}
 	}
-	if rest[i] != ':' {
+	if i >= len(rest) || rest[i] != ':' {
 		return nil
 	}
 	length, err := strconv.Atoi(numStr)
 	if err != nil || length%6 != 0 || length == 0 {
+		return nil
+	}
+	if i+1+length > len(rest) {
 		return nil
 	}
 	peerBytes := rest[i+1 : i+1+length]
@@ -236,11 +261,14 @@ func extractCompact6Peers(data []byte) []string {
 			break
 		}
 	}
-	if rest[i] != ':' {
+	if i >= len(rest) || rest[i] != ':' {
 		return nil
 	}
 	length, err := strconv.Atoi(numStr)
 	if err != nil || length%18 != 0 || length == 0 {
+		return nil
+	}
+	if i+1+length > len(rest) {
 		return nil
 	}
 	peerBytes := rest[i+1 : i+1+length]
@@ -275,14 +303,14 @@ func responseHasIPv6Peers(data []byte) bool {
 			break
 		}
 	}
-	if rest[i] != ':' {
+	if i >= len(rest) || rest[i] != ':' {
 		return false
 	}
 	length, err := strconv.Atoi(numStr)
 	if err != nil || length%18 != 0 || length == 0 {
 		return false
 	}
-	return true
+	return i+1+length <= len(rest)
 }
 
 func loadHostsFile() {
@@ -377,9 +405,13 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 		return dialer.DialContext(ctx, network, addr)
 	}
 	var ips []net.IP
-	if val, ok := dnsCache.Load(host); ok {
-		entry := val.(*dnsCacheEntry)
-		if time.Since(entry.ts) < dnsCacheTTL {
+	if entry, ok := dnsCache.Get(host); ok {
+		if entry.isErr {
+			if time.Since(entry.ts) < dnsNegativeTTL {
+				return nil, fmt.Errorf("cached DNS error for %s", host)
+			}
+			dnsCache.Remove(host)
+		} else if time.Since(entry.ts) < dnsCacheTTL {
 			ips = make([]net.IP, len(entry.addrs))
 			for i, a := range entry.addrs {
 				ips[i] = net.ParseIP(a)
@@ -387,29 +419,26 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 		}
 	}
 	if ips == nil {
-		lookupCtx, cancel := context.WithTimeout(ctx, dnsTimeout)
-		defer cancel()
-		var err error
-		done := make(chan struct{})
-		go func() {
-			ips, err = lookupIPWithHosts(lookupCtx, host)
-			close(done)
-		}()
-		select {
-		case <-lookupCtx.Done():
-			return nil, lookupCtx.Err()
-		case <-done:
+		v, err, _ := dnsSingleflight.Do(host, func() (interface{}, error) {
+			lookupCtx, cancel := context.WithTimeout(ctx, dnsTimeout)
+			defer cancel()
+			ipsLocal, err := lookupIPWithHosts(lookupCtx, host)
 			if err != nil {
-				dnsCache.Store(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now()})
-				dialer := net.Dialer{}
-				return dialer.DialContext(ctx, network, addr)
+				dnsCache.Add(host, &dnsCacheEntry{addrs: []string{}, ts: time.Now(), isErr: true})
+				return nil, err
 			}
-			addrs := make([]string, len(ips))
-			for i, ip := range ips {
+			addrs := make([]string, len(ipsLocal))
+			for i, ip := range ipsLocal {
 				addrs[i] = ip.String()
 			}
-			dnsCache.Store(host, &dnsCacheEntry{addrs: addrs, ts: time.Now()})
+			dnsCache.Add(host, &dnsCacheEntry{addrs: addrs, ts: time.Now(), isErr: false})
+			logCh <- fmt.Sprintf("%s[DNS] %s -> %s%s\n", colorCyan, host, strings.Join(addrs, ","), colorReset)
+			return ipsLocal, nil
+		})
+		if err != nil {
+			return nil, err
 		}
+		ips = v.([]net.IP)
 	}
 	var targetIP net.IP
 	for _, ip := range ips {
@@ -417,7 +446,7 @@ func cachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
 			targetIP = ip
 			break
 		}
-		if ipv6Only && ip.To4() == nil {
+		if ipv6Only && ip.To4() == nil && ip.To16() != nil {
 			targetIP = ip
 			break
 		}
@@ -509,9 +538,7 @@ type samStreamConn struct {
 	reader *bufio.Reader
 }
 
-func (c *samStreamConn) Read(b []byte) (int, error) {
-	return c.reader.Read(b)
-}
+func (c *samStreamConn) Read(b []byte) (int, error) { return c.reader.Read(b) }
 
 func getSAMConnection(ctx context.Context, hostWithPort string) (net.Conn, error) {
 	host, port, err := net.SplitHostPort(hostWithPort)
@@ -559,12 +586,43 @@ func getNextProxy() proxy.Dialer {
 	return proxyPool[idx%uint32(len(proxyPool))]
 }
 
+func warmTransport() {
+	preWarmOnce.Do(func() {
+		tr := &http.Transport{
+			MaxIdleConns:        2000,
+			MaxIdleConnsPerHost: 200,
+			IdleConnTimeout:     90 * time.Second,
+		}
+		tr.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+			host, _, _ := net.SplitHostPort(addr)
+			if strings.HasSuffix(host, ".i2p") {
+				if useSAM {
+					return getSAMConnection(ctx, addr)
+				}
+				if p := getNextProxy(); p != nil {
+					return p.Dial(network, addr)
+				}
+			}
+			return cachedDialContext(ctx, network, addr, false, false)
+		}
+		client := &http.Client{Transport: tr, Timeout: defaultTimeout}
+		for _, urlStr := range []string{"https://1.1.1.1", "https://8.8.8.8"} {
+			req, _ := http.NewRequest("HEAD", urlStr, nil)
+			resp, err := client.Do(req)
+			if err == nil && resp != nil {
+				resp.Body.Close()
+			}
+		}
+		tr.CloseIdleConnections()
+	})
+}
+
 func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
+	warmTransport()
 	key := fmt.Sprintf("v4:%v_v6:%v", ipv4Only, ipv6Only)
 	if cached, ok := httpClientCache.Load(key); ok {
 		return cached.(*http.Client)
 	}
-	cookieJar, _ := cookiejar.New(nil)
 	tr := &http.Transport{
 		TLSClientConfig:       &tls.Config{InsecureSkipVerify: insecureSkip},
 		MaxIdleConns:          2000,
@@ -588,7 +646,7 @@ func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 	client := &http.Client{
 		Transport: tr,
 		Timeout:   defaultTimeout,
-		Jar:       cookieJar,
+		Jar:       nil,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
 			return http.ErrUseLastResponse
 		},
@@ -596,8 +654,6 @@ func getHTTPClient(ipv4Only, ipv6Only bool) *http.Client {
 	httpClientCache.Store(key, client)
 	return client
 }
-
-var httpClientCache sync.Map
 
 func normalizeTrackerURL(raw string) (string, error) {
 	candidate := strings.Trim(raw, "\"'<>[](){};,.")
@@ -689,6 +745,16 @@ func infoHashBytes(hashStr string) []byte {
 	return raw
 }
 
+func storePeer(peer string) {
+	if atomic.LoadInt32(&peersCollectorCnt) >= maxPeersCollector {
+		return
+	}
+	_, loaded := peersCollector.LoadOrStore(peer, struct{}{})
+	if !loaded {
+		atomic.AddInt32(&peersCollectorCnt, 1)
+	}
+}
+
 func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, compact bool, ipv4Only, ipv6Only bool) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
 	if err := rateLimiter.Wait(ctx); err != nil {
 		return false, nil, false, err
@@ -768,14 +834,14 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 		if bdecodeSimple(body) {
 			if peers := extractCompactPeers(body); len(peers) > 0 {
 				for _, p := range peers {
-					peersCollector.Store(p, struct{}{})
+					storePeer(p)
 				}
 			}
 			has6 := responseHasIPv6Peers(body)
 			if has6 {
 				if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
 					for _, p := range peers6 {
-						peersCollector.Store(p, struct{}{})
+						storePeer(p)
 					}
 				}
 			}
@@ -784,14 +850,14 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 		if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
 			if peers := extractCompactPeers(body); len(peers) > 0 {
 				for _, p := range peers {
-					peersCollector.Store(p, struct{}{})
+					storePeer(p)
 				}
 			}
 			has6 := responseHasIPv6Peers(body)
 			if has6 {
 				if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
 					for _, p := range peers6 {
-						peersCollector.Store(p, struct{}{})
+						storePeer(p)
 					}
 				}
 			}
@@ -821,7 +887,7 @@ func checkHTTP(ctx context.Context, tracker string, infoHash string, useCompact0
 		alive6, ping6, _, err6 := checkHTTPWithFamily(ctx, tracker, infoHash, compact, false, true)
 		if alive6 {
 			has6 = true
-			if bestPing == nil || (ping6 != nil && (bestPing == nil || *ping6 < *bestPing)) {
+			if bestPing == nil || (ping6 != nil && *ping6 < *bestPing) {
 				bestPing = ping6
 			}
 		}
@@ -981,8 +1047,12 @@ func main() {
 	dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS lookup timeout")
 	hostsFileFlag := flag.String("hosts-file", "", "Custom hosts file path")
 	rateLimitFlag := flag.Int("rate-limit", 2000, "Max requests per second")
+	shards := flag.Int("shards", 4, "Number of shards for parallel scanning")
 	flag.Parse()
 
+	if *shards < 1 {
+		*shards = 1
+	}
 	compact0Fallback = *compact0
 	insecureSkip = *insecure
 	useSAM = *samFlag
@@ -1011,50 +1081,69 @@ func main() {
 	}
 
 	total := len(httpTrackers)
-	sem := make(chan struct{}, *workers)
-	results := make(chan CheckResult, total)
+	shardSize := (total + *shards - 1) / *shards
+	actualShards := (total + shardSize - 1) / shardSize
+	shardResults := make([]chan CheckResult, actualShards)
+	for i := 0; i < actualShards; i++ {
+		shardResults[i] = make(chan CheckResult, shardSize)
+	}
 	var wg sync.WaitGroup
-	var completed int32
-
 	ctx, cancel := context.WithTimeout(context.Background(), 12*time.Minute)
 	defer cancel()
-
 	maxAttempts := *retries + 1
-
 	startTime := time.Now()
-	for _, t := range httpTrackers {
-		wg.Add(1)
-		go func(tracker string) {
-			defer func() {
-				if r := recover(); r != nil {
-					log.Printf("%sPanic in tracker %s: %v%s", colorRed, tracker, r, colorReset)
-					results <- CheckResult{URL: tracker, Status: StatusInvalid}
-					atomic.AddInt32(&completed, 1)
-				}
-				<-sem
-				wg.Done()
-			}()
-			sem <- struct{}{}
-			res := validateTracker(ctx, tracker, maxAttempts)
-			done := atomic.AddInt32(&completed, 1)
-			coloredStatus := colorize(res.Status)
-			pingStr := "N/A"
-			if res.PingMs != nil {
-				pingStr = fmt.Sprintf("%dms", *res.PingMs)
-			}
-			fmt.Printf("%s[%d/%d]%s %s %s %s\n",
-				colorBlue, done, total, colorReset, tracker, coloredStatus, pingStr)
-			results <- res
-		}(t)
-	}
+	var completed int32
 
+	for sh := 0; sh < actualShards; sh++ {
+		start := sh * shardSize
+		end := start + shardSize
+		if end > total {
+			end = total
+		}
+		if start >= total {
+			break
+		}
+		wg.Add(1)
+		go func(shardIdx int, trackers []string) {
+			defer wg.Done()
+			sem := make(chan struct{}, *workers)
+			var shardWg sync.WaitGroup
+			for _, t := range trackers {
+				shardWg.Add(1)
+				go func(tracker string) {
+					defer func() {
+						if r := recover(); r != nil {
+							logCh <- fmt.Sprintf("%sPanic in tracker %s: %v%s\n", colorRed, tracker, r, colorReset)
+							shardResults[shardIdx] <- CheckResult{URL: tracker, Status: StatusInvalid}
+						}
+						<-sem
+						shardWg.Done()
+					}()
+					sem <- struct{}{}
+					res := validateTracker(ctx, tracker, maxAttempts)
+					done := atomic.AddInt32(&completed, 1)
+					coloredStatus := colorize(res.Status)
+					pingStr := "N/A"
+					if res.PingMs != nil {
+						pingStr = fmt.Sprintf("%dms", *res.PingMs)
+					}
+					logCh <- fmt.Sprintf("%s[%d/%d]%s %s %s %s\n",
+						colorBlue, done, total, colorReset, tracker, coloredStatus, pingStr)
+					shardResults[shardIdx] <- res
+				}(t)
+			}
+			shardWg.Wait()
+			close(shardResults[shardIdx])
+		}(sh, httpTrackers[start:end])
+	}
 	wg.Wait()
-	close(results)
 	elapsed := time.Since(startTime)
 
 	var allResults []CheckResult
-	for res := range results {
-		allResults = append(allResults, res)
+	for _, ch := range shardResults {
+		for res := range ch {
+			allResults = append(allResults, res)
+		}
 	}
 
 	var httpList, httpsList, i2pList []string
@@ -1111,4 +1200,6 @@ func main() {
 	aliveCount := len(httpList) + len(httpsList) + len(i2pList)
 	fmt.Printf("%s  Alive: %d%s\n", colorGreen, aliveCount, colorReset)
 	fmt.Printf("%s  Dead: %d%s\n", colorRed, total-aliveCount, colorReset)
+	close(logCh)
+	logWg.Wait()
 }
