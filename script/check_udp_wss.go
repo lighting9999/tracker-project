@@ -1,5 +1,3 @@
-package main
-
 import (
 	"bufio"
 	"context"
@@ -29,6 +27,7 @@ import (
 
 	"github.com/gorilla/websocket"
 	"golang.org/x/net/proxy"
+	"golang.org/x/sync/singleflight"
 	"golang.org/x/time/rate"
 	jsoniter "github.com/json-iterator/go"
 	lru "github.com/hashicorp/golang-lru/v2"
