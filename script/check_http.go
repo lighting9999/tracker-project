@@ -889,7 +889,7 @@ func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, c
 			continue
 		}
 		seen[hostPort] = true
-		alive, ping, has6, err := checkHTTPAttempt(ctx, tracker, infoHash, compact, ipv4Only, ipv6Only, hostPort)
+		alive, ping, has6, _ := checkHTTPAttempt(ctx, tracker, infoHash, compact, ipv4Only, ipv6Only, hostPort)
 		if alive {
 			return true, ping, has6, nil
 		}

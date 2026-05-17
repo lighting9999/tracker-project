@@ -711,7 +711,7 @@ func checkUDPWithFamily(ctx context.Context, tracker string, infoHash string, ip
 			continue
 		}
 		seen[port] = true
-		alive, ping, has6, err := checkUDPAttempt(ctx, tracker, infoHash, ipv6Only, port)
+		alive, ping, has6, _ := checkUDPAttempt(ctx, tracker, infoHash, ipv6Only, port)
 		if alive {
 			return true, ping, has6, nil
 		}
