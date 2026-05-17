@@ -36,11 +36,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Harden Runner (allow all egress)
-        uses: step-security/harden-runner@v2
-        with:
-          egress-policy: block
-          allowed-endpoints: "*"
 
       - name: Setup Go
         uses: actions/setup-go@v5
