@@ -14,7 +14,6 @@ import (
 	"math/big"
 	"net"
 	"net/http"
-	"net/http/cookiejar"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -38,7 +37,6 @@ import (
 const defaultTimeout = 5 * time.Second
 const defaultWorkers = 1000
 const defaultRetries = 1
-const batchSize = 100
 const maxPeersCollector = 10000
 
 const (
@@ -71,38 +69,38 @@ type dnsCacheEntry struct {
 }
 
 var (
-	trackerRe      = regexp.MustCompile(`(?i)(udp|wss?|https?)://[^\s,]+?/announce[^\s,]*`)
-	peerIDPrefix   string
-	infoHashes     []string
-	hashIndex      uint32
-	dnsCache       *lru.Cache[string, *dnsCacheEntry]
-	dnsCacheTTL    = 10 * time.Minute
-	dnsNegativeTTL = 30 * time.Second
-	peersCollector sync.Map
+	trackerRe         = regexp.MustCompile(`(?i)(udp|wss?|https?)://[^\s,]+?/announce[^\s,]*`)
+	peerIDPrefix      string
+	infoHashes        []string
+	hashIndex         uint32
+	dnsCache          *lru.Cache[string, *dnsCacheEntry]
+	dnsCacheTTL       = 10 * time.Minute
+	dnsNegativeTTL    = 30 * time.Second
+	peersCollector    sync.Map
 	peersCollectorCnt int32
-	rateLimiter    *rate.Limiter
-	customDNS      string
-	dnsTimeout     time.Duration
-	hostsMap       map[string][]string
-	hostsMapMu     sync.RWMutex
-	hostsFilePath  string
-	insecureSkip   bool
-	proxyPool      []proxy.Dialer
-	proxyMu        sync.Mutex
-	proxyIdx       uint32
-	colorReset     = "\033[0m"
-	colorRed       = "\033[31m"
-	colorGreen     = "\033[32m"
-	colorYellow    = "\033[33m"
-	colorBlue      = "\033[34m"
-	colorMagenta   = "\033[35m"
-	colorCyan      = "\033[36m"
-	json           = jsoniter.ConfigCompatibleWithStandardLibrary
-	logCh          = make(chan string, 10000)
-	logWg          sync.WaitGroup
-	bufferPool     = sync.Pool{New: func() interface{} { return make([]byte, 0, 4096) }}
-	preWarmOnce    sync.Once
-	dnsSingleflight singleflight.Group
+	rateLimiter       *rate.Limiter
+	customDNS         string
+	dnsTimeout        time.Duration
+	hostsMap          map[string][]string
+	hostsMapMu        sync.RWMutex
+	hostsFilePath     string
+	insecureSkip      bool
+	proxyPool         []proxy.Dialer
+	proxyMu           sync.Mutex
+	proxyIdx          uint32
+	colorReset        = "\033[0m"
+	colorRed          = "\033[31m"
+	colorGreen        = "\033[32m"
+	colorYellow       = "\033[33m"
+	colorBlue         = "\033[34m"
+	colorMagenta      = "\033[35m"
+	colorCyan         = "\033[36m"
+	json              = jsoniter.ConfigCompatibleWithStandardLibrary
+	logCh             = make(chan string, 10000)
+	logWg             sync.WaitGroup
+	bufferPool        = sync.Pool{New: func() interface{} { return make([]byte, 0, 4096) }}
+	preWarmOnce       sync.Once
+	dnsSingleflight   singleflight.Group
 )
 
 func init() {
@@ -592,18 +590,19 @@ func infoHashBytes(hashStr string) []byte {
 	return raw
 }
 
-func checkUDPWithFamily(ctx context.Context, tracker string, infoHash string, ipv6Only bool) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
-	if err := rateLimiter.Wait(ctx); err != nil {
-		return false, nil, false, err
-	}
+func checkUDPAttempt(ctx context.Context, tracker string, infoHash string, ipv6Only bool, targetPort string) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
 	u, err := url.Parse(tracker)
 	if err != nil {
 		return false, nil, false, err
 	}
 	host := u.Hostname()
-	port := u.Port()
-	if port == "" {
-		port = "80"
+	var port string
+	if targetPort != "" {
+		port = targetPort
+	} else if u.Port() != "" {
+		port = u.Port()
+	} else {
+		port = "6969"
 	}
 	addr, err := resolveUDPAddrWithHosts(ctx, "udp", net.JoinHostPort(host, port))
 	if err != nil {
@@ -693,6 +692,33 @@ func checkUDPWithFamily(ctx context.Context, tracker string, infoHash string, ip
 	return false, &elapsed, false, nil
 }
 
+func checkUDPWithFamily(ctx context.Context, tracker string, infoHash string, ipv6Only bool) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
+	if err := rateLimiter.Wait(ctx); err != nil {
+		return false, nil, false, err
+	}
+	u, _ := url.Parse(tracker)
+	originalPort := u.Port()
+	fallbackPorts := []string{originalPort, "6969", "1337"}
+	if originalPort != "" && originalPort != "6969" && originalPort != "1337" {
+		fallbackPorts = append(fallbackPorts, originalPort)
+	}
+	seen := make(map[string]bool)
+	for _, port := range fallbackPorts {
+		if port == "" {
+			continue
+		}
+		if seen[port] {
+			continue
+		}
+		seen[port] = true
+		alive, ping, has6, err := checkUDPAttempt(ctx, tracker, infoHash, ipv6Only, port)
+		if alive {
+			return true, ping, has6, nil
+		}
+	}
+	return false, nil, false, fmt.Errorf("all UDP ports failed")
+}
+
 func checkUDP(ctx context.Context, tracker string, infoHash string) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
 	alive4, ping4, has6inResp4, _ := checkUDPWithFamily(ctx, tracker, infoHash, false)
 	has4 := alive4
@@ -733,7 +759,6 @@ func checkWSSWithFamily(ctx context.Context, tracker string, ipv4Only, ipv6Only 
 		return false, nil, err
 	}
 	warmTransport()
-	cookieJar, _ := cookiejar.New(nil)
 	header := http.Header{}
 	header.Set("User-Agent", "qBittorrent/4.6.0")
 	dialer := websocket.Dialer{
@@ -749,7 +774,7 @@ func checkWSSWithFamily(ctx context.Context, tracker string, ipv4Only, ipv6Only 
 		},
 		Proxy:            http.ProxyFromEnvironment,
 		TLSClientConfig:  &tls.Config{InsecureSkipVerify: insecureSkip},
-		Jar:              cookieJar,
+		Jar:              nil,
 		Subprotocols:     []string{"binary"},
 		EnableCompression: true,
 	}

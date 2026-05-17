@@ -35,7 +35,6 @@ import (
 const defaultTimeout = 5 * time.Second
 const defaultWorkers = 1000
 const defaultRetries = 1
-const batchSize = 100
 const maxPeersCollector = 10000
 
 const (
@@ -754,120 +753,148 @@ func storePeer(peer string) {
 	}
 }
 
+func checkHTTPAttempt(ctx context.Context, tracker string, infoHash string, compact bool, ipv4Only, ipv6Only bool, hostPort string) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
+	base, err := url.Parse(tracker)
+	if err != nil {
+		return false, nil, false, err
+	}
+	if hostPort != "" {
+		base.Host = hostPort
+	}
+	params := base.Query()
+	if raw := infoHashBytes(infoHash); raw != nil {
+		params.Set("info_hash", url.QueryEscape(string(raw)))
+	} else {
+		params.Set("info_hash", "00000000000000000000")
+	}
+	params.Set("peer_id", peerIDPrefix)
+	params.Set("port", "6881")
+	params.Set("uploaded", "0")
+	params.Set("downloaded", "0")
+	params.Set("left", "0")
+	if compact {
+		params.Set("compact", "1")
+	} else {
+		params.Set("compact", "0")
+	}
+	params.Set("event", "started")
+	base.RawQuery = params.Encode()
+
+	req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
+	if err != nil {
+		return false, nil, false, err
+	}
+	req.Header.Set("User-Agent", randomUA())
+
+	client := getHTTPClient(ipv4Only, ipv6Only)
+	start := time.Now()
+	resp, err := client.Do(req)
+	if err != nil {
+		return false, nil, false, err
+	}
+	defer resp.Body.Close()
+	elapsed := int64(time.Since(start).Milliseconds())
+	if resp.StatusCode == http.StatusTooManyRequests {
+		retryAfter := resp.Header.Get("Retry-After")
+		if retryAfter != "" {
+			if sec, err := strconv.Atoi(retryAfter); err == nil && sec > 0 {
+				select {
+				case <-time.After(time.Duration(sec) * time.Second):
+				case <-ctx.Done():
+				}
+				return false, &elapsed, false, fmt.Errorf("rate limited")
+			}
+		}
+		return false, &elapsed, false, fmt.Errorf("rate limited")
+	}
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
+	if err != nil {
+		return false, &elapsed, false, err
+	}
+	if isHTML(body) || isParkedDomain(body) {
+		return false, &elapsed, false, fmt.Errorf("html or parked")
+	}
+	if bdecodeSimple(body) {
+		if peers := extractCompactPeers(body); len(peers) > 0 {
+			for _, p := range peers {
+				storePeer(p)
+			}
+		}
+		has6 := responseHasIPv6Peers(body)
+		if has6 {
+			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
+				for _, p := range peers6 {
+					storePeer(p)
+				}
+			}
+		}
+		return true, &elapsed, has6, nil
+	}
+	if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
+		if peers := extractCompactPeers(body); len(peers) > 0 {
+			for _, p := range peers {
+				storePeer(p)
+			}
+		}
+		has6 := responseHasIPv6Peers(body)
+		if has6 {
+			if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
+				for _, p := range peers6 {
+					storePeer(p)
+				}
+			}
+		}
+		return true, &elapsed, has6, nil
+	}
+	if resp.StatusCode == http.StatusOK && len(body) > 50000 {
+		return false, &elapsed, false, fmt.Errorf("too large")
+	}
+	return false, &elapsed, false, fmt.Errorf("invalid response")
+}
+
 func checkHTTPWithFamily(ctx context.Context, tracker string, infoHash string, compact bool, ipv4Only, ipv6Only bool) (alive bool, ping *int64, hasIPv6Peers bool, err error) {
 	if err := rateLimiter.Wait(ctx); err != nil {
 		return false, nil, false, err
 	}
-	const max429Retries = 2
-	for retry := 0; retry <= max429Retries; retry++ {
-		base, err := url.Parse(tracker)
-		if err != nil {
-			return false, nil, false, err
-		}
-		params := base.Query()
-		if raw := infoHashBytes(infoHash); raw != nil {
-			params.Set("info_hash", url.QueryEscape(string(raw)))
-		} else {
-			params.Set("info_hash", "00000000000000000000")
-		}
-		params.Set("peer_id", peerIDPrefix)
-		params.Set("port", "6881")
-		params.Set("uploaded", "0")
-		params.Set("downloaded", "0")
-		params.Set("left", "0")
-		if compact {
-			params.Set("compact", "1")
-		} else {
-			params.Set("compact", "0")
-		}
-		params.Set("event", "started")
-		base.RawQuery = params.Encode()
-
-		req, err := http.NewRequestWithContext(ctx, "GET", base.String(), nil)
-		if err != nil {
-			return false, nil, false, err
-		}
-		req.Header.Set("User-Agent", randomUA())
-
-		client := getHTTPClient(ipv4Only, ipv6Only)
-		start := time.Now()
-		resp, err := client.Do(req)
-		if err != nil {
-			return false, nil, false, err
-		}
-		elapsed := int64(time.Since(start).Milliseconds())
-		if resp.StatusCode == http.StatusTooManyRequests {
-			resp.Body.Close()
-			retryAfter := resp.Header.Get("Retry-After")
-			if retryAfter != "" {
-				if sec, err := strconv.Atoi(retryAfter); err == nil && sec > 0 {
-					select {
-					case <-time.After(time.Duration(sec) * time.Second):
-					case <-ctx.Done():
-						return false, &elapsed, false, ctx.Err()
-					}
-					continue
-				}
-				if t, err := http.ParseTime(retryAfter); err == nil {
-					wait := time.Until(t)
-					if wait > 0 {
-						select {
-						case <-time.After(wait):
-						case <-ctx.Done():
-							return false, &elapsed, false, ctx.Err()
-						}
-						continue
-					}
-				}
-			}
-			return false, &elapsed, false, fmt.Errorf("rate limited")
-		}
-		body, err := io.ReadAll(io.LimitReader(resp.Body, 100*1024))
-		resp.Body.Close()
-		if err != nil {
-			return false, &elapsed, false, err
-		}
-		if isHTML(body) || isParkedDomain(body) {
-			return false, &elapsed, false, fmt.Errorf("html or parked")
-		}
-		if bdecodeSimple(body) {
-			if peers := extractCompactPeers(body); len(peers) > 0 {
-				for _, p := range peers {
-					storePeer(p)
-				}
-			}
-			has6 := responseHasIPv6Peers(body)
-			if has6 {
-				if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
-					for _, p := range peers6 {
-						storePeer(p)
-					}
-				}
-			}
-			return true, &elapsed, has6, nil
-		}
-		if (resp.StatusCode == http.StatusBadRequest || resp.StatusCode == http.StatusForbidden) && bdecodeSimple(body) {
-			if peers := extractCompactPeers(body); len(peers) > 0 {
-				for _, p := range peers {
-					storePeer(p)
-				}
-			}
-			has6 := responseHasIPv6Peers(body)
-			if has6 {
-				if peers6 := extractCompact6Peers(body); len(peers6) > 0 {
-					for _, p := range peers6 {
-						storePeer(p)
-					}
-				}
-			}
-			return true, &elapsed, has6, nil
-		}
-		if resp.StatusCode == http.StatusOK && len(body) > 50000 {
-			return false, &elapsed, false, fmt.Errorf("too large")
-		}
-		return false, &elapsed, false, fmt.Errorf("invalid response")
+	u, _ := url.Parse(tracker)
+	originalPort := u.Port()
+	scheme := u.Scheme
+	host := u.Hostname()
+	isI2P := strings.HasSuffix(host, ".i2p")
+	var fallbackPorts []string
+	if originalPort != "" {
+		fallbackPorts = append(fallbackPorts, originalPort)
 	}
-	return false, nil, false, fmt.Errorf("max retries for 429 exceeded")
+	if scheme == "http" {
+		fallbackPorts = append(fallbackPorts, "80")
+	} else if scheme == "https" {
+		fallbackPorts = append(fallbackPorts, "443")
+	}
+	if isI2P {
+		fallbackPorts = append(fallbackPorts, "80", "443")
+	}
+	fallbackPorts = append(fallbackPorts, "")
+	seen := make(map[string]bool)
+	for _, port := range fallbackPorts {
+		if port == "" {
+			port = ""
+		}
+		hostPort := host
+		if port != "" {
+			hostPort = net.JoinHostPort(host, port)
+		} else {
+			hostPort = host
+		}
+		if seen[hostPort] {
+			continue
+		}
+		seen[hostPort] = true
+		alive, ping, has6, err := checkHTTPAttempt(ctx, tracker, infoHash, compact, ipv4Only, ipv6Only, hostPort)
+		if alive {
+			return true, ping, has6, nil
+		}
+	}
+	return false, nil, false, fmt.Errorf("all ports failed")
 }
 
 func checkHTTP(ctx context.Context, tracker string, infoHash string, useCompact0 bool) (status string, ping *int64, supportsIPv4, supportsIPv6 *bool) {
