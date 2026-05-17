@@ -109,7 +109,7 @@ jobs:
           ./check_http \
             -input webtracker/input_merged.txt \
             -workers 1000 \
-            -retries 1 \
+            -retries 2 \
             -compact0-fallback \
             -insecure \
             -proxy socks5://localhost:4444 \
@@ -124,8 +124,8 @@ jobs:
         run: |
           ./check_udp_wss \
             -input webtracker/input_merged.txt \
-            -workers 150 \
-            -retries 1 \
+            -workers 200 \
+            -retries 3 \
             -insecure \
             -proxy socks5://localhost:4444 \
             -dns 1.1.1.1 \
