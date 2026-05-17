@@ -34,7 +34,7 @@ import (
 	lru "github.com/hashicorp/golang-lru/v2"
 )
 
-const defaultTimeout = 5 * time.Second
+const defaultTimeout = 10 * time.Second
 const defaultWorkers = 1000
 const defaultRetries = 1
 const maxPeersCollector = 10000
