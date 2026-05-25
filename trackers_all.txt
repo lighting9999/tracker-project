@@ -2401,6 +2401,7 @@ udp://147job.com:6969/announce
 udp://148.113.168.115:6969/announce
 udp://148.135.112.164:6969/announce
 udp://148.251.53.72:6969/announce
+udp://149.106.106.25:443/announce
 udp://149.202.88.193:80/announce
 udp://149.28.47.87:1738/announce
 udp://15.188.67.15:6969/announce
@@ -3173,6 +3174,7 @@ udp://92.112.126.44:6969/announce
 udp://92.223.105.178:6969/announce
 udp://93.104.214.40:6969/announce
 udp://93.158.213.92:1337/announce
+udp://93.158.213.92:6969/announce
 udp://94-227-232-84.access.telenet.be:6969/announce
 udp://94.103.87.87:6969/announce
 udp://94.136.190.183:1333/announce
