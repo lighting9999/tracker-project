@@ -877,6 +877,7 @@ http://announce.freeexchange.ru:2710/announce
 http://announce.mybits.ws:2710/announce
 http://announce.opensharing.org:2710/announce
 http://announce.partis.si/announce
+http://announce.sktorrent.eu:6969/announce
 http://announce.torrentsmd.com:6969/announce
 http://announce.torrentsmd.com:8080/announce
 http://announce.torrentsmd.com:8080/announce.php
@@ -1611,6 +1612,7 @@ http://tracker.pcfreetime.com:6969/announce
 http://tracker.peckservers.com:9000/announce
 http://tracker.phoenix.lol/announce
 http://tracker.pimp4003.net/announce
+http://tracker.plx.im:6969/announce
 http://tracker.pomf.se/announce
 http://tracker.pornoshara.com:2711/announce
 http://tracker.pornoshara.tv:2711/announce
