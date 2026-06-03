@@ -1,21 +1,21 @@
 {
-  "total": 4144,
-  "alive_count": 293,
-  "dead_count": 3704,
+  "total": 4145,
+  "alive_count": 287,
+  "dead_count": 3711,
   "invalid_count": 147,
-  "uptime_pct": 7.07046332046332,
+  "uptime_pct": 6.924004825090471,
   "protocols": {
-    "http": 164,
-    "https": 24,
-    "udp": 103,
-    "wss": 2,
+    "http": 124,
+    "https": 45,
+    "udp": 117,
+    "wss": 1,
     "webrtc": 0,
     "i2p": 0,
     "dns": 0,
-    "http_pct": 3.9575289575289574,
-    "https_pct": 0.5791505791505791,
-    "udp_pct": 2.4855212355212357,
-    "wss_pct": 0.04826254826254826
+    "http_pct": 2.9915560916767188,
+    "https_pct": 1.0856453558504222,
+    "udp_pct": 2.8226779252110976,
+    "wss_pct": 0.024125452352231604
   },
   "trackers": [
     {
@@ -37,7 +37,7 @@
       "url": "http://004430.xyz/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 126,
+      "ping_ms": 153,
       "supports_ipv4": true
     },
     {
@@ -52,8 +52,10 @@
     },
     {
       "url": "http://0d.kebhana.mx:443/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 64,
+      "supports_ipv4": true
     },
     {
       "url": "http://0x7c.space:7070/announce",
@@ -124,7 +126,7 @@
       "url": "http://107.189.2.131:1337/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 316,
+      "ping_ms": 257,
       "supports_ipv4": true
     },
     {
@@ -176,6 +178,13 @@
       "url": "http://110.187.215.166:6969/announce",
       "status": "DEAD",
       "protocol": "http"
+    },
+    {
+      "url": "http://113.13.6.197:6969/announce",
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 429,
+      "supports_ipv4": true
     },
     {
       "url": "http://113.13.6.40:6969/announce",
@@ -569,8 +578,10 @@
     },
     {
       "url": "http://123.245.62.39:6969/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 5675,
+      "supports_ipv4": true
     },
     {
       "url": "http://123.245.62.3:6969/announce",
@@ -634,8 +645,10 @@
     },
     {
       "url": "http://123.245.62.80:6969/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 5961,
+      "supports_ipv4": true
     },
     {
       "url": "http://123.245.62.83:6969/announce",
@@ -721,14 +734,14 @@
       "url": "http://1337.abcvg.info/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 342,
+      "ping_ms": 3480,
       "supports_ipv4": true
     },
     {
       "url": "http://1337.abcvg.info:443/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 312,
+      "ping_ms": 463,
       "supports_ipv4": true
     },
     {
@@ -800,7 +813,7 @@
       "url": "http://140.235.237.23:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 170,
+      "ping_ms": 129,
       "supports_ipv4": true
     },
     {
@@ -1032,7 +1045,7 @@
       "url": "http://167.253.78.20:8080/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 83,
+      "ping_ms": 1187,
       "supports_ipv4": true
     },
     {
@@ -1124,7 +1137,7 @@
       "url": "http://172.245.168.134/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 138,
+      "ping_ms": 92,
       "supports_ipv4": true
     },
     {
@@ -1566,7 +1579,7 @@
       "url": "http://185.171.202.111:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 292,
+      "ping_ms": 382,
       "supports_ipv4": true,
       "supports_ipv6": true
     },
@@ -1884,7 +1897,7 @@
       "url": "http://189.18.162.12:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 338,
+      "ping_ms": 307,
       "supports_ipv4": true
     },
     {
@@ -2356,14 +2369,14 @@
       "url": "http://207.241.226.111:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 59,
+      "ping_ms": 51,
       "supports_ipv4": true
     },
     {
       "url": "http://207.241.231.226:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 58,
+      "ping_ms": 88,
       "supports_ipv4": true
     },
     {
@@ -2455,42 +2468,42 @@
       "url": "http://211.75.205.187/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 280,
+      "ping_ms": 304,
       "supports_ipv4": true
     },
     {
       "url": "http://211.75.205.187:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 279,
+      "ping_ms": 305,
       "supports_ipv4": true
     },
     {
       "url": "http://211.75.205.188/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 287,
+      "ping_ms": 303,
       "supports_ipv4": true
     },
     {
       "url": "http://211.75.205.188:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 282,
+      "ping_ms": 305,
       "supports_ipv4": true
     },
     {
       "url": "http://211.75.205.189/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 282,
+      "ping_ms": 302,
       "supports_ipv4": true
     },
     {
       "url": "http://211.75.205.189:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 282,
+      "ping_ms": 302,
       "supports_ipv4": true
     },
     {
@@ -2567,14 +2580,14 @@
       "url": "http://211.75.210.221/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 286,
+      "ping_ms": 302,
       "supports_ipv4": true
     },
     {
       "url": "http://211.75.210.221:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 280,
+      "ping_ms": 303,
       "supports_ipv4": true
     },
     {
@@ -2626,7 +2639,7 @@
       "url": "http://216.144.239.90:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 49,
+      "ping_ms": 88,
       "supports_ipv4": true
     },
     {
@@ -2813,7 +2826,7 @@
       "url": "http://31.38.161.123:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 326,
+      "ping_ms": 296,
       "supports_ipv4": true
     },
     {
@@ -2870,13 +2883,15 @@
       "url": "http://34.66.57.33:11450/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 103,
+      "ping_ms": 84,
       "supports_ipv4": true
     },
     {
       "url": "http://34.66.57.33:1337/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 3161,
+      "supports_ipv4": true
     },
     {
       "url": "http://34.66.57.33:2701/announce",
@@ -2885,22 +2900,22 @@
     },
     {
       "url": "http://34.66.57.33:2710/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 3174,
+      "supports_ipv4": true
     },
     {
       "url": "http://34.66.57.33:443/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 9175,
+      "ping_ms": 7251,
       "supports_ipv4": true
     },
     {
       "url": "http://34.66.57.33:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 5053,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://34.89.30.59/announce",
@@ -3071,14 +3086,14 @@
       "url": "http://37.120.182.83/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 297,
+      "ping_ms": 266,
       "supports_ipv4": true
     },
     {
       "url": "http://37.120.182.83:2710/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 321,
+      "ping_ms": 264,
       "supports_ipv4": true
     },
     {
@@ -3125,7 +3140,7 @@
       "url": "http://43.250.54.126:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 294,
+      "ping_ms": 259,
       "supports_ipv4": true
     },
     {
@@ -3537,14 +3552,14 @@
       "url": "http://60.249.37.20/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 275,
+      "ping_ms": 308,
       "supports_ipv4": true
     },
     {
       "url": "http://60.249.37.20:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 276,
+      "ping_ms": 306,
       "supports_ipv4": true
     },
     {
@@ -3706,7 +3721,7 @@
       "url": "http://79.111.12.213:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 361,
+      "ping_ms": 323,
       "supports_ipv4": true
     },
     {
@@ -4233,7 +4248,7 @@
       "url": "http://93.158.213.92:1337/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 293,
+      "ping_ms": 5370,
       "supports_ipv4": true
     },
     {
@@ -4285,7 +4300,7 @@
       "url": "http://95.217.167.10:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 347,
+      "ping_ms": 307,
       "supports_ipv4": true
     },
     {
@@ -4395,10 +4410,8 @@
     },
     {
       "url": "http://aboutbeautifulgallopinghorsesinthegreenpasture.online/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 300,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://acg.rip:6699/announce",
@@ -4427,10 +4440,8 @@
     },
     {
       "url": "http://alltorrents.net/bt/announce.php",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 313,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://alltorrents.net/bt:80/announce",
@@ -4484,10 +4495,8 @@
     },
     {
       "url": "http://announce.sktorrent.eu:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 309,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://announce.torrentsmd.com:6969/announce",
@@ -4528,7 +4537,7 @@
       "url": "http://atrack.pow7.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 17,
+      "ping_ms": 84,
       "supports_ipv4": true
     },
     {
@@ -4823,24 +4832,18 @@
     },
     {
       "url": "http://bt.nnm-club.cc:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 476,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt.nnm-club.info:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 323,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt.nnm-club.me:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 1346,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt.nnm-club.ru:2710/announce",
@@ -4854,10 +4857,8 @@
     },
     {
       "url": "http://bt.okmp3.ru:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 9422,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt.peerseed.ru/announce",
@@ -4866,24 +4867,18 @@
     },
     {
       "url": "http://bt.piratbit.club/00107048edc7c83f77fd6518bbaef5ec/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 397,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt.piratbit.club/ffffffff672a23706548d27974231c21/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 381,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt.piratbit.club/ffffffff94d84f5644dfe38d10eabb41/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 393,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt.poletracker.org:2710/announce",
@@ -4957,30 +4952,28 @@
     },
     {
       "url": "http://bt.zlofenix.org:81/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 331,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt02.nnm-club.cc:2710/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 322,
+      "ping_ms": 9875,
       "supports_ipv4": true
     },
     {
       "url": "http://bt02.nnm-club.info:2710/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 875,
+      "ping_ms": 5260,
       "supports_ipv4": true
     },
     {
       "url": "http://bt1.archive.org:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 58,
+      "ping_ms": 88,
       "supports_ipv4": true
     },
     {
@@ -4995,8 +4988,10 @@
     },
     {
       "url": "http://bt1.xxxxbt.cc:6969/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 33,
+      "supports_ipv4": true
     },
     {
       "url": "http://bt2.54new.com80/announce",
@@ -5010,10 +5005,8 @@
     },
     {
       "url": "http://bt2.archive.org:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 50,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt2.careland.com.cn:6969/announce",
@@ -5022,24 +5015,18 @@
     },
     {
       "url": "http://bt2.edwardk.info:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 156,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt2.edwardk.info:4040/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 173,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt2.edwardk.info:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 172,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://bt2.the9.com:6969/announce",
@@ -5065,7 +5052,7 @@
       "url": "http://btracker.top:11451/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 135,
+      "ping_ms": 74,
       "supports_ipv4": true
     },
     {
@@ -5082,7 +5069,7 @@
       "url": "http://bttracker.debian.org:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 385,
+      "ping_ms": 335,
       "supports_ipv4": true
     },
     {
@@ -5102,27 +5089,29 @@
     },
     {
       "url": "http://bulkpeers.com:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 49,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://buny.uk:6969/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 33,
+      "supports_ipv4": true
     },
     {
       "url": "http://bvarf.tracker.sh:2086/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 423,
+      "ping_ms": 624,
       "supports_ipv4": true
     },
     {
       "url": "http://bz.tracker.bz/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 7310,
+      "supports_ipv4": true
     },
     {
       "url": "http://canardscitrons.nohost.me:6969/announce",
@@ -5148,7 +5137,7 @@
       "url": "http://ch3oh.ru:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 403,
+      "ping_ms": 334,
       "supports_ipv4": true
     },
     {
@@ -5175,15 +5164,13 @@
       "url": "http://concen.org:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 395,
+      "ping_ms": 1666,
       "supports_ipv4": true
     },
     {
       "url": "http://connect.swifte.space:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 410,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://coppersurfer.tk:6969/announce",
@@ -5197,8 +5184,10 @@
     },
     {
       "url": "http://craiovatracker.com/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 7250,
+      "supports_ipv4": true
     },
     {
       "url": "http://damntracker.info/announce",
@@ -5299,56 +5288,56 @@
       "url": "http://ehtracker.org/1/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 296,
+      "ping_ms": 414,
       "supports_ipv4": true
     },
     {
       "url": "http://ehtracker.org/1104308/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 283,
+      "ping_ms": 416,
       "supports_ipv4": true
     },
     {
       "url": "http://ehtracker.org/1113709/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 295,
+      "ping_ms": 403,
       "supports_ipv4": true
     },
     {
       "url": "http://ehtracker.org/1226599/1080494xo5eXcwFOBq/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 303,
+      "ping_ms": 394,
       "supports_ipv4": true
     },
     {
       "url": "http://ehtracker.org/1453746/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 289,
+      "ping_ms": 385,
       "supports_ipv4": true
     },
     {
       "url": "http://ehtracker.org/2496841/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 294,
+      "ping_ms": 402,
       "supports_ipv4": true
     },
     {
       "url": "http://ehtracker.org/2541477/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 297,
+      "ping_ms": 377,
       "supports_ipv4": true
     },
     {
       "url": "http://ehtracker.org/2566145/1159106xUfsJkT9Btg/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 322,
+      "ping_ms": 404,
       "supports_ipv4": true
     },
     {
@@ -5365,14 +5354,14 @@
       "url": "http://exodus.desync.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 38,
+      "ping_ms": 208,
       "supports_ipv4": true
     },
     {
       "url": "http://exodus.desync.com:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 5,
+      "ping_ms": 85,
       "supports_ipv4": true
     },
     {
@@ -5557,10 +5546,8 @@
     },
     {
       "url": "http://home.yxgz.club:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 6964,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://home.yxgz.vip:6969/announce",
@@ -5711,7 +5698,7 @@
       "url": "http://ipv4announce.sktorrent.eu:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 314,
+      "ping_ms": 316,
       "supports_ipv4": true
     },
     {
@@ -5953,7 +5940,7 @@
       "url": "http://metal.iplay.ro/announce.php",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 1373,
+      "ping_ms": 1856,
       "supports_ipv4": true
     },
     {
@@ -6068,10 +6055,8 @@
     },
     {
       "url": "http://netwarer.xyz:6960/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 9970,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://nnbt.org:2710/announce",
@@ -6087,7 +6072,7 @@
       "url": "http://novaopcj.icu:10325/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 358,
+      "ping_ms": 359,
       "supports_ipv4": true
     },
     {
@@ -6119,7 +6104,7 @@
       "url": "http://nyaa.tracker.wf:7777/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 337,
+      "ping_ms": 324,
       "supports_ipv4": true
     },
     {
@@ -6281,15 +6266,13 @@
       "url": "http://opentracker.acgnx.se/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 452,
+      "ping_ms": 414,
       "supports_ipv4": true
     },
     {
       "url": "http://opentracker.fr333dom.com:6666/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 5220,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://opentracker.i2p.rocks:6969/announce",
@@ -6310,7 +6293,7 @@
       "url": "http://opentrackr.org:1337/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 2388,
+      "ping_ms": 2366,
       "supports_ipv4": true
     },
     {
@@ -6412,14 +6395,14 @@
       "url": "http://pow7.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 56,
+      "ping_ms": 135,
       "supports_ipv4": true
     },
     {
       "url": "http://pow7.com:443/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 5,
+      "ping_ms": 84,
       "supports_ipv4": true
     },
     {
@@ -6441,7 +6424,7 @@
       "url": "http://proaudiotorrents.org/announce.php",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 382,
+      "ping_ms": 473,
       "supports_ipv4": true
     },
     {
@@ -6621,8 +6604,10 @@
     },
     {
       "url": "http://retracker.x2k.ru/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 242,
+      "supports_ipv4": true
     },
     {
       "url": "http://retracker.xxtor.com/announce",
@@ -6631,10 +6616,8 @@
     },
     {
       "url": "http://retracker01-msk-virt.corbina.net/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 463,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://rfc5746.mywaifu.best:6969/announce",
@@ -6703,10 +6686,8 @@
     },
     {
       "url": "http://sandrotracker.biz:1337/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 8640,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://sci.phidawn.com:2710/announce",
@@ -6717,7 +6698,7 @@
       "url": "http://secure.pow7.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 42,
+      "ping_ms": 97,
       "supports_ipv4": true
     },
     {
@@ -6757,10 +6738,8 @@
     },
     {
       "url": "http://shubt.net:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 48,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://siambit.com/announce",
@@ -6841,15 +6820,13 @@
       "url": "http://sukebei.tracker.wf:8888/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 347,
+      "ping_ms": 297,
       "supports_ipv4": true
     },
     {
       "url": "http://t-backup.213891.xyz/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 173,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://t.213891.xyz:443/announce",
@@ -6880,15 +6857,13 @@
       "url": "http://t.nyaatracker.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 6152,
+      "ping_ms": 5137,
       "supports_ipv4": true
     },
     {
       "url": "http://t.overflow.biz:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 351,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://t.ppnow.net:2710/announce",
@@ -6919,7 +6894,7 @@
       "url": "http://t1.pow7.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 68,
+      "ping_ms": 83,
       "supports_ipv4": true
     },
     {
@@ -6931,7 +6906,7 @@
       "url": "http://t2.pow7.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 74,
+      "ping_ms": 103,
       "supports_ipv4": true
     },
     {
@@ -6946,10 +6921,8 @@
     },
     {
       "url": "http://tc-boxing.com/announce.php",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 335,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tehconnection.eu:2790/announce",
@@ -6983,10 +6956,8 @@
     },
     {
       "url": "http://tk.cubicview.site/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 732,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tk.greedland.net/announce",
@@ -6995,10 +6966,8 @@
     },
     {
       "url": "http://tk.leechshield.link/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 165,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tk.nvacg.org:3333/announce",
@@ -7007,10 +6976,8 @@
     },
     {
       "url": "http://tk.trojangogogo.site:8989/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 2363,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tk1.trackerservers.com:8080/announce",
@@ -7084,17 +7051,13 @@
     },
     {
       "url": "http://torrent.arjlover.net:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 378,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://torrent.fedoraproject.org:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 349,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://torrent.gresille.org/announce",
@@ -7153,17 +7116,13 @@
     },
     {
       "url": "http://torrent.unix-ag.uni-kl.de/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 683,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://torrentclub.online:54123/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 337,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://torrentclub.tech:6969/announce",
@@ -7217,8 +7176,10 @@
     },
     {
       "url": "http://torrentsmd.me:8080/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 3179,
+      "supports_ipv4": true
     },
     {
       "url": "http://torrenttracker.nwc.acsalaska.net:6969/announce",
@@ -7274,36 +7235,32 @@
       "url": "http://tr.highstar.shop/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 328,
+      "ping_ms": 262,
       "supports_ipv4": true
     },
     {
       "url": "http://tr.kxmp.cf/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 7365,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tr.nyacat.pw/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 211,
+      "ping_ms": 162,
       "supports_ipv4": true
     },
     {
       "url": "http://tr.nyacat.pw:443/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 156,
+      "ping_ms": 163,
       "supports_ipv4": true
     },
     {
       "url": "http://tr.ysagin.top:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 350,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tr1.aag.moe:2095/announce",
@@ -7337,10 +7294,8 @@
     },
     {
       "url": "http://tracker-udp.anirena.com/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 338,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker-udp.gbitt.info/announce",
@@ -7351,15 +7306,13 @@
       "url": "http://tracker-zhuqiy.dgj055.icu/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 5095,
+      "ping_ms": 4161,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.004430.xyz:1337/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 127,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.1048576.cn:17272/announce",
@@ -7375,7 +7328,7 @@
       "url": "http://tracker.acgnx.se/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 427,
+      "ping_ms": 374,
       "supports_ipv4": true
     },
     {
@@ -7420,32 +7373,23 @@
     },
     {
       "url": "http://tracker.anirena.com/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 198,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.anirena.com/b16a15d9a238d1f59178d3614b857290/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 196,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.anonwebz.xyz:8080/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 324,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.auctor.tv:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 343,
-      "supports_ipv4": true,
-      "supports_ipv6": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.baka-sub.cf/announce",
@@ -7521,7 +7465,7 @@
       "url": "http://tracker.breizh.pm:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 628,
+      "ping_ms": 300,
       "supports_ipv4": true
     },
     {
@@ -7538,7 +7482,7 @@
       "url": "http://tracker.bt4g.com:2095/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 181,
+      "ping_ms": 178,
       "supports_ipv4": true
     },
     {
@@ -7598,10 +7542,8 @@
     },
     {
       "url": "http://tracker.coppersurfer.site:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 886,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.coppersurfer.tk:6969/announce",
@@ -7635,10 +7577,8 @@
     },
     {
       "url": "http://tracker.cubicview.site/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 659,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.cubonegro.org/announce",
@@ -7657,10 +7597,8 @@
     },
     {
       "url": "http://tracker.ddunlimited.net:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 364,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.deadfrog.us:42426/announce",
@@ -7679,38 +7617,28 @@
     },
     {
       "url": "http://tracker.dhitechnical.com:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 204,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.dler.com:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 304,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.dler.org:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 310,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.dm258.cn:7070/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 497,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.dmcomic.org:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 9793,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.dmhy.org00/announce",
@@ -7719,10 +7647,8 @@
     },
     {
       "url": "http://tracker.dump.cl:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 9696,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.dutchtracking.com/announce",
@@ -7766,10 +7692,8 @@
     },
     {
       "url": "http://tracker.etree.org:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 4759,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.ex.ua/announce",
@@ -7863,10 +7787,8 @@
     },
     {
       "url": "http://tracker.gcvchp.com:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 235,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.gdp.pw:900/announce",
@@ -7885,10 +7807,8 @@
     },
     {
       "url": "http://tracker.gigatorrents.ws:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 488,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.glotorrents.com:6969/announce",
@@ -8014,7 +7934,7 @@
       "url": "http://tracker.kali.org:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 168,
+      "ping_ms": 145,
       "supports_ipv4": true
     },
     {
@@ -8081,7 +8001,7 @@
       "url": "http://tracker.leechshield.link:443/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 61,
+      "ping_ms": 168,
       "supports_ipv4": true
     },
     {
@@ -8108,15 +8028,13 @@
       "url": "http://tracker.linkomanija.org:2710/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 1569,
+      "ping_ms": 1057,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.lintk.me:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 3174,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.linvk.com:443/announce",
@@ -8182,7 +8100,7 @@
       "url": "http://tracker.minglong.org:8080/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 328,
+      "ping_ms": 313,
       "supports_ipv4": true
     },
     {
@@ -8202,10 +8120,8 @@
     },
     {
       "url": "http://tracker.moxing.party:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 47,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.mrhei.tech:666/announce",
@@ -8221,7 +8137,7 @@
       "url": "http://tracker.mywaifu.best:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 373,
+      "ping_ms": 367,
       "supports_ipv4": true
     },
     {
@@ -8253,16 +8169,13 @@
       "url": "http://tracker.novaopcj.eu.org:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 478,
-      "supports_ipv4": true,
-      "supports_ipv6": true
+      "ping_ms": 699,
+      "supports_ipv4": true
     },
     {
       "url": "http://tracker.nucozer-tracker.ml:2710/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 3151,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.nwps.ws:6969/announce",
@@ -8283,7 +8196,7 @@
       "url": "http://tracker.nyaa.vc:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 317,
+      "ping_ms": 342,
       "supports_ipv4": true
     },
     {
@@ -8335,7 +8248,7 @@
       "url": "http://tracker.opentrackr.org:1337/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 297,
+      "ping_ms": 1281,
       "supports_ipv4": true
     },
     {
@@ -8367,7 +8280,7 @@
       "url": "http://tracker.plx.im:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 325,
+      "ping_ms": 287,
       "supports_ipv4": true
     },
     {
@@ -8389,7 +8302,7 @@
       "url": "http://tracker.pow7.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 67,
+      "ping_ms": 151,
       "supports_ipv4": true
     },
     {
@@ -8433,16 +8346,15 @@
       "url": "http://tracker.pussytorrents.org:3000/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 332,
+      "ping_ms": 312,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.qu.ax:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 330,
-      "supports_ipv4": true,
-      "supports_ipv6": true
+      "ping_ms": 324,
+      "supports_ipv4": true
     },
     {
       "url": "http://tracker.renfei.net80/announce",
@@ -8453,7 +8365,7 @@
       "url": "http://tracker.renfei.net:8080/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 199,
+      "ping_ms": 149,
       "supports_ipv4": true
     },
     {
@@ -8473,8 +8385,10 @@
     },
     {
       "url": "http://tracker.sbsub.com:2710/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 4140,
+      "supports_ipv4": true
     },
     {
       "url": "http://tracker.servequake.com:9999/announce",
@@ -8520,7 +8434,7 @@
       "url": "http://tracker.skyts.net:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 2496,
+      "ping_ms": 421,
       "supports_ipv4": true
     },
     {
@@ -8552,7 +8466,7 @@
       "url": "http://tracker.swifte.space:2710/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 851,
+      "ping_ms": 362,
       "supports_ipv4": true
     },
     {
@@ -8654,7 +8568,7 @@
       "url": "http://tracker.torrentbytes.net/announce.php",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 912,
+      "ping_ms": 677,
       "supports_ipv4": true
     },
     {
@@ -8676,7 +8590,7 @@
       "url": "http://tracker.torrentleech.org:2710/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 988,
+      "ping_ms": 285,
       "supports_ipv4": true
     },
     {
@@ -8708,14 +8622,14 @@
       "url": "http://tracker.trancetraffic.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 118,
+      "ping_ms": 98,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.trancetraffic.com/announce.php",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 124,
+      "ping_ms": 104,
       "supports_ipv4": true
     },
     {
@@ -8727,14 +8641,14 @@
       "url": "http://tracker.tritan.gg:8080/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 88,
+      "ping_ms": 5837,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.trojangogogo.site:8080/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 2452,
+      "ping_ms": 444,
       "supports_ipv4": true
     },
     {
@@ -8759,10 +8673,8 @@
     },
     {
       "url": "http://tracker.vanitycore.co:6969/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 7390,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.veryamt.com/announce",
@@ -8798,7 +8710,7 @@
       "url": "http://tracker.waaa.moe:6969/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 70,
+      "ping_ms": 155,
       "supports_ipv4": true
     },
     {
@@ -8830,21 +8742,21 @@
       "url": "http://tracker.xfapi.top:6868/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 533,
+      "ping_ms": 546,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.xfapi.top:7070/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 514,
+      "ping_ms": 545,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.xfapi.top:9999/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 520,
+      "ping_ms": 547,
       "supports_ipv4": true
     },
     {
@@ -8861,7 +8773,7 @@
       "url": "http://tracker.xn--djrq4gl4hvoi.top/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 372,
+      "ping_ms": 574,
       "supports_ipv4": true
     },
     {
@@ -8913,22 +8825,20 @@
       "url": "http://tracker.zhuqiy.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 201,
+      "ping_ms": 167,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.zhuqiy.com:443/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 165,
+      "ping_ms": 117,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker.zhuqiy.dgj055.icu/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 4071,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker.zhuqiy.eu.org:36107/announce",
@@ -8982,10 +8892,8 @@
     },
     {
       "url": "http://tracker114514.top:11450/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 128,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker2.ctix.cn:2095/announce",
@@ -8996,14 +8904,14 @@
       "url": "http://tracker2.dler.com/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 286,
+      "ping_ms": 375,
       "supports_ipv4": true
     },
     {
       "url": "http://tracker2.dler.org/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 285,
+      "ping_ms": 366,
       "supports_ipv4": true
     },
     {
@@ -9055,7 +8963,7 @@
       "url": "http://tracker3.dler.org:2710/announce",
       "status": "ALIVE",
       "protocol": "http",
-      "ping_ms": 288,
+      "ping_ms": 365,
       "supports_ipv4": true
     },
     {
@@ -9115,10 +9023,8 @@
     },
     {
       "url": "http://tracker5.infohash.org/announce",
-      "status": "ALIVE",
-      "protocol": "http",
-      "ping_ms": 7389,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "http"
     },
     {
       "url": "http://tracker5.torrentino.com/announce",
@@ -9142,8 +9048,10 @@
     },
     {
       "url": "http://tracker810.xyz:11450/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 3122,
+      "supports_ipv4": true
     },
     {
       "url": "http://tracker9.bol.bg/announce",
@@ -9342,8 +9250,10 @@
     },
     {
       "url": "http://www.arabp2p.net:2052/f5a1e35785c9f3885fd54f34b6e262b8/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 190,
+      "supports_ipv4": true
     },
     {
       "url": "http://www.bit-hdtv.com:2710/announce",
@@ -9382,8 +9292,10 @@
     },
     {
       "url": "http://www.chouchou.club:8080/announce",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 8825,
+      "supports_ipv4": true
     },
     {
       "url": "http://www.darkgamex.ch:6969/announce",
@@ -9552,8 +9464,10 @@
     },
     {
       "url": "http://www.thetradersden.org/forums/tracker/announce.php",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 129,
+      "supports_ipv4": true
     },
     {
       "url": "http://www.thetradersden.org/forums/tracker:80/announce",
@@ -9592,8 +9506,10 @@
     },
     {
       "url": "http://www.tribalmixes.com/announce.php",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 426,
+      "supports_ipv4": true
     },
     {
       "url": "http://www.tvnihon.com:6969/announce",
@@ -9622,8 +9538,10 @@
     },
     {
       "url": "http://www.worldboxingvideoarchive.com/announce.php",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 365,
+      "supports_ipv4": true
     },
     {
       "url": "http://www.xwt-classics.net/announce",
@@ -9632,8 +9550,10 @@
     },
     {
       "url": "http://www.xwt-classics.net/announce.php",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 464,
+      "supports_ipv4": true
     },
     {
       "url": "http://www.yqzuji.com/announce",
@@ -9677,8 +9597,10 @@
     },
     {
       "url": "http://xtremewrestlingtorrents.net/announce.php",
-      "status": "DEAD",
-      "protocol": "http"
+      "status": "ALIVE",
+      "protocol": "http",
+      "ping_ms": 827,
+      "supports_ipv4": true
     },
     {
       "url": "http://yggtracker.i2p.rocks/announce",
@@ -9719,13 +9641,15 @@
       "url": "https://004430.xyz/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 106,
+      "ping_ms": 144,
       "supports_ipv4": true
     },
     {
       "url": "https://021912.xyz/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 407,
+      "supports_ipv4": true
     },
     {
       "url": "https://0d.kebhana.mx/announce",
@@ -9786,7 +9710,7 @@
       "url": "https://1337.abcvg.info/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 312,
+      "ping_ms": 293,
       "supports_ipv4": true
     },
     {
@@ -9871,8 +9795,10 @@
     },
     {
       "url": "https://337hhh.xyz/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 493,
+      "supports_ipv4": true
     },
     {
       "url": "https://37.19.5.139:6969/announce",
@@ -10016,8 +9942,10 @@
     },
     {
       "url": "https://banananetwork.qzz.io/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 426,
+      "supports_ipv4": true
     },
     {
       "url": "https://bdremux.club/announce",
@@ -10061,8 +9989,10 @@
     },
     {
       "url": "https://bt.beatrice-raws.org/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 949,
+      "supports_ipv4": true
     },
     {
       "url": "https://bt.bontal.net/announce",
@@ -10138,7 +10068,7 @@
       "url": "https://chihaya-heroku.120181311.xyz/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 464,
+      "ping_ms": 519,
       "supports_ipv4": true
     },
     {
@@ -10173,8 +10103,10 @@
     },
     {
       "url": "https://edge-team.cc/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 308,
+      "supports_ipv4": true
     },
     {
       "url": "https://evening-badlands-6215.herokuapp.com/announce",
@@ -10185,13 +10117,15 @@
       "url": "https://explodie.org:6969/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 46,
+      "ping_ms": 268,
       "supports_ipv4": true
     },
     {
       "url": "https://fbiagent.cyou/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 692,
+      "supports_ipv4": true
     },
     {
       "url": "https://fxtt.ru:80/announce",
@@ -10270,8 +10204,10 @@
     },
     {
       "url": "https://linetorrent.xyz/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 45,
+      "supports_ipv4": true
     },
     {
       "url": "https://mathkangaroo.jp/announce",
@@ -10320,8 +10256,10 @@
     },
     {
       "url": "https://open.ftorrent.com/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 64,
+      "supports_ipv4": true
     },
     {
       "url": "https://open.kickasstracker.com/announce",
@@ -10377,7 +10315,7 @@
       "url": "https://orgtgju.org/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 383,
+      "ping_ms": 395,
       "supports_ipv4": true
     },
     {
@@ -10434,7 +10372,7 @@
       "url": "https://pybittrack.retiolus.net/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 2453,
+      "ping_ms": 1595,
       "supports_ipv4": true
     },
     {
@@ -10454,14 +10392,16 @@
     },
     {
       "url": "https://retracker.x2k.ru/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 318,
+      "supports_ipv4": true
     },
     {
       "url": "https://retracker2.x2k.ru/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 196,
+      "ping_ms": 494,
       "supports_ipv4": true
     },
     {
@@ -10471,16 +10411,14 @@
     },
     {
       "url": "https://seeders-paradise.org/announce",
-      "status": "ALIVE",
-      "protocol": "https",
-      "ping_ms": 3256,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "https"
     },
     {
       "url": "https://shahidrazi.online/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 496,
+      "ping_ms": 447,
       "supports_ipv4": true
     },
     {
@@ -10502,7 +10440,7 @@
       "url": "https://t.213891.xyz/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 13,
+      "ping_ms": 154,
       "supports_ipv4": true
     },
     {
@@ -10597,8 +10535,10 @@
     },
     {
       "url": "https://tk.mabo.ltd/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 9681,
+      "supports_ipv4": true
     },
     {
       "url": "https://torrent-tracker.hama3.net/announce",
@@ -10624,13 +10564,15 @@
       "url": "https://torrent.ubuntu.com/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 584,
+      "ping_ms": 651,
       "supports_ipv4": true
     },
     {
       "url": "https://torrentonline.cc/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 306,
+      "supports_ipv4": true
     },
     {
       "url": "https://torrents.linuxmint.com/announce",
@@ -10644,8 +10586,10 @@
     },
     {
       "url": "https://torrents.tmtime.dev/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 519,
+      "supports_ipv4": true
     },
     {
       "url": "https://torrentsmd.com:8080/announce",
@@ -10741,7 +10685,7 @@
       "url": "https://tr.highstar.shop/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 467,
+      "ping_ms": 426,
       "supports_ipv4": true
     },
     {
@@ -10763,7 +10707,7 @@
       "url": "https://tr.nyacat.pw/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 157,
+      "ping_ms": 223,
       "supports_ipv4": true
     },
     {
@@ -10788,18 +10732,24 @@
     },
     {
       "url": "https://tr.torland.ga/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 4266,
+      "supports_ipv4": true
     },
     {
       "url": "https://tr.zukizuki.org/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 279,
+      "supports_ipv4": true
     },
     {
       "url": "https://tr2.trkb.ru/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 497,
+      "supports_ipv4": true
     },
     {
       "url": "https://track.solcloud.eu/announce",
@@ -10813,10 +10763,8 @@
     },
     {
       "url": "https://tracker-zhuqiy.dgj055.icu/announce",
-      "status": "ALIVE",
-      "protocol": "https",
-      "ping_ms": 3403,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "https"
     },
     {
       "url": "https://tracker-zhuqiy.xn--1r3au8b.space/announce",
@@ -10835,8 +10783,10 @@
     },
     {
       "url": "https://tracker.7471.top/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 225,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.aburaya.live/announce",
@@ -10865,8 +10815,10 @@
     },
     {
       "url": "https://tracker.anibt.net/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 581,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.babico.name.tr/announce",
@@ -10897,7 +10849,7 @@
       "url": "https://tracker.bittor.pw:1337/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 49,
+      "ping_ms": 9493,
       "supports_ipv4": true
     },
     {
@@ -10924,7 +10876,7 @@
       "url": "https://tracker.bt4g.com/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 162,
+      "ping_ms": 205,
       "supports_ipv4": true
     },
     {
@@ -10944,8 +10896,10 @@
     },
     {
       "url": "https://tracker.cangku.moe/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 8369,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.carpt.net/announce",
@@ -11094,10 +11048,8 @@
     },
     {
       "url": "https://tracker.gcrenwp.top/announce",
-      "status": "ALIVE",
-      "protocol": "https",
-      "ping_ms": 78,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "https"
     },
     {
       "url": "https://tracker.gcrreen.xyz/announce",
@@ -11288,7 +11240,7 @@
       "url": "https://tracker.leechshield.link/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 61,
+      "ping_ms": 151,
       "supports_ipv4": true
     },
     {
@@ -11348,18 +11300,24 @@
     },
     {
       "url": "https://tracker.madtia.cc/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 353,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.manager.itislove.cz/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 1537,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.manager.v6.navy/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 688,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.maya.no.eu.org/announce",
@@ -11393,8 +11351,10 @@
     },
     {
       "url": "https://tracker.monikadesign.uk/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 532,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.morian.icu/announce",
@@ -11403,17 +11363,13 @@
     },
     {
       "url": "https://tracker.moviesdb.top/announce",
-      "status": "ALIVE",
-      "protocol": "https",
-      "ping_ms": 576,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "https"
     },
     {
       "url": "https://tracker.moxing.party:6969/announce",
-      "status": "ALIVE",
-      "protocol": "https",
-      "ping_ms": 7708,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "https"
     },
     {
       "url": "https://tracker.mrhei.tech:666/announce",
@@ -11457,8 +11413,10 @@
     },
     {
       "url": "https://tracker.opentracker.se/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 2243,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.opentrackr.org:1337/announce",
@@ -11482,8 +11440,10 @@
     },
     {
       "url": "https://tracker.pmman.tech/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 307,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.projectk.org/announce",
@@ -11519,7 +11479,7 @@
       "url": "https://tracker.qingwapt.org/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 205,
+      "ping_ms": 312,
       "supports_ipv4": true
     },
     {
@@ -11611,7 +11571,7 @@
       "url": "https://tracker.torrentbd.net/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 909,
+      "ping_ms": 1046,
       "supports_ipv4": true
     },
     {
@@ -11623,7 +11583,7 @@
       "url": "https://tracker.totheglory.im/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 189,
+      "ping_ms": 221,
       "supports_ipv4": true
     },
     {
@@ -11673,8 +11633,10 @@
     },
     {
       "url": "https://tracker.yemekyedim.com/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 211,
+      "supports_ipv4": true
     },
     {
       "url": "https://tracker.yggleak.top/announce",
@@ -11690,7 +11652,7 @@
       "url": "https://tracker.zhuqiy.com/announce",
       "status": "ALIVE",
       "protocol": "https",
-      "ping_ms": 79,
+      "ping_ms": 217,
       "supports_ipv4": true
     },
     {
@@ -11825,8 +11787,10 @@
     },
     {
       "url": "https://wolf.parrot.run/announce",
-      "status": "DEAD",
-      "protocol": "https"
+      "status": "ALIVE",
+      "protocol": "https",
+      "ping_ms": 9134,
+      "supports_ipv4": true
     },
     {
       "url": "https://wsad.run.place/announce",
@@ -12012,7 +11976,7 @@
       "url": "udp://107.189.2.131:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 1229,
+      "ping_ms": 1440,
       "supports_ipv4": true
     },
     {
@@ -12024,14 +11988,14 @@
       "url": "udp://107.189.4.235:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 294,
+      "ping_ms": 299,
       "supports_ipv4": true
     },
     {
       "url": "udp://107.189.7.165:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 302,
+      "ping_ms": 265,
       "supports_ipv4": true
     },
     {
@@ -12193,7 +12157,7 @@
       "url": "udp://118.196.100.63:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 447,
+      "ping_ms": 383,
       "supports_ipv4": true
     },
     {
@@ -12248,8 +12212,10 @@
     },
     {
       "url": "udp://120.78.150.131:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 410,
+      "supports_ipv4": true
     },
     {
       "url": "udp://121.14.98.151:80/announce",
@@ -12298,15 +12264,15 @@
     },
     {
       "url": "udp://132.226.6.145:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 214,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://132.243.174.78:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 272,
+      "supports_ipv4": true
     },
     {
       "url": "udp://134.209.1.127:6969/announce",
@@ -12325,10 +12291,8 @@
     },
     {
       "url": "udp://135.125.236.64:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 296,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://135.181.197.114:1337/announce",
@@ -12482,10 +12446,8 @@
     },
     {
       "url": "udp://149.106.106.25:443/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 57,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://149.202.88.193:80/announce",
@@ -12524,10 +12486,8 @@
     },
     {
       "url": "udp://151.242.30.86:42069/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 375,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://151.243.109.110:6969/announce",
@@ -12616,10 +12576,8 @@
     },
     {
       "url": "udp://154.40.43.165:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 22,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://156.234.201.18:80/announce",
@@ -12695,15 +12653,13 @@
       "url": "udp://163.5.63.253:6990/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 302,
+      "ping_ms": 323,
       "supports_ipv4": true
     },
     {
       "url": "udp://164.152.110.70:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 97,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://167.99.185.219:6969/announce",
@@ -12732,17 +12688,13 @@
     },
     {
       "url": "udp://172.245.168.134:1337/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 141,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://173.201.36.219:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 98,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://173.212.223.237:6969/announce",
@@ -13191,14 +13143,16 @@
     },
     {
       "url": "udp://185.121.168.96:1337/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 289,
+      "supports_ipv4": true
     },
     {
       "url": "udp://185.121.168.96:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 273,
+      "ping_ms": 304,
       "supports_ipv4": true
     },
     {
@@ -13213,17 +13167,13 @@
     },
     {
       "url": "udp://185.146.233.150:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 360,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://185.171.202.111:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 309,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://185.181.60.155:80/announce",
@@ -13237,10 +13187,8 @@
     },
     {
       "url": "udp://185.189.13.108:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 382,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://185.21.216.185:6969/announce",
@@ -13249,10 +13197,8 @@
     },
     {
       "url": "udp://185.216.179.62:25/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 315,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://185.225.68.26:6969/announce",
@@ -13533,7 +13479,7 @@
       "url": "udp://189.18.162.12:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 337,
+      "ping_ms": 310,
       "supports_ipv4": true
     },
     {
@@ -13745,7 +13691,7 @@
       "url": "udp://192.3.130.53:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 98,
+      "ping_ms": 63,
       "supports_ipv4": true
     },
     {
@@ -13765,8 +13711,10 @@
     },
     {
       "url": "udp://193.148.251.93:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 184,
+      "supports_ipv4": true
     },
     {
       "url": "udp://193.177.162.187:6969/announce",
@@ -13895,8 +13843,10 @@
     },
     {
       "url": "udp://2.57.214.218:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 248,
+      "supports_ipv4": true
     },
     {
       "url": "udp://2.tracker.eu.org:443/announce",
@@ -14102,7 +14052,7 @@
       "url": "udp://209.141.59.25:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 47,
+      "ping_ms": 65,
       "supports_ipv4": true
     },
     {
@@ -14167,8 +14117,10 @@
     },
     {
       "url": "udp://211.75.205.189:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 303,
+      "supports_ipv4": true
     },
     {
       "url": "udp://211.75.205.189:80/announce",
@@ -14244,7 +14196,7 @@
       "url": "udp://211.75.210.221:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 279,
+      "ping_ms": 303,
       "supports_ipv4": true
     },
     {
@@ -14606,15 +14558,13 @@
       "url": "udp://23.134.88.9:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 2,
+      "ping_ms": 84,
       "supports_ipv4": true
     },
     {
       "url": "udp://23.134.88.9:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 2,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://23.134.89.9:1337/announce",
@@ -14673,10 +14623,8 @@
     },
     {
       "url": "udp://23.175.184.30:23333/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 91,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://23.95.32.130:6969/announce",
@@ -14785,8 +14733,10 @@
     },
     {
       "url": "udp://31.38.161.123:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 296,
+      "supports_ipv4": true
     },
     {
       "url": "udp://34.66.57.33:1337/announce",
@@ -14867,21 +14817,21 @@
       "url": "udp://37.120.182.83:15480/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 302,
+      "ping_ms": 267,
       "supports_ipv4": true
     },
     {
       "url": "udp://37.120.182.83:1984/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 310,
+      "ping_ms": 261,
       "supports_ipv4": true
     },
     {
       "url": "udp://37.120.182.83:54123/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 315,
+      "ping_ms": 268,
       "supports_ipv4": true
     },
     {
@@ -14908,7 +14858,7 @@
       "url": "udp://37.235.176.37:2710/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 406,
+      "ping_ms": 377,
       "supports_ipv4": true
     },
     {
@@ -14948,17 +14898,13 @@
     },
     {
       "url": "udp://43.154.112.29:17272/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 301,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://43.250.54.126:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 298,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://43.250.54.137:6969/announce",
@@ -14992,17 +14938,13 @@
     },
     {
       "url": "udp://45.134.88.121:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 289,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://45.137.199.107:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 288,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://45.154.214.21:6969/announce",
@@ -15126,10 +15068,8 @@
     },
     {
       "url": "udp://46.59.69.118:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 315,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://47.243.23.189:6969/announce",
@@ -15198,10 +15138,8 @@
     },
     {
       "url": "udp://5.255.124.190:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 299,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://5.45.69.185:6969/announce",
@@ -15255,10 +15193,8 @@
     },
     {
       "url": "udp://51.15.41.46:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 286,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://51.15.55.204:1337/announce",
@@ -15292,10 +15228,8 @@
     },
     {
       "url": "udp://51.222.82.36:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 148,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://51.254.244.161:6969/announce",
@@ -15334,10 +15268,8 @@
     },
     {
       "url": "udp://51.81.222.188:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 30,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://51.81.46.170:6969/announce",
@@ -15348,7 +15280,7 @@
       "url": "udp://52.211.139.85:27022/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 271,
+      "ping_ms": 227,
       "supports_ipv4": true
     },
     {
@@ -15358,10 +15290,8 @@
     },
     {
       "url": "udp://54.36.179.216:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 288,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://54.37.235.149:6969/announce",
@@ -15392,15 +15322,13 @@
       "url": "udp://60.172.236.18:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 448,
+      "ping_ms": 432,
       "supports_ipv4": true
     },
     {
       "url": "udp://60.249.37.20:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 276,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://60.249.37.20:80/announce",
@@ -15529,10 +15457,8 @@
     },
     {
       "url": "udp://6ahddutb1ucc3cp.ru:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 389,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://6rt.tace.ru:80/announce",
@@ -15548,7 +15474,7 @@
       "url": "udp://74.119.149.136:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 142,
+      "ping_ms": 87,
       "supports_ipv4": true
     },
     {
@@ -15723,8 +15649,10 @@
     },
     {
       "url": "udp://81.230.84.201:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 310,
+      "supports_ipv4": true
     },
     {
       "url": "udp://81.7.10.104:6969/announce",
@@ -16078,8 +16006,10 @@
     },
     {
       "url": "udp://85.121.5.80:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 870,
+      "supports_ipv4": true
     },
     {
       "url": "udp://85.17.19.180:80/announce",
@@ -16118,8 +16048,10 @@
     },
     {
       "url": "udp://87.106.210.134:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 327,
+      "supports_ipv4": true
     },
     {
       "url": "udp://88.216.2.71:6969/announce",
@@ -16128,8 +16060,10 @@
     },
     {
       "url": "udp://88.80.22.67:2710/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 263,
+      "supports_ipv4": true
     },
     {
       "url": "udp://88.80.28.7:6969/announce",
@@ -16153,8 +16087,10 @@
     },
     {
       "url": "udp://89.234.156.205:451/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 270,
+      "supports_ipv4": true
     },
     {
       "url": "udp://89.234.156.205:80/announce",
@@ -16380,7 +16316,7 @@
       "url": "udp://91.216.110.53:451/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 332,
+      "ping_ms": 289,
       "supports_ipv4": true
     },
     {
@@ -16420,10 +16356,8 @@
     },
     {
       "url": "udp://93.158.213.92:1337/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 296,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://93.158.213.92:6969/announce",
@@ -16442,10 +16376,8 @@
     },
     {
       "url": "udp://94.136.190.183:1333/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 436,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://94.136.190.183:1337/announce",
@@ -16461,7 +16393,7 @@
       "url": "udp://94.136.190.183:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 432,
+      "ping_ms": 447,
       "supports_ipv4": true
     },
     {
@@ -16633,7 +16565,7 @@
       "url": "udp://admin.52ywp.com:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 425,
+      "ping_ms": 409,
       "supports_ipv4": true
     },
     {
@@ -16670,7 +16602,7 @@
       "url": "udp://anime-tracker.aruku.kro.kr:8081/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 259,
+      "ping_ms": 287,
       "supports_ipv4": true
     },
     {
@@ -16722,7 +16654,7 @@
       "url": "udp://archive.torrentonline.cc:42069/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 315,
+      "ping_ms": 247,
       "supports_ipv4": true
     },
     {
@@ -16742,8 +16674,10 @@
     },
     {
       "url": "udp://atrack.pow7.com:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 92,
+      "supports_ipv4": true
     },
     {
       "url": "udp://auratorrent.pl:8089/announce",
@@ -16927,8 +16861,10 @@
     },
     {
       "url": "udp://bt.okmp3.ru:2710/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 4912,
+      "supports_ipv4": true
     },
     {
       "url": "udp://bt.plc.mx:3074/announce",
@@ -17137,8 +17073,10 @@
     },
     {
       "url": "udp://coeus.torrentonline.cc:42069/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 247,
+      "supports_ipv4": true
     },
     {
       "url": "udp://colivioo.com:6969/announce",
@@ -17367,8 +17305,10 @@
     },
     {
       "url": "udp://evan.im:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 99,
+      "supports_ipv4": true
     },
     {
       "url": "udp://exodus.desync.com:6969/announce",
@@ -17422,8 +17362,10 @@
     },
     {
       "url": "udp://forever-tracker.zooki.xyz:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 266,
+      "supports_ipv4": true
     },
     {
       "url": "udp://fosstorrents.com:6969/announce",
@@ -17442,8 +17384,10 @@
     },
     {
       "url": "udp://free-tracker.zooki.xyz:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 261,
+      "supports_ipv4": true
     },
     {
       "url": "udp://free.open.tracker.0.starka.st:15480/announce",
@@ -17482,8 +17426,10 @@
     },
     {
       "url": "udp://glotorrents.pw:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 4923,
+      "supports_ipv4": true
     },
     {
       "url": "udp://grabthe.info:80/announce",
@@ -17502,8 +17448,10 @@
     },
     {
       "url": "udp://hificode.in:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 62,
+      "supports_ipv4": true
     },
     {
       "url": "udp://home.kray.pw:6969/announce",
@@ -17627,8 +17575,10 @@
     },
     {
       "url": "udp://ipv4announce.sktorrent.eu:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 3566,
+      "supports_ipv4": true
     },
     {
       "url": "udp://ipv6.1337.cx:6969/announce",
@@ -17807,13 +17757,17 @@
     },
     {
       "url": "udp://leet-tracker.moe:23861/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 63,
+      "supports_ipv4": true
     },
     {
       "url": "udp://leet-tracker.moe:38151/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 63,
+      "supports_ipv4": true
     },
     {
       "url": "udp://leidenfro.st:6969/announce",
@@ -17907,10 +17861,8 @@
     },
     {
       "url": "udp://mail.segso.net:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 310,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://mail.zasaonsk.ga:6969/announce",
@@ -17921,14 +17873,14 @@
       "url": "udp://market-re.quest:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 311,
+      "ping_ms": 270,
       "supports_ipv4": true
     },
     {
       "url": "udp://martin-gebhardt.eu:25/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 320,
+      "ping_ms": 264,
       "supports_ipv4": true
     },
     {
@@ -18050,7 +18002,7 @@
       "url": "udp://novaopcj.icu:10325/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 327,
+      "ping_ms": 267,
       "supports_ipv4": true
     },
     {
@@ -18060,10 +18012,8 @@
     },
     {
       "url": "udp://ns-1.x-fins.com:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 140,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://ns1.monolithindustries.com:6969/announce",
@@ -18079,7 +18029,7 @@
       "url": "udp://ns575949.ip-51-222-82.net:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 147,
+      "ping_ms": 103,
       "supports_ipv4": true
     },
     {
@@ -18091,7 +18041,7 @@
       "url": "udp://obey.torrentonline.cc:42069/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 305,
+      "ping_ms": 248,
       "supports_ipv4": true
     },
     {
@@ -18138,14 +18088,14 @@
       "url": "udp://open.demonii.com:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 272,
+      "ping_ms": 290,
       "supports_ipv4": true
     },
     {
       "url": "udp://open.demonii.com:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 272,
+      "ping_ms": 290,
       "supports_ipv4": true
     },
     {
@@ -18182,7 +18132,7 @@
       "url": "udp://open.ftorrent.com:443/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 57,
+      "ping_ms": 15,
       "supports_ipv4": true
     },
     {
@@ -18274,14 +18224,14 @@
       "url": "udp://opentracker.xyz:443/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 381,
+      "ping_ms": 333,
       "supports_ipv4": true
     },
     {
       "url": "udp://opentrackr.org:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 363,
+      "ping_ms": 317,
       "supports_ipv4": true
     },
     {
@@ -18358,7 +18308,7 @@
       "url": "udp://pirate.t-1.org:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 296,
+      "ping_ms": 320,
       "supports_ipv4": true
     },
     {
@@ -18410,14 +18360,14 @@
       "url": "udp://public-tracker.zooki.xyz:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 297,
+      "ping_ms": 261,
       "supports_ipv4": true
     },
     {
       "url": "udp://public.demonoid.ch:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 44,
+      "ping_ms": 126,
       "supports_ipv4": true
     },
     {
@@ -18439,14 +18389,14 @@
       "url": "udp://publictracker.xyz:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 292,
+      "ping_ms": 247,
       "supports_ipv4": true
     },
     {
       "url": "udp://pubt.in:2710/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 94,
+      "ping_ms": 66,
       "supports_ipv4": true
     },
     {
@@ -18463,14 +18413,14 @@
       "url": "udp://qg.lorzl.gq:2710/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 98,
+      "ping_ms": 63,
       "supports_ipv4": true
     },
     {
       "url": "udp://qg.lorzl.gq:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 98,
+      "ping_ms": 66,
       "supports_ipv4": true
     },
     {
@@ -18502,7 +18452,7 @@
       "url": "udp://rekcart.duckdns.org:15480/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 313,
+      "ping_ms": 261,
       "supports_ipv4": true
     },
     {
@@ -18584,7 +18534,7 @@
       "url": "udp://retracker01-msk-virt.corbina.net/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 357,
+      "ping_ms": 324,
       "supports_ipv4": true
     },
     {
@@ -18636,7 +18586,7 @@
       "url": "udp://sandrotracker.biz:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 94,
+      "ping_ms": 66,
       "supports_ipv4": true
     },
     {
@@ -18648,7 +18598,7 @@
       "url": "udp://santost12.xyz:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 313,
+      "ping_ms": 275,
       "supports_ipv4": true
     },
     {
@@ -18658,14 +18608,16 @@
     },
     {
       "url": "udp://secure.pow7.com:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 96,
+      "supports_ipv4": true
     },
     {
       "url": "udp://seedpeer.net:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 291,
+      "ping_ms": 259,
       "supports_ipv4": true
     },
     {
@@ -18790,8 +18742,10 @@
     },
     {
       "url": "udp://t.overflow.biz:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 306,
+      "supports_ipv4": true
     },
     {
       "url": "udp://t.pldm.ml:6969/announce",
@@ -18840,8 +18794,10 @@
     },
     {
       "url": "udp://t2.pow7.com:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 101,
+      "supports_ipv4": true
     },
     {
       "url": "udp://t3.leech.ie:1337/announce",
@@ -18990,20 +18946,22 @@
     },
     {
       "url": "udp://torrentclub.online:54123/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 263,
+      "supports_ipv4": true
     },
     {
       "url": "udp://torrentclub.space:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 261,
+      "supports_ipv4": true
     },
     {
       "url": "udp://torrentclub.tech:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 97,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://torrents.artixlinux.org:6969/announce",
@@ -19019,7 +18977,7 @@
       "url": "udp://torrents.tmtime.dev:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 332,
+      "ping_ms": 303,
       "supports_ipv4": true
     },
     {
@@ -19101,7 +19059,7 @@
       "url": "udp://tr4ck3r.duckdns.org:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 368,
+      "ping_ms": 346,
       "supports_ipv4": true
     },
     {
@@ -19148,7 +19106,7 @@
       "url": "udp://tracker.004430.xyz:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 100,
+      "ping_ms": 88,
       "supports_ipv4": true
     },
     {
@@ -19180,7 +19138,7 @@
       "url": "udp://tracker.1h.is:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 294,
+      "ping_ms": 267,
       "supports_ipv4": true
     },
     {
@@ -19247,14 +19205,14 @@
       "url": "udp://tracker.aruku.ovh:8081/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 355,
+      "ping_ms": 367,
       "supports_ipv4": true
     },
     {
       "url": "udp://tracker.auctor.tv:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 298,
+      "ping_ms": 252,
       "supports_ipv4": true
     },
     {
@@ -19301,7 +19259,7 @@
       "url": "udp://tracker.bittor.pw:1337/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 93,
+      "ping_ms": 67,
       "supports_ipv4": true
     },
     {
@@ -19318,7 +19276,7 @@
       "url": "udp://tracker.bluefrog.pw:2710/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 328,
+      "ping_ms": 270,
       "supports_ipv4": true
     },
     {
@@ -19330,7 +19288,7 @@
       "url": "udp://tracker.breizh.pm:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 302,
+      "ping_ms": 269,
       "supports_ipv4": true
     },
     {
@@ -19370,8 +19328,10 @@
     },
     {
       "url": "udp://tracker.cloudbase.store:1333/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 438,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.coppersurfer.tk/announce",
@@ -19460,23 +19420,31 @@
     },
     {
       "url": "udp://tracker.dhitechnical.com:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 125,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.dix.tf:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 75,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.dler.com:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 321,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.dler.org:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 310,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.doko.moe:6969/announce",
@@ -19495,8 +19463,10 @@
     },
     {
       "url": "udp://tracker.ducks.party:1984/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 265,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.dump.cl:6969/announce",
@@ -19580,13 +19550,17 @@
     },
     {
       "url": "udp://tracker.fatkhoala.org:13710/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 62,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.fatkhoala.org:13790/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 63,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.filemail.com:6969/announce",
@@ -19620,13 +19594,17 @@
     },
     {
       "url": "udp://tracker.flatuslifir.is:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 209,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.fnix.net:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 267,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.fortu.io:6969/announce",
@@ -19665,8 +19643,10 @@
     },
     {
       "url": "udp://tracker.gmi.gd:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 64,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.grepler.com:6969/announce",
@@ -19705,8 +19685,10 @@
     },
     {
       "url": "udp://tracker.hifimarket.in:2710/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 449,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.hifitechindia.com:6969/announce",
@@ -19715,8 +19697,10 @@
     },
     {
       "url": "udp://tracker.hismz.cn:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 421,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.home.kmzs123.cn:17272/announce",
@@ -19750,8 +19734,10 @@
     },
     {
       "url": "udp://tracker.iperson.xyz:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 419,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.istole.it:80/announce",
@@ -19860,8 +19846,10 @@
     },
     {
       "url": "udp://tracker.leechersparadise.org:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 4426,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.leena.network:6969/announce",
@@ -19945,8 +19933,10 @@
     },
     {
       "url": "udp://tracker.moxing.party:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 4306,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.msm8916.com:6969/announce",
@@ -20012,7 +20002,7 @@
       "url": "udp://tracker.nyaa.vc:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 293,
+      "ping_ms": 282,
       "supports_ipv4": true
     },
     {
@@ -20077,8 +20067,10 @@
     },
     {
       "url": "udp://tracker.opentrackr.org:1337/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 247,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.orsvarn.com:6969/announce",
@@ -20302,8 +20294,10 @@
     },
     {
       "url": "udp://tracker.tallpenguin.org:15750/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 66,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker.tcp.exchange:6969/announce",
@@ -20322,10 +20316,8 @@
     },
     {
       "url": "udp://tracker.theoks.net:6969/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 47,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://tracker.thepiratebay.org:80/announce",
@@ -20364,10 +20356,8 @@
     },
     {
       "url": "udp://tracker.torrent.eu.org:451/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 319,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://tracker.torrentbay.to:6969/announce",
@@ -20408,7 +20398,7 @@
       "url": "udp://tracker.trackarr.org:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 317,
+      "ping_ms": 281,
       "supports_ipv4": true
     },
     {
@@ -20445,14 +20435,14 @@
       "url": "udp://tracker.trojangogogo.site:8080/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 320,
+      "ping_ms": 267,
       "supports_ipv4": true
     },
     {
       "url": "udp://tracker.tryhackx.org:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 295,
+      "ping_ms": 281,
       "supports_ipv4": true
     },
     {
@@ -20474,7 +20464,7 @@
       "url": "udp://tracker.uw0.xyz:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 308,
+      "ping_ms": 259,
       "supports_ipv4": true
     },
     {
@@ -20531,7 +20521,7 @@
       "url": "udp://tracker.wildkat.net:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 98,
+      "ping_ms": 753,
       "supports_ipv4": true
     },
     {
@@ -20678,7 +20668,7 @@
       "url": "udp://tracker1.t-1.org:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 305,
+      "ping_ms": 269,
       "supports_ipv4": true
     },
     {
@@ -20700,7 +20690,7 @@
       "url": "udp://tracker2.dler.com/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 274,
+      "ping_ms": 304,
       "supports_ipv4": true
     },
     {
@@ -20742,13 +20732,15 @@
       "url": "udp://tracker3.t-1.org:6969/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 294,
+      "ping_ms": 276,
       "supports_ipv4": true
     },
     {
       "url": "udp://tracker4.infohash.org:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 91,
+      "supports_ipv4": true
     },
     {
       "url": "udp://tracker4.infohash.org:80/announce",
@@ -20854,7 +20846,7 @@
       "url": "udp://uabits.today:6990/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 324,
+      "ping_ms": 271,
       "supports_ipv4": true
     },
     {
@@ -20871,7 +20863,7 @@
       "url": "udp://udp.tracker.projectk.org:23333/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 90,
+      "ping_ms": 56,
       "supports_ipv4": true
     },
     {
@@ -20926,8 +20918,10 @@
     },
     {
       "url": "udp://v2.iperson.xyz:6969/announce",
-      "status": "DEAD",
-      "protocol": "udp"
+      "status": "ALIVE",
+      "protocol": "udp",
+      "ping_ms": 415,
+      "supports_ipv4": true
     },
     {
       "url": "udp://v6-tracker.0g.cx:6969/announce",
@@ -20958,7 +20952,7 @@
       "url": "udp://vibe.sleepyinternetfun.xyz:1738/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 301,
+      "ping_ms": 268,
       "supports_ipv4": true
     },
     {
@@ -21020,7 +21014,7 @@
       "url": "udp://whybother.torrentonline.cc:42069/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 307,
+      "ping_ms": 259,
       "supports_ipv4": true
     },
     {
@@ -21087,7 +21081,7 @@
       "url": "udp://www.torrent.eu.org:451/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 328,
+      "ping_ms": 287,
       "supports_ipv4": true
     },
     {
@@ -21169,7 +21163,7 @@
       "url": "udp://yuptracker-eu.gaijinent.com:27022/announce",
       "status": "ALIVE",
       "protocol": "udp",
-      "ping_ms": 271,
+      "ping_ms": 3441,
       "supports_ipv4": true
     },
     {
@@ -21199,10 +21193,8 @@
     },
     {
       "url": "udp://zer0day.ch:1337/announce",
-      "status": "ALIVE",
-      "protocol": "udp",
-      "ping_ms": 376,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "udp"
     },
     {
       "url": "udp://zer0day.to:1337/announce",
@@ -21306,10 +21298,8 @@
     },
     {
       "url": "wss://tracker.openwebtorrent.com/announce",
-      "status": "ALIVE",
-      "protocol": "wss",
-      "ping_ms": 352,
-      "supports_ipv4": true
+      "status": "DEAD",
+      "protocol": "wss"
     },
     {
       "url": "wss://tracker.openwebtorrent.com:443/announce",
@@ -21325,11 +21315,11 @@
       "url": "wss://tracker.webtorrent.dev/announce",
       "status": "ALIVE",
       "protocol": "wss",
-      "ping_ms": 629,
+      "ping_ms": 583,
       "supports_ipv4": true
     }
   ],
-  "avg_ping_ms": 780.4744027303755,
-  "min_ping_ms": 2,
-  "max_ping_ms": 9970
+  "avg_ping_ms": 879.397212543554,
+  "min_ping_ms": 15,
+  "max_ping_ms": 9875
 }
