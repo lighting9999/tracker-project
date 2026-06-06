@@ -1,1 +1,0 @@
-http://tracker.auctor.tv:6969/announce

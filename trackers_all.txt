@@ -55,6 +55,7 @@ http://113.17.152.30:6969/announce
 http://113.17.153.206:6969/announce
 http://113.17.153.227:6969/announce
 http://113.17.153.71:6969/announce
+http://113.17.66.235:6969/announce
 http://113.17.66.72:6969/announce
 http://113.17.67.93:6969/announce
 http://114.55.113.60:6969/announce
@@ -568,6 +569,7 @@ http://34.66.57.33:2701/announce
 http://34.66.57.33:2710/announce
 http://34.66.57.33:443/announce
 http://34.66.57.33:6969/announce
+http://34.66.57.33/announce.php
 http://34.89.30.59/announce
 http://34.89.30.59:2710/announce
 http://34.89.51.235/announce
@@ -2104,6 +2106,7 @@ https://tracker.baka.ink/announce
 https://tracker.bangumi.zip/announce
 https://tracker.baravik.org:6970/announce
 https://tracker.belmult.online/announce
+https://tracker.bigbewbs.online/announce
 https://tracker.bittor.pw:1337/announce
 https://tracker.bittor.xyz/announce
 https://tracker.bittorrent.am/announce
