@@ -55,6 +55,7 @@ http://113.17.152.30:6969/announce
 http://113.17.153.206:6969/announce
 http://113.17.153.227:6969/announce
 http://113.17.153.71:6969/announce
+http://113.17.66.164:6969/announce
 http://113.17.66.235:6969/announce
 http://113.17.66.72:6969/announce
 http://113.17.67.93:6969/announce
@@ -569,7 +570,6 @@ http://34.66.57.33:2701/announce
 http://34.66.57.33:2710/announce
 http://34.66.57.33:443/announce
 http://34.66.57.33:6969/announce
-http://34.66.57.33/announce.php
 http://34.89.30.59/announce
 http://34.89.30.59:2710/announce
 http://34.89.51.235/announce
@@ -3907,6 +3907,7 @@ udp://tracker.openbittorrent.com:80/announce
 udp://tracker.openbittorrent.com:80/announce.php
 udp://tracker.openbtba.com:6969/announce
 udp://tracker.opentorrent.top:6969/announce
+udp://tracker.opentrackr.com:1337/announce
 udp://tracker.opentrackr.org:1337/announce
 udp://tracker.orsvarn.com:6969/announce
 udp://tracker.pcfreetime.com:6969/announce
@@ -3936,6 +3937,7 @@ udp://tracker.safe.moe:6969/announce
 udp://tracker.sbsub.com:2710/announce
 udp://tracker.seedceo.com:2710/announce
 udp://tracker.seedceo.vn:2710/announce
+udp://tracker.segso.net:6969/announce
 udp://tracker.sharebro.in:6969/announce
 udp://tracker.sheesh.rip:6969/announce
 udp://tracker.shkinev.me:6969/announce
