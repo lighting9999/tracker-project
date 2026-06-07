@@ -1021,6 +1021,7 @@ http://data-bg.net/announce
 http://data-bg.net/announce.php
 http://datascene.net/announce
 http://datascene.net/announce.php
+http://de7c0e7a567e.sn.mynetname.net:59002/announce
 http://debuz.com:6969/announce
 http://denis.stalker.h3q.com/announce
 http://denis.stalker.h3q.com:6969/announce
