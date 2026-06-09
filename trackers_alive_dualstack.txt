@@ -1,2 +1,3 @@
 http://43.250.54.126:6969/announce
 http://tracker.novaopcj.eu.org:6969/announce
+http://tracker.qu.ax:6969/announce
