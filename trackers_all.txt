@@ -3649,6 +3649,7 @@ udp://seedpeer.net:6969/announce
 udp://serpb.vpsburti.com:6969/announce
 udp://shadowshq.eddie4.nl:6969/announce
 udp://shadowshq.yi.org:6969/announce
+udp://shahidrazi.online:1984/announce
 udp://shizzle.hammetjus.nl:6969/announce
 udp://shogiroom.com:6969/announce
 udp://siambit.com:80/announce
@@ -3710,6 +3711,7 @@ udp://torrent.i.ng:6969/announce
 udp://torrent.jiwang.cc:80/announce
 udp://torrent.tdjs.tech:6969/announce
 udp://torrent.ubuntu.com:6969/announce
+udp://torrentclub.online:1984/announce
 udp://torrentclub.online:54123/announce
 udp://torrentclub.space:6969/announce
 udp://torrentclub.tech:6969/announce
