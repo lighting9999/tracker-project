@@ -1,1 +1,1 @@
-wss://tracker.webtorrent.dev/announce
+wss://tracker.openwebtorrent.com/announce
