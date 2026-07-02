@@ -1,1 +1,3 @@
-https://staticfile-bobcat.wasmer.app/announce
+http://tracker.novaopcj.eu.org:6969/announce
+https://004430.xyz/announce
+https://tracker.nekomi.cn/announce
