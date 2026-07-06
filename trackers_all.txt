@@ -3930,6 +3930,7 @@ udp://tracker.nanoha.org:443/announce
 udp://tracker.nartlof.com.br:6969/announce
 udp://tracker.netmap.top:6969/announce
 udp://tracker.nextrp.ru:6969/announce
+udp://tracker.nexusstream.eu:6969/announce
 udp://tracker.nighthawk.pw:2052/announce
 udp://tracker.nitrix.me:6969/announce
 udp://tracker.novalayer.org:6969/announce
