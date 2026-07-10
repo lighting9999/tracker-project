@@ -1358,6 +1358,7 @@ http://speedtest.iperson.xyz:6969/announce
 http://streamzone.org:2720/announce
 http://sugoi.pomf.se/announce
 http://sukebei.tracker.wf:8888/announce
+http://supertracker.cc.cd/announce
 http://t-backup.213891.xyz/announce
 http://t.213891.xyz:443/announce
 http://t.acg.rip:6699/announce
