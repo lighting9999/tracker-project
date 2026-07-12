@@ -2131,6 +2131,7 @@ https://tracker.4.babico.name.tr/announce
 https://tracker.7471.top/announce
 https://tracker.aburaya.live/announce
 https://tracker.acgnx.se/announce
+https://tracker.adgk.net/announce
 https://tracker.alaskantf.com/announce
 https://tracker.aletorrenty.pl:2710/announce
 https://tracker.amelia.fun/announce
@@ -2588,6 +2589,7 @@ udp://179.98.51.208:6969/announce
 udp://179.98.51.248:6969/announce
 udp://179.98.51.66:6969/announce
 udp://18.191.163.220:6969/announce
+udp://180.131.145.175:6969/announce
 udp://181.214.58.63:6969/announce
 udp://182.150.53.61:8080/announce
 udp://182.176.139.129:6969/announce
