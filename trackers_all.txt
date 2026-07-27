@@ -3768,6 +3768,7 @@ udp://torrent.hificode.in:6969/announce
 udp://torrent.i.ng:6969/announce
 udp://torrent.jiwang.cc:80/announce
 udp://torrent.tdjs.tech:6969/announce
+udp://torrent.tracker.durukanbal.com:6969/announce
 udp://torrent.ubuntu.com:6969/announce
 udp://torrentclub.online:1984/announce
 udp://torrentclub.online:54123/announce
