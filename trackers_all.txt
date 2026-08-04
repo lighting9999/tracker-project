@@ -239,6 +239,7 @@ http://176.113.71.60:6961/announce
 http://176.32.38.223:6961/announce
 http://177.112.215.129:6969/announce
 http://177.112.215.131:6969/announce
+http://177.112.215.160:6969/announce
 http://177.112.215.4:6969/announce
 http://177.112.215.99:6969/announce
 http://177.139.44.145:6969/announce
@@ -593,7 +594,6 @@ http://34.66.57.33:2701/announce
 http://34.66.57.33:2710/announce
 http://34.66.57.33:443/announce
 http://34.66.57.33:6969/announce
-http://34.66.57.33/announce.php
 http://34.89.30.59/announce
 http://34.89.30.59:2710/announce
 http://34.89.51.235/announce
@@ -2539,6 +2539,7 @@ udp://176.79.98.66:6969/announce
 udp://176.99.7.59:6969/announce
 udp://177.112.215.129:6969/announce
 udp://177.112.215.131:6969/announce
+udp://177.112.215.160:6969/announce
 udp://177.112.215.4:6969/announce
 udp://177.112.215.99:6969/announce
 udp://177.139.44.145:6969/announce
