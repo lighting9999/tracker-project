@@ -1,18 +1,21 @@
 package tracker
 
 import (
+    "bufio"  
     "context"
     "crypto/tls"
     "fmt"
     "io"
+    "net"    
     "net/http"
     "net/url"
     "strconv"
     "strings"
     "sync"
     "time"
-)
 
+    "golang.org/x/sync/singleflight"
+)
 // ---------- HTTP 客户端缓存 ----------
 var httpClientCache sync.Map
 var preWarmOnce sync.Once

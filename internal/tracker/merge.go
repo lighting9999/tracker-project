@@ -2,7 +2,6 @@ package tracker
 
 import (
     "bufio"
-    "encoding/json"
     "fmt"
     "io"
     "net/url"
