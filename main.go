@@ -6,7 +6,6 @@ import (
     "fmt"
     "log"
     "sync"
-    "sync/atomic"
     "time"
 
     "golang.org/x/net/proxy"

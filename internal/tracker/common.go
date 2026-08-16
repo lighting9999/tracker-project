@@ -4,6 +4,7 @@ import (
     "bufio"
     "context"
     "crypto/rand"
+    "encoding/hex"
     "fmt"
     "math/big"
     "net"
@@ -18,8 +19,7 @@ import (
     "sync"
     "sync/atomic"
     "time"
-    "encoding/hex"
-    
+
     "golang.org/x/net/proxy"
     "golang.org/x/sync/singleflight"
     "golang.org/x/time/rate"
@@ -27,66 +27,51 @@ import (
     jsoniter "github.com/json-iterator/go"
 )
 
-// ---------- 常量 ----------
 const (
-    StatusAlive   = "ALIVE"
-    StatusDead    = "DEAD"
-    StatusInvalid = "INVALID"
-
-    DefaultTimeout   = 10 * time.Second
-    DefaultWorkers   = 1000
-    DefaultRetries   = 1
-    MaxPeersCollector = 10000
+    StatusAlive        = "ALIVE"
+    StatusDead         = "DEAD"
+    StatusInvalid      = "INVALID"
+    DefaultTimeout     = 10 * time.Second
+    DefaultWorkers     = 1000
+    DefaultRetries     = 1
+    MaxPeersCollector  = 10000
 )
 
 var (
-    trackerRe = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
-
-    // DNS 缓存
-    dnsCache        *lru.Cache[string, *dnsCacheEntry]
-    dnsCacheTTL     = 10 * time.Minute
-    dnsNegativeTTL  = 30 * time.Second
-    dnsSingleflight singleflight.Group
-
-    // 全局配置
-    Compact0Fallback bool
-    InsecureSkip     bool
-    CustomDNS        string
-    DNSTimeout       time.Duration
-    RateLimiter      *rate.Limiter
-    HostsFilePath    string
-    UseSAM           bool
-    SAMHost          string
-
-    // 代理
-    ProxyPool []proxy.Dialer
-    proxyMu   sync.Mutex
-    proxyIdx  uint32
-
-    // 日志
-    LogCh   = make(chan string, 10000)
-    LogWg   sync.WaitGroup
-    colorReset  = "\033[0m"
-    colorRed    = "\033[31m"
-    colorGreen  = "\033[32m"
-    colorYellow = "\033[33m"
-    colorBlue   = "\033[34m"
-    colorCyan   = "\033[36m"
-    colorMagenta= "\033[35m"
-
-    json = jsoniter.ConfigCompatibleWithStandardLibrary
-
-    // 其他
-    peerIDPrefix string
-    infoHashes   []string
-    hashIndex    uint32
-    userAgents   = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
-
-    hostsMap   map[string][]string
-    hostsMapMu sync.RWMutex
+    trackerRe         = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
+    dnsCache          *lru.Cache[string, *dnsCacheEntry]
+    dnsCacheTTL       = 10 * time.Minute
+    dnsNegativeTTL    = 30 * time.Second
+    dnsSingleflight   singleflight.Group
+    Compact0Fallback  bool
+    InsecureSkip      bool
+    CustomDNS         string
+    DNSTimeout        time.Duration
+    RateLimiter       *rate.Limiter
+    HostsFilePath     string
+    UseSAM            bool
+    SAMHost           string
+    ProxyPool         []proxy.Dialer
+    proxyMu           sync.Mutex
+    proxyIdx          uint32
+    LogCh             = make(chan string, 10000)
+    LogWg             sync.WaitGroup
+    colorReset        = "\033[0m"
+    colorRed          = "\033[31m"
+    colorGreen        = "\033[32m"
+    colorYellow       = "\033[33m"
+    colorBlue         = "\033[34m"
+    colorCyan         = "\033[36m"
+    colorMagenta      = "\033[35m"
+    json              = jsoniter.ConfigCompatibleWithStandardLibrary
+    peerIDPrefix      string
+    infoHashes        []string
+    hashIndex         uint32
+    userAgents        = []string{"qBittorrent/4.6.0", "Transmission/3.00", "uTorrent/2210(25302)", "BitTorrent/7.10.5", "Deluge/2.0.3", "aria2/1.36.0", "libtorrent/1.2.18.0"}
+    hostsMap          map[string][]string
+    hostsMapMu        sync.RWMutex
 )
 
-// ---------- 内部类型 ----------
 type dnsCacheEntry struct {
     addrs []string
     ts    time.Time
@@ -110,7 +95,6 @@ func init() {
     }()
 }
 
-// ---------- 随机工具 ----------
 func randomNumeric(n int) string {
     const digits = "0123456789"
     ret := make([]byte, n)
@@ -128,7 +112,6 @@ func randomInt(min, max int) int {
     return int(n.Int64()) + min
 }
 
-// ---------- 文本处理 ----------
 func ParseTrackerLine(line string) string {
     line = strings.TrimSpace(line)
     if strings.HasPrefix(line, "[") && strings.Contains(line, "](") && strings.HasSuffix(line, ")") {
@@ -199,7 +182,6 @@ func NormalizeTrackerURL(raw string) (string, error) {
     return u.String(), nil
 }
 
-// ---------- Hosts 文件 ----------
 func LoadHostsFile() {
     hostsMapMu.Lock()
     defer hostsMapMu.Unlock()
@@ -238,7 +220,6 @@ func LoadHostsFile() {
     }
 }
 
-// ---------- DNS 解析 ----------
 func LookupIPWithHosts(ctx context.Context, host string) ([]net.IP, error) {
     hostLower := strings.ToLower(host)
     hostsMapMu.RLock()
@@ -280,7 +261,6 @@ func LookupIPWithHosts(ctx context.Context, host string) ([]net.IP, error) {
     return ips, nil
 }
 
-// CachedDialContext 支持 IPv4/IPv6 优先和 DNS 缓存
 func CachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6Only bool) (net.Conn, error) {
     host, port, _ := net.SplitHostPort(addr)
     if net.ParseIP(host) != nil {
@@ -351,7 +331,6 @@ func CachedDialContext(ctx context.Context, network, addr string, ipv4Only, ipv6
     return dialer.DialContext(ctx, network, net.JoinHostPort(targetIP.String(), port))
 }
 
-// ResolveUDPAddrWithHosts 专门用于 UDP 解析
 func ResolveUDPAddrWithHosts(ctx context.Context, network, addr string) (*net.UDPAddr, error) {
     host, portStr, err := net.SplitHostPort(addr)
     if err != nil {
@@ -405,7 +384,6 @@ func ResolveUDPAddrWithHosts(ctx context.Context, network, addr string) (*net.UD
     return nil, fmt.Errorf("no IP for %s", host)
 }
 
-// ---------- 代理 ----------
 func GetNextProxy() proxy.Dialer {
     if len(ProxyPool) == 0 {
         return nil
@@ -416,7 +394,6 @@ func GetNextProxy() proxy.Dialer {
     return ProxyPool[idx%uint32(len(ProxyPool))]
 }
 
-// ---------- 杂项 ----------
 func NextInfoHash() string {
     if len(infoHashes) == 0 {
         return ""
@@ -470,4 +447,38 @@ func ColorizeStatus(status string) string {
     default:
         return status
     }
+}
+
+func ValidateTracker(ctx context.Context, trackerURL string, maxAttempts int) CheckResult {
+    var last CheckResult
+    for attempt := 0; attempt < maxAttempts; attempt++ {
+        u, err := url.Parse(trackerURL)
+        if err != nil {
+            last = CheckResult{URL: trackerURL, Status: StatusInvalid}
+            break
+        }
+        scheme := strings.ToLower(u.Scheme)
+        infoHash := NextInfoHash()
+        var status string
+        var ping *int64
+        var supportsIPv4, supportsIPv6 *bool
+        switch scheme {
+        case "http", "https":
+            status, ping, supportsIPv4, supportsIPv6 = CheckHTTP(ctx, trackerURL, infoHash, Compact0Fallback)
+        case "udp":
+            status, ping, supportsIPv4, supportsIPv6 = CheckUDP(ctx, trackerURL, infoHash)
+        case "ws", "wss":
+            status, ping, supportsIPv4, supportsIPv6 = CheckWSS(ctx, trackerURL)
+        default:
+            status = StatusInvalid
+        }
+        last = CheckResult{URL: trackerURL, Status: status, PingMs: ping, SupportsIPv4: supportsIPv4, SupportsIPv6: supportsIPv6}
+        if status != StatusDead {
+            break
+        }
+        if attempt < maxAttempts-1 {
+            time.Sleep(time.Duration(500+randomInt(0, 1001)) * time.Millisecond)
+        }
+    }
+    return last
 }
