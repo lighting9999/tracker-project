@@ -13,6 +13,7 @@ import (
     "strings"
     "sync"
     "time"
+    "sync/atomic"
 
     "golang.org/x/sync/singleflight"
 )
