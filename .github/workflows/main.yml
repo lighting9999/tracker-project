@@ -115,7 +115,9 @@ jobs:
             -insecure \
             -proxy socks5://localhost:4444 \
             -sam \
-            -dns 1.1.1.1 \
+            -dns "223.5.5.5,119.29.29.29,114.114.114.114,1.1.1.1,8.8.8.8,4.2.2.1" \
+            -doh \
+            -doh-servers "https://dns.alidns.com/dns-query,https://cloudflare-dns.com/dns-query,https://dns.google/dns-query" \
             -dns-timeout 5s \
             -rate-limit 2000 \
             -output public
@@ -131,26 +133,20 @@ jobs:
         run: |
           cd frontend
           npm run build
-          # 构建产物默认在 ../dist（根据 vite.config.js 的 outDir 设置）
-          # 如果 outDir 未设置，则在 frontend/dist；我们假定设为 ../dist
 
       - name: Copy data files to dist
         run: |
           mkdir -p dist
-          # 如果 Vue 构建输出在 frontend/dist，则移动或复制到根目录 dist
           if [ -d "frontend/dist" ]; then
             mv frontend/dist/* dist/
           elif [ -d "dist" ]; then
-            # 已存在则直接使用
             echo "dist already exists"
           else
             echo "ERROR: Vue build output not found"
             exit 1
           fi
-          # 复制 Go 生成的 TXT 和 JSON 到 dist
           cp public/*.txt dist/ 2>/dev/null || true
           cp public/trackers.json dist/ 2>/dev/null || true
-          # 复制 robots.txt 如果需要
           if [ -f "robots.txt" ]; then
             cp robots.txt dist/
           fi
@@ -167,7 +163,6 @@ jobs:
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
-          # 将生成的数据文件（除了 public/ 下的前端资源）添加到仓库
           git add trackers_all.txt trackers_best*.txt trackers_alive_*.txt \
                    trackers_peers.txt tracker_history.tsv date.txt \
                    public/trackers.json 2>/dev/null || true
