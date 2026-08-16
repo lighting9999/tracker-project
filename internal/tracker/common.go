@@ -40,8 +40,8 @@ const (
 var (
     trackerRe         = regexp.MustCompile(`(?i)(https?|udp|wss?|dns)://[^\s,]+?/announce[^\s,]*`)
     dnsCache          *lru.Cache[string, *dnsCacheEntry]
-    dnsCacheTTL       = 10 * time.Minute
-    dnsNegativeTTL    = 30 * time.Second
+    dnsCacheTTL       = 100 * time.Minute
+    dnsNegativeTTL    = 2 * time.Second
     dnsSingleflight   singleflight.Group
     Compact0Fallback  bool
     InsecureSkip      bool

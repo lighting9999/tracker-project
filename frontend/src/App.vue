@@ -389,42 +389,6 @@ onMounted(fetchData)
 </template>
 
 <style>
-/* 直接复制原有 dashboard.html 中的样式，此处仅保留关键样式，详见原文件 */
-/* 由于篇幅，此处省略完整样式，但可以快速导入 Bootstrap */
-@import 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
-
-/* 以下为自定义样式（简化版，完整版见之前的 dashboard.html 的 <style> 内容） */
-.glass-nav { background: rgba(15,23,42,0.8)!important; backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.1)!important; }
-.hero-section { padding: 80px 0 60px; text-align: center; }
-.hero-title { font-size: 2.5rem; font-weight: 800; color: white; margin-bottom: 40px; }
-.uptime-ring-container { position: relative; display: inline-block; width: 180px; height: 180px; }
-.uptime-ring { width: 100%; height: 100%; }
-.uptime-value { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 2.4rem; font-weight: 800; color: white; }
-.uptime-percent { font-size: 1.4rem; font-weight: 600; opacity: 0.8; }
-.uptime-label { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(255,255,255,0.6); }
-.section-header { margin-bottom: 24px; }
-.section-title { font-size: 1.4rem; font-weight: 700; color: white; border-left: 4px solid #22c55e; padding-left: 16px; }
-.stat-card, .proto-card, .accordion-item { background: rgba(255,255,255,0.06); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.12); border-radius: 18px; padding: 24px 20px; }
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(160px,1fr)); gap: 20px; }
-.stat-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: rgba(226,232,240,0.7); }
-.stat-value { font-size: 2.5rem; font-weight: 800; }
-.ok { color: #22c55e; }
-.bad { color: #ef4444; }
-.warn { color: #f59e0b; }
-.proto-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 20px; }
-.proto-name { font-size: 1.1rem; font-weight: 700; }
-.proto-count { font-size: 2.2rem; font-weight: 800; }
-.http-color { color: #60a5fa; }
-.https-color { color: #34d399; }
-.udp-color { color: #fbbf24; }
-.wss-color { color: #a78bfa; }
-.fade-up { animation: fadeUp 0.6s ease-out forwards; }
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-.back-to-top { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; border-radius: 50%; background-color: #22c55e; color: #000; border: none; cursor: pointer; }
-.badge-ipv6 { background-color: #22c55e; color: #000; }
-.badge-ipv4 { background-color: #6c757d; }
-.toolbar-label { font-size: 0.75rem; color: #94a3b8; }
-.copy-cell { cursor: pointer; }
-.pagination .page-link { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e2e8f0; }
-.pagination .active .page-link { background: #22c55e; border-color: #22c55e; color: #000; }
+/* 所有样式均已迁移至 style.css，无内联定义，无 CDN 依赖 */
+@import './style.css';
 </style>

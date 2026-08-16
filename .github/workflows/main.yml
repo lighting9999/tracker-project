@@ -119,7 +119,7 @@ jobs:
             -doh \
             -doh-servers "https://dns.alidns.com/dns-query,https://cloudflare-dns.com/dns-query,https://dns.google/dns-query" \
             -dns-timeout 5s \
-            -rate-limit 2000 \
+            -rate-limit 500 \
             -output public
           echo "✅ Tracker check completed"
 
