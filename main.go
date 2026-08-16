@@ -5,6 +5,8 @@ import (
     "flag"
     "fmt"
     "log"
+    "net/url"          // 新增
+    "strings"          // 新增
     "sync"
     "time"
 
@@ -80,7 +82,7 @@ func main() {
     fmt.Printf("总共 %d 个 tracker，其中 HTTP/HTTPS/I2P: %d，UDP/WSS: %d\n",
         len(allTrackers), len(httpTrackers), len(udpWssTrackers))
 
-    // ---------- 新增 DNS 预解析阶段 ----------
+    // DNS 预解析阶段
     fmt.Println("正在预解析所有 tracker 的 DNS...")
     preResolveDNS(httpTrackers)
     preResolveDNS(udpWssTrackers)
@@ -134,9 +136,9 @@ func preResolveDNS(trackers []string) {
         return
     }
     var wg sync.WaitGroup
-    sem := make(chan struct{}, 200) // 限制并发数，避免 DNS 压力过大
+    sem := make(chan struct{}, 200) // 限制并发数
 
-    for _, url := range trackers {
+    for _, rawURL := range trackers {
         wg.Add(1)
         go func(u string) {
             defer wg.Done()
@@ -155,21 +157,20 @@ func preResolveDNS(trackers []string) {
             if _, ok := tracker.GetDNS(host); ok {
                 return
             }
-            // 执行解析（使用 context.Background 或带超时）
+            // 执行解析
             ctx, cancel := context.WithTimeout(context.Background(), tracker.DNSTimeout)
             defer cancel()
             ips, err := tracker.LookupIPWithHosts(ctx, host)
             if err != nil {
-                // 解析失败也缓存负面结果（已在 LookupIPWithHosts 内部处理）
                 return
             }
-            _ = ips // 只是填充缓存
-        }(url)
+            _ = ips
+        }(rawURL)
     }
     wg.Wait()
 }
 
-// runChecks 使用 worker pool 并发检查 tracker 列表（不变）
+// runChecks 使用 worker pool 并发检查 tracker 列表
 func runChecks(ctx context.Context, trackers []string, workers, retries int) []tracker.CheckResult {
     total := len(trackers)
     if total == 0 {
