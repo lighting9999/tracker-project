@@ -482,3 +482,16 @@ func ValidateTracker(ctx context.Context, trackerURL string, maxAttempts int) Ch
     }
     return last
 }
+var (
+    UseDoH    bool
+    DoHServers []string
+)
+
+// GetDNS 检查缓存中是否有该主机的记录（用于预解析阶段）
+func GetDNS(host string) ([]string, bool) {
+    entry, ok := dnsCache.Get(host)
+    if !ok || entry.isErr {
+        return nil, false
+    }
+    return entry.addrs, true
+}

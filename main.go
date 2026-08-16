@@ -23,11 +23,13 @@ func main() {
     proxyFlag := flag.String("proxy", "", "SOCKS5 代理地址")
     samFlag := flag.Bool("sam", false, "启用 I2P SAM 桥")
     samHostFlag := flag.String("sam-host", "127.0.0.1:7656", "SAM 桥地址")
-    dnsFlag := flag.String("dns", "1.1.1.1:53", "自定义 DNS 服务器")
+    dnsFlag := flag.String("dns", "1.1.1.1,8.8.8.8,9.9.9.9", "自定义 DNS 服务器（逗号分隔）")
     dnsTimeoutFlag := flag.Duration("dns-timeout", 5*time.Second, "DNS 超时")
     hostsFileFlag := flag.String("hosts-file", "", "自定义 hosts 文件路径")
     rateLimitFlag := flag.Int("rate-limit", 2000, "每秒请求上限")
     outputDir := flag.String("output", "public", "输出目录")
+    dohFlag := flag.Bool("doh", false, "启用 DNS over HTTPS")
+    dohServersFlag := flag.String("doh-servers", "https://1.1.1.1/dns-query,https://8.8.8.8/dns-query", "DoH 服务器 URL 列表（逗号分隔）")
     flag.Parse()
 
     // 初始化全局配置
@@ -39,6 +41,11 @@ func main() {
     tracker.UseSAM = *samFlag
     tracker.SAMHost = *samHostFlag
     tracker.RateLimiter = rate.NewLimiter(rate.Limit(float64(*rateLimitFlag)), *rateLimitFlag)
+    tracker.UseDoH = *dohFlag
+    tracker.DoHServers = strings.Split(*dohServersFlag, ",")
+    for i, s := range tracker.DoHServers {
+        tracker.DoHServers[i] = strings.TrimSpace(s)
+    }
 
     if *proxyFlag != "" {
         rawDialer, err := proxy.SOCKS5("tcp", *proxyFlag, nil, proxy.Direct)
@@ -73,6 +80,12 @@ func main() {
     fmt.Printf("总共 %d 个 tracker，其中 HTTP/HTTPS/I2P: %d，UDP/WSS: %d\n",
         len(allTrackers), len(httpTrackers), len(udpWssTrackers))
 
+    // ---------- 新增 DNS 预解析阶段 ----------
+    fmt.Println("正在预解析所有 tracker 的 DNS...")
+    preResolveDNS(httpTrackers)
+    preResolveDNS(udpWssTrackers)
+    fmt.Println("DNS 预解析完成，开始检查...")
+
     // 并发检查
     ctx, cancel := context.WithTimeout(context.Background(), 12*time.Minute)
     defer cancel()
@@ -81,7 +94,6 @@ func main() {
     var httpResults, udpResults []tracker.CheckResult
     var httpMu, udpMu sync.Mutex
 
-    // 检查 HTTP/HTTPS/I2P
     if len(httpTrackers) > 0 {
         wg.Add(1)
         go func() {
@@ -93,7 +105,6 @@ func main() {
         }()
     }
 
-    // 检查 UDP/WSS
     if len(udpWssTrackers) > 0 {
         wg.Add(1)
         go func() {
@@ -117,25 +128,63 @@ func main() {
     fmt.Println("所有任务完成")
 }
 
-// runChecks 使用 worker pool 并发检查 tracker 列表
+// preResolveDNS 并发解析一组 tracker 的域名，填充 DNS 缓存
+func preResolveDNS(trackers []string) {
+    if len(trackers) == 0 {
+        return
+    }
+    var wg sync.WaitGroup
+    sem := make(chan struct{}, 200) // 限制并发数，避免 DNS 压力过大
+
+    for _, url := range trackers {
+        wg.Add(1)
+        go func(u string) {
+            defer wg.Done()
+            sem <- struct{}{}
+            defer func() { <-sem }()
+
+            parsed, err := url.Parse(u)
+            if err != nil {
+                return
+            }
+            host := parsed.Hostname()
+            if host == "" {
+                return
+            }
+            // 检查缓存是否已有
+            if _, ok := tracker.GetDNS(host); ok {
+                return
+            }
+            // 执行解析（使用 context.Background 或带超时）
+            ctx, cancel := context.WithTimeout(context.Background(), tracker.DNSTimeout)
+            defer cancel()
+            ips, err := tracker.LookupIPWithHosts(ctx, host)
+            if err != nil {
+                // 解析失败也缓存负面结果（已在 LookupIPWithHosts 内部处理）
+                return
+            }
+            _ = ips // 只是填充缓存
+        }(url)
+    }
+    wg.Wait()
+}
+
+// runChecks 使用 worker pool 并发检查 tracker 列表（不变）
 func runChecks(ctx context.Context, trackers []string, workers, retries int) []tracker.CheckResult {
     total := len(trackers)
     if total == 0 {
         return nil
     }
 
-    // 结果通道，缓冲全部容量避免阻塞
     results := make(chan tracker.CheckResult, total)
     taskCh := make(chan string, total)
 
-    // 启动固定数量的 worker
     var wg sync.WaitGroup
     for i := 0; i < workers; i++ {
         wg.Add(1)
         go func() {
             defer wg.Done()
             for url := range taskCh {
-                // 检查 context 是否取消
                 select {
                 case <-ctx.Done():
                     return
@@ -147,7 +196,6 @@ func runChecks(ctx context.Context, trackers []string, workers, retries int) []t
         }()
     }
 
-    // 分发任务
     for _, url := range trackers {
         select {
         case taskCh <- url:
@@ -157,11 +205,9 @@ func runChecks(ctx context.Context, trackers []string, workers, retries int) []t
     }
     close(taskCh)
 
-    // 等待所有 worker 完成
     wg.Wait()
     close(results)
 
-    // 收集结果
     out := make([]tracker.CheckResult, 0, total)
     for r := range results {
         out = append(out, r)
