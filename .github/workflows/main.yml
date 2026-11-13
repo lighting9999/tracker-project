@@ -20,21 +20,63 @@ jobs:
       i2pd:
         image: purplei2p/i2pd:latest
         ports:
-          - 4444:4444
-          - 7656:7656
-        env:
-          I2PD_SAM_ENABLED: "true"
-        options: >-
-          --health-cmd "bash -c 'echo > /dev/tcp/127.0.0.1/4444 && echo > /dev/tcp/127.0.0.1/7656' || exit 1"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 6
+          - 4444:4444      # published host port -> SOCKS5 proxy used by tracker-checker
+          - 7656:7656      # published host port -> SAM bridge used by tracker-checker (-sam)
+        # FIX 1 -- start SAM/SOCKS and bind them to 0.0.0.0 (container eth0):
+        #   * I2PD_SAM_ENABLED=true was a no-op. i2pd is configured ONLY through
+        #     command-line flags / i2pd.conf, never through environment variables,
+        #     so SAM never started and :7656 had no listener inside the container.
+        #   * SOCKS/SAM default to binding 127.0.0.1 INSIDE the container, while
+        #     docker -p forwards the host port to the container eth0 address, not to
+        #     the container loopback. So the runner could never reach
+        #     socks5://localhost:4444, even if SOCKS had been running.
+        # The dotted form below is current i2pd syntax: [sam] enabled=true in
+        # i2pd.conf is equivalent to --sam.enabled=true on the command line.
+        args: >-
+          --sam.enabled=true
+          --sam.address=0.0.0.0
+          --sam.port=7656
+          --socks.enabled=true
+          --socks.address=0.0.0.0
+          --socks.port=4444
+          --log.level=info
+        # FIX 2 -- no inline --health-cmd here. That probe could never succeed (see
+        # FIX 1), so the container went starting -> unhealthy and the runner reported
+        # "Service container i2pd failed", followed by the misleading placeholder
+        # "Failed to initialize container" printed from the container's EMPTY stdout
+        # (i2pd logs to a file, so docker logs yields nothing). Readiness is asserted
+        # explicitly in the "Wait for i2pd SOCKS/SAM" step below.
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # ---------- 0. Assert the i2pd service is really listening ----------
+      # FIX 3 -- readiness moved from a container HEALTHCHECK into a runner step.
+      # The runner always has bash + /dev/tcp; the image may not. Probing from the
+      # host also validates the published port mapping end to end, which an
+      # in-container HEALTHCHECK cannot do.
+      - name: Wait for i2pd SOCKS/SAM
+        run: |
+          ready=0
+          for i in $(seq 1 36); do
+            if (exec 3<>/dev/tcp/127.0.0.1/7656) 2>/dev/null && \
+               (exec 3<>/dev/tcp/127.0.0.1/4444) 2>/dev/null; then
+              ready=1
+              echo "i2pd SAM(:7656) and SOCKS(:4444) are reachable from the runner."
+              break
+            fi
+            echo "waiting for i2pd ... attempt ${i}/36"
+            sleep 5
+          done
+          if [ ${ready} != 1 ]; then
+            echo "ERROR: i2pd never became ready; dumping container logs." >&2
+            docker ps -a
+            docker ps -q --filter ancestor=purplei2p/i2pd:latest | head -n1 | xargs -r docker logs
+            exit 1
+          fi
 
       # ---------- 1. Setup .NET 10 SDK ----------
       - name: Setup .NET 10
@@ -67,9 +109,9 @@ jobs:
               [[ -z "$url" || "$url" =~ ^# ]] && continue
               count=$((count+1))
               filename="source_${count}.txt"
-              echo "⬇️ Downloading: $url → webtracker/sources/$filename"
+              echo "Downloading: $url -> webtracker/sources/$filename"
               curl -sS --retry 2 --max-time 30 "$url" -o "webtracker/sources/$filename" || \
-                echo "⚠️ Failed: $url"
+                echo "WARN Failed: $url"
             done < download_sources.txt
           fi
 
@@ -95,7 +137,7 @@ jobs:
             > webtracker/input_merged.txt
 
           rm -f webtracker/input_merged_raw.txt
-          echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
+          echo "Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
       # ---------- 3. 编译 C# TrackerChecker (.NET 10) ----------
       - name: Restore & Publish TrackerChecker
@@ -130,7 +172,7 @@ jobs:
             -dns-timeout 5s \
             -rate-limit 500 \
             -output public
-          echo "✅ Tracker check completed"
+          echo "Tracker check completed"
 
       # ---------- 5. 安装 Vue 依赖并构建前端 ----------
       - name: Install Vue dependencies
