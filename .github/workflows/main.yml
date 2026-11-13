@@ -25,7 +25,7 @@ jobs:
         env:
           I2PD_SAM_ENABLED: "true"
         options: >-
-          --health-cmd "nc -z 127.0.0.1 4444 && nc -z 127.0.0.1 7656 || exit 1"
+          --health-cmd "bash -c 'echo > /dev/tcp/127.0.0.1/4444 && echo > /dev/tcp/127.0.0.1/7656' || exit 1"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 6
@@ -36,10 +36,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Go
-        uses: actions/setup-go@v5
+      # ---------- 1. Setup .NET 10 SDK ----------
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
         with:
-          go-version: '1.25'
+          dotnet-version: '10.0.x'
+          dotnet-quality: 'preview'          # .NET 10 发布 GA 后改为 'ga'
+          cache: true
+          cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -53,7 +57,7 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
 
-      # ---------- 1. 下载和合并 Tracker 源 ----------
+      # ---------- 2. 下载和合并 Tracker 源 ----------
       - name: Download and merge sources
         run: |
           mkdir -p webtracker/sources
@@ -93,18 +97,23 @@ jobs:
           rm -f webtracker/input_merged_raw.txt
           echo "✅ Cleaned file has $(wc -l < webtracker/input_merged.txt) lines"
 
-      # ---------- 2. 编译统一 Go 检查器 ----------
-      - name: Setup Go modules and build
-        env:
-          GOPROXY: "https://goproxy.cn,direct"
-          GOSUMDB: "sum.golang.google.cn"
-          GOCACHE: "/tmp/go-cache"
+      # ---------- 3. 编译 C# TrackerChecker (.NET 10) ----------
+      - name: Restore & Publish TrackerChecker
         run: |
-          go mod tidy
-          go mod download
-          CGO_ENABLED=0 go build -v -ldflags="-s -w" -trimpath -gcflags="-l=4" -o tracker-checker main.go
+          dotnet restore TrackerChecker.csproj
+          dotnet publish TrackerChecker.csproj \
+            -c Release \
+            -r linux-x64 \
+            --self-contained true \
+            -p:PublishSingleFile=true \
+            -p:EnableCompressionInSingleFile=true \
+            -p:PublishReadyToRun=true \
+            -o ./publish
+          # 将可执行文件复制到工作目录根，便于后续调用
+          cp ./publish/TrackerChecker ./tracker-checker
+          chmod +x ./tracker-checker
 
-      # ---------- 3. 运行检查器生成数据（public/ 目录） ----------
+      # ---------- 4. 运行检查器生成数据（public/ 目录） ----------
       - name: Run tracker checker
         run: |
           ./tracker-checker \
@@ -123,7 +132,7 @@ jobs:
             -output public
           echo "✅ Tracker check completed"
 
-      # ---------- 4. 安装 Vue 依赖并构建前端 ----------
+      # ---------- 5. 安装 Vue 依赖并构建前端 ----------
       - name: Install Vue dependencies
         run: |
           cd frontend
@@ -151,7 +160,7 @@ jobs:
             cp robots.txt dist/
           fi
 
-      # ---------- 5. 部署到 Cloudflare Pages ----------
+      # ---------- 6. 部署到 Cloudflare Pages ----------
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
@@ -159,13 +168,14 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist/ --project-name=${{ secrets.CF_PAGES_PROJECT_NAME }} --branch=${{ github.ref_name }}
 
-      # ---------- 6. 提交更新的数据文件到仓库 ----------
+      # ---------- 7. 提交更新的数据文件到仓库 ----------
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
+          # C# 版输出在 public/ 下；同时保留根目录兼容路径（若存在）
+          git add public/ date.txt 2>/dev/null || true
           git add trackers_all.txt trackers_best*.txt trackers_alive_*.txt \
-                   trackers_peers.txt tracker_history.tsv date.txt \
-                   public/trackers.json 2>/dev/null || true
+                   trackers_peers.txt tracker_history.tsv 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No changes, skip commit."
             exit 0
