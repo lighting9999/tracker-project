@@ -20,32 +20,18 @@ jobs:
       i2pd:
         image: purplei2p/i2pd:latest
         ports:
-          - 4444:4444      # published host port -> SOCKS5 proxy used by tracker-checker
-          - 7656:7656      # published host port -> SAM bridge used by tracker-checker (-sam)
-        # FIX 1 -- start SAM/SOCKS and bind them to 0.0.0.0 (container eth0):
-        #   * I2PD_SAM_ENABLED=true was a no-op. i2pd is configured ONLY through
-        #     command-line flags / i2pd.conf, never through environment variables,
-        #     so SAM never started and :7656 had no listener inside the container.
-        #   * SOCKS/SAM default to binding 127.0.0.1 INSIDE the container, while
-        #     docker -p forwards the host port to the container eth0 address, not to
-        #     the container loopback. So the runner could never reach
-        #     socks5://localhost:4444, even if SOCKS had been running.
-        # The dotted form below is current i2pd syntax: [sam] enabled=true in
-        # i2pd.conf is equivalent to --sam.enabled=true on the command line.
-        args: >-
+          - 4444:4444      # SOCKS5 proxy
+          - 7656:7656      # SAM bridge
+        # GitHub Actions 的 services 容器不支持 args 字段，必须使用 command。
+        # i2pd 的 SOCKS 配置段是 socksproxy，不是 socks。
+        command: >-
           --sam.enabled=true
           --sam.address=0.0.0.0
           --sam.port=7656
-          --socks.enabled=true
-          --socks.address=0.0.0.0
-          --socks.port=4444
-          --log.level=info
-        # FIX 2 -- no inline --health-cmd here. That probe could never succeed (see
-        # FIX 1), so the container went starting -> unhealthy and the runner reported
-        # "Service container i2pd failed", followed by the misleading placeholder
-        # "Failed to initialize container" printed from the container's EMPTY stdout
-        # (i2pd logs to a file, so docker logs yields nothing). Readiness is asserted
-        # explicitly in the "Wait for i2pd SOCKS/SAM" step below.
+          --socksproxy.enabled=true
+          --socksproxy.address=0.0.0.0
+          --socksproxy.port=4444
+          --loglevel=info
 
     steps:
       - name: Checkout
@@ -54,10 +40,6 @@ jobs:
           fetch-depth: 0
 
       # ---------- 0. Assert the i2pd service is really listening ----------
-      # FIX 3 -- readiness moved from a container HEALTHCHECK into a runner step.
-      # The runner always has bash + /dev/tcp; the image may not. Probing from the
-      # host also validates the published port mapping end to end, which an
-      # in-container HEALTHCHECK cannot do.
       - name: Wait for i2pd SOCKS/SAM
         run: |
           ready=0
@@ -151,7 +133,6 @@ jobs:
             -p:EnableCompressionInSingleFile=true \
             -p:PublishReadyToRun=true \
             -o ./publish
-          # 将可执行文件复制到工作目录根，便于后续调用
           cp ./publish/TrackerChecker ./tracker-checker
           chmod +x ./tracker-checker
 
@@ -214,7 +195,6 @@ jobs:
       - name: Commit updated files
         run: |
           date +'%Y%m%d%H' > date.txt
-          # C# 版输出在 public/ 下；同时保留根目录兼容路径（若存在）
           git add public/ date.txt 2>/dev/null || true
           git add trackers_all.txt trackers_best*.txt trackers_alive_*.txt \
                    trackers_peers.txt tracker_history.tsv 2>/dev/null || true
