@@ -1,6 +1,0 @@
-/storage/emulated/0/tracker-project/obj/Debug/net10.0/TrackerChecker.csproj.AssemblyReference.cache
-/storage/emulated/0/tracker-project/obj/Debug/net10.0/TrackerChecker.GeneratedMSBuildEditorConfig.editorconfig
-/storage/emulated/0/tracker-project/obj/Debug/net10.0/TrackerChecker.AssemblyInfoInputs.cache
-/storage/emulated/0/tracker-project/obj/Debug/net10.0/TrackerChecker.AssemblyInfo.cs
-/storage/emulated/0/tracker-project/obj/Debug/net10.0/TrackerChecker.csproj.CoreCompileInputs.cache
-/storage/emulated/0/tracker-project/obj/Debug/net10.0/TrackerChecker.sourcelink.json

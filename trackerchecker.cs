@@ -100,7 +100,7 @@ public static class TrackerChecker
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
     };
 
-    // ---------- 静态构造：初始化 DoH HTTP 客户端 ----------
+    // ---------- 静态构造 ----------
     static TrackerChecker()
     {
         var handler = new SocketsHttpHandler
@@ -255,9 +255,13 @@ public static class TrackerChecker
         }
         catch (OperationCanceledException) { throw; }
         catch (Exception ex) when (
-            // 极少数运行时连单参数异步重载都被裁剪 → 兜底到同步版本
-            ex is MissingMethodException or NotSupportedException or NotImplementedException)
+            ex is MissingMethodException
+                or NotSupportedException
+                or NotImplementedException
+                or PlatformNotSupportedException
+                or EntryPointNotFoundException)
         {
+            // 极少数运行时连单参数异步重载都被裁剪 → 兜底到同步版本
             return await Task.Run(() => Dns.GetHostAddresses(host), ct);
         }
     }
@@ -920,10 +924,32 @@ public static class TrackerChecker
         Socks5Options proxy, string destHost, int destPort, CancellationToken ct)
     {
         LogSocks($"连接 {proxy.Host}:{proxy.Port} → {destHost}:{destPort}");
-        var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp) { NoDelay = true };
+
+        // 修复：避免 DnsEndPoint 在 Socket.ConnectAsync 内部触发系统 DNS
+        IPAddress proxyIp;
+        if (IPAddress.TryParse(proxy.Host, out var parsed))
+        {
+            proxyIp = parsed;
+        }
+        else
+        {
+            try
+            {
+                var addrs = await ResolveAsync(proxy.Host, ct);
+                proxyIp = addrs.FirstOrDefault(a => a.AddressFamily == AddressFamily.InterNetwork)
+                          ?? addrs.FirstOrDefault()
+                          ?? throw new IOException($"cannot resolve SOCKS5 proxy {proxy.Host}");
+            }
+            catch (Exception ex)
+            {
+                throw new IOException($"cannot resolve SOCKS5 proxy {proxy.Host}: {ex.Message}", ex);
+            }
+        }
+
+        var socket = new Socket(proxyIp.AddressFamily, SocketType.Stream, ProtocolType.Tcp) { NoDelay = true };
         try
         {
-            await socket.ConnectAsync(new DnsEndPoint(proxy.Host, proxy.Port)).WaitAsync(ct);
+            await socket.ConnectAsync(new IPEndPoint(proxyIp, proxy.Port)).WaitAsync(ct);
             var stream = new NetworkStream(socket, ownsSocket: true);
 
             byte[] hello = string.IsNullOrEmpty(proxy.Username)
@@ -1016,7 +1042,14 @@ public static class TrackerChecker
 
             LogSam($"新建 {host}:{port} via {SamHost}");
             var client = new TcpClient { NoDelay = true };
-            await client.ConnectAsync(SamHost).WaitAsync(ct);
+
+            // ✅ 修复核心：将 SamHost（"host:port"）拆分为独立参数
+            // TcpClient.ConnectAsync 不存在只接受单个 string 的重载
+            var samHostParts = SamHost.Split(':', 2);
+            var samHostname = samHostParts[0];
+            var samPort = samHostParts.Length > 1 && int.TryParse(samHostParts[1], out var p) ? p : 7656;
+            await client.ConnectAsync(samHostname, samPort).WaitAsync(ct);
+
             var raw = client.GetStream();
             var reader = new BufferedStream(raw);
 
