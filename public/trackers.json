@@ -1,20 +1,20 @@
 {
-  "Total": 4342,
-  "AliveCount": 167,
-  "DeadCount": 4175,
+  "Total": 4343,
+  "AliveCount": 165,
+  "DeadCount": 4178,
   "InvalidCount": 0,
-  "UptimePct": 3.8461538461538463,
+  "UptimePct": 3.799217131015427,
   "Protocols": {
     "Http": 0,
     "Https": 0,
-    "Udp": 167,
+    "Udp": 165,
     "Wss": 0,
     "WebRtc": 0,
     "I2P": 0,
     "Dns": 0,
     "HttpPct": 0,
     "HttpsPct": 0,
-    "UdpPct": 3.8461538461538463,
+    "UdpPct": 3.799217131015427,
     "WssPct": 0
   },
   "Trackers": [
@@ -12012,7 +12012,7 @@
       "Url": "udp://103.27.158.117:1914/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 317,
+      "PingMs": 178,
       "SupportsIPv4": true
     },
     {
@@ -12084,7 +12084,7 @@
       "Url": "udp://107.189.2.131:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 335,
+      "PingMs": 210,
       "SupportsIPv4": true
     },
     {
@@ -12126,7 +12126,7 @@
       "Url": "udp://109.201.134.183:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 307,
+      "PingMs": 187,
       "SupportsIPv4": true
     },
     {
@@ -12273,7 +12273,7 @@
       "Url": "udp://118.196.100.63:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 320,
+      "PingMs": 412,
       "SupportsIPv4": true
     },
     {
@@ -12325,7 +12325,7 @@
       "Url": "udp://120.78.150.131:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 348,
+      "PingMs": 454,
       "SupportsIPv4": true
     },
     {
@@ -12402,7 +12402,7 @@
       "Url": "udp://135.125.198.235:1984/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 336,
+      "PingMs": 196,
       "SupportsIPv4": true
     },
     {
@@ -12427,10 +12427,8 @@
     },
     {
       "Url": "udp://138.186.10.167:1337/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 444,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://138.199.241.244:6969/announce",
@@ -12521,7 +12519,7 @@
       "Url": "udp://143.20.154.228:42069/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 497,
+      "PingMs": 1637,
       "SupportsIPv4": true
     },
     {
@@ -12593,7 +12591,7 @@
       "Url": "udp://149.106.106.25:443/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 49,
+      "PingMs": 89,
       "SupportsIPv4": true
     },
     {
@@ -12630,14 +12628,14 @@
       "Url": "udp://15.235.207.99:8081/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 394,
+      "PingMs": 597,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://151.242.104.187:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 336,
+      "PingMs": 187,
       "SupportsIPv4": true
     },
     {
@@ -12814,7 +12812,7 @@
       "Url": "udp://160.30.240.158:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 332,
+      "PingMs": 437,
       "SupportsIPv4": true
     },
     {
@@ -12841,7 +12839,7 @@
       "Url": "udp://164.152.110.70:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 88,
+      "PingMs": 39,
       "SupportsIPv4": true
     },
     {
@@ -12878,7 +12876,7 @@
       "Url": "udp://173.201.36.219:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 120,
+      "PingMs": 52,
       "SupportsIPv4": true
     },
     {
@@ -12973,8 +12971,10 @@
     },
     {
       "Url": "udp://177.112.215.133:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 246,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://177.112.215.160:6969/announce",
@@ -13255,7 +13255,7 @@
       "Url": "udp://178.239.19.29:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 275,
+      "PingMs": 186,
       "SupportsIPv4": true
     },
     {
@@ -13347,7 +13347,7 @@
       "Url": "udp://180.131.145.175:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 14,
+      "PingMs": 155,
       "SupportsIPv4": true
     },
     {
@@ -13404,14 +13404,14 @@
       "Url": "udp://185.121.168.96:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 273,
+      "PingMs": 406,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://185.121.168.96:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 274,
+      "PingMs": 405,
       "SupportsIPv4": true
     },
     {
@@ -13463,7 +13463,7 @@
       "Url": "udp://185.216.179.62:25/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 332,
+      "PingMs": 197,
       "SupportsIPv4": true
     },
     {
@@ -14005,7 +14005,7 @@
       "Url": "udp://192.99.100.68:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 154,
+      "PingMs": 30,
       "SupportsIPv4": true
     },
     {
@@ -14027,7 +14027,7 @@
       "Url": "udp://193.148.251.93:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 122,
+      "PingMs": 86,
       "SupportsIPv4": true
     },
     {
@@ -14059,7 +14059,7 @@
       "Url": "udp://193.34.92.5:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 410,
+      "PingMs": 264,
       "SupportsIPv4": true
     },
     {
@@ -14364,14 +14364,16 @@
     },
     {
       "Url": "udp://209.141.59.16:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 122,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://209.141.59.25:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 186,
+      "PingMs": 115,
       "SupportsIPv4": true
     },
     {
@@ -14418,28 +14420,28 @@
       "Url": "udp://211.75.205.187:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 306,
+      "PingMs": 378,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://211.75.205.187:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 320,
+      "PingMs": 376,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://211.75.205.188:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 310,
+      "PingMs": 379,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://211.75.205.188:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 298,
+      "PingMs": 379,
       "SupportsIPv4": true
     },
     {
@@ -14521,14 +14523,14 @@
       "Url": "udp://211.75.210.221:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 298,
+      "PingMs": 378,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://211.75.210.221:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 298,
+      "PingMs": 377,
       "SupportsIPv4": true
     },
     {
@@ -14955,7 +14957,7 @@
       "Url": "udp://23.157.120.14:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 89,
+      "PingMs": 128,
       "SupportsIPv4": true
     },
     {
@@ -14977,7 +14979,7 @@
       "Url": "udp://23.94.174.203:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 50,
+      "PingMs": 129,
       "SupportsIPv4": true
     },
     {
@@ -15089,35 +15091,33 @@
       "Url": "udp://31.38.161.123:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 322,
+      "PingMs": 189,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://31.56.179.159:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 320,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://31.59.141.120:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 354,
+      "PingMs": 226,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://34.66.57.33:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 85,
+      "PingMs": 62,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://34.66.57.33:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 86,
+      "PingMs": 54,
       "SupportsIPv4": true
     },
     {
@@ -15244,7 +15244,7 @@
       "Url": "udp://38.180.157.12:2715/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 306,
+      "PingMs": 192,
       "SupportsIPv4": true
     },
     {
@@ -15271,14 +15271,14 @@
       "Url": "udp://43.154.112.29:17272/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 328,
+      "PingMs": 412,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://43.250.54.126:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 318,
+      "PingMs": 180,
       "SupportsIPv4": true
     },
     {
@@ -15313,14 +15313,16 @@
     },
     {
       "Url": "udp://45.134.88.121:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 170,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://45.137.199.107:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 729,
+      "PingMs": 163,
       "SupportsIPv4": true
     },
     {
@@ -15350,10 +15352,8 @@
     },
     {
       "Url": "udp://45.38.170.167:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 312,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://45.56.65.82:54123/announce",
@@ -15464,7 +15464,7 @@
       "Url": "udp://47.76.201.250:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 349,
+      "PingMs": 440,
       "SupportsIPv4": true
     },
     {
@@ -15591,7 +15591,7 @@
       "Url": "udp://51.15.41.46:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 321,
+      "PingMs": 165,
       "SupportsIPv4": true
     },
     {
@@ -15628,7 +15628,7 @@
       "Url": "udp://51.222.82.36:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 149,
+      "PingMs": 30,
       "SupportsIPv4": true
     },
     {
@@ -15665,7 +15665,7 @@
       "Url": "udp://51.81.222.188:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 12,
+      "PingMs": 145,
       "SupportsIPv4": true
     },
     {
@@ -15682,7 +15682,7 @@
       "Url": "udp://52.211.139.85:27022/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 243,
+      "PingMs": 141,
       "SupportsIPv4": true
     },
     {
@@ -15734,7 +15734,7 @@
       "Url": "udp://60.172.236.18:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 368,
+      "PingMs": 462,
       "SupportsIPv4": true
     },
     {
@@ -15846,14 +15846,14 @@
       "Url": "udp://65.109.28.17:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 392,
+      "PingMs": 247,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://65.109.28.33:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 417,
+      "PingMs": 211,
       "SupportsIPv4": true
     },
     {
@@ -15900,7 +15900,7 @@
       "Url": "udp://74.119.149.136:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 137,
+      "PingMs": 2,
       "SupportsIPv4": true
     },
     {
@@ -15912,7 +15912,7 @@
       "Url": "udp://74.81.245.60:2010/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 92,
+      "PingMs": 127,
       "SupportsIPv4": true
     },
     {
@@ -16114,7 +16114,7 @@
       "Url": "udp://83.102.180.21:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 367,
+      "PingMs": 245,
       "SupportsIPv4": true
     },
     {
@@ -16446,7 +16446,7 @@
       "Url": "udp://85.121.148.217:2710/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 385,
+      "PingMs": 242,
       "SupportsIPv4": true
     },
     {
@@ -16463,7 +16463,7 @@
       "Url": "udp://85.17.55.112:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 314,
+      "PingMs": 186,
       "SupportsIPv4": true
     },
     {
@@ -16545,7 +16545,7 @@
       "Url": "udp://89.234.156.205:451/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 319,
+      "PingMs": 168,
       "SupportsIPv4": true
     },
     {
@@ -16787,7 +16787,7 @@
       "Url": "udp://91.216.110.53:451/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 344,
+      "PingMs": 202,
       "SupportsIPv4": true
     },
     {
@@ -16829,14 +16829,14 @@
       "Url": "udp://93.158.213.92:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 297,
+      "PingMs": 189,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://93.158.213.92:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 298,
+      "PingMs": 190,
       "SupportsIPv4": true
     },
     {
@@ -16888,7 +16888,7 @@
       "Url": "udp://94.23.207.177:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 311,
+      "PingMs": 177,
       "SupportsIPv4": true
     },
     {
@@ -16935,14 +16935,14 @@
       "Url": "udp://95.217.80.20:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 389,
+      "PingMs": 204,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://95.217.80.22:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 418,
+      "PingMs": 215,
       "SupportsIPv4": true
     },
     {
@@ -17054,7 +17054,7 @@
       "Url": "udp://admin.52ywp.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 307,
+      "PingMs": 464,
       "SupportsIPv4": true
     },
     {
@@ -17106,7 +17106,7 @@
       "Url": "udp://announce.augrains.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 51,
+      "PingMs": 129,
       "SupportsIPv4": true
     },
     {
@@ -17248,7 +17248,7 @@
       "Url": "udp://bittorrent-tracker.e-n-c-r-y-p-t.net:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 366,
+      "PingMs": 223,
       "SupportsIPv4": true
     },
     {
@@ -17330,7 +17330,7 @@
       "Url": "udp://bt.e-burg.org:2710/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 85,
+      "PingMs": 57,
       "SupportsIPv4": true
     },
     {
@@ -17410,10 +17410,8 @@
     },
     {
       "Url": "udp://bt1.xxxxbt.cc:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 87,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://bt2.3kb.xyz:6969/announce",
@@ -17444,7 +17442,7 @@
       "Url": "udp://bttracker.debian.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 377,
+      "PingMs": 227,
       "SupportsIPv4": true
     },
     {
@@ -17461,13 +17459,15 @@
       "Url": "udp://bulkpeers.com:2710/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 85,
+      "PingMs": 55,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://buny.uk:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 62,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://burmese.app:6969/announce",
@@ -17543,7 +17543,7 @@
       "Url": "udp://chihaya.toss.li:9696/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 86,
+      "PingMs": 52,
       "SupportsIPv4": true
     },
     {
@@ -17620,7 +17620,7 @@
       "Url": "udp://craiovatracker.com:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 81,
+      "PingMs": 59,
       "SupportsIPv4": true
     },
     {
@@ -17720,10 +17720,8 @@
     },
     {
       "Url": "udp://discover.curiousfacts.blog:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 183,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://divxhunt.me:80/announce",
@@ -17829,7 +17827,7 @@
       "Url": "udp://evan.im:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 133,
+      "PingMs": 3,
       "SupportsIPv4": true
     },
     {
@@ -17846,7 +17844,7 @@
       "Url": "udp://explodie.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 102,
+      "PingMs": 197,
       "SupportsIPv4": true
     },
     {
@@ -17973,7 +17971,7 @@
       "Url": "udp://hidden.torrentonline.cc:42069/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 304,
+      "PingMs": 175,
       "SupportsIPv4": true
     },
     {
@@ -17988,10 +17986,8 @@
     },
     {
       "Url": "udp://home.yxgz.club:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 89,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://htz3.noho.st:6969/announce",
@@ -18107,7 +18103,7 @@
       "Url": "udp://ipv4announce.sktorrent.eu:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 305,
+      "PingMs": 176,
       "SupportsIPv4": true
     },
     {
@@ -18244,7 +18240,7 @@
       "Url": "udp://kolankoalastree.newtrackon.co.nz:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 335,
+      "PingMs": 432,
       "SupportsIPv4": true
     },
     {
@@ -18266,7 +18262,7 @@
       "Url": "udp://kubanmedia.org:2710/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 82,
+      "PingMs": 59,
       "SupportsIPv4": true
     },
     {
@@ -18296,20 +18292,22 @@
     },
     {
       "Url": "udp://leet-tracker.moe:1337/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
-    },
-    {
-      "Url": "udp://leet-tracker.moe:23861/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 84,
+      "PingMs": 56,
       "SupportsIPv4": true
     },
     {
-      "Url": "udp://leet-tracker.moe:38151/announce",
+      "Url": "udp://leet-tracker.moe:23861/announce",
       "Status": "DEAD",
       "Protocol": "udp"
+    },
+    {
+      "Url": "udp://leet-tracker.moe:38151/announce",
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 55,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://leidenfro.st:6969/announce",
@@ -18405,7 +18403,7 @@
       "Url": "udp://mail.segso.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 347,
+      "PingMs": 204,
       "SupportsIPv4": true
     },
     {
@@ -18422,7 +18420,7 @@
       "Url": "udp://martin-gebhardt.eu:25/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 334,
+      "PingMs": 197,
       "SupportsIPv4": true
     },
     {
@@ -18552,8 +18550,10 @@
     },
     {
       "Url": "udp://ns-1.x-fins.com:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 57,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://ns1.monolithindustries.com:6969/announce",
@@ -18574,7 +18574,7 @@
       "Url": "udp://ns575949.ip-51-222-82.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 146,
+      "PingMs": 34,
       "SupportsIPv4": true
     },
     {
@@ -18586,7 +18586,7 @@
       "Url": "udp://obey.torrentonline.cc:42069/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 312,
+      "PingMs": 191,
       "SupportsIPv4": true
     },
     {
@@ -18633,14 +18633,14 @@
       "Url": "udp://open.demonii.com:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 276,
+      "PingMs": 405,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://open.demonii.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 274,
+      "PingMs": 405,
       "SupportsIPv4": true
     },
     {
@@ -18670,16 +18670,14 @@
     },
     {
       "Url": "udp://open.free-tracker.ga:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 86,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://open.ftorrent.com:443/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 49,
+      "PingMs": 89,
       "SupportsIPv4": true
     },
     {
@@ -18711,15 +18709,13 @@
       "Url": "udp://open.stealth.si:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 346,
+      "PingMs": 187,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://open.tracker.cl:1337/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 756,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://open.tracker.ink:6969/announce",
@@ -18770,28 +18766,28 @@
       "Url": "udp://opentracker.lain.moscow:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 360,
+      "PingMs": 244,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://opentracker.xyz:443/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 299,
+      "PingMs": 191,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://opentracker2.lain.moscow:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 352,
+      "PingMs": 244,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://opentrackr.org:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 297,
+      "PingMs": 191,
       "SupportsIPv4": true
     },
     {
@@ -18853,7 +18849,7 @@
       "Url": "udp://peerfect.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 448,
+      "PingMs": 237,
       "SupportsIPv4": true
     },
     {
@@ -18948,10 +18944,8 @@
     },
     {
       "Url": "udp://pubt.in:2710/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 82,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://pubt.net:2710/announce",
@@ -18965,10 +18959,8 @@
     },
     {
       "Url": "udp://qg.lorzl.gq:2710/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 84,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://qtstm32fan.ru:6969/announce",
@@ -19079,14 +19071,14 @@
       "Url": "udp://retracker01-msk-virt.corbina.net/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 370,
+      "PingMs": 239,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://retracker01-msk-virt.corbina.net:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 373,
+      "PingMs": 238,
       "SupportsIPv4": true
     },
     {
@@ -19148,7 +19140,7 @@
       "Url": "udp://santost12.xyz:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 337,
+      "PingMs": 197,
       "SupportsIPv4": true
     },
     {
@@ -19165,7 +19157,7 @@
       "Url": "udp://seedpeer.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 12,
+      "PingMs": 152,
       "SupportsIPv4": true
     },
     {
@@ -19244,6 +19236,13 @@
       "Protocol": "udp"
     },
     {
+      "Url": "udp://stairs.lat:6969/announce",
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 168,
+      "SupportsIPv4": true
+    },
+    {
       "Url": "udp://stargrave.org:6969/announce",
       "Status": "DEAD",
       "Protocol": "udp"
@@ -19267,7 +19266,7 @@
       "Url": "udp://su-data.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 355,
+      "PingMs": 200,
       "SupportsIPv4": true
     },
     {
@@ -19297,8 +19296,10 @@
     },
     {
       "Url": "udp://t.overflow.biz:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 245,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://t.pldm.ml:6969/announce",
@@ -19474,7 +19475,7 @@
       "Url": "udp://torrent.hificode.in:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 81,
+      "PingMs": 55,
       "SupportsIPv4": true
     },
     {
@@ -19496,7 +19497,7 @@
       "Url": "udp://torrent.tracker.durukanbal.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 309,
+      "PingMs": 186,
       "SupportsIPv4": true
     },
     {
@@ -19521,10 +19522,8 @@
     },
     {
       "Url": "udp://torrentclub.tech:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 84,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://torrents.artixlinux.org:6969/announce",
@@ -19615,14 +19614,14 @@
       "Url": "udp://tr3.ysagin.top:2715/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 303,
+      "PingMs": 191,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tr4ck3r.duckdns.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 152,
+      "PingMs": 31,
       "SupportsIPv4": true
     },
     {
@@ -19649,14 +19648,14 @@
       "Url": "udp://tracker-udp.anirena.com:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 304,
+      "PingMs": 190,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker-udp.gbitt.info:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 305,
+      "PingMs": 189,
       "SupportsIPv4": true
     },
     {
@@ -19673,7 +19672,7 @@
       "Url": "udp://tracker.004430.xyz:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 50,
+      "PingMs": 127,
       "SupportsIPv4": true
     },
     {
@@ -19740,7 +19739,7 @@
       "Url": "udp://tracker.alt.cx:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 304,
+      "PingMs": 182,
       "SupportsIPv4": true
     },
     {
@@ -19777,14 +19776,14 @@
       "Url": "udp://tracker.aruku.ovh:8081/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 387,
+      "PingMs": 493,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.auctor.tv:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 319,
+      "PingMs": 169,
       "SupportsIPv4": true
     },
     {
@@ -19846,7 +19845,7 @@
       "Url": "udp://tracker.bluefrog.pw:2710/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 373,
+      "PingMs": 232,
       "SupportsIPv4": true
     },
     {
@@ -19871,8 +19870,10 @@
     },
     {
       "Url": "udp://tracker.btzoo.eu:80/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 56,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.ccc.de:80/announce",
@@ -19903,7 +19904,7 @@
       "Url": "udp://tracker.cn.nyaa.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 312,
+      "PingMs": 449,
       "SupportsIPv4": true
     },
     {
@@ -19923,10 +19924,8 @@
     },
     {
       "Url": "udp://tracker.corpscorp.online:80/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 85,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://tracker.cubonegro.lol:6969/announce",
@@ -20002,7 +20001,7 @@
       "Url": "udp://tracker.dhitechnical.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 178,
+      "PingMs": 45,
       "SupportsIPv4": true
     },
     {
@@ -20014,14 +20013,14 @@
       "Url": "udp://tracker.dler.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 310,
+      "PingMs": 381,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.dler.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 299,
+      "PingMs": 390,
       "SupportsIPv4": true
     },
     {
@@ -20048,7 +20047,7 @@
       "Url": "udp://tracker.ducks.party:1984/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 338,
+      "PingMs": 195,
       "SupportsIPv4": true
     },
     {
@@ -20120,7 +20119,7 @@
       "Url": "udp://tracker.evergarden.uk:1914/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 322,
+      "PingMs": 204,
       "SupportsIPv4": true
     },
     {
@@ -20135,30 +20134,28 @@
     },
     {
       "Url": "udp://tracker.farted.net:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 341,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://tracker.fatkhoala.org:13710/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 88,
+      "PingMs": 57,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.fatkhoala.org:13790/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 86,
+      "PingMs": 52,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.filemail.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 289,
+      "PingMs": 182,
       "SupportsIPv4": true
     },
     {
@@ -20188,13 +20185,17 @@
     },
     {
       "Url": "udp://tracker.flatuslifir.is:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 166,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.fnix.net:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 234,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.fortu.io:6969/announce",
@@ -20228,14 +20229,16 @@
     },
     {
       "Url": "udp://tracker.glotorrents.pw:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 55,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.gmi.gd:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 234,
+      "PingMs": 116,
       "SupportsIPv4": true
     },
     {
@@ -20312,22 +20315,20 @@
       "Url": "udp://tracker.ilibr.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 401,
+      "PingMs": 245,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.ilibr.org:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 333,
+      "PingMs": 205,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.internetwarriors.net:1337/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 690,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://tracker.iperson.xyz:6969/announce",
@@ -20376,10 +20377,8 @@
     },
     {
       "Url": "udp://tracker.k.vu:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 331,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://tracker.kali.org:6969/announce",
@@ -20448,10 +20447,8 @@
     },
     {
       "Url": "udp://tracker.leechersparadise.org:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 85,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://tracker.leena.network:6969/announce",
@@ -20592,7 +20589,7 @@
       "Url": "udp://tracker.novaopcj.eu.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 319,
+      "PingMs": 166,
       "SupportsIPv4": true
     },
     {
@@ -20604,7 +20601,7 @@
       "Url": "udp://tracker.nyaa.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 357,
+      "PingMs": 223,
       "SupportsIPv4": true
     },
     {
@@ -20616,7 +20613,7 @@
       "Url": "udp://tracker.nyaa.vc:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 341,
+      "PingMs": 183,
       "SupportsIPv4": true
     },
     {
@@ -20633,13 +20630,15 @@
       "Url": "udp://tracker.okade.pro:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 391,
+      "PingMs": 242,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.ololosh.space:6969/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 54,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.open-data.network:8888/announce",
@@ -20690,21 +20689,21 @@
       "Url": "udp://tracker.opentrackr.com:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 333,
+      "PingMs": 249,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.opentrackr.com:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 380,
+      "PingMs": 221,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.opentrackr.org:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 298,
+      "PingMs": 189,
       "SupportsIPv4": true
     },
     {
@@ -20721,14 +20720,14 @@
       "Url": "udp://tracker.peerfect.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 367,
+      "PingMs": 231,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.picotorrent.one:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 89,
+      "PingMs": 57,
       "SupportsIPv4": true
     },
     {
@@ -20815,7 +20814,7 @@
       "Url": "udp://tracker.qu.ax:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 317,
+      "PingMs": 165,
       "SupportsIPv4": true
     },
     {
@@ -20840,8 +20839,10 @@
     },
     {
       "Url": "udp://tracker.sbsub.com:2710/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 55,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.seedceo.com:2710/announce",
@@ -20857,14 +20858,14 @@
       "Url": "udp://tracker.segso.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 331,
+      "PingMs": 204,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.sela.st:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 280,
+      "PingMs": 173,
       "SupportsIPv4": true
     },
     {
@@ -20886,7 +20887,7 @@
       "Url": "udp://tracker.sigterm.xyz:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 334,
+      "PingMs": 197,
       "SupportsIPv4": true
     },
     {
@@ -20918,7 +20919,7 @@
       "Url": "udp://tracker.skyts.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 397,
+      "PingMs": 463,
       "SupportsIPv4": true
     },
     {
@@ -20960,7 +20961,7 @@
       "Url": "udp://tracker.tallpenguin.org:15750/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 86,
+      "PingMs": 56,
       "SupportsIPv4": true
     },
     {
@@ -21027,7 +21028,7 @@
       "Url": "udp://tracker.torrent.eu.org:451/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 336,
+      "PingMs": 206,
       "SupportsIPv4": true
     },
     {
@@ -21059,7 +21060,7 @@
       "Url": "udp://tracker.torrents.observer:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 276,
+      "PingMs": 193,
       "SupportsIPv4": true
     },
     {
@@ -21101,7 +21102,7 @@
       "Url": "udp://tracker.transfur.org:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 415,
+      "PingMs": 282,
       "SupportsIPv4": true
     },
     {
@@ -21158,7 +21159,7 @@
       "Url": "udp://tracker.vanitycore.co:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 82,
+      "PingMs": 52,
       "SupportsIPv4": true
     },
     {
@@ -21200,14 +21201,14 @@
       "Url": "udp://tracker.wildkat.net:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 90,
+      "PingMs": 41,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker.willy.pro:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 386,
+      "PingMs": 453,
       "SupportsIPv4": true
     },
     {
@@ -21229,7 +21230,7 @@
       "Url": "udp://tracker.xiaoduola.xyz:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 87,
+      "PingMs": 52,
       "SupportsIPv4": true
     },
     {
@@ -21311,7 +21312,7 @@
       "Url": "udp://tracker.zond.org:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 299,
+      "PingMs": 190,
       "SupportsIPv4": true
     },
     {
@@ -21378,21 +21379,21 @@
       "Url": "udp://tracker2.dler.com/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 299,
+      "PingMs": 372,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker2.dler.com:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 298,
+      "PingMs": 378,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker2.dler.org:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 310,
+      "PingMs": 380,
       "SupportsIPv4": true
     },
     {
@@ -21427,23 +21428,21 @@
     },
     {
       "Url": "udp://tracker4.infohash.org:6969/announce",
-      "Status": "ALIVE",
-      "Protocol": "udp",
-      "PingMs": 81,
-      "SupportsIPv4": true
+      "Status": "DEAD",
+      "Protocol": "udp"
     },
     {
       "Url": "udp://tracker4.infohash.org:80/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 85,
+      "PingMs": 77,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://tracker4.itzmx.com:2710/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 354,
+      "PingMs": 435,
       "SupportsIPv4": true
     },
     {
@@ -21690,7 +21689,7 @@
       "Url": "udp://v2.iperson.xyz:6969/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 347,
+      "PingMs": 446,
       "SupportsIPv4": true
     },
     {
@@ -21765,8 +21764,10 @@
     },
     {
       "Url": "udp://wegkxfcivgx.ydns.eu:80/announce",
-      "Status": "DEAD",
-      "Protocol": "udp"
+      "Status": "ALIVE",
+      "Protocol": "udp",
+      "PingMs": 468,
+      "SupportsIPv4": true
     },
     {
       "Url": "udp://wepzone.net:6969/announce",
@@ -21782,7 +21783,7 @@
       "Url": "udp://whybother.torrentonline.cc:42069/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 299,
+      "PingMs": 5369,
       "SupportsIPv4": true
     },
     {
@@ -21849,7 +21850,7 @@
       "Url": "udp://www.torrent.eu.org:451/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 356,
+      "PingMs": 186,
       "SupportsIPv4": true
     },
     {
@@ -21931,28 +21932,28 @@
       "Url": "udp://yuptracker-eu.gaijinent.com:27022/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 240,
+      "PingMs": 142,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://yuptracker-sa.gaijinent.com:27022/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 1038,
+      "PingMs": 1117,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://yuptracker-us.gaijinent.com:27022/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 490,
+      "PingMs": 349,
       "SupportsIPv4": true
     },
     {
       "Url": "udp://yuptracker.gaijinent.com:27022/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 502,
+      "PingMs": 277,
       "SupportsIPv4": true
     },
     {
@@ -21984,7 +21985,7 @@
       "Url": "udp://zer0day.ch:1337/announce",
       "Status": "ALIVE",
       "Protocol": "udp",
-      "PingMs": 301,
+      "PingMs": 190,
       "SupportsIPv4": true
     },
     {
@@ -22063,7 +22064,7 @@
       "Protocol": "ws"
     }
   ],
-  "AvgPingMs": 275.65868263473055,
-  "MinPingMs": 12,
-  "MaxPingMs": 1038
+  "AvgPingMs": 252.74545454545455,
+  "MinPingMs": 2,
+  "MaxPingMs": 5369
 }
